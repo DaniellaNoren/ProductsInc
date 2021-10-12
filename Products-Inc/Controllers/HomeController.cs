@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products_Inc.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +19,7 @@ namespace Products_Inc.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index()   // Loads the default web of webshop
         {
             return View();
         }
@@ -28,10 +29,27 @@ namespace Products_Inc.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            return View(new ProductsViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }*/
     }
 }
+
+/*
+
+Endpoints are json and/with OKObjectResult
+
+
+
+
+
+
+
+
+
+
+
+ 
+ */
