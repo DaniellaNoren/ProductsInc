@@ -5663,11 +5663,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\OneDrive\\AF Utbildning\\c# DotNet\\DotNet AF utbildning 2021\\VS Repos\\productsincfinalproject\\Products-Inc\\Products-Inc.csproj",
+      "projectUniqueName": "C:\\Users\\Zeddan\\source\\repos\\productsinc\\Products-Inc\\Products-Inc.csproj",
       "projectName": "Products-Inc",
-      "projectPath": "E:\\OneDrive\\AF Utbildning\\c# DotNet\\DotNet AF utbildning 2021\\VS Repos\\productsincfinalproject\\Products-Inc\\Products-Inc.csproj",
+      "projectPath": "C:\\Users\\Zeddan\\source\\repos\\productsinc\\Products-Inc\\Products-Inc.csproj",
       "packagesPath": "C:\\Users\\Zeddan\\.nuget\\packages\\",
-      "outputPath": "E:\\OneDrive\\AF Utbildning\\c# DotNet\\DotNet AF utbildning 2021\\VS Repos\\productsincfinalproject\\Products-Inc\\obj\\",
+      "outputPath": "C:\\Users\\Zeddan\\source\\repos\\productsinc\\Products-Inc\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
