@@ -2,7 +2,7 @@ using System;
 
 namespace Products_Inc.Models
 {
-    public class ErrorViewModel
+    public class ProductsViewModel
     {
         public string RequestId2 { get; set; }
 
