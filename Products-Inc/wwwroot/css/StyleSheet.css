@@ -1,0 +1,17 @@
+﻿body {
+    margin: 0px;
+    max-width: 1024px;
+    font-family: sans-serif;
+    margin: auto;
+    display: block;
+}
+
+.footer {
+    background-color: #dc3545;
+    max-width: 1024px;
+    text-align: center;
+    display: block;
+    text-align: center;
+    height: 60px;
+    
+}

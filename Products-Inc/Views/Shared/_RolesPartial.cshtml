@@ -1,0 +1,16 @@
+﻿
+
+<ul class="navbar-nav">
+    @if (1 == 1)
+    {
+        <li class="nav-item">
+            <button type="submit" class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Admin">ADMIN</button>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <button type="submit" class="nav-link text-dark" asp-area="User" asp-controller="User" asp-action="User">MY PAGE</button>
+        </li>
+    }
+</ul>
