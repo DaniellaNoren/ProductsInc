@@ -30,6 +30,13 @@
   <ItemGroup>
     <None Include="Models\Order.cs" />
     <None Include="Models\Product.cs" />
+    <None Include="wwwroot\reactjs\img\toothpaste.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\toothpaste.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
