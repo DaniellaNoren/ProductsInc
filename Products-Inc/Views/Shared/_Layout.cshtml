@@ -26,14 +26,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
                         </li>
 
-                    
-
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Cart"><img src="~/img/cart.jpg" width="30" height="30" /></a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Logout" asp-action="Logout">LOGOUT</a>
-                        </li>
+
+                        <partial name="_RolesPartial" />
+
                     </ul>
             </div>
             </div>

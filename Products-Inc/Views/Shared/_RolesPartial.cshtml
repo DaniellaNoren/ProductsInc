@@ -1,16 +1,18 @@
-﻿
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 <ul class="navbar-nav">
-    @if (1 == 1)
+    @if (this.User.IsInRole("Admin"))
     {
         <li class="nav-item">
-            <button type="submit" class="nav-link text-dark" asp-area="Admin" asp-controller="Admin" asp-action="Admin">ADMIN</button>
+            <button type="submit" class="nav-link text-dark" asp-area="Identity"  asp-action="Admin">ADMIN</button>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <button type="submit" class="nav-link text-dark" asp-area="User" asp-controller="User" asp-action="User">MY PAGE</button>
+            <button type="submit" class="nav-link text-dark" asp-area="Identity"  asp-action="User">MY PAGE</button>
         </li>
     }
 </ul>
