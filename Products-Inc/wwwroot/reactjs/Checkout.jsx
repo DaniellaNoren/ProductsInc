@@ -127,8 +127,10 @@ class Checkout extends React.Component {
     }
     removeProduct = id => {
         this.setState(oldState => ({products: oldState.products.filter(p => p.Id !== id )}))
+        this.totalPrice();
     }
-    totalPrice = Math.round(this.state.products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Price }, 0) * 100) / 100;
+    totalPrice = () => Math.round(this.state.products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Price }, 0) * 100) / 100;
+   
     render() {
         return (
             <div>
