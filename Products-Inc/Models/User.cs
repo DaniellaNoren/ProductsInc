@@ -1,18 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
 namespace Products_Inc.Models
 {
-    public class User
+    public class User : IdentityUser
     {
 
-        private string _personName;
+
         private string _personPhoneNumber;
-
-
-        public User()
-        { }
+       // private List<Order> _orders;
 
         /* public User(List<PersonLanguage> languages)
          {
@@ -20,22 +18,10 @@ namespace Products_Inc.Models
          }*/
 
 
-        public User(string personName, string personPhoneNumber)
-        {
 
-            UserName = personName;
-
-
-        }
-
-
+        [Required]
         public int UserId { get; set; }
 
-        public string UserName
-        {
-            get { return _personName; }
-            set { _personName = value; }
-        }
 
 
         public string PersonPhoneNumber
@@ -43,6 +29,8 @@ namespace Products_Inc.Models
             get { return _personPhoneNumber; }
             set { _personPhoneNumber = value; }
         }
+
+        //public List<Order> Orders { get { return _orders; } set { _orders = value; } }
 
     }
 }
