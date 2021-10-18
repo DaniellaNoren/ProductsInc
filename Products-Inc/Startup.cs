@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Products_Inc.Data;
+using Products_Inc.Models.Interfaces;
+using Products_Inc.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,10 +31,14 @@ namespace Products_Inc
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                    Configuration.GetConnectionString("ProductIncConnection")));
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+
+            services.AddScoped<IProductRepo, DbProductRepo>();
+            services.AddScoped<IProductService, ProductService>();
+
             services.AddRazorPages();
         }
 
@@ -64,7 +70,10 @@ namespace Products_Inc
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+
             });
+
+
         }
     }
 }

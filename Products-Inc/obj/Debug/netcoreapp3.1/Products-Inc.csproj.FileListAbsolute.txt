@@ -92,3 +92,43 @@ E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsi
 E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsincfinalproject\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.Views.pdb
 E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsincfinalproject\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.csproj.CopyComplete
 E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsincfinalproject\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.genruntimeconfig.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.csproj.AssemblyReference.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.AssemblyInfoInputs.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.AssemblyInfo.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.csproj.CoreCompileInputs.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorAssemblyInfo.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorAssemblyInfo.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\staticwebassets\Products-Inc.StaticWebAssets.Manifest.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\staticwebassets\Products-Inc.StaticWebAssets.xml
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\scopedcss\bundle\Products-Inc.styles.css
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.TagHelpers.input.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.TagHelpers.output.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorCoreGenerate.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewStart.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ProductViewPartial.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Razor\Views\_ViewStart.cshtml.g.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorTargetAssemblyInfo.cache
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorTargetAssemblyInfo.cs
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.dll
+C:\Users\Zeddan\source\repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.pdb
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.csproj.AssemblyReference.cache
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.GeneratedMSBuildEditorConfig.editorconfig
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.AssemblyInfoInputs.cache
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.AssemblyInfo.cs
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.csproj.CoreCompileInputs.cache
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.MvcApplicationPartsAssemblyInfo.cs
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.MvcApplicationPartsAssemblyInfo.cache
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorAssemblyInfo.cache
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorAssemblyInfo.cs
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.dll
+E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.pdb

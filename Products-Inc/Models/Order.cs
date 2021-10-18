@@ -9,22 +9,18 @@ namespace Products_Inc.Models
     {
         private string _orderName;
 
+
         public Order() { }
-        public Order(string orderName)
-        {
-            OrderName = orderName;
-        }
 
 
-        public int OrderId { get; }
+
+        public int OrderId { get; set; }
+
+        public int UserId { get; set; }
 
 
-        public string OrderName
-        {
-            get { return _orderName; }
-            set { _orderName = value; }
-        }
+        public List<Order> Orders
 
-        
+        public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
     }
 }

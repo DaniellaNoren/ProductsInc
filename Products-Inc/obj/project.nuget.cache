@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PjMQWMhFUOeJoULEQGOdlqha5W7XTAWMNRzYHDje4Swk5Bh/ZoDcGq+g83Bq9/6rC1hEhRGAB0o0ly2YujjZWg==",
+  "dgSpecHash": "/arr0gijx8z5yJq0c9+qbMYBTq4ddcq205PaXHPzVSa9Dys+PxiaGYQnOXYIISBMByy0+fm0NonfjF9RE1ej3w==",
   "success": true,
-  "projectFilePath": "E:\\OneDrive\\AF Utbildning\\c# DotNet\\DotNet AF utbildning 2021\\VS Repos\\productsincfinalproject\\Products-Inc\\Products-Inc.csproj",
+  "projectFilePath": "F:\\OneDrive\\AF Utbildning\\c# DotNet\\DotNet AF utbildning 2021\\VS Repos\\productsinc\\Products-Inc\\Products-Inc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Zeddan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.15\\microsoft.aspnetcore.cryptography.internal.3.1.15.nupkg.sha512",
     "C:\\Users\\Zeddan\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.15\\microsoft.aspnetcore.cryptography.keyderivation.3.1.15.nupkg.sha512",

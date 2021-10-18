@@ -24,28 +24,12 @@ namespace Products_Inc.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ProductsViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }*/
     }
 }
 
 /*
 
-Endpoints are json and/with OKObjectResult
-
-
-
-
-
-
+Endpoints are json and/with OKObjectResult OKResult NotFoundResult();
 
 
 

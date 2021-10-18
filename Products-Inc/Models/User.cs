@@ -6,42 +6,33 @@ namespace Products_Inc.Models
 {
     public class User
     {
-
-        private string _personName;
-        private string _personPhoneNumber;
-
-
-        public User()
-        { }
-
-        /* public User(List<PersonLanguage> languages)
-         {
-             Languages = languages;
-         }*/
+        private string _userName;
+        private string _userEmail;
 
 
-        public User(string personName, string personPhoneNumber)
+
+        public User() { }
+        public User(string userName, string userEmail)
         {
-
-            UserName = personName;
-
-
+            UserName = _userName;
+            UserEmail = _userEmail;
         }
+
 
 
         public int UserId { get; set; }
 
         public string UserName
         {
-            get { return _personName; }
-            set { _personName = value; }
+            get { return _userName; }
+            set { _userName = value; }
         }
 
 
-        public string PersonPhoneNumber
+        public string UserEmail
         {
-            get { return _personPhoneNumber; }
-            set { _personPhoneNumber = value; }
+            get { return _userEmail; }
+            set { _userEmail = value; }
         }
 
     }

@@ -1,8 +1,12 @@
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Products_Inc.Models.ViewModels
 {
-    public class ProductViewModel
+    public class CreateProductViewModel
     {
         public string ProductName { get; set; }
 
@@ -14,5 +18,9 @@ namespace Products_Inc.Models.ViewModels
 
 
         public string ImgPath { get; set; }
-    }
+
+
+
+    }  
+     
 }

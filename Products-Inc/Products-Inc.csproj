@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Models\Order.cs" />
+    <Compile Remove="Models\OrderProduct.cs" />
     <Compile Remove="Models\Product.cs" />
   </ItemGroup>
 
@@ -20,12 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Interfaces\" />
-    <Folder Include="Models\Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Models\Order.cs" />
+    <None Include="Models\OrderProduct.cs" />
     <None Include="Models\Product.cs" />
   </ItemGroup>
 
