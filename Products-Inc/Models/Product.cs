@@ -25,8 +25,8 @@ namespace Products_Inc.Models
 
         public string ProductName
         {
-            get { return _languageName; }
-            set { _languageName = value; }
+            get { return _productName; }
+            set { _productName = value; }
         }
 
     }

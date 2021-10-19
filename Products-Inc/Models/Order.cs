@@ -8,6 +8,7 @@ namespace Products_Inc.Models
     public class Order
     {
         private string _orderName;
+        private int _userId;
 
         public Order() { }
         public Order(string orderName)
@@ -17,7 +18,7 @@ namespace Products_Inc.Models
 
 
         public int OrderId { get; }
-
+        public int UserId { get { return _userId; } set { _userId = value; } }
 
         public string OrderName
         {
@@ -25,6 +26,7 @@ namespace Products_Inc.Models
             set { _orderName = value; }
         }
 
-        
+
+
     }
 }

@@ -16,6 +16,9 @@ using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 using Microsoft.AspNetCore.Http;
+using Products_Inc.Models;
+using Products_Inc.Models.Services;
+using Products_Inc.Models.Interfaces;
 
 namespace Products_Inc
 {
@@ -34,18 +37,51 @@ namespace Products_Inc
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+           
+             
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUserService, UserService>();
             services.AddReact();
-
+            
             services.AddJsEngineSwitcher(options =>
             {
+               
                 options.DefaultEngineName = V8JsEngine.EngineName;
                 options.EngineFactories.AddV8();
             }
 );
+
+            services.AddIdentity<User, IdentityRole>(o =>
+            {
+                o.SignIn.RequireConfirmedAccount = false;
+            }).AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultTokenProviders();
+
+
+
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 4;
+                options.Password.RequiredUniqueChars = 1;
+
+
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/user/login";
+                options.LogoutPath = $"/user/Logout";
+                options.AccessDeniedPath = $"/test/Account/AccessDenied";
+            });
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -76,6 +112,16 @@ namespace Products_Inc
                 // See http://reactjs.net/ for more information. Example:
                 config
                   .AddScript("~/reactjs/Products.jsx");
+                config
+  .SetLoadBabel(false)
+  .SetLoadReact(false)
+  .AddScriptWithoutTransform("~/reactjs/Products.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Checkout.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Login.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Orders.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Register.jsx")
+  .AddScriptWithoutTransform("~/reactjs/UserPage.jsx");
+
                 //.AddScript("~/js/Second.jsx");
 
                 // If you use an external build too (for example, Babel, Webpack,
@@ -84,7 +130,7 @@ namespace Products_Inc
                 // scripts. Example:
                 //config
                 //  .SetLoadBabel(true);
-                 // .AddScriptWithoutTransform("~/js/bundle.server.js");
+                // .AddScriptWithoutTransform("~/js/bundle.server.js");
             });
 
 
