@@ -16,7 +16,7 @@ namespace Products_Inc.Models
         public int UserId { get; set; }
 
 
-        public List<Order> Orders
+        public List<Order> Orders;
 
         public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
     }

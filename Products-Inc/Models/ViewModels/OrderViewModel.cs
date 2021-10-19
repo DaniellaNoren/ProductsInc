@@ -13,7 +13,7 @@ namespace Products_Inc.Models.ViewModels
         public string UserId { get; set; }
 
 
-        public List<Order> Orders
+        public List<Order> Orders;
 
 
     }
