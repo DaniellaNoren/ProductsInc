@@ -9,10 +9,10 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IOrderRepo
     {
-        Order Create(string personName, string personPhoneNumber, City city);
+        Order Create(CreateOrderViewModel createOrderViewModel);
 
 
-        public bool AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel);
+        //public bool AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel);
 
 
         List<Order> Read();

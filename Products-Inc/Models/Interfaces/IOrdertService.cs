@@ -14,7 +14,7 @@ namespace Products_Inc.Models.Interfaces
 
         OrderViewModel ReadAll();
 
-        OrderViewModel FindBy(OrderViewModel search);
+        //OrderViewModel FindBy(OrderViewModel search);
 
         Order FindBy(int id);
 

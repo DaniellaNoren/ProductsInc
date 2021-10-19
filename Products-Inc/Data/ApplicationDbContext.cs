@@ -7,22 +7,11 @@ using Products_Inc.Models;
 
 namespace Products_Inc.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+
+
+    public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
-
-        
-    }
-
-
-
-
-    public class PeopleDbContext : DbContext
-    {
-        public PeopleDbContext(DbContextOptions<PeopleDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
 
         public DbSet<Product> Products { get; set; }

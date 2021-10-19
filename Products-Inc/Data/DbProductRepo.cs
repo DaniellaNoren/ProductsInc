@@ -21,9 +21,11 @@ namespace Products_Inc.Data
         }
 
 
-        public Product Create(string productName, string productDescription, int productPrice, string ImgPath)
+        public Product Create(CreateProductViewModel createProductViewModel)
+            
         {
-            Product createProduct = new Product(productName, productDescription, productPrice, ImgPath);
+            Product createProduct = new Product(createProductViewModel.ProductName, createProductViewModel.ProductDescription,
+            createProductViewModel.ProductPrice, createProductViewModel.ImgPath);
 
             _productListContext.Add(createProduct);
             _productListContext.SaveChanges();
@@ -42,9 +44,7 @@ namespace Products_Inc.Data
             
             
             List<Product> pList = _productListContext.Products
-                .Include(d => d.City)
-                .Include(e => e.City.Country)
-                .Include(f => f.PersonLanguages).ThenInclude(g => g.Language)
+                .Include(f => f.OrderProducts).ThenInclude(g => g.Order)
                 .ToList();
 
             return pList;
@@ -52,11 +52,9 @@ namespace Products_Inc.Data
 
         public Product Read(int id)
         {
-            Product person = _peopleListContext.People
-                .Where(c => c.PersonId == id)
-                .Include(d => d.City)
-                .Include(e => e.City.Country)
-                .Include(f => f.PersonLanguages).ThenInclude(g => g.Language)
+            Product person = _productListContext.Products
+                .Where(c => c.ProductId == id)
+                .Include(f => f.OrderProducts).ThenInclude(g => g.Order)
                 .FirstOrDefault();
 
             return person;
@@ -64,8 +62,8 @@ namespace Products_Inc.Data
 
         public Product Update(Product person)
         {
-            _peopleListContext.People.Update(person);
-            _peopleListContext.SaveChanges();
+            _productListContext.Products.Update(person);
+            _productListContext.SaveChanges();
 
             return person;
         }
@@ -74,8 +72,8 @@ namespace Products_Inc.Data
         {
             int nrStates;
 
-            _peopleListContext.People.Remove(person);
-            nrStates = _peopleListContext.SaveChanges();
+            _productListContext.Products.Remove(person);
+            nrStates = _productListContext.SaveChanges();
 
             if (nrStates > 0)
             {

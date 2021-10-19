@@ -11,10 +11,7 @@ namespace Products_Inc.Models
 
 
         public OrderProduct() { }
-        public OrderProduct(string orderName)
-        {
-            OrderName = orderName;
-        }
+
 
 
         public int OrderId { get; set; }

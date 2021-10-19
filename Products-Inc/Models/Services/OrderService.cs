@@ -44,7 +44,7 @@ namespace Products_Inc.Models.Services
         }
 
 
-        public OrderViewModel FindBy(OrderViewModel search)
+        /*public OrderViewModel FindBy(OrderViewModel search)
         {
             search.OrderListView.Clear();
 
@@ -52,7 +52,7 @@ namespace Products_Inc.Models.Services
 
             foreach (Order item in orderList)
             {
-                if (item.OrderName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) //||
+                if (item.OrderId.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) //||
                     //item.City.CityName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) 
                     // item.PersonLanguages.LanguageName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase))
                 {
@@ -71,6 +71,8 @@ namespace Products_Inc.Models.Services
             return search;
 
         }
+        */
+
 
         public Order FindBy(int id)
         {
@@ -93,14 +95,14 @@ namespace Products_Inc.Models.Services
             return false;
         }
 
-        public void CreateBaseProducts(List<City> cities)
+        /*public void CreateBaseProducts(List<Order> orders)
         {
-            _orderRepo.Create("Eric Rönnhult", "0777 777777", cities[0]);
-            _orderRepo.Create("Bosse Bus", "0777 777777", cities[1]);
-            _orderRepo.Create("Kjell Kriminell", "0777 777777", cities[2]);
-            _orderRepo.Create("Anders Rolle", "0777 777777", cities[3]);
+            _orderRepo.Create("Eric Rönnhult", "0777 777777", orders[0]);
+            _orderRepo.Create("Bosse Bus", "0777 777777", orders[1]);
+            _orderRepo.Create("Kjell Kriminell", "0777 777777", orders[2]);
+            _orderRepo.Create("Anders Rolle", "0777 777777", orders[3]);
 
-        }
+        }*/
 
 
     }
