@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Products_Inc.Models;
 using Products_Inc.Data;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.Services;
@@ -18,9 +19,8 @@ using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 using Microsoft.AspNetCore.Http;
-using Products_Inc.Models;
-using Products_Inc.Models.Services;
-using Products_Inc.Models.Interfaces;
+
+
 
 namespace Products_Inc
 {
@@ -36,11 +36,16 @@ namespace Products_Inc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            // -------- DBContexts etc start-------
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-           
-             
+                    Configuration.GetConnectionString("ProductIncConnection")));
+
+            services.AddDbContext<IdentityAppDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ProductIncConnection")));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUserService, UserService>();
@@ -51,15 +56,13 @@ namespace Products_Inc
                 options.DefaultEngineName = V8JsEngine.EngineName;
                 options.EngineFactories.AddV8();
             }
-);
+            );
+
 
             services.AddIdentity<User, IdentityRole>(o =>
-            {
-                o.SignIn.RequireConfirmedAccount = false;
-            }).AddEntityFrameworkStores<ApplicationDbContext>()
-           .AddDefaultTokenProviders();
-
-
+                o.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<IdentityAppDbContext>()
+                .AddDefaultTokenProviders();
 
 
             services.Configure<IdentityOptions>(options =>
@@ -76,6 +79,7 @@ namespace Products_Inc
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             });
+
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -115,9 +119,13 @@ namespace Products_Inc
                 // add all the necessary JavaScript files here. This includes
                 // your components as well as all of their dependencies.
                 // See http://reactjs.net/ for more information. Example:
-                config
-                  .AddScript("~/reactjs/Products.jsx");
-                //.AddScript("~/js/Second.jsx");
+                /*config
+                    .AddScriptWithoutTransform("~/reactjs/Checkout.jsx")
+                    .AddScriptWithoutTransform("~/reactjs/Login.jsx")
+                    .AddScriptWithoutTransform("~/reactjs/Orders.jsx")
+                    .AddScriptWithoutTransform("~/reactjs/Register.jsx")
+                    .AddScriptWithoutTransform("~/reactjs/UserPage.jsx")
+                    .AddScriptWithoutTransform("~/reactjs/Products.jsx");*/
 
                 // If you use an external build too (for example, Babel, Webpack,
                 // Browserify or Gulp), you can improve performance by disabling
@@ -125,7 +133,7 @@ namespace Products_Inc
                 // scripts. Example:
                 //config
                 //  .SetLoadBabel(true);
-                 // .AddScriptWithoutTransform("~/js/bundle.server.js");
+                // .AddScriptWithoutTransform("~/js/bundle.server.js");
             });
 
 
@@ -139,7 +147,10 @@ namespace Products_Inc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
                 endpoints.MapRazorPages();
+
 
             });
 

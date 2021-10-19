@@ -1,22 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Products_Inc.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Products_Inc.Models;
+using Products_Inc.Models.ViewModels;
+using Products_Inc.Models.Interfaces;
+using Products_Inc.Models.Services;
+
+
 
 namespace Products_Inc.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly ILogger<OrderController> _logger;
+        /*private readonly ILogger<OrderController> _logger;
 
         public OrderController(ILogger<OrderController> logger)
         {
             _logger = logger;
+        }*/
+        private readonly IOrderService _orderService;
+
+
+        public OrderController(IOrderService iOrderService)
+        {
+            _orderService = iOrderService;
+
         }
+
 
         public IActionResult Index()
         {
