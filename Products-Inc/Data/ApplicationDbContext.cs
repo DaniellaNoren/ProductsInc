@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
-using Microsoft.AspNetCore.Identity;
 using Products_Inc.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Products_Inc.Data
 {
@@ -15,7 +14,13 @@ namespace Products_Inc.Data
             : base(options)
         {
         }
+        public DbSet<Product> Products { get; set; }
 
+
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        { }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -37,29 +42,24 @@ namespace Products_Inc.Data
               roleAdmin, roleUser);
         }
 
-    }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderProduct> OrderProducts { get; set; }
 
 
 
 
-    //    public class PeopleDbContext : DbContext
-    //    {
-    //        public PeopleDbContext(DbContextOptions<PeopleDbContext> options) : base(options)
-    //        { }
+        public DbSet<User> Users { get; set; }
+        /*public DbSet<Product> Products { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<PersonLanguage> PersonLanguages { get; set; }*/
 
-    //        public DbSet<User> Users { get; set; }
-    //        /*public DbSet<Product> Products { get; set; }
-    //        public DbSet<Country> Countries { get; set; }
-    //        public DbSet<Language> Languages { get; set; }
-    //        public DbSet<PersonLanguage> PersonLanguages { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //}
 
-    //        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //        {
-    //        }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
 
 /*
             // Setting Primarykeys, instead of [Key] in code. One place to handle all of it /ER
@@ -77,15 +77,7 @@ namespace Products_Inc.Data
                 .HasKey(mb => mb.LanguageId);
 
 
-            modelBuilder.Entity<OrderProduct>() // One to Many
-                .HasOne(om => om.Order)
-                .WithMany(wm => wm.OrderProducts)
-                .HasForeignKey(om => om.OrderId);
 
-            modelBuilder.Entity<OrderProduct>()  // One to Many
-                .HasOne(om => om.Product)
-                .WithMany(wm => wm.OrderProducts)
-                .HasForeignKey(om => om.ProductId);
 
             // Setting up One-to-Many
             modelBuilder.Entity<Person>()
@@ -129,5 +121,5 @@ namespace Products_Inc.Data
 
 
 
-//        }
-//}
+    }
+}

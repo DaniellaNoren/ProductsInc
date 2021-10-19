@@ -142,16 +142,16 @@ namespace Products_Inc.Controllers
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult PersonsList()
         {
-            _listOfPersons = _productService.ReadAll().PeopleListView;
-            return Json(_listOfPersons);
+            //_listOfPersons = _productService.ReadAll().PeopleListView;
+            return StatusCode(200); //Json(_listOfPersons);
         }
 
         [Route("Reactjsoncitylist")] // Building Personlist to Json API
         [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult CityList()
         {
-            _listOfCities = _productService.ReadAll().CityListView;
-            return Json(_listOfCities);
+            //_listOfCities = _productService.ReadAll().CityListView;
+            return StatusCode(200); //Json(_listOfCities);
         }
 
 
