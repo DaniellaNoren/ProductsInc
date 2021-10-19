@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
-    public class ProductController : Controller
+    public class OrderController : Controller
     {
-        private readonly ILogger<ProductController> _logger;
+        private readonly ILogger<OrderController> _logger;
 
-        public ProductController(ILogger<ProductController> logger)
+        public OrderController(ILogger<OrderController> logger)
         {
             _logger = logger;
         }

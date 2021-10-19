@@ -6,6 +6,7 @@ namespace Products_Inc.Models
 {
     public class Product
     {
+
         private int _productId;
         private string _productName;
         private string _productDescription;
@@ -57,4 +58,6 @@ namespace Products_Inc.Models
 
         public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
     }
+
+
 }

@@ -132,3 +132,14 @@ E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsi
 E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorAssemblyInfo.cs
 E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.dll
 E:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.pdb
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.csproj.AssemblyReference.cache
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.GeneratedMSBuildEditorConfig.editorconfig
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.AssemblyInfoInputs.cache
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.AssemblyInfo.cs
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.csproj.CoreCompileInputs.cache
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.MvcApplicationPartsAssemblyInfo.cs
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.MvcApplicationPartsAssemblyInfo.cache
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorAssemblyInfo.cache
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.RazorAssemblyInfo.cs
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.dll
+F:\OneDrive\AF Utbildning\c# DotNet\DotNet AF utbildning 2021\VS Repos\productsinc\Products-Inc\obj\Debug\netcoreapp3.1\Products-Inc.pdb

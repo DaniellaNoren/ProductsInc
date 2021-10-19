@@ -12,16 +12,16 @@ namespace Products_Inc.Models.Services
     {
         private readonly IProductRepo _productRepo;
 
-        public ProductService(IProductRepo Repo)
+        public ProductService(IProductRepo iProductRepo)
         {
-            _productRepo = Repo;
+            _productRepo = iProductRepo;
         }
 
 
         
-        public Product Create(CreateProductViewModel product)
+        public Product Create(CreateProductViewModel createProductViewModel)
         {
-            Product createdProduct = _productRepo.Create(product);
+            Product createdProduct = _productRepo.Create(createProductViewModel);
 
             return createdProduct;
         }
@@ -53,7 +53,7 @@ namespace Products_Inc.Models.Services
             foreach (Product item in productList)
             {
                 if (item.PersonName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase) ||
-                    item.City.CityName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase) 
+                    item.City.CityName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) 
                     // item.PersonLanguages.LanguageName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase))
                 {
                     search.PeopleListView.Add(item);

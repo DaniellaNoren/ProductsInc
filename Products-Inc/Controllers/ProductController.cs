@@ -32,7 +32,7 @@ namespace Products_Inc.Controllers
             return View("Index");
         }
 
-    
+
 
 
 
@@ -48,9 +48,9 @@ namespace Products_Inc.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Person createdProduct = _productService.Create(createProductViewModel);
+                    Product createdProduct = _productService.Create(createProductViewModel);
 
-                    return new OkObjectResult(createdPerson);
+                    return new OkObjectResult(createdProduct);
 
                     //return Json(createPersonViewModel);
                 }
@@ -60,8 +60,8 @@ namespace Products_Inc.Controllers
                 ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
             }
 
-        //return Json(createPersonViewModel);
-        return new NotFoundResult();
+            //return Json(createPersonViewModel);
+            return new NotFoundResult();
         }
 
 
@@ -71,7 +71,7 @@ namespace Products_Inc.Controllers
         [HttpPost]
         public IActionResult DeletePerson(int id)
         {
-            bool success = _peopleService.Remove(id);
+            bool success = _productService.Delete(id);
 
             if (success)
             {
@@ -82,114 +82,115 @@ namespace Products_Inc.Controllers
         }
 
 
-/*
-[Authorize(Roles = "Admin, User")]
-[HttpPost]
-public IActionResult AddLanguageView(int id)
-{
-    PersonLanguageViewModel personLanguageViewModel = new PersonLanguageViewModel()
-    {
-        LanguageListView = _languageService.All().LanguageListView,
-        Person = _peopleService.FindBy(id)
-    };
+        /*
+        [Authorize(Roles = "Admin, User")]
+        [HttpPost]
+        public IActionResult AddLanguageView(int id)
+        {
+            PersonLanguageViewModel personLanguageViewModel = new PersonLanguageViewModel()
+            {
+                LanguageListView = _languageService.All().LanguageListView,
+                Person = _peopleService.FindBy(id)
+            };
 
-    //personLanguageViewModel = GenerateSelectList(personLanguageViewModel);
-    //personLanguageViewModel.LanguageListView = _languageService.All().LanguageListView;
-    //personLanguageViewModel.Person = foundPerson;
+            //personLanguageViewModel = GenerateSelectList(personLanguageViewModel);
+            //personLanguageViewModel.LanguageListView = _languageService.All().LanguageListView;
+            //personLanguageViewModel.Person = foundPerson;
 
-    return View("AddLanguagesToPerson", personLanguageViewModel);
-}
-
-
-[Authorize(Roles = "Admin, User")]
-public IActionResult AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel)
-{
-    Person person = _peopleService.FindBy(personLanguageViewModel.PersonId);
-
-    personLanguageViewModel.LanguageListView = _languageService.All().LanguageListView;
-    personLanguageViewModel.Person = person;
-
-    //personLanguageViewModel = GenerateSelectList(personLanguageViewModel);
+            return View("AddLanguagesToPerson", personLanguageViewModel);
+        }
 
 
-    if (ModelState.IsValid)
-    {
-        bool success = _peopleService.AddLanguageToPerson(personLanguageViewModel);
+        [Authorize(Roles = "Admin, User")]
+        public IActionResult AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel)
+        {
+            Person person = _peopleService.FindBy(personLanguageViewModel.PersonId);
 
-        if (success) { ViewBag.Mess = "Languages added to Person!"; }
-        else { ViewBag.Mess = "Error! Language did NOT get stored"; }
+            personLanguageViewModel.LanguageListView = _languageService.All().LanguageListView;
+            personLanguageViewModel.Person = person;
 
-        return View("AddLanguagesToPerson", personLanguageViewModel);
+            //personLanguageViewModel = GenerateSelectList(personLanguageViewModel);
+
+
+            if (ModelState.IsValid)
+            {
+                bool success = _peopleService.AddLanguageToPerson(personLanguageViewModel);
+
+                if (success) { ViewBag.Mess = "Languages added to Person!"; }
+                else { ViewBag.Mess = "Error! Language did NOT get stored"; }
+
+                return View("AddLanguagesToPerson", personLanguageViewModel);
+            }
+
+            return View("AddLanguagesToPerson", personLanguageViewModel);
+        }
+        */
+
+
+
+
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+
+        // -------------   Reactjsapi Json route ----------------------
+
+        [Route("Reactjsonpersonlist")] // Building Personlist to Json API
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult PersonsList()
+        {
+            _listOfPersons = _productService.ReadAll().PeopleListView;
+            return Json(_listOfPersons);
+        }
+
+        [Route("Reactjsoncitylist")] // Building Personlist to Json API
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult CityList()
+        {
+            _listOfCities = _productService.ReadAll().CityListView;
+            return Json(_listOfCities);
+        }
+
+
+
+
+
+
+        /*
+
+
+         [HttpPOST]
+       C - Createproduct createproductmodel
+       return view with the created product
+
+
+       R -  GET all products from db. and put that info into List<products> in ProductsViewModel
+       return view all products
+
+
+       U - get 1 product to view and edit. 
+       When pressing save /submit button goto PUT/PAtch.
+
+
+       U - PUT/Patch
+       Edit product find by ID
+       return partial view, viewmodel 
+
+
+
+       D - Hide/exclude product from being viewed
+
+       */
+
+
+
+
+
+
+
+
     }
-
-    return View("AddLanguagesToPerson", personLanguageViewModel);
-}
-*/
-
-
-
-
-
-public IActionResult AccessDenied()
-{
-    return View();
-}
-
-
-// -------------   Reactjsapi Json route ----------------------
-
-[Route("Reactjsonpersonlist")] // Building Personlist to Json API
-[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-public IActionResult PersonsList()
-{
-    _listOfPersons = _peopleService.All().PeopleListView;
-    return Json(_listOfPersons);
-}
-
-[Route("Reactjsoncitylist")] // Building Personlist to Json API
-[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-public IActionResult CityList()
-{
-    _listOfCities = _cityService.All().CityListView;
-    return Json(_listOfCities);
-}
-    
-
-
-
-
-
-    /*
-
-
-     [HttpPOST]
-   C - Createproduct createproductmodel
-   return view with the created product
-
-
-   R -  GET all products from db. and put that info into List<products> in ProductsViewModel
-   return view all products
-
-
-   U - get 1 product to view and edit. 
-   When pressing save /submit button goto PUT/PAtch.
-
-
-   U - PUT/Patch
-   Edit product find by ID
-   return partial view, viewmodel 
-
-
-
-   D - Hide/exclude product from being viewed
-
-   */
-
-
-
-
-
-
-
-
 }

@@ -7,11 +7,8 @@ namespace Products_Inc.Models
 {
     public class Order
     {
-        private string _orderName;
-
 
         public Order() { }
-
 
 
         public int OrderId { get; set; }

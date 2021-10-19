@@ -9,10 +9,9 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IProductRepo
     {
-        Product Create(string personName, string personPhoneNumber, City city);
+        Product Create(string productName, string productDescription, int productPrice, string ImgPath);
 
 
-        public bool AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel);
 
 
         List<Product> Read();
