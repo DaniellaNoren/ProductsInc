@@ -12,26 +12,26 @@ namespace Products_Inc.Data
 {
     public class DbOrderRepo : IOrderRepo
     {
-        private readonly PeopleDbContext _peopleListContext;
+        private readonly ApplicationDbContext _orderListContext;
 
-        public DbOrderRepo(PeopleDbContext peopleListContext)
+        public DbOrderRepo(ApplicationDbContext orderListContext)
         {
-            _peopleListContext = peopleListContext;
+            _orderListContext = orderListContext;
 
         }
 
 
-        public Order Create(string personName, string personPhoneNumber, City city)
+        public Order Create(CreateOrderViewModel createOrderViewModel)
         {
-            Order newPerson = new Order(personName, personPhoneNumber, city);
+            Order newOrder = new Order(createOrderViewModel.OrderId, createOrderViewModel.UserId);
 
-            _peopleListContext.Add(newPerson);
-            _peopleListContext.SaveChanges();
+            _orderListContext.Add(newOrder);
+            _orderListContext.SaveChanges();
 
-            return newPerson;
+            return newOrder;
         }
 
-        public bool AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel)
+        /*public bool AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel)
         {
             int nrStates;
 
@@ -67,47 +67,43 @@ namespace Products_Inc.Data
             }
 
             return false;
-        }
+        }*/
         
 
 
-        public List<Person> Read()
+        public List<Order> Read()
         {
-            List<Person> pList = _peopleListContext.People
-                .Include(d => d.City)
-                .Include(e => e.City.Country)
-                .Include(f => f.PersonLanguages).ThenInclude(g => g.Language)
+            List<Order> pList = _orderListContext.Orders
+                .Include(f => f.OrderProducts).ThenInclude(g => g.Product)
                 .ToList();
 
             return pList;
         }
 
-        public Person Read(int id)
+        public Order Read(int id)
         {
-            Person person = _peopleListContext.People
-                .Where(c => c.PersonId == id)
-                .Include(d => d.City)
-                .Include(e => e.City.Country)
-                .Include(f => f.PersonLanguages).ThenInclude(g => g.Language)
+            Order order = _orderListContext.Orders
+                .Where(c => c.OrderId == id)
+                .Include(f => f.OrderProducts).ThenInclude(g => g.Product)
                 .FirstOrDefault();
 
-            return person;
+            return order;
         }
 
-        public Person Update(Person person)
+        public Order Update(Order order)
         {
-            _peopleListContext.People.Update(person);
-            _peopleListContext.SaveChanges();
+            _orderListContext.Orders.Update(order);
+            _orderListContext.SaveChanges();
 
-            return person;
+            return order;
         }
 
-        public bool Delete(Person person)
+        public bool Delete(Order order)
         {
             int nrStates;
 
-            _peopleListContext.People.Remove(person);
-            nrStates = _peopleListContext.SaveChanges();
+            _orderListContext.Orders.Remove(order);
+            nrStates = _orderListContext.SaveChanges();
 
             if (nrStates > 0)
             {

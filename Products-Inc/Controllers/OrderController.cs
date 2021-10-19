@@ -1,98 +1,36 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Products_Inc.Models;
-using Products_Inc.Models.Interfaces;
-using Products_Inc.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+using Products_Inc.Models;
+using Products_Inc.Models.ViewModels;
+using Products_Inc.Models.Interfaces;
+using Products_Inc.Models.Services;
+
+
 
 namespace Products_Inc.Controllers
 {
-    public class UserController : Controller
+    public class OrderController : Controller
     {
-        private readonly ILogger<UserController> _logger;
-        private readonly IUserService _userService;
+        /*private readonly ILogger<OrderController> _logger;
 
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        public OrderController(ILogger<OrderController> logger)
         {
             _logger = logger;
-            this._userService = userService;
-        }
+        }*/
+        private readonly IOrderService _orderService;
 
-        [HttpPost]
-        public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
-        {  
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    if(await _userService.Login(loginModel)) {
 
-                        return new OkResult();
-                    }
-                    else
-                    {
-                        return new BadRequestObjectResult(new { errorMsg = "Incorrect password/username" });
-                    }
-                }
-                catch(Exception)
-                {
-                    return new BadRequestObjectResult(new { errorMsg = "User cannot be found" });
-
-                }
-
-            }
-            else
-            {
-                return new BadRequestObjectResult(new { errorMsg = "Incorrect model" });
-            }
-        }
-
-        [HttpPost("[controller]/register")]
-        public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
+        public OrderController(IOrderService iOrderService)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    UserViewModel userModel = await _userService.Add(registerModel);
-                    return new CreatedResult("/user/register", userModel);
+            _orderService = iOrderService;
 
-                }catch(Exception e)
-                {
-                    return new BadRequestObjectResult(new { errorMsg =  e.Message });
-                }
-            }
-            else
-            {
-                return new BadRequestObjectResult(new { errorMsg = "Incorrect model" });
-            }
         }
 
-        [HttpPost("[controller]/logout")]
-        public ActionResult Logout()
-        {
-            _userService.Logout();
-            return new OkResult();
-        }
-
-        //[HttpGet("[controller]/orders")]
-        //public IActionResult GetUserOrders()
-        //{
-        //    string loggedInUserName = this.User.Identity.Name;
-        //    //List<OrderModel> orders = _orderService.GetOrdersBy(loggedInUserName);
-        //    return new OkObjectResult(new { });
-        //}
-
-        [HttpGet("[controller]/orders")]
-        public IActionResult Orders()
-        {
-            return PartialView("Orders");
-        }
 
         public IActionResult Index()
         {
@@ -117,24 +55,25 @@ namespace Products_Inc.Controllers
  
  
   [HttpPOST]
-C - Create new user 
+C - Createproduct createproductmodel
 return view with the created product
 
 
-R -  GET user info
+R -  GET all products from db. and put that info into List<products> in ProductsViewModel
+return view all products
 
 
-U - get 1 user to view and edit. 
+U - get 1 product to view and edit. 
 When pressing save /submit button goto PUT/PAtch.
 
  
 U - PUT/Patch
-Edit user find by ID
+Edit product find by ID
 return partial view, viewmodel 
 
 
 
-D - 
+D - Hide/exclude product from being viewed
 
 
 

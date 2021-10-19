@@ -1,19 +1,4 @@
 ﻿
-function Product({product, addProductEvent}) {
-    return (
-        <div className="product w-2 m-2">
-            <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
-            <h4>{product.ProductName}</h4> 
-            <p>{product.Price}kr</p>
-            <p>{product.Description}</p>
-
-            <div className="d-flex align-items-end justify-content-end">
-                <button className="btn btn-success" onClick={() => addProductEvent(product)}>ADD</button>
-            </div>
-        </div>
-        )
-}
-
 class Products extends React.Component {
     state = {
         products: [
@@ -89,4 +74,20 @@ class Products extends React.Component {
     }
 }
 
-ReactDOM.render(<Products />, document.getElementById('content'));
+
+function Product({ product, addProductEvent }) {
+    return (
+        <div className="product w-2 m-2">
+            <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
+            <h4>{product.ProductName}</h4>
+            <p>{product.Price}kr</p>
+            <p>{product.Description}</p>
+
+            <div className="d-flex align-items-end justify-content-end">
+                <button className="btn btn-success" onClick={() => addProductEvent(product)}>ADD</button>
+            </div>
+        </div>
+    )
+}
+
+ReactDOM.render(<Products />, document.getElementById('reactcontainer'));

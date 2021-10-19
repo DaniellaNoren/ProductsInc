@@ -44,7 +44,7 @@ namespace Products_Inc.Models.Services
         }
 
 
-        public ProductViewModel FindBy(ProductViewModel search)
+        /*public ProductViewModel FindBy(ProductViewModel search)
         {
             search.ProductListView.Clear();
 
@@ -70,7 +70,9 @@ namespace Products_Inc.Models.Services
 
             return search;
 
-        }
+        }  */
+
+
 
         public Product FindBy(int id)
         {
@@ -81,7 +83,7 @@ namespace Products_Inc.Models.Services
 
         public bool Delete(int id)
         {
-            Product personToDelete = _productRepo.Read(id);
+            Product productToDelete = _productRepo.Read(id);
 
             if(productToDelete != null)
             {
@@ -93,7 +95,7 @@ namespace Products_Inc.Models.Services
             return false;
         }
 
-        public void CreateBaseProducts(List<City> cities)
+        /*public void CreateBaseProducts(List<ProductCity> cities)
         {
             _productRepo.Create("Eric Rönnhult", "0777 777777", cities[0]);
             _productRepo.Create("Bosse Bus", "0777 777777", cities[1]);
@@ -101,7 +103,7 @@ namespace Products_Inc.Models.Services
             _productRepo.Create("Anders Rolle", "0777 777777", cities[3]);
 
         }
-
+        */
 
     }
 

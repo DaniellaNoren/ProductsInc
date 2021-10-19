@@ -14,7 +14,7 @@ namespace Products_Inc.Models.Interfaces
 
         ProductViewModel ReadAll();
 
-        ProductViewModel FindBy(ProductViewModel search);
+        //ProductViewModel FindBy(ProductViewModel search);
 
         Product FindBy(int id);
 

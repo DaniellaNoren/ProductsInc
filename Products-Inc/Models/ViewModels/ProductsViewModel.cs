@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Products_Inc.Models;
 
 namespace Products_Inc.Models.ViewModels
 {
@@ -14,5 +16,8 @@ namespace Products_Inc.Models.ViewModels
 
 
         public string ImgPath { get; set; }
+
+
+        public List<Product> ProductListView { get; set; }
     }
 }

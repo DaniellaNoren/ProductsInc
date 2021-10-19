@@ -9,7 +9,7 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IProductRepo
     {
-        Product Create(string productName, string productDescription, int productPrice, string ImgPath);
+        Product Create(CreateProductViewModel createProductViewModel);
 
 
 
