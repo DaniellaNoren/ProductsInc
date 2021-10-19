@@ -2,8 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Products-Inc/v16/.suo
-/Products-Inc/bin
-/Products-Inc/obj
-/Products-Inc/Properties
-/.vs
+.vs/*
+Products-Inc/bin/*
+Products-Inc/obj/*
+Products-Inc/Properties/*
