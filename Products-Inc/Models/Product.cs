@@ -6,22 +6,27 @@ namespace Products_Inc.Models
 {
     public class Product
     {
+
         private int _productId;
         private string _productName;
+        private string _productDescription;
+        private int _productPrice;
+        private string _imgPath;
+
+
 
         public Product() { }
-        public Product(string productName)
+        public Product(string productName, string productDescription = "", int productPrice = 0, string imgPath = "")
         {
             ProductName = productName;
+            ProductDescription = productDescription;
+            ProductPrice = productPrice;
+            ImgPath = imgPath;
         }
 
 
-        public int ProductId
-        {
-            get { return _productId; }
-            set { _productId = value; }
-        }
 
+        public int ProductId { get; set; }
 
         public string ProductName
         {
@@ -29,5 +34,30 @@ namespace Products_Inc.Models
             set { _productName = value; }
         }
 
+        public string ProductDescription
+        {
+            get { return _productDescription; }
+            set { _productDescription = value; }
+        }
+
+        public int ProductPrice
+        {
+            get { return _productPrice; }
+            set { _productPrice = value; }
+        }
+
+        public string ImgPath
+        {
+            get { return _imgPath; }
+            set { _imgPath = value; }
+        }
+
+
+
+        public List<Product> Products
+
+        public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
     }
+
+
 }
