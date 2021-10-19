@@ -102,8 +102,8 @@ namespace Products_Inc.Models.Services
 
             if (user != null)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
-                return signInResult.Succeeded;
+                var signInResult = _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
+                return signInResult.Result.Succeeded;
             }
 
             return false;

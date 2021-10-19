@@ -8,7 +8,7 @@
         console.log(JSON.stringify(this.state.loginModel));
 
         $.ajax({      
-            url: "https://localhost:44347/user/login",
+            url: "/user/login",
             type: "POST",
             data: JSON.stringify(this.state.loginModel),
             Accept : "application/json",

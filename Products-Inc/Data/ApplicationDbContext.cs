@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Products_Inc.Models;
+
 using Microsoft.AspNetCore.Identity;
+using Products_Inc.Models;
 
 namespace Products_Inc.Data
 {

@@ -43,9 +43,10 @@ namespace Products_Inc
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUserService, UserService>();
             services.AddReact();
-
+            
             services.AddJsEngineSwitcher(options =>
             {
+               
                 options.DefaultEngineName = V8JsEngine.EngineName;
                 options.EngineFactories.AddV8();
             }
@@ -111,6 +112,16 @@ namespace Products_Inc
                 // See http://reactjs.net/ for more information. Example:
                 config
                   .AddScript("~/reactjs/Products.jsx");
+                config
+  .SetLoadBabel(false)
+  .SetLoadReact(false)
+  .AddScriptWithoutTransform("~/reactjs/Products.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Checkout.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Login.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Orders.jsx")
+  .AddScriptWithoutTransform("~/reactjs/Register.jsx")
+  .AddScriptWithoutTransform("~/reactjs/UserPage.jsx");
+
                 //.AddScript("~/js/Second.jsx");
 
                 // If you use an external build too (for example, Babel, Webpack,
@@ -119,7 +130,7 @@ namespace Products_Inc
                 // scripts. Example:
                 //config
                 //  .SetLoadBabel(true);
-                 // .AddScriptWithoutTransform("~/js/bundle.server.js");
+                // .AddScriptWithoutTransform("~/js/bundle.server.js");
             });
 
 

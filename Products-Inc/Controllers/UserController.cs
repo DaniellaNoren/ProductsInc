@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace Products_Inc.Controllers
 {
@@ -24,17 +25,26 @@ namespace Products_Inc.Controllers
 
         [HttpPost]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
-        {
+        {  
             if (ModelState.IsValid)
             {
-                if(await _userService.Login(loginModel))
+                try
                 {
-                    return new OkObjectResult(new { msg = "Logged in"});
+                    if(await _userService.Login(loginModel)) {
+
+                        return new OkResult();
+                    }
+                    else
+                    {
+                        return new BadRequestObjectResult(new { errorMsg = "Incorrect password/username" });
+                    }
                 }
-                else
+                catch(Exception)
                 {
-                    return new BadRequestObjectResult(new { errorMsg = "Incorrect password/username" });
+                    return new BadRequestObjectResult(new { errorMsg = "User cannot be found" });
+
                 }
+
             }
             else
             {
@@ -63,6 +73,26 @@ namespace Products_Inc.Controllers
             }
         }
 
+        [HttpPost("[controller]/logout")]
+        public ActionResult Logout()
+        {
+            _userService.Logout();
+            return new OkResult();
+        }
+
+        //[HttpGet("[controller]/orders")]
+        //public IActionResult GetUserOrders()
+        //{
+        //    string loggedInUserName = this.User.Identity.Name;
+        //    //List<OrderModel> orders = _orderService.GetOrdersBy(loggedInUserName);
+        //    return new OkObjectResult(new { });
+        //}
+
+        [HttpGet("[controller]/orders")]
+        public IActionResult Orders()
+        {
+            return PartialView("Orders");
+        }
 
         public IActionResult Index()
         {
