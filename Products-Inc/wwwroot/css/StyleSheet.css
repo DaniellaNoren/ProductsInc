@@ -8,10 +8,35 @@
 
 .footer {
     background-color: #dc3545;
+    opacity: .7;
     max-width: 1024px;
     text-align: center;
     display: block;
     text-align: center;
     height: 60px;
-    
+}
+
+.top-container {
+    text-align: center;
+    max-width: 1024px;
+}
+
+.content {
+    padding: 16px;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    max-width: 1024px;
+}
+.sticky + .content {
+    padding-top: 102px;
+
+}
+
+.nav-items {
+    width: 700px;
+    padding: 25px;
 }
