@@ -415,3 +415,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/productsinc/Products-Inc/bin
+/productsinc/Products-Inc/obj
+/productsinc/Products-Inc/Properties
+/.vs

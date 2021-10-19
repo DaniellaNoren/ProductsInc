@@ -11,7 +11,7 @@ namespace Products_Inc.Models.Interfaces
     {
        Task<UserViewModel> Add(RegisterModel registerModel);
 
-        Task<List<UserViewModel>> All();
+        List<UserViewModel> All();
 
         Task<UserViewModel> FindBy(string userName);
 
