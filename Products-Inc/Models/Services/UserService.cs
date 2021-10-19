@@ -81,7 +81,7 @@ namespace Products_Inc.Models.Services
             return true;
         }
 
-        public async Task<List<UserViewModel>> All()
+        public List<UserViewModel> All()
         {
             return _userManager.Users.Select(u => new UserViewModel()).ToList();
         }

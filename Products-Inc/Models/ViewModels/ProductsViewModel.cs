@@ -2,10 +2,17 @@ using System;
 
 namespace Products_Inc.Models.ViewModels
 {
-    public class ProdViewModel
+    public class ProductViewModel
     {
-        public string RequestId { get; set; }
+        public string ProductName { get; set; }
 
-        public bool ShowRequestId => !string.IsNullOrEmpty(this.RequestId);
+
+        public string ProductDescription { get; set; }
+
+
+        public int ProductPrice { get; set; }
+
+
+        public string ImgPath { get; set; }
     }
 }
