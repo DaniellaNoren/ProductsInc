@@ -6,3 +6,6 @@
 Products-Inc/bin/*
 Products-Inc/obj/*
 Products-Inc/Properties/*
+/PeopleMVC
+/Products-Inc/node_modules
+/Products-Inc/Migrations/20211019094857_test.cs
