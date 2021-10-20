@@ -1,4 +1,6 @@
-function OrderList({orders, editable}){
+import { Component } from 'react';
+
+function OrderList({ orders, editable }) {
     return (
         <div>
             { orders.map(o => <Order editable={editable} order={o} key={o.orderId}/>) }
@@ -35,7 +37,7 @@ function Order({order, editable, onDelete}){
     )
 }
 
-class Orders extends React.Component{
+export default class Orders extends Component{
     state = {
         orders: [
             {products: [{name: "test"}], orderId: "234784834", userId: 1},
@@ -53,10 +55,11 @@ class Orders extends React.Component{
     render(){
         return (
             <div>
-               <OrderList onDelete={deleteProductFromOrder} orders={this.props.orders.orders} editable={this.props.editable}/>     
+
+               <h1>From order component in a different fiiiile</h1>
+               {/*<OrderList onDelete={deleteProductFromOrder} orders={this.props.orders.orders} editable={this.props.editable}/>     */}
             </div>
         )
     }
 }
 
-ReactDOM.render(<Orders />, document.getElementById('content'));
