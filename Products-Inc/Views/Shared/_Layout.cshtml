@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using React.AspNet
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,6 +13,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/StyleSheet.css" />
     <link href="~/css/productsStyle.css" rel="stylesheet" type="text/css" />
+   
     @RenderSection("Styles", false)
 </head>
 <body>
@@ -21,27 +26,26 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
+                    <!-- <partial name="_LoginPartihandleal" /> -->
 
                     <ul class="navbar-nav flex-grow-1">
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">HOME</a>
-                            <button className="nav-link text-dark" onClick={() => this.changeViewMenu('createperson')}>clicktest</button>
+                            <a class="nav-link text-dark" onclick="window.history.pushState('/products')">My page</a>
                         </li>
 
                         <li class="nav-item">
-                            <div id="reactmenubuttons"></div>
+                            <a class="nav-link text-dark" onclick="window.location.href = '/orders'"><img src="~/img/cart.jpg" width="30" height="30" /></a>
                         </li>
 
-                        <partial name="_RolesPartial" />
-
+                        <!-- <partial name="_RolesPartial" /> -->
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -57,42 +61,28 @@
 
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-
-
-    <script src="@Url.Content("~/js/jquery-3.6.0.min.js")"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script> -->
+    <!-- <script src="@Url.Content("~/js/jquery-3.6.0.min.js")"></script> -->
     <!-- <script src="@Url.Content("~/bootstrap-5.0.2-dist/js/bootstrap.bundle.js")"></script>  -->
-
-
-    <script src="@Url.Content("~/js/react.development.js")"></script>
-    <script src="@Url.Content("~/js/react-dom.development.js")"></script>
-
-
-
+    <!--<script src="@Url.Content("~/js/react.development.js")"></script>
+    <script src="@Url.Content("~/js/react-dom.development.js")"></script>-->
     <!--  <script src="@Url.Content("~/reactjs/Checkout.jsx")"></script>
     <script src="@Url.Content("~/reactjs/Login.jsx")"></script>
     <script src="@Url.Content("~/reactjs/Orders.jsx")"></script>
     <script src="@Url.Content("~/reactjs/Register.jsx")"></script>
-    <script src="@Url.Content("~/reactjs/UserPage.jsx")"></script>
-    <script src="@Url.Content("~/reactjs/Products.jsx")"></script>-->
+    <script src="@Url.Content("~/reactjs/UserPage.jsx")"></script> -->
+  
+    <div id="content"></div>
+    <script src="/reactjs/dist/runtime.js"></script>
+    <script src="/reactjs/dist/vendor.js"></script>
+    <script src="/reactjs/dist/main.js"></script>
+    @*<script type="text/jsx" src="@Url.Content("~/reactjs/Router.jsx")"></script>*@
+    @*<script>function testhandleClick(t) { handleClick(t); } </script>*@
+    @Html.ReactInitJavaScript()
 
+    @RenderSection("Scripts", required: false)
 
-
-    <script src="@Url.Content("~/reactjs/SwitchView.jsx")"></script>
-    <script src="@Url.Content("~/reactjs/Persondetails.jsx")"></script>
-    <script src="@Url.Content("~/reactjs/Peoplelisttable.jsx")"></script>
-    <script src="@Url.Content("~/reactjs/Createperson.jsx")"></script>
-    <script src="@Url.Content("~/reactjs/MenuButtons.jsx")"></script>
-    <script src="@Url.Content("~/reactjs/Index.jsx")"></script>
-
-
-    
-
-    @if (IsSectionDefined("scripts"))
-    {
-        RenderSection("scripts");
-    }
 
 </body>
 </html>

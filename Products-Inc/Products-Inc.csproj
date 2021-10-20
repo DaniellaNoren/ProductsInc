@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Content\components\Products.jsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="JavaScriptEngineSwitcher.Extensions.MsDependencyInjection" Version="3.3.0" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8" Version="3.13.2" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8.Native.win-x64" Version="3.13.1" />
@@ -24,13 +28,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\reactjs\expose-components.js" />
     <None Include="wwwroot\reactjs\img\toothpaste.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="wwwroot\reactjs\Products.jsx">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="wwwroot\toothpaste.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\components\" />
   </ItemGroup>
 
 </Project>

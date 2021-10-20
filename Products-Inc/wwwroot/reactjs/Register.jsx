@@ -7,7 +7,7 @@
         e.preventDefault();
 
         $.ajax({      
-            url: "https://localhost:44347/user/register",
+            url: "/user/register",
             type: "POST",
             data: JSON.stringify(this.state.registerModel),
             Accept : "application/json",

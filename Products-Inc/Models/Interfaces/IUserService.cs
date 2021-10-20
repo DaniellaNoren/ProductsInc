@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Products_Inc.Models.ViewModels;
 
 namespace Products_Inc.Models.Interfaces
@@ -10,7 +11,7 @@ namespace Products_Inc.Models.Interfaces
     {
        Task<UserViewModel> Add(RegisterModel registerModel);
 
-        Task<List<UserViewModel>> All();
+        List<UserViewModel> All();
 
         Task<UserViewModel> FindBy(string userName);
 

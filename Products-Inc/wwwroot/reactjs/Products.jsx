@@ -1,5 +1,6 @@
-﻿
-class Products extends React.Component {
+﻿import { Component, Fragment } from 'react';
+
+export default class Products extends Component {
     state = {
         products: [
             {
@@ -90,4 +91,4 @@ function Product({ product, addProductEvent }) {
     )
 }
 
-ReactDOM.render(<Products />, document.getElementById('reactcontainer'));
+//ReactDOM.render(<Products />, document.getElementById('reactcontainer'));
