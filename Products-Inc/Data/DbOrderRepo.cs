@@ -23,52 +23,14 @@ namespace Products_Inc.Data
 
         public Order Create(CreateOrderViewModel createOrderViewModel)
         {
-            Order newOrder = new Order(createOrderViewModel.OrderId, createOrderViewModel.UserId);
+            Order newOrder = new Order(createOrderViewModel.UserId) { 
+            OrderProducts = createOrderViewModel.ProductIds.Select(id => new OrderProduct() { ProductId = id }).ToList() };
 
-            _orderListContext.Add(newOrder);
+             _orderListContext.Orders.Add(newOrder);
             _orderListContext.SaveChanges();
 
-            return newOrder;
+            return Read(newOrder.OrderId);
         }
-
-        /*public bool AddLanguageToPerson(PersonLanguageViewModel personLanguageViewModel)
-        {
-            int nrStates;
-
-            Order updatePersonLang = _peopleListContext.People // load person with languages
-                .Where(c => c.PersonId == personLanguageViewModel.PersonId)
-                .Include(f => f.PersonLanguages)
-                .ThenInclude(g => g.Language)
-                .First();
-
-            List<Language> dbLangList = _peopleListContext.Languages.ToList();
-
-            Language foundLang = new Language();
-
-            // Make new list of PersonLanguage associated with that PersonId above.
-            // And make the correct object-path build.   Person.List<PersonLanguage>.PersonLanguage.Language 
-            List<PersonLanguage> addPersonLang = new List<PersonLanguage> { };
-
-                    foreach (string id in personLanguageViewModel.SelectedListBoxView)
-                 {
-                    foundLang = dbLangList.Find(la => la.LanguageId == Convert.ToInt32(id));
-                    PersonLanguage personLanguage = new PersonLanguage() { Language = foundLang };
-                    addPersonLang.Add(personLanguage);
-                 }
-
-                updatePersonLang.PersonLanguages = addPersonLang;
-
-
-            nrStates =_peopleListContext.SaveChanges();
-
-            if (nrStates > 0)
-            {
-                return true;
-            }
-
-            return false;
-        }*/
-        
 
 
         public List<Order> Read()
@@ -88,6 +50,11 @@ namespace Products_Inc.Data
                 .FirstOrDefault();
 
             return order;
+        }
+
+        public List<Order> ReadByUser(int userId)
+        {
+            return _orderListContext.Orders.Where(o => o.UserId == userId).ToList();
         }
 
         public Order Update(Order order)

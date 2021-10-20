@@ -50,21 +50,36 @@ namespace Products_Inc.Data
 
             */
 
+            modelBuilder.Entity<OrderProduct>().HasKey(op => new { op.ProductId, op.OrderId });
 
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne<Product>(op => op.Product)
+                .WithMany(p => p.OrderProducts)
+                .HasForeignKey(op => op.ProductId);
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne<Order>(op => op.Order)
+                .WithMany(o => o.OrderProducts)
+                .HasForeignKey(op => op.OrderId);
+
+            //modelBuilder.Entity<StudentCourse>()
+            //    .HasOne<Course>(sc => sc.Course)
+            //    .WithMany(s => s.StudentCourses)
+            //    .HasForeignKey(sc => sc.CId);
 
             // Setting up the join-table for the mutual many-to-many bind/relationship
             modelBuilder.Entity<OrderProduct>()  // EF Core 3.x specific. Join table
                 .HasKey(pl => new { pl.OrderId, pl.ProductId });
 
-            modelBuilder.Entity<OrderProduct>() // One to Many
-                .HasOne(ec => ec.Product)
-                .WithMany(e => e.OrderProducts)
-                .HasForeignKey(ec => ec.OrderId);
+            //modelBuilder.Entity<OrderProduct>() // One to Many
+            //    .HasOne(ec => ec.Product)
+            //    .WithMany(e => e.OrderProducts)
+            //    .HasForeignKey(ec => ec.OrderId);
 
-            modelBuilder.Entity<OrderProduct>()  // One  to Many
-                .HasOne(ec => ec.Order)
-                .WithMany(c => c.OrderProducts)
-                .HasForeignKey(ec => ec.ProductId);
+            //modelBuilder.Entity<OrderProduct>()  // One  to Many
+            //    .HasOne(ec => ec.Order)
+            //    .WithMany(c => c.OrderProducts)
+            //    .HasForeignKey(ec => ec.ProductId);
 
         }
     }

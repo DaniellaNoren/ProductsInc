@@ -8,12 +8,10 @@ namespace Products_Inc.Models.ViewModels
 {
     public class CreateOrderViewModel
     {
-        public int OrderId { get; set; }
-
-
+   
         public int UserId { get; set; }
 
-
+        public List<int> ProductIds { get; set; }
 
 
     }  

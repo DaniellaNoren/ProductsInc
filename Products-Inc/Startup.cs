@@ -52,7 +52,7 @@ namespace Products_Inc
             // ------ Identity part start ------------
             services.AddDbContext<IdentityAppDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("ProductIncConnection")));
+                    Configuration.GetConnectionString("UserConnection")));
 
 
             services.AddIdentity<User, IdentityRole>(o =>
@@ -94,6 +94,8 @@ namespace Products_Inc
 
 
             services.AddScoped<IUserService, UserService>(); // identity
+            services.AddScoped<IOrderService, OrderService>(); // identity
+            services.AddScoped<IOrderRepo, DbOrderRepo>(); // identity
 
 
             services.AddScoped<IProductRepo, DbProductRepo>();

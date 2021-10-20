@@ -52,10 +52,6 @@ namespace Products_Inc.Models
             set { _imgPath = value; }
         }
 
-
-
-        public List<Product> Products { get; set; }
-
         public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
     }
 

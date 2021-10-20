@@ -16,6 +16,7 @@ namespace Products_Inc.Models.Interfaces
 
 
         List<Order> Read();
+        List<Order> ReadByUser(int userid);
 
 
         Order Read(int id);

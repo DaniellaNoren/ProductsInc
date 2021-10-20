@@ -19,26 +19,26 @@ namespace Products_Inc.Models.Services
 
 
         
-        public Product Create(CreateProductViewModel createProductViewModel)
+        public ProductViewModel Create(CreateProductViewModel createProductViewModel)
         {
             Product createdProduct = _productRepo.Create(createProductViewModel);
 
-            return createdProduct;
+            return new ProductViewModel() { ImgPath = createdProduct.ImgPath, ProductPrice = createdProduct.ProductPrice, ProductDescription = createdProduct.ProductDescription, ProductId = createdProduct.ProductId, ProductName = createdProduct.ProductName };
         }
 
 
 
-        public ProductViewModel ReadAll()
+        public List<ProductViewModel> ReadAll()
         {
-            ProductViewModel pViewMod = new ProductViewModel()
-            {
-                ProductListView = _productRepo.Read(),
-            };
-
-            return pViewMod;
+            return _productRepo.Read().Select(p => 
+            new ProductViewModel() { 
+                ImgPath = p.ImgPath, 
+                ProductDescription = p.ProductDescription, 
+                ProductName = p.ProductName, 
+                ProductPrice = p.ProductPrice }).ToList();
         }
 
-        public Product Update(int id, Product product)
+        public ProductViewModel Update(int id, Product product)
         {
             throw new NotImplementedException();
         }
@@ -74,11 +74,14 @@ namespace Products_Inc.Models.Services
 
 
 
-        public Product FindBy(int id)
+        public ProductViewModel FindBy(int id)
         {
             Product foundProduct = _productRepo.Read(id);
 
-            return foundProduct;
+            if (foundProduct != null)
+                return new ProductViewModel() { ImgPath = foundProduct.ImgPath, ProductPrice = foundProduct.ProductPrice, ProductDescription = foundProduct.ProductDescription, ProductId = foundProduct.ProductId, ProductName = foundProduct.ProductName };
+            else
+                throw new Exception("Entity not found"); //todo: create unique exception
         }
 
         public bool Delete(int id)

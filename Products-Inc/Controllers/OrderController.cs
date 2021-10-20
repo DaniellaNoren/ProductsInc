@@ -9,21 +9,14 @@ using Products_Inc.Models;
 using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.Services;
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Products_Inc.Controllers
 {
     public class OrderController : Controller
     {
-        /*private readonly ILogger<OrderController> _logger;
-
-        public OrderController(ILogger<OrderController> logger)
-        {
-            _logger = logger;
-        }*/
+      
         private readonly IOrderService _orderService;
-
 
         public OrderController(IOrderService iOrderService)
         {
@@ -31,6 +24,34 @@ namespace Products_Inc.Controllers
 
         }
 
+        [HttpPost("[controller]")]
+        public IActionResult CreateOrder([FromBody] CreateOrderViewModel createOrderViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                return new OkObjectResult(_orderService.Create(createOrderViewModel));
+
+            }
+            return new BadRequestResult();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetAllOrders()
+        {
+            return new OkObjectResult(_orderService.ReadAll());
+        }
+
+        [Authorize(Roles = "Admin, User")]
+        [HttpGet("[controller]/users/{username}")]
+        public IActionResult GetUserOrders(int username)
+        {
+            if (this.User.Identity.Name.Equals(username))
+            {
+                List<OrderViewModel> orders =_orderService.FindAllBy(username);
+            }
+
+            return new OkObjectResult("");
+        }
 
         public IActionResult Index()
         {
@@ -42,52 +63,9 @@ namespace Products_Inc.Controllers
             return View();
         }
 
-        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ProductsViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }*/
+       
     }
 }
 
-
-/*
  
  
-  [HttpPOST]
-C - Createproduct createproductmodel
-return view with the created product
-
-
-R -  GET all products from db. and put that info into List<products> in ProductsViewModel
-return view all products
-
-
-U - get 1 product to view and edit. 
-When pressing save /submit button goto PUT/PAtch.
-
- 
-U - PUT/Patch
-Edit product find by ID
-return partial view, viewmodel 
-
-
-
-D - Hide/exclude product from being viewed
-
-
-
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- */
