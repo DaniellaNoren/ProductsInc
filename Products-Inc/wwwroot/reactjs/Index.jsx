@@ -2,6 +2,8 @@
 import { Component, Fragment } from 'react';
 import OrderThingy from './Orders.jsx';
 import Products from './Products.jsx';
+import Headerpart from './Headerpart.jsx';
+import Footerpart from './Footerpart.jsx';
 import {
     Link,
     BrowserRouter,
@@ -22,7 +24,7 @@ class OrderPage extends Component{
     render(){
         return (
             <div>
-           <OrderThingy/>
+                <OrderThingy />
             </div>
         )
     }
@@ -68,7 +70,7 @@ function SideMenu({viewOrders, location, context}) {
 
             </li>
             <li className="nav-item">
-                <button onClick={() => viewOrders()}>My Orders</button>
+                <button onClick={() => viewOrders()}>My Ordersssssssssssrgsr</button>
             </li>
             <li className="nav-item">
                 <a onClick={() => console.log("edit profile")} className="nav-link" href="#">Edit profile</a>
@@ -86,51 +88,63 @@ export default class Index extends Component {
     }
     render() {
         const app = (
-            <div>
-              
-                <p>{this.props.someProp}</p>
-                
-                    <ul>
-                    <li>
-                        
-                            <Link to="/orders">Router test</Link>
-                        </li>
-                        <li>
-                            <Link to="/admin">Router test bleh</Link>
-                    </li>
-                        <li>
-                            <Link to="/products">Products</Link>
-                        </li>
-                    </ul>
-                    <Switch>
-                        <Route path="/orders"><OrderThingy /></Route>
-                        <Route
-                            path="/bleh"><h1>test</h1></Route>
-                        <Route
-                            path="/products"
-                       
-                    ><Products/>
-                    </Route>
-                        {/*<Route*/}
-                        {/*        path="*"*/}
-                        {/*        component={() => {*/}
+            //<div className="container">
+
+            //    <main role="main" className="pb-3">
+            <div className="pagewrapper">
+                    <Headerpart />  {/*Header component*/}
+
+                    <div className="item-reactcontent">
+
+                        <p>{this.props.someProp}</p>
+
+                        <ul>
+                            <li>
+
+                                <Link to="/orders">Router test</Link>
+                            </li>
+                            <li>
+                                <Link to="/admin">Router test bleh</Link>
+                            </li>
+                            <li>
+                                <Link to="/products">Products</Link>
+                            </li>
+                        </ul>
+                        <Switch>
+                            <Route path="/orders"><OrderThingy /></Route>
+                            <Route
+                                path="/bleh"><h1>test</h1></Route>
+                            <Route
+                                path="/products"
+
+                            ><Products />
+                            </Route>
+                            {/*<Route*/}
+                            {/*        path="*"*/}
+                            {/*        component={() => {*/}
 
 
-                        {/*        return <h1>Not Found </h1>;*/}
-                        {/*    }}*/}
-                        {/*/>*/}
-                    </Switch>
-            
+                            {/*        return <h1>Not Found </h1>;*/}
+                            {/*    }}*/}
+                            {/*/>*/}
+                        </Switch>
 
-                <h1>{this.props.test}</h1>
-                <SideMenu viewOrders={() => {
-                    this.setState({ viewOrders: !this.state.viewOrders });
-                }} />
 
-                <div>
-                    {this.state.viewOrders ? <OrderPage /> : null}
-                </div>
+                        <h1>{this.props.test}</h1>
+                        <SideMenu viewOrders={() => {
+                            this.setState({ viewOrders: !this.state.viewOrders });
+                        }} />
+
+                        <div>
+                            {this.state.viewOrders ? <OrderPage /> : null}
+                        </div>
+
+                    </div>
+
+                    <Footerpart />  {/*Footer component*/}
+
             </div>
+
         );
 
 
