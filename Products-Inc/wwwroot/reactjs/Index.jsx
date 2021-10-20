@@ -1,151 +1,126 @@
-﻿
-import { Component, Fragment } from 'react';
-import OrderThingy from './Orders.jsx';
-import Products from './Products.jsx';
-import {
-    Link,
-    BrowserRouter,
-    Route,
-    Switch,
-    StaticRouter,
-    Redirect,
-} from 'react-router-dom';
+﻿const loginUser = async values => {
 
-class OrderPage extends Component{
-    //get the orders by calling the partialview with user orders. render the html 
-    // getOrders = () => {
-    //     $.get("url")
-    //     .done(r => $(".orders").html = r.data)
-    // }
+    const res = await fetch({ url: SERVER_URL, method: "POST", body: values });
+    const data = await res.json();
+    return data;
+};
 
-    
-    render(){
+    class Index extends React.Component {
+
+    constructor(props) {
+        super(props)
+        //this.setViewPage = this.setViewPage.bind(this)  dont need to bind when doing arrows jsx below /ER
+        //this.setPersonobjstate = this.setPersonobjstate.bind(this)
+        this.state = {
+            personliststate: [],
+            cityliststate: [],
+            viewpagestate: "peoplelisttable",
+            personobj: [],
+            peoplelistapiurl: "/Reactjsonpersonlist",
+            citylistapiurl: "/Reactjsoncitylist"
+        }
+    }
+
+
+
+    loadDataFromServer = () => {
+        /*
+       const xhr = new XMLHttpRequest();
+        xhr.open('get', this.state.peoplelistapiurl, true)
+        xhr.onload = () => {
+            const personlist = JSON.parse(xhr.responseText)
+            this.setState({ personliststate: personlist })
+        }
+        xhr.send()
+
+        const xhr2 = new XMLHttpRequest();
+        xhr2.open('get', this.state.citylistapiurl, true)
+        xhr2.onload = () => {
+            const citylist = JSON.parse(xhr2.responseText)
+            this.setState({ cityliststate: citylist })
+        }
+        xhr2.send()*/
+
+        /* axios.get(this.state.peoplelistapiurl)
+     .then(dbdata => {
+         this.setState({ personlistdata: dbdata });
+     })
+     .catch(e => {
+         console.log(e)
+     });*/
+    }
+
+
+    componentDidMount = () => {
+        this.loadDataFromServer();
+        window.setInterval(this.loadDataFromServer(), this.props.pollInterval);
+    }
+
+    setViewPage = (viewpage = this.state.viewpagestate) => {
+        this.setState({ viewpagestate: viewpage })
+    }
+
+    setPersonobjstate = (person = this.state.personobj) => {
+        this.setState({ personobj: person })
+    }
+
+
+
+    render() {
+        $(window).scrollTop(0)
+
         return (
             <div>
-           <OrderThingy/>
-            </div>
+
+                <ChangeView
+                    viewpagestate={this.state.viewpagestate}
+                    personliststate={this.state.personliststate}
+                    cityliststate={this.state.cityliststate}
+                    setViewPage={this.setViewPage}
+                    loadDataFromServer={this.loadDataFromServer}
+                    setPersonobjstate={this.setPersonobjstate}
+                    personobj={this.state.personobj}
+                />
+                <MenuButtons
+                    setViewPage={this.setViewPage}
+                />
+        </div>
         )
-    }
-}
 
-function SideMenu({viewOrders, location, context}) {
-    const logOut = () => {
-        $.ajax({      
-            url: "/user/logout",
-            type: "POST",
-            success: function(res) {
-                console.log("succeeded");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                 console.log(errorThrown);
-            }
-          });
     }
-    const showOrders = () => {
-        let id = "";
 
-        $.ajax({      
-            url: `/user/${id}/orders`,
-            type: "GET",
-            success: function(res) {
-                console.log("succeeded");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                 console.log(errorThrown);
-            }
-          });
-    }
+
+} // class end tag
+
+
+
+function ChangeView({ viewpagestate, personliststate, cityliststate, setViewPage, loadDataFromServer, setPersonobjstate, personobj }) {
     return (
-        <ul className="nav flex-column">
-           
-            <li className="nav-item">
-
-               
-
-            </li>
-            <li className="nav-item">
-                <button onClick={() => viewOrders()}>My Orders</button>
-            </li>
-            <li className="nav-item">
-                <a onClick={() => console.log("edit profile")} className="nav-link" href="#">Edit profile</a>
-            </li>
-            <li className="nav-item">
-                <a onClick={() => console.log("edit profile")} className="nav-link" href="#">Logout</a>
-            </li>
-        </ul>
+        <SwitchView active={viewpagestate}>
+            <Peoplelisttable
+                name="peoplelisttable"
+                personliststate={personliststate}
+                setViewPage={setViewPage}
+                setPersonobjstate={setPersonobjstate}
+            />
+            <Persondetails
+                name="persondetails"
+                personliststate={personliststate}
+                setViewPage={setViewPage}
+                loadDataFromServer={loadDataFromServer}
+                personobj={personobj}
+            />
+            <CreatePerson
+                name="createperson"
+                cityliststate={cityliststate}
+                setViewPage={setViewPage}
+                loadDataFromServer={loadDataFromServer}
+            />
+        </SwitchView>
     )
 }
 
-export default class Index extends Component {
-   state = {
-       viewOrders: false
-    }
-    render() {
-        const app = (
-            <div>
-              
-                <p>{this.props.someProp}</p>
-                
-                    <ul>
-                    <li>
-                        
-                            <Link to="/orders">Router test</Link>
-                        </li>
-                        <li>
-                            <Link to="/admin">Router test bleh</Link>
-                    </li>
-                        <li>
-                            <Link to="/products">Products</Link>
-                        </li>
-                    </ul>
-                    <Switch>
-                        <Route path="/orders"><OrderThingy /></Route>
-                        <Route
-                            path="/bleh"><h1>test</h1></Route>
-                        <Route
-                            path="/products"
-                       
-                    ><Products/>
-                    </Route>
-                        {/*<Route*/}
-                        {/*        path="*"*/}
-                        {/*        component={() => {*/}
+ReactDOM.render(<MenuButtons />, document.getElementById('reactmenubuttons'))
 
-
-                        {/*        return <h1>Not Found </h1>;*/}
-                        {/*    }}*/}
-                        {/*/>*/}
-                    </Switch>
-            
-
-                <h1>{this.props.test}</h1>
-                <SideMenu viewOrders={() => {
-                    this.setState({ viewOrders: !this.state.viewOrders });
-                }} />
-
-                <div>
-                    {this.state.viewOrders ? <OrderPage /> : null}
-                </div>
-            </div>
-        );
-
-
-        if (typeof window === 'undefined') {
-            return (
-                <StaticRouter
-                    context={this.props.context}
-                    location={this.props.location}
-                >
-                    {app}
-                </StaticRouter>
-            );
-        }
-        return <BrowserRouter>{app}</BrowserRouter>;
-        
-    }
-}
+ReactDOM.render(<Index pollInterval={2000} />, document.getElementById('reactcontainer'))
 

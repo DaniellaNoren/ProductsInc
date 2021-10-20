@@ -153,4 +153,4 @@ class Checkout extends React.Component {
     }
 }
 
-ReactDOM.render(<Checkout />, document.getElementById('content'))
+ReactDOM.render(<Checkout />, document.getElementById('checkoutcontent'))

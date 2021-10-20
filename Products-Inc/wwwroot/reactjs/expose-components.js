@@ -9,7 +9,7 @@ import UserPage from './UserPage.jsx';
 import Products from './Products.jsx';
 import Orders from './Orders.jsx';
 import Router from './Router.jsx';
-import Index from './Index.jsx';
+import Index from './Home.jsx';
 
 
 // any css-in-js or other libraries you want to use server-side
