@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,10 +15,6 @@ using Products_Inc.Models;
 using Products_Inc.Data;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
@@ -36,27 +36,23 @@ namespace Products_Inc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-            // -------- DBContexts etc start-------
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("ProductIncConnection")));
-
-            services.AddDbContext<IdentityAppDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("ProductIncConnection")));
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUserService, UserService>();
             services.AddReact();
 
             services.AddJsEngineSwitcher(options =>
             {
                 options.DefaultEngineName = V8JsEngine.EngineName;
                 options.EngineFactories.AddV8();
-            }
-            );
+            });
+
+            services.AddControllersWithViews();
+
+
+
+            // ------ Identity part start ------------
+            services.AddDbContext<IdentityAppDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ProductIncConnection")));
 
 
             services.AddIdentity<User, IdentityRole>(o =>
@@ -73,12 +69,12 @@ namespace Products_Inc
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 1;
-
-
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             });
+            // ------ Identity part end ------------
+
 
 
             services.ConfigureApplicationCookie(options =>
@@ -88,12 +84,27 @@ namespace Products_Inc
                 options.AccessDeniedPath = $"/test/Account/AccessDenied";
             });
 
-            services.AddControllersWithViews();
+
+
+
+            // -- Database
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ProductIncConnection")));
+
+
+            services.AddScoped<IUserService, UserService>(); // identity
+
 
             services.AddScoped<IProductRepo, DbProductRepo>();
             services.AddScoped<IProductService, ProductService>();
 
             services.AddRazorPages();
+
+            services.ConfigureApplicationCookie(opts => // Custom Identity Access denied path /ER
+            {
+                opts.AccessDeniedPath = "/Home/AccessDenied";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -111,14 +122,16 @@ namespace Products_Inc
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
+
+            // Initialise ReactJS.NET. Must be before static files.
             app.UseReact(config =>
             {
                 // If you want to use server-side rendering of React components,
                 // add all the necessary JavaScript files here. This includes
                 // your components as well as all of their dependencies.
                 // See http://reactjs.net/ for more information. Example:
+                //config
                 /*config
                     .AddScriptWithoutTransform("~/reactjs/Checkout.jsx")
                     .AddScriptWithoutTransform("~/reactjs/Login.jsx")
@@ -132,10 +145,13 @@ namespace Products_Inc
                 // ReactJS.NET's version of Babel and loading the pre-transpiled
                 // scripts. Example:
                 //config
-                //  .SetLoadBabel(true);
-                // .AddScriptWithoutTransform("~/js/bundle.server.js");
+                //  .SetLoadBabel(false)
+                //  .AddScriptWithoutTransform("~/js/bundle.server.js");
             });
 
+
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -148,6 +164,9 @@ namespace Products_Inc
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+                endpoints.MapControllerRoute(
+                    name: "reactrouter",
+                    pattern: "{controller=Home}/{action=Index}/{path?}");
 
                 endpoints.MapRazorPages();
 
