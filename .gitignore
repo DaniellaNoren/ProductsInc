@@ -6,3 +6,5 @@
 Products-Inc/bin/*
 Products-Inc/obj/*
 Products-Inc/Properties/*
+/PeopleMVC
+/Products-Inc/node_modules
