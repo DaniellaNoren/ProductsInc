@@ -80,22 +80,23 @@ function SideMenu({viewOrders, location, context}) {
     )
 }
 
-export default class UserPage extends Component {
+export default class Index extends Component {
    state = {
        viewOrders: false
     }
     render() {
         const app = (
             <div>
-                {this.props.location}
-               
+              
+                <p>{this.props.someProp}</p>
                 
                     <ul>
-                        <li>
+                    <li>
+                        
                             <Link to="/orders">Router test</Link>
                         </li>
                         <li>
-                            <Link to="/bleh">Router test bleh</Link>
+                            <Link to="/admin">Router test bleh</Link>
                     </li>
                         <li>
                             <Link to="/products">Products</Link>

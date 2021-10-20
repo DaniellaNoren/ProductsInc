@@ -110,31 +110,23 @@ namespace Products_Inc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseReact(config =>
+            {
+                config
+                    .SetReuseJavaScriptEngines(true)
+                    .SetLoadBabel(false)
+                    .SetLoadReact(false)
+                    .SetReactAppBuildPath("~/reactjs/dist")
+                    .AddScriptWithoutTransform("~/reactjs/dist/runtime.js")
+  .AddScriptWithoutTransform("~/reactjs/dist/vendor.js")
+  .AddScriptWithoutTransform("~/reactjs/dist/main.js");
+
+
+
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseReact(config =>
-            {
-                // If you want to use server-side rendering of React components,
-                // add all the necessary JavaScript files here. This includes
-                // your components as well as all of their dependencies.
-                // See http://reactjs.net/ for more information. Example:
-                /*config
-                    .AddScriptWithoutTransform("~/reactjs/Checkout.jsx")
-                    .AddScriptWithoutTransform("~/reactjs/Login.jsx")
-                    .AddScriptWithoutTransform("~/reactjs/Orders.jsx")
-                    .AddScriptWithoutTransform("~/reactjs/Register.jsx")
-                    .AddScriptWithoutTransform("~/reactjs/UserPage.jsx")
-                    .AddScriptWithoutTransform("~/reactjs/Products.jsx");*/
-
-                // If you use an external build too (for example, Babel, Webpack,
-                // Browserify or Gulp), you can improve performance by disabling
-                // ReactJS.NET's version of Babel and loading the pre-transpiled
-                // scripts. Example:
-                //config
-                //  .SetLoadBabel(true);
-                // .AddScriptWithoutTransform("~/js/bundle.server.js");
-            });
 
 
             app.UseRouting();
@@ -144,11 +136,12 @@ namespace Products_Inc
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("default", "{path?}", new { controller = "Home", action = "Index" });
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
+                endpoints.MapFallbackToController("Index", "Home");
                 endpoints.MapRazorPages();
 
 
