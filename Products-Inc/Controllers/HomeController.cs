@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products_Inc.Models;
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,28 +11,19 @@ namespace Products_Inc.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        /*private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+        }*/
 
         public IActionResult Index()   // Loads the default web of webshop
         {
-            return View();
+            return View("Index");
         }
 
     }
 }
 
-/*
 
-Endpoints are json and/with OKObjectResult OKResult NotFoundResult();
-
-
-
-
-
- 
- */

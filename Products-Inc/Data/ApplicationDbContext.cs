@@ -13,7 +13,7 @@ namespace Products_Inc.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
-
+       
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -38,12 +38,16 @@ namespace Products_Inc.Data
             /* Setting up One-to-Many
             modelBuilder.Entity<Person>()
                  .HasOne(mbo => mbo.City);
+
             modelBuilder.Entity<City>()
                  .HasMany(mbm => mbm.People);
+
             modelBuilder.Entity<City>()
                 .HasOne(mbo => mbo.Country);
+
             modelBuilder.Entity<Country>()
                 .HasMany(mbm => mbm.Cities);
+
             */
 
 
