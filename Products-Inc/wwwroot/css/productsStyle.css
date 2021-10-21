@@ -12,3 +12,8 @@
     display:block;
     margin:auto;
 }
+
+#identitypart {
+    background-color: antiquewhite;
+    color: black;
+}

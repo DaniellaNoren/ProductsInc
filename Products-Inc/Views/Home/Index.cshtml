@@ -1,16 +1,31 @@
 ﻿@{ //ViewData["Title"] = "Home Page";
 }
 
-@{ 
-    var prop = "prop from net";
-}
+@{
+        var prop = "prop from net";
+    }
 
-@Html.ReactRouter("Components.Index", new
-{
-    someProp = @prop
-});
+    @Html.ReactRouter("Components.Index", new
+    {
+        someProp = @prop
+    });
 
 
-@*@Html.ReactInitJavaScript()*@
+<div>Home index </div>
+
+<br />
+<br />
+<div><partial name="_LoginPartial" /></div>
+
+
+
+@*<div id="partialviewfromcontroller"></div>*@
+
+<div id="reactcontent"></div>
+
+
+
+
+@Html.ReactInitJavaScript()
 
 

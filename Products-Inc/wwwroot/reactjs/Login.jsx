@@ -1,4 +1,7 @@
-﻿class Login extends React.Component {
+﻿import { Component, Fragment } from 'react';
+import React from 'React'
+
+export default class Login extends Component {
     state = {
         loginModel: {userName: "", password: "", rememberMe: false}
     }
@@ -28,7 +31,7 @@
     render() {
         return (
             <div>
-                <form className="form" onSubmit={this.tryToLogin}>
+                <form className="formlogin" onSubmit={this.tryToLogin}>
                     <div className="form-group">
                         <label for="username-input">Username</label>
                         <input value={this.state.loginModel.userName} onChange={e => this.setState({loginModel: {...this.state.loginModel, userName: e.target.value}})} className="form-control" id="username-input" type="text" />
@@ -48,4 +51,3 @@
     }
 }
 
-ReactDOM.render(<Login />, document.getElementById('content'));

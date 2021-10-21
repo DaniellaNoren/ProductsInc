@@ -17,7 +17,7 @@
     handleSubmit(event) {
         event.preventDefault();
 
-        onSubmitCreatePerson(this.state.createperson, this.props.loadDataFromServer, this.props.setViewPage)
+        onSubmitCreatePerson(this.state.createperson)
     }
 
 
@@ -34,28 +34,26 @@
                     <label>
                     Name:
                         <div><input type="text"
-                            onChange={e => { this.setState({ createperson: { ...this.state.createperson, PersonName: e.target.value } }) } }
+                            
                             required /></div>
                     </label>
                     <br /><br />
                     <label>
                     PhoneNumber:
                         <div><input type="text"
-                            onChange={e => { this.setState({ createperson: { ...this.state.createperson, PersonPhoneNumber: e.target.value } })} }
+                            
                             required /></div>
                     </label>
                     <br /><br />
                     <label>
                     City (country is allready linked to city:
                             <div><select id="SelectedListBoxView" defaultValue={"ChooseCity"}
-                            onChange={e => { this.setState({ createperson: { ...this.state.createperson, PersonCity: parseInt(e.target.value) } }) }}
+                            
                             required >
 
                             <option value="ChooseCity" disabled> - Choose City -</option>
 
-                        {this.props.cityliststate.map((city) => (
-                        <option key={city.cityId} value={city.cityId}>{city.cityName}</option>
-                        ))}
+
 
                         </select></div>
                     </label>
@@ -82,7 +80,7 @@
 } // class end tag
 
 
-function onSubmitCreatePerson(createdpersonobj, loadDataFromServer, setViewPage) {
+function onSubmitCreatePerson(createdpersonobj) {
 
     let createdpersonjson = JSON.stringify(createdpersonobj)
     //console.log(createdpersonjson)
@@ -111,3 +109,6 @@ function onClickGoBackToList(setViewPage) {
     setViewPage("peoplelisttable")
     $(window).scrollTop(0)
 }
+
+
+ReactDOM.render(<CreatePerson />, document.getElementById('reactcontent'));

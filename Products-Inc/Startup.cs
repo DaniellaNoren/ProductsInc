@@ -110,6 +110,7 @@ namespace Products_Inc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseReact(config =>
             {
                 config
@@ -117,16 +118,19 @@ namespace Products_Inc
                     .SetLoadBabel(false)
                     .SetLoadReact(false)
                     .SetReactAppBuildPath("~/reactjs/dist")
+                    //.AddScriptWithoutTransform("~/js/ajaxactions.js")
                     .AddScriptWithoutTransform("~/reactjs/dist/runtime.js")
-  .AddScriptWithoutTransform("~/reactjs/dist/vendor.js")
-  .AddScriptWithoutTransform("~/reactjs/dist/main.js");
+                    .AddScriptWithoutTransform("~/reactjs/dist/vendor.js")
+                    .AddScriptWithoutTransform("~/reactjs/dist/main.js");
+
 
 
 
             });
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
+            app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
 
 
             app.UseRouting();
@@ -140,6 +144,23 @@ namespace Products_Inc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+                endpoints.MapControllerRoute(
+                name: "ReactSPA",
+                pattern: "React/{id?}",
+                defaults: new { controller = "React", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                name: "ReactSPA",
+                pattern: "User/{id?}",
+                defaults: new { controller = "User", action = "Index" });
+
+                endpoints.MapControllerRoute(
+                name: "Reactpartview",
+                pattern: "React/{id?}",
+                defaults: new { controller = "React", action = "get" });
+
 
                 endpoints.MapFallbackToController("Index", "Home");
                 endpoints.MapRazorPages();

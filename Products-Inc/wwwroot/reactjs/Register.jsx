@@ -1,4 +1,7 @@
-﻿class Register extends React.Component {
+﻿import { Component, Fragment } from 'react';
+import React from 'React'
+
+export default class Register extends Component {
     state = {
         registerModel: {userName: "", password: "", confirmPassword: "", email: ""}
     }
@@ -53,4 +56,3 @@
     }
 }
 
-ReactDOM.render(<Register />, document.getElementById('content'));
