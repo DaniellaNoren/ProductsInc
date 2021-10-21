@@ -4,62 +4,90 @@ export default class Products extends Component {
     state = {
         products: [
             {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
+                ProductName: "Orange",
+                Price: 26.99,
+                Description: "Nice for your health",
                 Id: 1,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img4.jpg"
             },
             {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
+                ProductName: "Banana",
+                Price: 14.99,
+                Description: "Nice for your health",
                 Id: 2,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img1.png"
             },
             {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
+                ProductName: "Pomegranate",
+                Price: 35.55,
+                Description: "Nice for your health",
                 Id: 3,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img2.jpg"
             },
             {
-                ProductName: "Toothpaste",
+                ProductName: "Tooth Cleaner",
                 Price: 17.90,
                 Description: "Nice for your teeth",
                 Id: 4,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img3.jpg"
             },
             ,
             {
-                ProductName: "Toothpaste",
+                ProductName: "Coca Cola",
                 Price: 17.90,
-                Description: "Nice for your teeth",
+                Description: "Nice to drink",
                 Id: 5,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img6.jpg"
             },
             {
-                ProductName: "Toothpaste",
+                ProductName: "Oreo",
                 Price: 17.90,
-                Description: "Nice for your teeth",
+                Description: "Nice to eat",
                 Id: 6,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img7.jpg"
             }
             ,
             {
-                ProductName: "Toothpaste",
+                ProductName: "Corn Flakes",
                 Price: 17.90,
-                Description: "Nice for your teeth",
+                Description: "Healthy breakfast",
                 Id: 7,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img8.jpg"
             },
             {
-                ProductName: "Toothpaste",
+                ProductName: "Salt",
                 Price: 17.90,
-                Description: "Nice for your teeth",
+                Description: "Niceto make food",
                 Id: 8,
-                ImgPath: "/img/toothpaste.jpg"
+                ImgPath: "/img/img9.jpg"
+            },
+            {
+                ProductName: "Tomato",
+                Price: 17.90,
+                Description: "Fresh Tomatos",
+                Id: 8,
+                ImgPath: "/img/img11.jpg"
+            },
+            {
+                ProductName: "Avocado",
+                Price: 17.90,
+                Description: "Nice for your health",
+                Id: 8,
+                ImgPath: "/img/img12.jpg"
+            },
+            {
+                ProductName: "Eggo",
+                Price: 17.90,
+                Description: "Nice to eat",
+                Id: 8,
+                ImgPath: "/img/img14.jpg"
+            },
+            {
+                ProductName: "SunButter",
+                Price: 17.90,
+                Description: "Creamy sun butter",
+                Id: 8,
+                ImgPath: "/img/img16.png"
             }
         ]
     }
@@ -75,20 +103,25 @@ export default class Products extends Component {
     }
 }
 
-
 function Product({ product, addProductEvent }) {
     return (
         <div className="product w-2 m-2">
-            <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
-            <h4>{product.ProductName}</h4>
-            <p>{product.Price}kr</p>
-            <p>{product.Description}</p>
-
-            <div className="d-flex align-items-end justify-content-end">
-                <button className="btn btn-success" onClick={() => addProductEvent(product)}>ADD</button>
+            <div classNmae="img-hover-zoom">
+                <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
             </div>
+            <div className="box">
+                <div className="contents">
+                    <h4>{product.ProductName}</h4>
+                    <p>{product.Price}kr</p>
+                    <p>{product.Description}</p>
+                </div>
+                <div className="addButton d-flex align-items-end justify-content-end">
+                    <button className="btn" onClick={() => addProductEvent(product)}>ADD</button>
+                </div>
+            </div>
+  
         </div>
-    )
-}
+    ) 
+}         
 
 //ReactDOM.render(<Products />, document.getElementById('reactcontainer'));
