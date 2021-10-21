@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Products_Inc.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class OrderController : Controller
     {
       
@@ -24,7 +26,7 @@ namespace Products_Inc.Controllers
 
         }
 
-        [HttpPost("[controller]")]
+        [HttpPost]
         public IActionResult CreateOrder([FromBody] CreateOrderViewModel createOrderViewModel)
         {
             if (ModelState.IsValid)
@@ -36,32 +38,27 @@ namespace Products_Inc.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        [HttpGet]
         public IActionResult GetAllOrders()
         {
             return new OkObjectResult(_orderService.ReadAll());
         }
 
         [Authorize(Roles = "Admin, User")]
-        [HttpGet("[controller]/users/{username}")]
-        public IActionResult GetUserOrders(int username)
+        [HttpGet("users/{userid}")]
+        public IActionResult GetUserOrders(int userid)
         {
-            if (this.User.Identity.Name.Equals(username))
-            {
-                List<OrderViewModel> orders =_orderService.FindAllBy(username);
-            }
-
-            return new OkObjectResult("");
+           //todo: check that the user requesting the orders is the owner 
+            return new OkObjectResult(_orderService.FindAllBy(userid));
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //[HttpPost("/{productid}")]
+        //public IActionResult SetOrderCookie()
+        //{
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        //}
+
+      
 
        
     }

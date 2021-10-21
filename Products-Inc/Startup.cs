@@ -20,8 +20,6 @@ using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 using Microsoft.AspNetCore.Http;
 
-
-
 namespace Products_Inc
 {
     public class Startup
@@ -94,12 +92,13 @@ namespace Products_Inc
 
 
             services.AddScoped<IUserService, UserService>(); // identity
-            services.AddScoped<IOrderService, OrderService>(); // identity
-            services.AddScoped<IOrderRepo, DbOrderRepo>(); // identity
-
-
-            services.AddScoped<IProductRepo, DbProductRepo>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IShoppingCartService, ShoppingCartService>();
             services.AddScoped<IProductService, ProductService>();
+            
+            services.AddScoped<IShoppingCartRepo, DbShoppingCartRepo>(); 
+            services.AddScoped<IOrderRepo, DbOrderRepo>(); 
+            services.AddScoped<IProductRepo, DbProductRepo>();
 
             services.AddRazorPages();
 
@@ -156,14 +155,9 @@ namespace Products_Inc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute("default", "{path?}", new { controller = "Home", action = "Index" });
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-                endpoints.MapControllerRoute(
-                    name: "reactrouter",
-                    pattern: "{controller=Home}/{action=Index}/{path?}");
 
                 endpoints.MapRazorPages();
 

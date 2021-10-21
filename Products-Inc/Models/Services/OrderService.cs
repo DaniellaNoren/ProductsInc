@@ -50,37 +50,6 @@ namespace Products_Inc.Models.Services
             throw new NotImplementedException();
         }
 
-
-        /*public OrderViewModel FindBy(OrderViewModel search)
-        {
-            search.OrderListView.Clear();
-
-            List<Order> orderList = _orderRepo.Read();
-
-            foreach (Order item in orderList)
-            {
-                if (item.OrderId.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) //||
-                    //item.City.CityName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) 
-                    // item.PersonLanguages.LanguageName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase))
-                {
-                    search.OrderListView.Add(item);
-                }
-            }
-
-            if (search.OrderListView.Count == 0)
-            {
-                search.SearchResultEmpty = $"No Order could be found, matching \"{search.FilterString}\" ";
-            } else
-            {
-                search.SearchResultEmpty = "";
-            }
-
-            return search;
-
-        }
-        */
-
-
         public OrderViewModel FindBy(int id)
         {
             Order foundOrder = _orderRepo.Read(id);

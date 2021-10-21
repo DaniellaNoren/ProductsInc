@@ -14,10 +14,11 @@ using System.Data;
 
 namespace Products_Inc.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
-
 
         public ProductController(IProductService iProductService)
         {
@@ -25,14 +26,14 @@ namespace Products_Inc.Controllers
 
         }
 
-        [HttpGet("[controller]")]
+        [HttpGet]
         public IActionResult AllProducts()
         {
             return new OkObjectResult(_productService.ReadAll());
         }
 
         [Authorize]
-        [HttpGet("[controller]/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
             try
@@ -46,8 +47,8 @@ namespace Products_Inc.Controllers
 
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost("[controller]")]
+       // [Authorize(Roles = "Admin")]
+        [HttpPost]
         public IActionResult CreateProduct([FromBody] CreateProductViewModel createProductViewModel)
         {
             try
@@ -68,12 +69,9 @@ namespace Products_Inc.Controllers
             return new NotFoundResult();
         }
 
-
-
-
-        [Authorize(Roles = "Admin, User")]
-        [HttpPost]
-        public IActionResult DeletePerson(int id)
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
+        public IActionResult DeleteProduct(int id)
         {
             bool success = _productService.Delete(id);
 
@@ -85,16 +83,7 @@ namespace Products_Inc.Controllers
             return new NotFoundResult();
         }
 
-        public IActionResult AccessDenied()
-        {
-            return View();
-        }
-
-
-      
-
-
-
+       
 
     }
 }

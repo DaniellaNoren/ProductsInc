@@ -18,6 +18,8 @@ namespace Products_Inc.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderProduct> OrderProducts { get; set; }
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<ShoppingCartProduct> ShoppingCartProducts { get; set; }
 
 
 
@@ -33,25 +35,6 @@ namespace Products_Inc.Data
             modelBuilder.Entity<Order>()
                 .HasKey(mb => mb.OrderId);
 
-
-
-            /* Setting up One-to-Many
-            modelBuilder.Entity<Person>()
-                 .HasOne(mbo => mbo.City);
-
-            modelBuilder.Entity<City>()
-                 .HasMany(mbm => mbm.People);
-
-            modelBuilder.Entity<City>()
-                .HasOne(mbo => mbo.Country);
-
-            modelBuilder.Entity<Country>()
-                .HasMany(mbm => mbm.Cities);
-
-            */
-
-            modelBuilder.Entity<OrderProduct>().HasKey(op => new { op.ProductId, op.OrderId });
-
             modelBuilder.Entity<OrderProduct>()
                 .HasOne<Product>(op => op.Product)
                 .WithMany(p => p.OrderProducts)
@@ -62,24 +45,26 @@ namespace Products_Inc.Data
                 .WithMany(o => o.OrderProducts)
                 .HasForeignKey(op => op.OrderId);
 
-            //modelBuilder.Entity<StudentCourse>()
-            //    .HasOne<Course>(sc => sc.Course)
-            //    .WithMany(s => s.StudentCourses)
-            //    .HasForeignKey(sc => sc.CId);
+            modelBuilder.Entity<ShoppingCartProduct>().HasKey(op => new { op.ProductId, op.ShoppingCartId });
+
+           
+            modelBuilder.Entity<ShoppingCartProduct>()
+                .HasOne<ShoppingCart>(sp => sp.ShoppingCart)
+                .WithMany(sc => sc.Products)
+                .HasForeignKey(sp => sp.ShoppingCartId);      
+            
+            modelBuilder.Entity<ShoppingCartProduct>()
+                .HasOne<Product>(sp => sp.Product)
+                .WithMany()
+                .HasForeignKey(sp => sp.ProductId);
+
+       
 
             // Setting up the join-table for the mutual many-to-many bind/relationship
             modelBuilder.Entity<OrderProduct>()  // EF Core 3.x specific. Join table
                 .HasKey(pl => new { pl.OrderId, pl.ProductId });
 
-            //modelBuilder.Entity<OrderProduct>() // One to Many
-            //    .HasOne(ec => ec.Product)
-            //    .WithMany(e => e.OrderProducts)
-            //    .HasForeignKey(ec => ec.OrderId);
-
-            //modelBuilder.Entity<OrderProduct>()  // One  to Many
-            //    .HasOne(ec => ec.Order)
-            //    .WithMany(c => c.OrderProducts)
-            //    .HasForeignKey(ec => ec.ProductId);
+      
 
         }
     }

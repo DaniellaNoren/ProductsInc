@@ -54,7 +54,7 @@ namespace Products_Inc.Data
 
         public List<Order> ReadByUser(int userId)
         {
-            return _orderListContext.Orders.Where(o => o.UserId == userId).ToList();
+            return _orderListContext.Orders.Include(o => o.OrderProducts).ThenInclude(op => op.Product).Where(o => o.UserId == userId).ToList();
         }
 
         public Order Update(Order order)
