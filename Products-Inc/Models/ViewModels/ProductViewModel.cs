@@ -17,7 +17,6 @@ namespace Products_Inc.Models.ViewModels
 
         public string ImgPath { get; set; }
 
-
-        public List<Product> ProductListView { get; set; }
+        public int ProductId { get; set; }
     }
 }

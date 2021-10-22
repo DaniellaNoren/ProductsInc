@@ -7,14 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Content\components\Products.jsx" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="JavaScriptEngineSwitcher.Extensions.MsDependencyInjection" Version="3.3.0" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8" Version="3.13.2" />
     <PackageReference Include="JavaScriptEngineSwitcher.V8.Native.win-x64" Version="3.13.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.20" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.20" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.20" />
@@ -28,6 +24,35 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-grid.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-grid.rtl.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-reboot.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-reboot.rtl.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-utilities.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-utilities.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-utilities.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap-utilities.rtl.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap.min.css_org" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap.rtl.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\css\bootstrap.rtl.min.css.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.bundle.js.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.esm.js" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.esm.js.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.esm.min.js" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.esm.min.js.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.js" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.js.map" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.min.js" />
+    <None Include="wwwroot\css\bootstrap-5.0.2-dist\js\bootstrap.min.js.map" />
     <None Include="wwwroot\reactjs\expose-components.js" />
     <None Include="wwwroot\reactjs\img\toothpaste.jpg" />
   </ItemGroup>
@@ -40,10 +65,6 @@
     <Content Update="wwwroot\toothpaste.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Content\components\" />
   </ItemGroup>
 
 </Project>

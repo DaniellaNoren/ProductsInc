@@ -10,15 +10,15 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IProductService
     {
-        Product Create(CreateProductViewModel product);
+        ProductViewModel Create(CreateProductViewModel product);
 
-        ProductViewModel ReadAll();
+        List<ProductViewModel> ReadAll();
 
         //ProductViewModel FindBy(ProductViewModel search);
 
-        Product FindBy(int id);
+        ProductViewModel FindBy(int id);
 
-        Product Update(int id, Product product);
+        ProductViewModel Update(int id, Product product);
 
         bool Delete(int id);
 

@@ -8,7 +8,7 @@ namespace Products_Inc.Models
     public class User : IdentityUser
     {
 
-
+       
 
     }
 }

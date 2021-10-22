@@ -12,10 +12,8 @@ namespace Products_Inc.Models.ViewModels
 
         public string UserId { get; set; }
 
-        public List<Order> OrderListView { get; set; }
+        public List<ProductViewModel> Products { get; set; }
 
-
-        public List<Order> Orders { get; set; }
 
 
     }

@@ -10,15 +10,17 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IOrderService
     {
-        Order Create(CreateOrderViewModel createOrderViewModel);
+        OrderViewModel Create(CreateOrderViewModel createOrderViewModel);
 
-        OrderViewModel ReadAll();
+        List<OrderViewModel> ReadAll();
+        List<OrderViewModel> FindAllBy(string userid);
 
         //OrderViewModel FindBy(OrderViewModel search);
+        
+        OrderViewModel FindBy(int id);
 
-        Order FindBy(int id);
 
-        Order Update(int id, Order order);
+        OrderViewModel Update(int id, Order order);
 
         bool Delete(int id);
 
