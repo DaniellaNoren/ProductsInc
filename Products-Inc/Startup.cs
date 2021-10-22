@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +11,10 @@ using Products_Inc.Models;
 using Products_Inc.Data;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
@@ -34,6 +34,14 @@ namespace Products_Inc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
+            // -------- DBContexts etc start-------
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ProductIncConnection")));
+
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddReact();
 
@@ -41,9 +49,9 @@ namespace Products_Inc
             {
                 options.DefaultEngineName = V8JsEngine.EngineName;
                 options.EngineFactories.AddV8();
-            });
+            }
+            );
 
-            services.AddControllersWithViews();
 
 
 
@@ -67,12 +75,12 @@ namespace Products_Inc
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 4;
                 options.Password.RequiredUniqueChars = 1;
+
+
                 options.User.AllowedUserNameCharacters =
                 "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = true;
             });
-            // ------ Identity part end ------------
-
 
 
             services.ConfigureApplicationCookie(options =>
@@ -101,11 +109,6 @@ namespace Products_Inc
             services.AddScoped<IProductRepo, DbProductRepo>();
 
             services.AddRazorPages();
-
-            services.ConfigureApplicationCookie(opts => // Custom Identity Access denied path /ER
-            {
-                opts.AccessDeniedPath = "/Home/AccessDenied";
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -144,9 +147,6 @@ namespace Products_Inc
             app.UseStaticFiles();
 
 
-
-
-            app.UseStaticFiles();
 
             app.UseRouting();
 
