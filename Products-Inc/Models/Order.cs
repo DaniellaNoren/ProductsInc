@@ -9,7 +9,7 @@ namespace Products_Inc.Models
     {
 
         public Order() { }
-        public Order(int userId)
+        public Order(string userId)
         {
             UserId = userId;
         }
@@ -17,7 +17,7 @@ namespace Products_Inc.Models
 
         public int OrderId { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
 
         

@@ -91,9 +91,10 @@ namespace Products_Inc.Models.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserViewModel> FindBy(string userName)
+        public async Task<UserViewModel> FindBy(string userName)
         {
-            throw new NotImplementedException();
+            User user = await _userManager.FindByNameAsync(userName);
+            return new UserViewModel() { Id = user.Id };
         }
 
         public async Task<bool> Login(LoginModel login)

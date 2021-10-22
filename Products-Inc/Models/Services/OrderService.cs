@@ -72,7 +72,7 @@ namespace Products_Inc.Models.Services
             return false;
         }
 
-        public List<OrderViewModel> FindAllBy(int userid)
+        public List<OrderViewModel> FindAllBy(string userid)
         {
            return _orderRepo.ReadByUser(userid).Select(o => new OrderViewModel()
             {
