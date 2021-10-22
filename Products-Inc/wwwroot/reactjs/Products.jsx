@@ -68,9 +68,15 @@ export default class Products extends Component {
     } 
     render() {
         return (
-            <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
+            <div>
+                <h4><b>All Products:</b></h4>
+
+                <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
+
                 {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
+                </div>
             </div>
+
         );
     }
 }
@@ -79,6 +85,9 @@ export default class Products extends Component {
 function Product({ product, addProductEvent }) {
     return (
         <div className="product w-2 m-2">
+            <br/>
+            <br/>
+            <br/>
             <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
             <h4>{product.ProductName}</h4>
             <p>{product.Price}kr</p>
@@ -90,5 +99,3 @@ function Product({ product, addProductEvent }) {
         </div>
     )
 }
-
-//ReactDOM.render(<Products />, document.getElementById('reactcontainer'));

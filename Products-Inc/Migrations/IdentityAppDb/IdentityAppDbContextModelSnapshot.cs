@@ -49,14 +49,14 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "7fc178e3-d832-4dec-b689-a7f0c8ccfce4",
+                            ConcurrencyStamp = "62f313e1-8e7d-4148-9bd0-16b5c8a59369",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "824c0113-d293-42b2-afcc-f2abc0cf4158",
+                            ConcurrencyStamp = "a41c411b-8cde-4548-98cf-42f9b2bc6aa7",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -174,6 +174,9 @@ namespace Products_Inc.Migrations.IdentityAppDb
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<string>("BirthDate")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -184,6 +187,12 @@ namespace Products_Inc.Migrations.IdentityAppDb
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

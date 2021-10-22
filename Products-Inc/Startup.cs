@@ -85,7 +85,7 @@ namespace Products_Inc
             {
                 options.LoginPath = $"/user/login";
                 options.LogoutPath = $"/user/Logout";
-                options.AccessDeniedPath = $"/test/Account/AccessDenied";
+                options.AccessDeniedPath = $"/user/AccessDenied";
             });
 
             services.AddControllersWithViews();
@@ -146,23 +146,39 @@ namespace Products_Inc
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
-                endpoints.MapControllerRoute(
-                name: "ReactSPA",
-                pattern: "React/{id?}",
-                defaults: new { controller = "React", action = "Index" });
+                //endpoints.MapControllerRoute(
+                //name: "ReactSPA",
+                //pattern: "React/{id?}",
+                //defaults: new { controller = "React", action = "Index" });
 
-                endpoints.MapControllerRoute(
-                name: "ReactSPA",
-                pattern: "User/{id?}",
-                defaults: new { controller = "User", action = "Index" });
+                //endpoints.MapControllerRoute(
+                //name: "ReactSPA",
+                //pattern: "User/{id?}",
+                //defaults: new { controller = "User", action = "Index" });
 
-                endpoints.MapControllerRoute(
-                name: "Reactpartview",
-                pattern: "React/{id?}",
-                defaults: new { controller = "React", action = "get" });
+                //endpoints.MapControllerRoute(
+                //name: "Reactpartview",
+                //pattern: "React/{id?}",
+                //defaults: new { controller = "React", action = "get" });
+
+                //endpoints.MapControllerRoute(
+                //name: "Edituserroles",
+                //pattern: "UserRoles/{id?}",
+                //defaults: new { controller = "Identity", action = "Index" });
+
+                //endpoints.MapControllerRoute(
+                //name: "CreateRoles",
+                //pattern: "CreateRole/{id?}",
+                //defaults: new { controller = "Identity", action = "Create" });
+
+                //endpoints.MapControllerRoute(
+                //name: "UpdateRoles",
+                //pattern: "UpdateRole/{id?}",
+                //defaults: new { controller = "Identity", action = "Update" });
 
 
                 endpoints.MapFallbackToController("Index", "Home");
+
                 endpoints.MapRazorPages();
 
 

@@ -1,7 +1,7 @@
 ﻿body {
     position: relative;
     width: 1024px;
-    height: 2400px;
+    height: 4000px;
     margin: 0 auto;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -17,7 +17,7 @@
     width: 1024px;
     background-color: #dc3545;
     /*border: 1px solid black;*/
-    z-index: 999;
+    z-index: 900;
 }
 
 .item-reactcontent {
@@ -40,7 +40,7 @@
 }
 
 .pagewrapper {
-    height: 1400px;
+    height: 4000px;
     /*    color: black;*/
     background-color: #87898A;
     display: grid;
@@ -135,22 +135,25 @@ button.accept-policy {
     position: fixed;
     padding: 2em;
     left: 70%;
-    top: 13%;
+    top: 0%;
     transform: translateX(-50%);
-/*    background-color: black;
+    /*    background-color: black;
     color: white;*/
+    z-index: 990;
 }
 
 .identityloginout {
     position: fixed;
-    padding: 2em;
+    padding: 0em;
     left: 70%;
-    top: 30%;
+    top: 15%;
     transform: translateX(-50%);
     background-color: black;
     color: white !important;
+    z-index: 990;
 }
 
 .formlogin {
     width: 400px;
+    z-index: 990;
 }

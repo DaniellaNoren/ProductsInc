@@ -22,7 +22,7 @@ namespace Products_Inc.Models.Services
         }
 
 
-        public async Task<UserViewModel> Add(RegisterModel registerModel)
+        public async Task<UserViewModel> Add(RegisterModelCustom registerModel)
         {
             User createdUser;
 
@@ -96,7 +96,7 @@ namespace Products_Inc.Models.Services
             throw new NotImplementedException();
         }
 
-        public async Task<bool> Login(LoginModel login)
+        public async Task<bool> Login(LoginModelCustom login)
         {
             User user = await _userManager.FindByNameAsync(login.UserName);  
 

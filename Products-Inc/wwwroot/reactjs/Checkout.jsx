@@ -1,4 +1,6 @@
-﻿function Receipt({order, user}){
+﻿import { Component, Fragment } from 'react';
+
+function Receipt({ order, user }) {
     const printReceipt = () => { 
        
         var divContents = document.getElementById("receipt").innerHTML;
@@ -29,7 +31,8 @@
 
             <div className="d-flex align-items-end justify-content-end">
                 <button className="p-2 m-2 btn btn-success" onClick={printReceipt}>PRINT RECEIPT</button>
-            </div>
+                </div>
+                receipt
 
             </div>
         </div>
@@ -62,7 +65,7 @@ function ProductList({products, removeProductMethod}){
     )
 }
 
-class Checkout extends React.Component {
+export default class Checkout extends Component {
     state = {
         viewReceipt: false,
         products: [
@@ -134,6 +137,7 @@ class Checkout extends React.Component {
     render() {
         return (
             <div>
+
                 {  !this.state.viewReceipt ?
             <div>
                 <ProductList products={this.state.products} removeProductMethod={this.removeProduct}/>
@@ -147,10 +151,11 @@ class Checkout extends React.Component {
             <div>
                 <Receipt order={this.state.order} user={{UserName: "user", Id: 1}}/>
             </div>
-            }
+                }
+
             </div>
         )
     }
 }
 
-ReactDOM.render(<Checkout />, document.getElementById('checkoutcontent'))
+/*ReactDOM.render(<Checkout />, document.getElementById('checkoutcontent'))*/

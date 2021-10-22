@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Products_Inc.Models;
 using Microsoft.AspNetCore.Identity;
 

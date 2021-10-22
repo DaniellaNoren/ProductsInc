@@ -2,9 +2,12 @@
 import React from 'React'
 
 export default class Logout extends Component {
-
+    constructor(props) {
+        super(props)
+    }
 
     runlogout = () => {
+
     $.ajax({
         url: "/user/logout",
         type: "POST",
@@ -13,6 +16,8 @@ export default class Logout extends Component {
         dataType: "json",
         success: function (res) {
             console.log("succeeded");
+            /*this.props.history.push('/') change back to -/ when successfully logged in*/
+            console.log("yes we are logged in")
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
@@ -20,16 +25,14 @@ export default class Logout extends Component {
             console.log(errorThrown);
         }
     })
+
+        
     }
 
 
     render() {
         return (
-
-            <div>
-                <button onClick={this.runlogout}>LogOUT here</button>
-                
-            </div>
+                <button onClick={this.runlogout}>Logout</button>               
         )
     }
 }
