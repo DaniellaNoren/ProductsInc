@@ -18,11 +18,11 @@ namespace Products_Inc.Data
             this._context = context;
         }
 
-        public ShoppingCart AddProduct(int productId, string shoppingCartId)
+        public ShoppingCart AddProduct(int productId, int shoppingCartId)
         {
             ShoppingCart shoppingCart = Read(shoppingCartId);
             Product product = _context.Products.Find(productId);
-            shoppingCart.AddProduct(new ShoppingCartProduct() { Product = product, ProductId = productId, ShoppingCartId = Int32.Parse(shoppingCartId) });
+            shoppingCart.AddProduct(new ShoppingCartProduct() { Product = product, ProductId = productId, ShoppingCartId = shoppingCartId });
             _context.Update(shoppingCart);
             _context.SaveChanges();
 
@@ -36,7 +36,7 @@ namespace Products_Inc.Data
             _context.Add(shoppingCart);
             _context.SaveChanges();
 
-            return Read(shoppingCart.ShoppingCartId.ToString());
+            return Read(shoppingCart.ShoppingCartId);
         }
 
         public bool Delete(ShoppingCart shoppingCart)
@@ -52,9 +52,9 @@ namespace Products_Inc.Data
             return _context.ShoppingCarts.ToList();
         }
 
-        public ShoppingCart Read(string id)
+        public ShoppingCart Read(int id)
         {
-            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.ShoppingCartId.ToString().Equals(id)).FirstOrDefault();
+            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.ShoppingCartId == id).FirstOrDefault();
         }
 
         public ShoppingCart ReadActiveByUser(string userid)

@@ -45,20 +45,18 @@ namespace Products_Inc.Data
                 .WithMany(o => o.OrderProducts)
                 .HasForeignKey(op => op.OrderId);
 
-            modelBuilder.Entity<ShoppingCartProduct>().HasKey(op => new { op.ProductId, op.ShoppingCartId });
+            modelBuilder.Entity<ShoppingCartProduct>().HasKey(scp => scp.ShoppingCartProductId);
 
-           
             modelBuilder.Entity<ShoppingCartProduct>()
                 .HasOne<ShoppingCart>(sp => sp.ShoppingCart)
                 .WithMany(sc => sc.Products)
-                .HasForeignKey(sp => sp.ShoppingCartId);      
-            
-            modelBuilder.Entity<ShoppingCartProduct>()
-                .HasOne<Product>(sp => sp.Product)
-                .WithMany()
-                .HasForeignKey(sp => sp.ProductId);
+                .HasForeignKey(sp => sp.ShoppingCartId);
 
-       
+
+            modelBuilder.Entity<ShoppingCartProduct>()
+             .HasOne<Product>(sp => sp.Product)
+             .WithMany()
+             .HasForeignKey(scp => scp.ProductId);
 
             // Setting up the join-table for the mutual many-to-many bind/relationship
             modelBuilder.Entity<OrderProduct>()  // EF Core 3.x specific. Join table

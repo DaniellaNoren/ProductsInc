@@ -19,7 +19,7 @@ namespace Products_Inc.Models.Services
         }
         public ShoppingCartViewModel AddProduct(int productId, string shoppingCartId)
         {
-            ShoppingCart editedShoppingCart = _repo.AddProduct(productId, shoppingCartId);
+            ShoppingCart editedShoppingCart = _repo.AddProduct(productId, Int32.Parse(shoppingCartId));
             return new ShoppingCartViewModel() { ShoppingCartId = editedShoppingCart.ShoppingCartId.ToString(), Products = editedShoppingCart.Products.Select(p => new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription, ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }).ToList(), UserId = editedShoppingCart.UserId };
 
         }
@@ -46,7 +46,7 @@ namespace Products_Inc.Models.Services
 
         public OrderViewModel CreateOrder(ShoppingCartViewModel shoppingCartModel)
         {
-            ShoppingCart shoppingCart = _repo.Read(shoppingCartModel.ShoppingCartId);
+            ShoppingCart shoppingCart = _repo.Read(Int32.Parse(shoppingCartModel.ShoppingCartId));
 
             CreateOrderViewModel order = new CreateOrderViewModel() { ProductIds = shoppingCart.Products.Select(p => p.ProductId).ToList(), UserId = shoppingCart.UserId };
             OrderViewModel createdOrder = _orderService.Create(order);

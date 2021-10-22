@@ -12,9 +12,9 @@ namespace Products_Inc.Models.Interfaces
         ShoppingCart Create(ShoppingCart shoppingCart);
         List<ShoppingCart> Read();
         ShoppingCart ReadActiveByUser(string userid);
-        ShoppingCart Read(string id);
+        ShoppingCart Read(int id);
         ShoppingCart Update(ShoppingCart shoppingCart);
-        ShoppingCart AddProduct(int productId, string shoppingCartId);
+        ShoppingCart AddProduct(int productId, int shoppingCartId);
         bool Delete(ShoppingCart shoppingCart);
     }
 }
