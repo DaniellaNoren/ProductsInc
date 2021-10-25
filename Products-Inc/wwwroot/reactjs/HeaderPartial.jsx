@@ -67,7 +67,7 @@ export default class Headerpart extends Component {
                                         <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                             <li><Link to="/userorders">My Order History</Link></li>
                                             <li><Link to="/userdetails">Edit My Details</Link></li>
-                                            <li><Link to="/userpage">UserPage</Link></li>
+                                            {/*<li><Link to="/userpage">UserPage</Link></li>*/}
 
                                         </ul>
                                     </div>

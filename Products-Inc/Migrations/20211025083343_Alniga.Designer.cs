@@ -9,8 +9,8 @@ using Products_Inc.Data;
 namespace Products_Inc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211022201001_orderproduct")]
-    partial class orderproduct
+    [Migration("20211025083343_Alniga")]
+    partial class Alniga
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

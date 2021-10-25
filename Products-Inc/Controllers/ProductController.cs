@@ -26,6 +26,8 @@ namespace Products_Inc.Controllers
 
         }
 
+
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet]
         public IActionResult AllProducts()
         {

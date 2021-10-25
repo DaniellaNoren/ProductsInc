@@ -27,6 +27,15 @@ namespace Products_Inc.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Seeding db with start products
+            Product banana = new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 };
+            Product satsumas = new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 };
+            Product tomatos = new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 };
+            Product sunflowerbutter = new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 };
+
+            modelBuilder.Entity<Product>().HasData(banana, satsumas, tomatos, sunflowerbutter);
+
+
             // Setting Primarykeys, instead of [Key] in code. One place to handle all of it /ER
             modelBuilder.Entity<Product>()
                 .HasKey(mb => mb.ProductId);

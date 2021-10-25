@@ -36,13 +36,6 @@ namespace Products_Inc.Controllers
             return View("Index");
         }
 
-        [HttpGet]
-        public IActionResult Indexpartial()
-        {
-
-            return PartialView("Indexreactpartial");
-        }
-
 
         //public JsonResult GetProducts()
         //{

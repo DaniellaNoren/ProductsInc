@@ -80,6 +80,36 @@ namespace Products_Inc.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 10,
+                            ProductDescription = "A nice eko quality bananas from peru.",
+                            ProductName = "Pack of bananas",
+                            ProductPrice = 34
+                        },
+                        new
+                        {
+                            ProductId = 20,
+                            ProductDescription = "Clementine fruit.",
+                            ProductName = "Satsumas",
+                            ProductPrice = 6
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            ProductDescription = "Sweet tomatos.",
+                            ProductName = "Tomatos A-Class",
+                            ProductPrice = 3
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            ProductDescription = "Butter made of sunflower seeds.",
+                            ProductName = "Sunflower Butter",
+                            ProductPrice = 54
+                        });
                 });
 
             modelBuilder.Entity("Products_Inc.Models.ShoppingCart", b =>

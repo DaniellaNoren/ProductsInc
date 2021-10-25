@@ -9,8 +9,8 @@ using Products_Inc.Data;
 namespace Products_Inc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211022083002_shoppingcartid2")]
-    partial class shoppingcartid2
+    [Migration("20211025085650_Seed4products")]
+    partial class Seed4products
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,8 +27,8 @@ namespace Products_Inc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 
@@ -37,13 +37,23 @@ namespace Products_Inc.Migrations
 
             modelBuilder.Entity("Products_Inc.Models.OrderProduct", b =>
                 {
+                    b.Property<int>("OrderProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "ProductId");
+                    b.HasKey("OrderProductId");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
@@ -72,6 +82,36 @@ namespace Products_Inc.Migrations
                     b.HasKey("ProductId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductId = 10,
+                            ProductDescription = "A nice eko quality bananas from peru.",
+                            ProductName = "Pack of bananas",
+                            ProductPrice = 34
+                        },
+                        new
+                        {
+                            ProductId = 20,
+                            ProductDescription = "Clementine fruit.",
+                            ProductName = "Satsumas",
+                            ProductPrice = 6
+                        },
+                        new
+                        {
+                            ProductId = 30,
+                            ProductDescription = "Sweet tomatos.",
+                            ProductName = "Tomatos A-Class",
+                            ProductPrice = 3
+                        },
+                        new
+                        {
+                            ProductId = 40,
+                            ProductDescription = "Butter made of sunflower seeds.",
+                            ProductName = "Sunflower Butter",
+                            ProductPrice = 54
+                        });
                 });
 
             modelBuilder.Entity("Products_Inc.Models.ShoppingCart", b =>
@@ -87,8 +127,8 @@ namespace Products_Inc.Migrations
                     b.Property<bool>("TransactionComplete")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ShoppingCartId");
 
@@ -97,13 +137,23 @@ namespace Products_Inc.Migrations
 
             modelBuilder.Entity("Products_Inc.Models.ShoppingCartProduct", b =>
                 {
+                    b.Property<int>("ShoppingCartProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("ShoppingCartId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId", "ShoppingCartId");
+                    b.HasKey("ShoppingCartProductId");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("ShoppingCartId");
 
@@ -113,13 +163,13 @@ namespace Products_Inc.Migrations
             modelBuilder.Entity("Products_Inc.Models.OrderProduct", b =>
                 {
                     b.HasOne("Products_Inc.Models.Order", "Order")
-                        .WithMany("OrderProducts")
+                        .WithMany("Products")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Products_Inc.Models.Product", "Product")
-                        .WithMany("OrderProducts")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

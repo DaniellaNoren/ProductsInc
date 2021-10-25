@@ -101,13 +101,13 @@ export default class Index extends Component {
 
                 <div className="item-reactcontent">
                     <p>
-                        {(() => {
-                            switch (this.state.isUserAuthenticated) {
-                                case false: return "No user is logged in";
-                                case true: return "Yes user is logged in";
-                                default: return "this is default not true of fale if logged in";
-                            }
-                        })()}
+                        {/*{(() => {    this is for later .. when checking userlogged in role and hide show buttons and elements /ER */}
+                        {/*    switch (this.state.isUserAuthenticated) {*/}
+                        {/*        case false: return "No user is logged in";*/}
+                        {/*        case true: return "Yes user is logged in";*/}
+                        {/*        default: return "this is default not true of fale if logged in";*/}
+                        {/*    }*/}
+                        {/*})()}*/}
                     </p>
 
 

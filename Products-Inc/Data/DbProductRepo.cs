@@ -43,8 +43,7 @@ namespace Products_Inc.Data
         {
             
             
-            List<Product> pList = _productListContext.Products
-                .ToList();
+            List<Product> pList = _productListContext.Products.ToList();
 
             return pList;
         }

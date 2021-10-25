@@ -1,5 +1,104 @@
 ﻿import { Component, Fragment } from 'react';
 
+export default class Checkout extends Component {
+    state = {
+        viewReceipt: false,
+        products: [
+            {
+                ProductName: "Toothpaste",
+                Price: 17.90,
+                Description: "Nice for your teeth",
+                Id: 1,
+                ImgPath: "/img/toothpaste.jpg"
+            },
+            {
+                ProductName: "Toothpaste",
+                Price: 17.90,
+                Description: "Nice for your teeth",
+                Id: 2,
+                ImgPath: "/img/toothpaste.jpg"
+            },
+            {
+                ProductName: "Toothpaste",
+                Price: 17.90,
+                Description: "Nice for your teeth",
+                Id: 3,
+                ImgPath: "/img/toothpaste.jpg"
+            }
+        ],
+        order: {
+            Price: 0.0,
+            UserId: 0,
+            Products: [],
+            Id: 0,
+            OrderNr: ""
+        }
+    }
+    cancelOrder = () => {
+        console.log("Going back to homepage.")
+
+        this.setState({
+            order: {
+                Price: 0.0,
+                UserId: 0,
+                Products: [],
+                Id: 0,
+                OrderNr: ""
+            }
+        })
+
+    }
+    checkoutOrder = () => {
+
+        console.log(this.state.products)
+        this.setState({
+            order: {
+                Price: this.totalPrice,
+                UserId: 0,
+                Products: this.state.products,
+                OrderNr: "1875360286-57382699",
+                Id: 0
+            }
+        })
+
+        console.log("Products have been bought")
+        console.log("Order: " + this.state.order)
+
+        this.setState(oldState => ({ viewReceipt: !oldState.viewReceipt }))
+
+    }
+    removeProduct = id => {
+        this.setState(oldState => ({ products: oldState.products.filter(p => p.Id !== id) }))
+        this.totalPrice();
+    }
+    totalPrice = () => Math.round(this.state.products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Price }, 0) * 100) / 100;
+
+    render() {
+        return (
+            <div>
+
+                {!this.state.viewReceipt ?
+                    <div>
+                        <ProductList products={this.state.products} removeProductMethod={this.removeProduct} />
+                        <div className="d-flex align-items-end justify-content-end">
+                            <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice}kr</h3>
+                        </div>
+                        <button onClick={this.checkoutOrder} className="p-2 m-3 btn btn-primary">BUY</button>
+                        <button onClick={this.cancelOrder} className="p-2 m-3 btn btn-secondary">CANCEL</button>
+                    </div>
+                    :
+                    <div>
+                        <Receipt order={this.state.order} user={{ UserName: "user", Id: 1 }} />
+                    </div>
+                }
+
+            </div>
+        )
+    }
+}
+
+
+
 function Receipt({ order, user }) {
     const printReceipt = () => { 
        
@@ -20,12 +119,12 @@ function Receipt({ order, user }) {
             <div>
             <h2>{user.UserName}, your order has been placed!</h2>
             
-            <h3>OrderNr: #{order.OrderNr}</h3>
+            {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
             <h4>Products Inc</h4>
             <ul>
                 {order.Products.map(p => <li key={p.Id}>{p.ProductName}, {p.Price}kr</li>)}
             </ul>
-            <h3>{order.Price}kr</h3>
+            {/*<h3>{order.Price}kr</h3>*/}
 
             <h4>Thank you for ordering!</h4>
 
@@ -65,95 +164,3 @@ function ProductList({products, removeProductMethod}){
     )
 }
 
-export default class Checkout extends Component {
-    state = {
-        viewReceipt: false,
-        products: [
-            {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
-                Id: 1,
-                ImgPath: "/img/toothpaste.jpg"
-            },
-            {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
-                Id: 2,
-                ImgPath: "/img/toothpaste.jpg"
-            },
-            {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
-                Id: 3,
-                ImgPath: "/img/toothpaste.jpg"
-            }
-        ],
-        order: {
-            Price: 0.0,
-            UserId: 0,
-            Products: [],
-            Id: 0,
-            OrderNr: ""
-        }
-    }
-    cancelOrder = () => {
-        console.log("Going back to homepage.")
-
-        this.setState({order: {
-            Price: 0.0,
-            UserId: 0,
-            Products: [],
-            Id: 0,
-            OrderNr: ""
-        }})
-
-    }
-    checkoutOrder = () => {
-
-        console.log(this.state.products)
-        this.setState({ order: {
-            Price: this.totalPrice,
-            UserId: 0,
-            Products: this.state.products,
-            OrderNr: "1875360286-57382699",
-            Id: 0
-        }})
-
-        console.log("Products have been bought")
-        console.log("Order: " + this.state.order)
-
-        this.setState(oldState => ({ viewReceipt: !oldState.viewReceipt }))
-        
-    }
-    removeProduct = id => {
-        this.setState(oldState => ({products: oldState.products.filter(p => p.Id !== id )}))
-        this.totalPrice();
-    }
-    totalPrice = () => Math.round(this.state.products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Price }, 0) * 100) / 100;
-   
-    render() {
-        return (
-            <div>
-
-                {  !this.state.viewReceipt ?
-            <div>
-                <ProductList products={this.state.products} removeProductMethod={this.removeProduct}/>
-                <div className="d-flex align-items-end justify-content-end">
-                    <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice}kr</h3>
-                </div>
-                <button onClick={this.checkoutOrder} className="p-2 m-3 btn btn-primary">BUY</button>
-                <button onClick={this.cancelOrder} className="p-2 m-3 btn btn-secondary">CANCEL</button>
-            </div> 
-            :
-            <div>
-                <Receipt order={this.state.order} user={{UserName: "user", Id: 1}}/>
-            </div>
-                }
-
-            </div>
-        )
-    }
-}

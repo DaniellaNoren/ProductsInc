@@ -6,6 +6,7 @@ using Products_Inc.Models;
 using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Interfaces;
 
+
 namespace Products_Inc.Models.Services
 {
     public class ProductService : IProductService
@@ -27,10 +28,11 @@ namespace Products_Inc.Models.Services
 
 
 
-        public List<ProductViewModel> ReadAll()
+        public List<Product> ReadAll()
         {
-            return _productRepo.Read().Select(p => 
-            GetModel(p)).ToList();
+            List<Product> productList = _productRepo.Read();
+            Console.WriteLine(productList);
+            return productList;
         }
 
         public ProductViewModel Update(int id, Product product)

@@ -15,8 +15,11 @@ export default class UserOrders extends Component{
             <div>
                 <h4><b>UserOrders:</b></h4>
                 <br/>
-
-
+                <ul>
+                    <li>
+                        Orderslist will be here
+                    </li>
+                    </ul>
             </div>
         )
     }
