@@ -52,13 +52,6 @@ namespace Products_Inc.Controllers
             return new OkObjectResult(_orderService.FindAllBy(userid));
         }
 
-        //[HttpPost("/{productid}")]
-        //public IActionResult SetOrderCookie()
-        //{
-
-        //}
-
-      
 
        
     }

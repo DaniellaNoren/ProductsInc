@@ -20,7 +20,7 @@ namespace Products_Inc.Models.Services
         public ShoppingCartViewModel AddProduct(int productId, string shoppingCartId)
         {
             ShoppingCart editedShoppingCart = _repo.AddProduct(productId, Int32.Parse(shoppingCartId));
-            return new ShoppingCartViewModel() { ShoppingCartId = editedShoppingCart.ShoppingCartId.ToString(), Products = editedShoppingCart.Products.Select(p => new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription, ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }).ToList(), UserId = editedShoppingCart.UserId };
+            return new ShoppingCartViewModel() { ShoppingCartId = editedShoppingCart.ShoppingCartId.ToString(), Products = editedShoppingCart.Products.Select(p => new ShoppingCartProductViewModel() { Product = new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription, ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }, Amount = p.Amount, ShoppingCartId = p.ShoppingCartId, ProductId = p.ProductId }).ToList(), UserId = editedShoppingCart.UserId };
 
         }
 
@@ -31,12 +31,11 @@ namespace Products_Inc.Models.Services
                 Active = true,
                 TransactionComplete = shoppingCartViewModel.TransactionComplete,
                 UserId = shoppingCartViewModel.UserId,
-                Products = shoppingCartViewModel.ProductIds.Select(pid => new ShoppingCartProduct() { ProductId = pid }).ToList()
+                Products = shoppingCartViewModel.Products.Select(p => new ShoppingCartProduct() { ProductId = p.ProductId, Amount = p.Amount }).ToList()
             };
 
             createdShoppingCart = _repo.Create(createdShoppingCart);
-
-            return new ShoppingCartViewModel() { ShoppingCartId = createdShoppingCart.ShoppingCartId.ToString(), Products = createdShoppingCart.Products.Select(p => new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription, ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }).ToList(), UserId = createdShoppingCart.UserId };
+            return GetModel(createdShoppingCart);
         }
 
         public bool Delete(int id)
@@ -48,7 +47,7 @@ namespace Products_Inc.Models.Services
         {
             ShoppingCart shoppingCart = _repo.Read(Int32.Parse(shoppingCartModel.ShoppingCartId));
 
-            CreateOrderViewModel order = new CreateOrderViewModel() { ProductIds = shoppingCart.Products.Select(p => p.ProductId).ToList(), UserId = shoppingCart.UserId };
+            CreateOrderViewModel order = new CreateOrderViewModel() { Products = shoppingCart.Products.Select(p => new OrderProductViewModel() { Product = new ProductViewModel() { ProductDescription = p.Product.ProductDescription, ProductId = p.Product.ProductId, ImgPath = p.Product.ImgPath, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }, Amount = p.Amount }).ToList(), UserId = shoppingCart.UserId };
             OrderViewModel createdOrder = _orderService.Create(order);
 
             shoppingCart.Active = false;
@@ -66,8 +65,7 @@ namespace Products_Inc.Models.Services
             {
                 throw new Exception();
             }
-
-            return new ShoppingCartViewModel() { ShoppingCartId = shoppingCart.ShoppingCartId.ToString(), Products = shoppingCart.Products.Select(p => new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription, ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }).ToList(), UserId = shoppingCart.UserId };
+            return GetModel(shoppingCart);
         }
 
         public List<ShoppingCartViewModel> FindAllBy(int userid)
@@ -88,9 +86,33 @@ namespace Products_Inc.Models.Services
         public ShoppingCartViewModel Update(int id, ShoppingCart shoppingCart)
         {
             _repo.Update(shoppingCart);
-            return new ShoppingCartViewModel() { ShoppingCartId = shoppingCart.ShoppingCartId.ToString(), Products = shoppingCart.Products.Select(p => new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription, ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }).ToList(), UserId = shoppingCart.UserId };
 
+            return GetModel(shoppingCart);
 
+        }
+
+        public ShoppingCartViewModel GetModel(ShoppingCart shoppingCart)
+        {
+            return new ShoppingCartViewModel()
+            {
+                ShoppingCartId = shoppingCart.ShoppingCartId.ToString(),
+                Products = shoppingCart.Products.Select(p =>
+                new ShoppingCartProductViewModel()
+                {
+                    Product = new ProductViewModel()
+                    {
+                        ImgPath = p.Product.ImgPath,
+                        ProductDescription = p.Product.ProductDescription,
+                        ProductId = p.ProductId,
+                        ProductName = p.Product.ProductName,
+                        ProductPrice = p.Product.ProductPrice
+                    },
+                    Amount = p.Amount,
+                    ProductId = p.ProductId,
+                    ShoppingCartId = shoppingCart.ShoppingCartId
+                }).ToList(),
+                UserId = shoppingCart.UserId
+            };
         }
     }
 }

@@ -22,8 +22,7 @@ namespace Products_Inc.Models.Services
         public ProductViewModel Create(CreateProductViewModel createProductViewModel)
         {
             Product createdProduct = _productRepo.Create(createProductViewModel);
-
-            return new ProductViewModel() { ImgPath = createdProduct.ImgPath, ProductPrice = createdProduct.ProductPrice, ProductDescription = createdProduct.ProductDescription, ProductId = createdProduct.ProductId, ProductName = createdProduct.ProductName };
+            return GetModel(createdProduct);
         }
 
 
@@ -31,11 +30,7 @@ namespace Products_Inc.Models.Services
         public List<ProductViewModel> ReadAll()
         {
             return _productRepo.Read().Select(p => 
-            new ProductViewModel() { 
-                ImgPath = p.ImgPath, 
-                ProductDescription = p.ProductDescription, 
-                ProductName = p.ProductName, 
-                ProductPrice = p.ProductPrice }).ToList();
+            GetModel(p)).ToList();
         }
 
         public ProductViewModel Update(int id, Product product)
@@ -79,7 +74,7 @@ namespace Products_Inc.Models.Services
             Product foundProduct = _productRepo.Read(id);
 
             if (foundProduct != null)
-                return new ProductViewModel() { ImgPath = foundProduct.ImgPath, ProductPrice = foundProduct.ProductPrice, ProductDescription = foundProduct.ProductDescription, ProductId = foundProduct.ProductId, ProductName = foundProduct.ProductName };
+                return GetModel(foundProduct);
             else
                 throw new Exception("Entity not found"); //todo: create unique exception
         }
@@ -96,6 +91,18 @@ namespace Products_Inc.Models.Services
             }
 
             return false;
+        }
+
+        public ProductViewModel GetModel(Product product)
+        {
+            return new ProductViewModel() { 
+                ImgPath = product.ImgPath, 
+                ProductPrice = product.ProductPrice, 
+                ProductDescription = product.ProductDescription, 
+                ProductId = product.ProductId, 
+                ProductName = product.ProductName 
+            };
+
         }
 
         /*public void CreateBaseProducts(List<ProductCity> cities)

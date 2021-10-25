@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using Products_Inc.Models;
 using Products_Inc.Models.Interfaces;
@@ -22,6 +23,8 @@ namespace Products_Inc.Controllers
             _service = service;
             _userService = userService;
         }
+     
+   
 
         [HttpGet("buy")]
         public IActionResult GetOrder(ShoppingCartViewModel shoppingCart)
@@ -60,7 +63,7 @@ namespace Products_Inc.Controllers
         }
 
         [HttpPost("products")]
-        public async Task<IActionResult> AddProduct(ProductViewModel product)
+        public async Task<IActionResult> AddProduct(ShoppingCartProductViewModel product)
         {
 
             ShoppingCartViewModel shoppingCart;
@@ -71,7 +74,7 @@ namespace Products_Inc.Controllers
             if (User.Identity.IsAuthenticated)
                 {
                     CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
-                    createShoppingCart.AddProductId(product.ProductId);
+                    createShoppingCart.AddProduct(product);
                     UserViewModel user = await _userService.FindBy(User.Identity.Name);
                     createShoppingCart.UserId = user.Id;
                     shoppingCart = _service.Create(createShoppingCart);
@@ -79,7 +82,7 @@ namespace Products_Inc.Controllers
                 }
                 else
                 {
-                    shoppingCart = new ShoppingCartViewModel() { Products = new List<ProductViewModel>() { product } };
+                    shoppingCart = new ShoppingCartViewModel() { Products = new List<ShoppingCartProductViewModel>() { product } };
                     this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
                 }
             }
@@ -93,7 +96,7 @@ namespace Products_Inc.Controllers
                 if (this.User.Identity.IsAuthenticated)
                 {
                    
-                   shoppingCart = _service.AddProduct(product.ProductId, shoppingCart.ShoppingCartId);
+                   shoppingCart = _service.AddProduct(product.Product.ProductId, shoppingCart.ShoppingCartId);
                 }
                 else
                 {
