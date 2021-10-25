@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 using Products_Inc.Models;
 using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Interfaces;
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc.Models.Services
 {
     public class OrderService : IOrderService
     {
         private readonly IOrderRepo _orderRepo;
-        
+
 
         public OrderService(IOrderRepo iOrderRepo)
         {
@@ -19,30 +20,20 @@ namespace Products_Inc.Models.Services
         }
 
 
-        
+
         public OrderViewModel Create(CreateOrderViewModel createOrderViewModel)
         {
             Order createdOrder = _orderRepo.Create(createOrderViewModel);
-
-            return new OrderViewModel() { OrderId = createdOrder.OrderId.ToString(), Products = createdOrder.OrderProducts.Select(op => new ProductViewModel() { ImgPath = op.Product.ImgPath, ProductDescription = op.Product.ProductDescription, ProductId = op.ProductId, ProductName = op.Product.ProductName, ProductPrice = op.Product.ProductPrice }).ToList(), UserId = createdOrder.UserId.ToString() };
+            return GetModel(createdOrder);
         }
 
 
 
         public List<OrderViewModel> ReadAll()
         {
-           return _orderRepo.Read().Select(o => 
-            new OrderViewModel() { 
-                OrderId = o.OrderId.ToString(), 
-                UserId = o.UserId.ToString(), 
-                Products = o.OrderProducts.Select(p => 
-                new ProductViewModel() { 
-                    ProductDescription = p.Product.ProductDescription, 
-                    ImgPath = p.Product.ImgPath, 
-                    ProductName = p.Product.ProductName, 
-                    ProductPrice = p.Product.ProductPrice}).ToList() 
-            }).ToList();
-            
+            return _orderRepo.Read().Select(o =>
+             GetModel(o)).ToList();
+
         }
 
         public OrderViewModel Update(int id, Order order)
@@ -54,39 +45,52 @@ namespace Products_Inc.Models.Services
         {
             Order foundOrder = _orderRepo.Read(id);
 
-            return new OrderViewModel() { OrderId = foundOrder.OrderId.ToString(), Products = foundOrder.OrderProducts.Select(op => new ProductViewModel() { ImgPath = op.Product.ImgPath, ProductDescription = op.Product.ProductDescription, ProductId = op.ProductId, ProductName = op.Product.ProductName, ProductPrice = op.Product.ProductPrice }).ToList(), UserId = foundOrder.UserId.ToString() };
-
+            return GetModel(foundOrder);
         }
 
         public bool Delete(int id)
         {
             Order orderToDelete = _orderRepo.Read(id);
 
-            if(orderToDelete != null)
+            if (orderToDelete != null)
             {
                 bool success = _orderRepo.Delete(orderToDelete);
 
                 return success;
             }
+            else
+            {
+                throw new EntityNotFoundException($"User with id ${id} not found");
+            }
 
-            return false;
         }
 
-        public List<OrderViewModel> FindAllBy(int userid)
+        public List<OrderViewModel> FindAllBy(string userid)
         {
-           return _orderRepo.ReadByUser(userid).Select(o => new OrderViewModel()
+            return _orderRepo.ReadByUser(userid).Select(o => GetModel(o)).ToList();
+        }
+
+        public OrderViewModel GetModel(Order order)
+        {
+            return new OrderViewModel()
             {
-                OrderId = o.OrderId.ToString(),
-                UserId = o.UserId.ToString(),
-                Products = o.OrderProducts.Select(p =>
-                new ProductViewModel()
-                {
-                    ProductDescription = p.Product.ProductDescription,
-                    ImgPath = p.Product.ImgPath,
-                    ProductName = p.Product.ProductName,
-                    ProductPrice = p.Product.ProductPrice
-                }).ToList()
-            }).ToList();
+                OrderId = order.OrderId.ToString(),
+                UserId = order.UserId.ToString(),
+                Products = order.Products.Select(p =>
+                    new OrderProductViewModel()
+                    {
+                        ProductId = p.ProductId,
+                        OrderId = p.OrderId,
+                        Amount = p.Amount,
+                        Product = new ProductViewModel()
+                        {
+                            ProductDescription = p.Product.ProductDescription,
+                            ImgPath = p.Product.ImgPath,
+                            ProductName = p.Product.ProductName,
+                            ProductPrice = p.Product.ProductPrice
+                        }
+                    }).ToList()
+            };
         }
 
 

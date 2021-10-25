@@ -9,11 +9,17 @@ namespace Products_Inc.Models.ViewModels
     public class CreateOrderViewModel
     {
    
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
-        public List<int> ProductIds { get; set; }
+        public List<OrderProductViewModel> Products { get; set; }
 
+        public void AddProduct(OrderProductViewModel product)
+        {
+            if (Products == null)
+                Products = new List<OrderProductViewModel>();
 
+            Products.Add(product);
+        }
     }  
      
 }

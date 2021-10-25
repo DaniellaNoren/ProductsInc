@@ -46,19 +46,12 @@ namespace Products_Inc.Controllers
 
         [Authorize(Roles = "Admin, User")]
         [HttpGet("users/{userid}")]
-        public IActionResult GetUserOrders(int userid)
+        public IActionResult GetUserOrders(string userid)
         {
            //todo: check that the user requesting the orders is the owner 
             return new OkObjectResult(_orderService.FindAllBy(userid));
         }
 
-        //[HttpPost("/{productid}")]
-        //public IActionResult SetOrderCookie()
-        //{
-
-        //}
-
-      
 
        
     }

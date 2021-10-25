@@ -11,13 +11,21 @@ namespace Products_Inc.Models
     public class ShoppingCart 
     {
         [Key]
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public int ShoppingCartId { get; set; }
+        public string UserId { get; set; }
 
         public List<ShoppingCartProduct> Products { get; set; }
 
         [DefaultValue(true)]
         public bool Active { get; set; }
         public bool TransactionComplete { get; set; }
+
+        public void AddProduct(ShoppingCartProduct product)
+        {
+            if (Products == null)
+                Products = new List<ShoppingCartProduct>();
+
+            Products.Add(product);
+        }
     }
 }

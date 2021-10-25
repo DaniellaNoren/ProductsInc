@@ -13,7 +13,7 @@ namespace Products_Inc.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
-
+       
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -60,7 +60,7 @@ namespace Products_Inc.Data
              .WithMany()
              .HasForeignKey(scp => scp.ProductId);
 
-
+      
 
         }
     }

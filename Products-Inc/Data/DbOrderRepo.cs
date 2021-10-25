@@ -24,7 +24,7 @@ namespace Products_Inc.Data
         public Order Create(CreateOrderViewModel createOrderViewModel)
         {
             Order newOrder = new Order(createOrderViewModel.UserId) { 
-            OrderProducts = createOrderViewModel.ProductIds.Select(id => new OrderProduct() { ProductId = id }).ToList() };
+            Products = createOrderViewModel.Products.Select(op => new OrderProduct() { ProductId =  op.Product.ProductId, Amount = op.Amount}).ToList() };
 
              _orderListContext.Orders.Add(newOrder);
             _orderListContext.SaveChanges();
@@ -36,7 +36,7 @@ namespace Products_Inc.Data
         public List<Order> Read()
         {
             List<Order> pList = _orderListContext.Orders
-                .Include(f => f.OrderProducts).ThenInclude(g => g.Product)
+                .Include(f => f.Products).ThenInclude(g => g.Product)
                 .ToList();
 
             return pList;
@@ -46,15 +46,15 @@ namespace Products_Inc.Data
         {
             Order order = _orderListContext.Orders
                 .Where(c => c.OrderId == id)
-                .Include(f => f.OrderProducts).ThenInclude(g => g.Product)
+                .Include(f => f.Products).ThenInclude(g => g.Product)
                 .FirstOrDefault();
 
             return order;
         }
 
-        public List<Order> ReadByUser(int userId)
+        public List<Order> ReadByUser(string userId)
         {
-            return _orderListContext.Orders.Include(o => o.OrderProducts).ThenInclude(op => op.Product).Where(o => o.UserId == userId).ToList();
+            return _orderListContext.Orders.Include(o => o.Products).ThenInclude(op => op.Product).Where(o => o.UserId.Equals(userId)).ToList();
         }
 
         public Order Update(Order order)

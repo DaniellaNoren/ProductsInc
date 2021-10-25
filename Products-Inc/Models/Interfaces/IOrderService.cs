@@ -13,7 +13,7 @@ namespace Products_Inc.Models.Interfaces
         OrderViewModel Create(CreateOrderViewModel createOrderViewModel);
 
         List<OrderViewModel> ReadAll();
-        List<OrderViewModel> FindAllBy(int userid);
+        List<OrderViewModel> FindAllBy(string userid);
 
         //OrderViewModel FindBy(OrderViewModel search);
         

@@ -21,7 +21,8 @@ namespace Products_Inc.Data
         public ShoppingCart AddProduct(int productId, int shoppingCartId)
         {
             ShoppingCart shoppingCart = Read(shoppingCartId);
-            shoppingCart.Products.Add(new ShoppingCartProduct() { ProductId = productId, ShoppingCartId = shoppingCartId });
+            Product product = _context.Products.Find(productId);
+            shoppingCart.AddProduct(new ShoppingCartProduct() { Product = product, ProductId = productId, ShoppingCartId = shoppingCartId });
             _context.Update(shoppingCart);
             _context.SaveChanges();
 
@@ -35,7 +36,7 @@ namespace Products_Inc.Data
             _context.Add(shoppingCart);
             _context.SaveChanges();
 
-            return Read(shoppingCart.Id);
+            return Read(shoppingCart.ShoppingCartId);
         }
 
         public bool Delete(ShoppingCart shoppingCart)
@@ -53,17 +54,25 @@ namespace Products_Inc.Data
 
         public ShoppingCart Read(int id)
         {
-            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.Id == id).FirstOrDefault();
+            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.ShoppingCartId == id).FirstOrDefault();
         }
 
-        public List<ShoppingCart> ReadByUser(int userid)
+        public ShoppingCart ReadActiveByUser(string userid)
         {
-            return _context.ShoppingCarts.Where(sc => sc.UserId == userid).ToList();
+            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.UserId.Equals(userid) && sc.Active && !sc.TransactionComplete).FirstOrDefault();
+        }
+
+        public List<ShoppingCart> ReadByUser(string userid)
+        {
+            return _context.ShoppingCarts.Where(sc => sc.UserId.Equals(userid)).ToList();
         }
 
         public ShoppingCart Update(ShoppingCart shoppingCart)
         {
-            throw new NotImplementedException();
+            _context.Update(shoppingCart);
+            _context.SaveChanges();
+
+            return shoppingCart;
         }
     }
 }

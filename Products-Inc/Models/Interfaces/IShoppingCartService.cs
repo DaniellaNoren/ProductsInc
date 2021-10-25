@@ -12,12 +12,14 @@ namespace Products_Inc.Models.Interfaces
     {
         ShoppingCartViewModel Create(CreateShoppingCartViewModel createShoppingCartViewModel);
 
+        OrderViewModel CreateOrder(ShoppingCartViewModel shoppingViewModel);
+
         List<ShoppingCartViewModel> ReadAll();
-        List<ShoppingCartViewModel> FindAllBy(int userid);
+        ShoppingCartViewModel FindActiveBy(string userid);
 
         ShoppingCartViewModel FindBy(int id);
 
-        void AddProduct(int productId, int shoppingCartId);
+        ShoppingCartViewModel AddProduct(int productId, string shoppingCartId);
         ShoppingCartViewModel Update(int id, ShoppingCart shoppingCart);
 
         bool Delete(int id);

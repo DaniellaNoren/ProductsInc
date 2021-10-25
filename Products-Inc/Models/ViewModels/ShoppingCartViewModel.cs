@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Products_Inc.Models;
 
 
@@ -11,7 +12,8 @@ namespace Products_Inc.Models.ViewModels
 
         public string UserId { get; set; }
 
-        public List<ProductViewModel> Products { get; set; }
+        public List<ShoppingCartProductViewModel> Products { get; set; }
+
 
     }
 }
