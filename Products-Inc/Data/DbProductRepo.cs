@@ -27,7 +27,7 @@ namespace Products_Inc.Data
             Product createProduct = new Product(createProductViewModel.ProductName, createProductViewModel.ProductDescription,
             createProductViewModel.ProductPrice, createProductViewModel.ImgPath);
 
-            _productListContext.Add(createProduct);
+            _productListContext.Products.Add(createProduct);
             _productListContext.SaveChanges();
 
             return createProduct;

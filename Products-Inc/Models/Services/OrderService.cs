@@ -11,6 +11,7 @@ namespace Products_Inc.Models.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderRepo _orderRepo;
+        
 
         public OrderService(IOrderRepo iOrderRepo)
         {
@@ -19,66 +20,42 @@ namespace Products_Inc.Models.Services
 
 
         
-        public Order Create(CreateOrderViewModel createOrderViewModel)
+        public OrderViewModel Create(CreateOrderViewModel createOrderViewModel)
         {
             Order createdOrder = _orderRepo.Create(createOrderViewModel);
 
-            return createdOrder;
+            return new OrderViewModel() { OrderId = createdOrder.OrderId.ToString(), Products = createdOrder.OrderProducts.Select(op => new ProductViewModel() { ImgPath = op.Product.ImgPath, ProductDescription = op.Product.ProductDescription, ProductId = op.ProductId, ProductName = op.Product.ProductName, ProductPrice = op.Product.ProductPrice }).ToList(), UserId = createdOrder.UserId.ToString() };
         }
 
 
 
-        public OrderViewModel ReadAll()
+        public List<OrderViewModel> ReadAll()
         {
-            OrderViewModel oViewMod = new OrderViewModel()
-            {
-                OrderListView = _orderRepo.Read(),
-            };
-
-            return oViewMod;
+           return _orderRepo.Read().Select(o => 
+            new OrderViewModel() { 
+                OrderId = o.OrderId.ToString(), 
+                UserId = o.UserId.ToString(), 
+                Products = o.OrderProducts.Select(p => 
+                new ProductViewModel() { 
+                    ProductDescription = p.Product.ProductDescription, 
+                    ImgPath = p.Product.ImgPath, 
+                    ProductName = p.Product.ProductName, 
+                    ProductPrice = p.Product.ProductPrice}).ToList() 
+            }).ToList();
+            
         }
 
-        public Order Update(int id, Order product)
+        public OrderViewModel Update(int id, Order order)
         {
             throw new NotImplementedException();
         }
 
-
-        /*public OrderViewModel FindBy(OrderViewModel search)
+        public OrderViewModel FindBy(int id)
         {
-            search.OrderListView.Clear();
+            Order foundOrder = _orderRepo.Read(id);
 
-            List<Order> orderList = _orderRepo.Read();
+            return new OrderViewModel() { OrderId = foundOrder.OrderId.ToString(), Products = foundOrder.OrderProducts.Select(op => new ProductViewModel() { ImgPath = op.Product.ImgPath, ProductDescription = op.Product.ProductDescription, ProductId = op.ProductId, ProductName = op.Product.ProductName, ProductPrice = op.Product.ProductPrice }).ToList(), UserId = foundOrder.UserId.ToString() };
 
-            foreach (Order item in orderList)
-            {
-                if (item.OrderId.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) //||
-                    //item.City.CityName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase)) 
-                    // item.PersonLanguages.LanguageName.Contains(search.FilterString, StringComparison.OrdinalIgnoreCase))
-                {
-                    search.OrderListView.Add(item);
-                }
-            }
-
-            if (search.OrderListView.Count == 0)
-            {
-                search.SearchResultEmpty = $"No Order could be found, matching \"{search.FilterString}\" ";
-            } else
-            {
-                search.SearchResultEmpty = "";
-            }
-
-            return search;
-
-        }
-        */
-
-
-        public Order FindBy(int id)
-        {
-            Order foundProduct = _orderRepo.Read(id);
-
-            return foundProduct;
         }
 
         public bool Delete(int id)
@@ -95,14 +72,22 @@ namespace Products_Inc.Models.Services
             return false;
         }
 
-        /*public void CreateBaseProducts(List<Order> orders)
+        public List<OrderViewModel> FindAllBy(int userid)
         {
-            _orderRepo.Create("Eric Rönnhult", "0777 777777", orders[0]);
-            _orderRepo.Create("Bosse Bus", "0777 777777", orders[1]);
-            _orderRepo.Create("Kjell Kriminell", "0777 777777", orders[2]);
-            _orderRepo.Create("Anders Rolle", "0777 777777", orders[3]);
-
-        }*/
+           return _orderRepo.ReadByUser(userid).Select(o => new OrderViewModel()
+            {
+                OrderId = o.OrderId.ToString(),
+                UserId = o.UserId.ToString(),
+                Products = o.OrderProducts.Select(p =>
+                new ProductViewModel()
+                {
+                    ProductDescription = p.Product.ProductDescription,
+                    ImgPath = p.Product.ImgPath,
+                    ProductName = p.Product.ProductName,
+                    ProductPrice = p.Product.ProductPrice
+                }).ToList()
+            }).ToList();
+        }
 
 
     }

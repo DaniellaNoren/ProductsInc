@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Products_Inc.Models.ViewModels
 {
-    public class CreateOrderViewModel
+    public class CreateShoppingCartViewModel
     {
    
         public int UserId { get; set; }

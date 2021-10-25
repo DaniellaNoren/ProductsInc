@@ -5,16 +5,13 @@ using Products_Inc.Models;
 
 namespace Products_Inc.Models.ViewModels
 {
-    public class OrderViewModel
+    public class ShoppingCartViewModel
     {
-        public string OrderId { get; set; }
-
+        public string ShoppingCartId { get; set; }
 
         public string UserId { get; set; }
 
         public List<ProductViewModel> Products { get; set; }
-
-
 
     }
 }
