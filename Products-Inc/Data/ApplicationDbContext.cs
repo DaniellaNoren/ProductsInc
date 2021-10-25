@@ -40,31 +40,37 @@ namespace Products_Inc.Data
                 .WithMany(p => p.OrderProducts)
                 .HasForeignKey(op => op.ProductId);
 
-            modelBuilder.Entity<OrderProduct>()
-                .HasOne<Order>(op => op.Order)
-                .WithMany(o => o.OrderProducts)
-                .HasForeignKey(op => op.OrderId);
 
-            modelBuilder.Entity<ShoppingCartProduct>().HasKey(op => new { op.ProductId, op.ShoppingCartId });
+            /* Setting up One-to-Many
+            modelBuilder.Entity<Person>()
+                 .HasOne(mbo => mbo.City);
 
-           
-            modelBuilder.Entity<ShoppingCartProduct>()
-                .HasOne<ShoppingCart>(sp => sp.ShoppingCart)
-                .WithMany(sc => sc.Products)
-                .HasForeignKey(sp => sp.ShoppingCartId);      
-            
-            modelBuilder.Entity<ShoppingCartProduct>()
-                .HasOne<Product>(sp => sp.Product)
-                .WithMany()
-                .HasForeignKey(sp => sp.ProductId);
+            modelBuilder.Entity<City>()
+                 .HasMany(mbm => mbm.People);
 
-       
+            modelBuilder.Entity<City>()
+                .HasOne(mbo => mbo.Country);
+
+            modelBuilder.Entity<Country>()
+                .HasMany(mbm => mbm.Cities);
+
+            */
+
+
 
             // Setting up the join-table for the mutual many-to-many bind/relationship
             modelBuilder.Entity<OrderProduct>()  // EF Core 3.x specific. Join table
-                .HasKey(pl => new { pl.OrderId, pl.ProductId });
+                .HasKey(pl => new { pl.ProductId, pl.OrderId });
 
-      
+            modelBuilder.Entity<OrderProduct>() // One to Many
+                .HasOne(ec => ec.Product)
+                .WithMany(e => e.OrderProducts)
+                .HasForeignKey(ec => ec.OrderId);
+
+            modelBuilder.Entity<OrderProduct>()  // One  to Many
+                .HasOne(ec => ec.Order)
+                .WithMany(c => c.OrderProducts)
+                .HasForeignKey(ec => ec.ProductId);
 
         }
     }
