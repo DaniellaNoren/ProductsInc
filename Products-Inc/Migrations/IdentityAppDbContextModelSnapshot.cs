@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Products_Inc.Data;
 
-namespace Products_Inc.Migrations.IdentityAppDb
+namespace Products_Inc.Migrations
 {
     [DbContext(typeof(IdentityAppDbContext))]
-    [Migration("20211022094031_Addedidentityprops")]
-    partial class Addedidentityprops
+    partial class IdentityAppDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,14 +49,14 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "62f313e1-8e7d-4148-9bd0-16b5c8a59369",
+                            ConcurrencyStamp = "eb05baee-3128-45dc-80d2-be6e28acf303",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "a41c411b-8cde-4548-98cf-42f9b2bc6aa7",
+                            ConcurrencyStamp = "77b2710e-65b5-49f6-8d23-53a95fa64d6a",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -176,9 +174,6 @@ namespace Products_Inc.Migrations.IdentityAppDb
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("BirthDate")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -189,12 +184,6 @@ namespace Products_Inc.Migrations.IdentityAppDb
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Products_Inc.Migrations.IdentityAppDb
+namespace Products_Inc.Migrations
 {
-    public partial class FirstERMigration : Migration
+    public partial class Redodatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -155,12 +155,12 @@ namespace Products_Inc.Migrations.IdentityAppDb
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "7fc178e3-d832-4dec-b689-a7f0c8ccfce4", "Admin", "ADMIN" });
+                values: new object[] { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "eb05baee-3128-45dc-80d2-be6e28acf303", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "824c0113-d293-42b2-afcc-f2abc0cf4158", "User", "USER" });
+                values: new object[] { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "77b2710e-65b5-49f6-8d23-53a95fa64d6a", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

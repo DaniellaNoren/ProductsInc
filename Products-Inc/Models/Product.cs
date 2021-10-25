@@ -7,7 +7,6 @@ namespace Products_Inc.Models
     public class Product
     {
 
-        private int _productId;
         private string _productName;
         private string _productDescription;
         private int _productPrice;
@@ -27,6 +26,7 @@ namespace Products_Inc.Models
 
 
         public int ProductId { get; set; }
+        
 
         public string ProductName
         {

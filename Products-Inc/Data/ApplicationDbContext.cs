@@ -34,37 +34,28 @@ namespace Products_Inc.Data
                 .HasKey(mb => mb.OrderId);
 
 
-
-            /* Setting up One-to-Many
-            modelBuilder.Entity<Person>()
-                 .HasOne(mbo => mbo.City);
-
-            modelBuilder.Entity<City>()
-                 .HasMany(mbm => mbm.People);
-
-            modelBuilder.Entity<City>()
-                .HasOne(mbo => mbo.Country);
-
-            modelBuilder.Entity<Country>()
-                .HasMany(mbm => mbm.Cities);
-
-            */
-
-
-
             // Setting up the join-table for the mutual many-to-many bind/relationship
             modelBuilder.Entity<OrderProduct>()  // EF Core 3.x specific. Join table
-                .HasKey(pl => new { pl.OrderId, pl.ProductId });
+                .HasKey(pl => new { pl.ProductId, pl.OrderId });
 
             modelBuilder.Entity<OrderProduct>() // One to Many
                 .HasOne(ec => ec.Product)
                 .WithMany(e => e.OrderProducts)
-                .HasForeignKey(ec => ec.OrderId);
+                .HasForeignKey(ec => ec.ProductId);
 
             modelBuilder.Entity<OrderProduct>()  // One  to Many
                 .HasOne(ec => ec.Order)
                 .WithMany(c => c.OrderProducts)
-                .HasForeignKey(ec => ec.ProductId);
+                .HasForeignKey(ec => ec.OrderId);
+
+
+            // Seeding db with start products
+            Product banana = new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 };
+            Product satsumas = new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 };
+            Product tomatos = new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 };
+            Product sunflowerbutter = new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 };
+
+            modelBuilder.Entity<Product>().HasData(banana, satsumas, tomatos, sunflowerbutter);
 
         }
     }

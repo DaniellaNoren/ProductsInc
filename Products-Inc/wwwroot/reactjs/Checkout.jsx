@@ -32,7 +32,7 @@ function Receipt({ order, user }) {
             <div className="d-flex align-items-end justify-content-end">
                 <button className="p-2 m-2 btn btn-success" onClick={printReceipt}>PRINT RECEIPT</button>
                 </div>
-                receipt
+                
 
             </div>
         </div>
@@ -157,5 +157,3 @@ export default class Checkout extends Component {
         )
     }
 }
-
-/*ReactDOM.render(<Checkout />, document.getElementById('checkoutcontent'))*/

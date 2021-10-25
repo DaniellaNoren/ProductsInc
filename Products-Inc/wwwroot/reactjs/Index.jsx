@@ -95,11 +95,15 @@ export default class Index extends Component {
             <div className="pagewrapper">
                 <HeaderPartial />  {/*Header component*/}
 
+
+
+
+
                 <div className="item-reactcontent">
                     <p>
                         {(() => {
                             switch (this.state.isUserAuthenticated) {
-                                case false: return "No user is NOT logged in";
+                                case false: return "No user is logged in";
                                 case true: return "Yes user is logged in";
                                 default: return "this is default not true of fale if logged in";
                             }

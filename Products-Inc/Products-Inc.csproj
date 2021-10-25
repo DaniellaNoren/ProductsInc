@@ -83,6 +83,7 @@
 
   <ItemGroup>
     <Folder Include="Content\components\" />
+    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

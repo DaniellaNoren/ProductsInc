@@ -63,6 +63,38 @@ export default class Products extends Component {
             }
         ]
     }
+
+    tryToLogin = e => {
+        e.preventDefault();
+        console.log(this.state.loginModel);
+        console.log(JSON.stringify(this.state.loginModel));
+
+        $.ajax({
+            url: "/api/product",
+            type: "GET",
+            data: JSON.stringify(this.state.loginModel),
+            Accept: "application/json",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (res) {
+                console.log("succeeded");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+
+        /* axios.get(this.state.peoplelistapiurl)
+     .then(dbdata => {
+         this.setState({ personlistdata: dbdata });
+     })
+     .catch(e => {
+         console.log(e)
+     });*/
+    }
+
     addProduct = product => {
         console.log(`Product with id ${product.Id} added`)
     } 

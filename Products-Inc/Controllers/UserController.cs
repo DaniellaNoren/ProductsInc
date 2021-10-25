@@ -24,13 +24,13 @@ namespace Products_Inc.Controllers
             this._userService = userService;
         }
 
-        private RoleManager<IdentityRole> roleManager;
-        private UserManager<User> userManager;
-        public UserController(RoleManager<IdentityRole> roleMgr, UserManager<User> userMrg)
-        {
-            roleManager = roleMgr;
-            userManager = userMrg;
-        }
+        //private RoleManager<IdentityRole> roleManager;
+        //private UserManager<User> userManager;
+        //public UserController(RoleManager<IdentityRole> roleMgr, UserManager<User> userMrg)
+        //{
+        //    roleManager = roleMgr;
+        //    userManager = userMrg;
+        //}
 
         [HttpPost("[controller]/login")]
         public async Task<ActionResult> Login([FromBody] LoginModelCustom loginModel)

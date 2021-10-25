@@ -11,13 +11,12 @@ export default class Logout extends Component {
     $.ajax({
         url: "/user/logout",
         type: "POST",
-        Accept: "application/json",
+        //Accept: "application/json",
         contentType: "application/json",
-        dataType: "json",
         success: function (res) {
             console.log("succeeded");
             /*this.props.history.push('/') change back to -/ when successfully logged in*/
-            console.log("yes we are logged in")
+            //console.log("yes we are logged in")
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);

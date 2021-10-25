@@ -31,6 +31,8 @@ namespace Products_Inc.Data
 
             builder.Entity<IdentityRole>().HasData(
               roleAdmin, roleUser);
+
+
         }
 
     }

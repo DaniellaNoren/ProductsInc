@@ -28,10 +28,10 @@ export default class Headerpart extends Component {
             <header className="item-header">
                 <nav className="navbar navbar-expand-lg navbar-dark">
                     <div className="container-fluid">
-                        <a className="navbar-brand text-info" id="menulogo" alt="Company Logo">
+                        <div className="navbar-brand text-info" id="menulogo" alt="Company Logo">
                             <Link to="/"><img alt="logo" src="./img/logo.png" /></Link>
                             
-                        </a>
+                        </div>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -48,19 +48,19 @@ export default class Headerpart extends Component {
                                 </li>
 
                                 <li className="nav-item">
-                                    <li className="nav-item dropdown">
+                                    <div className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Admin Menu
                                         </a>
-                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
                                             <li><Link to="/adminproducts">Products</Link></li>
                                             <li><Link to="/adminusers">Users</Link></li>
                                             <li><Link to="/adminorders">Orders</Link></li>
                                         </ul>
-                                    </li>
+                                    </div>
                                 </li>
                                 <li className="nav-item">
-                                    <li className="nav-item dropdown">
+                                    <div className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             My Page
                                         </a>
@@ -70,21 +70,21 @@ export default class Headerpart extends Component {
                                             <li><Link to="/userpage">UserPage</Link></li>
 
                                         </ul>
-                                    </li>
+                                    </div>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-dark" ><Link to="/checkout"><img src="./img/cart.jpg" width="30" height="30" /></Link></a>
+                                    <Link to="/checkout" className="nav-link text-dark"><img src="./img/cart.jpg" width="30" height="30" /></Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link"><Link to="/register"><button>Register</button></Link></a>
+                                    <Link to="/register" className="nav-link"><button>Register</button></Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link"><Link to="/login"><button>Login</button></Link></a>
+                                    <Link to="/login" className="nav-link" ><button>Login</button></Link>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link"><Logout /></a>
                                 </li>
-                            </ul>
+                            </ul>  {/*problem li after li,,,, and atag after atag (atag and link)*/}
                     </div>
 
                     </div>
