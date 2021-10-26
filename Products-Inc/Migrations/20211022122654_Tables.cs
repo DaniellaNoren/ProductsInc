@@ -2,7 +2,7 @@
 
 namespace Products_Inc.Migrations
 {
-    public partial class FirstERMigration : Migration
+    public partial class Tables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,18 +12,11 @@ namespace Products_Inc.Migrations
                 {
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: false),
-                    OrderId1 = table.Column<int>(nullable: true)
+                    UserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_Orders_OrderId1",
-                        column: x => x.OrderId1,
-                        principalTable: "Orders",
-                        principalColumn: "OrderId",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -35,18 +28,26 @@ namespace Products_Inc.Migrations
                     ProductName = table.Column<string>(nullable: true),
                     ProductDescription = table.Column<string>(nullable: true),
                     ProductPrice = table.Column<int>(nullable: false),
-                    ImgPath = table.Column<string>(nullable: true),
-                    ProductId1 = table.Column<int>(nullable: true)
+                    ImgPath = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.ProductId);
-                    table.ForeignKey(
-                        name: "FK_Products_Products_ProductId1",
-                        column: x => x.ProductId1,
-                        principalTable: "Products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCarts",
+                columns: table => new
+                {
+                    ShoppingCartId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(nullable: true),
+                    Active = table.Column<bool>(nullable: false),
+                    TransactionComplete = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCarts", x => x.ShoppingCartId);
                 });
 
             migrationBuilder.CreateTable(
@@ -60,16 +61,40 @@ namespace Products_Inc.Migrations
                 {
                     table.PrimaryKey("PK_OrderProducts", x => new { x.OrderId, x.ProductId });
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Products_OrderId",
+                        name: "FK_OrderProducts_Orders_OrderId",
                         column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderProducts_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShoppingCartProducts",
+                columns: table => new
+                {
+                    ShoppingCartId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ShoppingCartProducts", x => new { x.ProductId, x.ShoppingCartId });
+                    table.ForeignKey(
+                        name: "FK_ShoppingCartProducts_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderProducts_Orders_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Orders",
-                        principalColumn: "OrderId",
+                        name: "FK_ShoppingCartProducts_ShoppingCarts_ShoppingCartId",
+                        column: x => x.ShoppingCartId,
+                        principalTable: "ShoppingCarts",
+                        principalColumn: "ShoppingCartId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -79,14 +104,9 @@ namespace Products_Inc.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_OrderId1",
-                table: "Orders",
-                column: "OrderId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Products_ProductId1",
-                table: "Products",
-                column: "ProductId1");
+                name: "IX_ShoppingCartProducts_ShoppingCartId",
+                table: "ShoppingCartProducts",
+                column: "ShoppingCartId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -95,10 +115,16 @@ namespace Products_Inc.Migrations
                 name: "OrderProducts");
 
             migrationBuilder.DropTable(
-                name: "Products");
+                name: "ShoppingCartProducts");
 
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "ShoppingCarts");
         }
     }
 }

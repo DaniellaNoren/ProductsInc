@@ -49,14 +49,14 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "8a6406e0-2aa1-4ea2-9da1-85c995e351dd",
+                            ConcurrencyStamp = "c3fcba11-bbc8-4db2-a5e6-a9a3c9100518",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "b63a63e9-b88f-42fa-bff6-5691542f5a1c",
+                            ConcurrencyStamp = "fa3d94b5-05be-4d73-9691-b11ad2df83f9",
                             Name = "User",
                             NormalizedName = "USER"
                         });
