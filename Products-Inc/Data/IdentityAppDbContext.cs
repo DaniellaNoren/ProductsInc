@@ -16,6 +16,13 @@ namespace Products_Inc.Data
         {
             base.OnModelCreating(builder);
 
+
+
+
+
+
+            // ____________ SEEDING SECTION ____________
+
             IdentityRole roleAdmin = new IdentityRole()
             {
                 Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
@@ -31,6 +38,46 @@ namespace Products_Inc.Data
 
             builder.Entity<IdentityRole>().HasData(
               roleAdmin, roleUser);
+
+
+
+
+            // ---------  Seeding Users  ----------
+
+            //hash the password before storing in db
+            var hashit = new PasswordHasher<IdentityUser>();
+
+            builder.Entity<IdentityUser>().HasData(
+                new IdentityUser
+                {
+                    Id = "0001", // primary key
+                    UserName = "Admin",
+                    NormalizedUserName = "ADMIN",
+                    PasswordHash = hashit.HashPassword(null, "Admin")
+                },
+                new IdentityUser
+                {
+                    Id = "0010", // primary key
+                    UserName = "customer1",
+                    NormalizedUserName = "CUSTOMER1",
+                    PasswordHash = hashit.HashPassword(null, "customer1")
+                },
+                new IdentityUser
+                {
+                    Id = "0020", // primary key
+                    UserName = "customer2",
+                    NormalizedUserName = "CUSTOMER2",
+                    PasswordHash = hashit.HashPassword(null, "customer2")
+                },
+                new IdentityUser
+                {
+                    Id = "0030", // primary key
+                    UserName = "customer3",
+                    NormalizedUserName = "CUSTOMER3",
+                    PasswordHash = hashit.HashPassword(null, "customer3")
+                }
+            );
+
 
 
         }
