@@ -2,7 +2,7 @@
 
 namespace Products_Inc.Migrations
 {
-    public partial class Tables : Migration
+    public partial class Alniga : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,12 +54,15 @@ namespace Products_Inc.Migrations
                 name: "OrderProducts",
                 columns: table => new
                 {
+                    OrderProductId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
+                    ProductId = table.Column<int>(nullable: false),
+                    Amount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderProducts", x => new { x.OrderId, x.ProductId });
+                    table.PrimaryKey("PK_OrderProducts", x => x.OrderProductId);
                     table.ForeignKey(
                         name: "FK_OrderProducts_Orders_OrderId",
                         column: x => x.OrderId,
@@ -78,12 +81,15 @@ namespace Products_Inc.Migrations
                 name: "ShoppingCartProducts",
                 columns: table => new
                 {
+                    ShoppingCartProductId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ShoppingCartId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false)
+                    ProductId = table.Column<int>(nullable: false),
+                    Amount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ShoppingCartProducts", x => new { x.ProductId, x.ShoppingCartId });
+                    table.PrimaryKey("PK_ShoppingCartProducts", x => x.ShoppingCartProductId);
                     table.ForeignKey(
                         name: "FK_ShoppingCartProducts_Products_ProductId",
                         column: x => x.ProductId,
@@ -99,8 +105,18 @@ namespace Products_Inc.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_OrderProducts_OrderId",
+                table: "OrderProducts",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_ProductId",
                 table: "OrderProducts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShoppingCartProducts_ProductId",
+                table: "ShoppingCartProducts",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(

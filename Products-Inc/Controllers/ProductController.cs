@@ -11,6 +11,7 @@ using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Services;
 using Products_Inc.Models.Interfaces;
 using System.Data;
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc.Controllers
 {
@@ -26,6 +27,8 @@ namespace Products_Inc.Controllers
 
         }
 
+
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet]
         public IActionResult AllProducts()
         {
@@ -36,37 +39,25 @@ namespace Products_Inc.Controllers
         [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
-            try
-            {
-                return new OkObjectResult(_productService.FindBy(id));
-            }
-            catch (Exception)
-            {
-                return new NotFoundObjectResult(new { msg = "Product with that id not found" });
-            }
-
+           return new OkObjectResult(_productService.FindBy(id));
         }
 
-       // [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateProduct([FromBody] CreateProductViewModel createProductViewModel)
         {
-            try
-            {
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
                 {
                     ProductViewModel createdProduct = _productService.Create(createProductViewModel);
 
                     return new OkObjectResult(createdProduct);
 
-                }
             }
-            catch (DataException)
+            else
             {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                return new BadRequestObjectResult(new { msg = "Invalid body" });
             }
-
-            return new NotFoundResult();
+          
         }
 
         [Authorize(Roles = "Admin")]
@@ -79,8 +70,11 @@ namespace Products_Inc.Controllers
             {
                 return new OkResult();
             }
+            else
+            {
+                return new BadRequestObjectResult(new { msg = "Product not managed to be deleted. " });
+            }
 
-            return new NotFoundResult();
         }
 
        

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Products_Inc.Models.Exceptions;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
 using System;
@@ -94,6 +95,10 @@ namespace Products_Inc.Models.Services
         public async Task<UserViewModel> FindBy(string userName)
         {
             User user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+                throw new EntityNotFoundException("User with username " + userName + " not found.");
+
             return new UserViewModel() { Id = user.Id };
         }
 

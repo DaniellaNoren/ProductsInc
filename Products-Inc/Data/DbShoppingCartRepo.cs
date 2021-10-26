@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Products_Inc.Models;
+using Products_Inc.Models.Exceptions;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
 using System;
@@ -18,13 +19,23 @@ namespace Products_Inc.Data
             this._context = context;
         }
 
-        public ShoppingCart AddProduct(int productId, string shoppingCartId)
+        public ShoppingCart AddProduct(int productId, int shoppingCartId)
         {
             ShoppingCart shoppingCart = Read(shoppingCartId);
+
             Product product = _context.Products.Find(productId);
-            shoppingCart.AddProduct(new ShoppingCartProduct() { Product = product, ProductId = productId, ShoppingCartId = Int32.Parse(shoppingCartId) });
-            _context.Update(shoppingCart);
-            _context.SaveChanges();
+            
+            if(product != null)
+            {
+                shoppingCart.AddProduct(new ShoppingCartProduct() { Product = product, ProductId = productId, ShoppingCartId = shoppingCartId });
+                _context.Update(shoppingCart);
+                _context.SaveChanges();
+
+            }
+            else
+            {
+                throw new EntityNotFoundException("Product with id " + productId + " not found.");
+            }
 
             return shoppingCart;
                 
@@ -33,10 +44,12 @@ namespace Products_Inc.Data
 
         public ShoppingCart Create(ShoppingCart shoppingCart)
         {
-            _context.Add(shoppingCart);
-            _context.SaveChanges();
+           
+                _context.Add(shoppingCart);
+                _context.SaveChanges();
+           
 
-            return Read(shoppingCart.ShoppingCartId.ToString());
+            return Read(shoppingCart.ShoppingCartId);
         }
 
         public bool Delete(ShoppingCart shoppingCart)
@@ -52,10 +65,19 @@ namespace Products_Inc.Data
             return _context.ShoppingCarts.ToList();
         }
 
-        public ShoppingCart Read(string id)
+        public ShoppingCart Read(int id)
         {
-            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.ShoppingCartId.ToString().Equals(id)).FirstOrDefault();
+            ShoppingCart sc = _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.ShoppingCartId == id).FirstOrDefault();
+            if(sc != null)
+            {
+                return sc;
+            }
+            else
+            {
+                throw new EntityNotFoundException("Shopping cart not found");
+            }
         }
+
 
         public ShoppingCart ReadActiveByUser(string userid)
         {

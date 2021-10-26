@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Products_Inc.Models;
 using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Interfaces;
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc.Models.Services
 {
@@ -22,21 +23,22 @@ namespace Products_Inc.Models.Services
         public ProductViewModel Create(CreateProductViewModel createProductViewModel)
         {
             Product createdProduct = _productRepo.Create(createProductViewModel);
-
-            return new ProductViewModel() { ImgPath = createdProduct.ImgPath, ProductPrice = createdProduct.ProductPrice, ProductDescription = createdProduct.ProductDescription, ProductId = createdProduct.ProductId, ProductName = createdProduct.ProductName };
+            return GetModel(createdProduct);
         }
-
-
 
         public List<ProductViewModel> ReadAll()
         {
-            return _productRepo.Read().Select(p => 
-            new ProductViewModel() { 
-                ImgPath = p.ImgPath, 
-                ProductDescription = p.ProductDescription, 
-                ProductName = p.ProductName, 
-                ProductPrice = p.ProductPrice }).ToList();
+            return _productRepo.Read().Select(p =>
+            GetModel(p)).ToList();
         }
+
+        //public List<Product> ReadAll()
+        //{
+
+        //    List<Product> productList = _productRepo.Read();
+        //    Console.WriteLine(productList);
+        //    return productList;
+        //}
 
         public ProductViewModel Update(int id, Product product)
         {
@@ -79,9 +81,9 @@ namespace Products_Inc.Models.Services
             Product foundProduct = _productRepo.Read(id);
 
             if (foundProduct != null)
-                return new ProductViewModel() { ImgPath = foundProduct.ImgPath, ProductPrice = foundProduct.ProductPrice, ProductDescription = foundProduct.ProductDescription, ProductId = foundProduct.ProductId, ProductName = foundProduct.ProductName };
+                return GetModel(foundProduct);
             else
-                throw new Exception("Entity not found"); //todo: create unique exception
+                throw new EntityNotFoundException("Product not found"); 
         }
 
         public bool Delete(int id)
@@ -91,11 +93,26 @@ namespace Products_Inc.Models.Services
             if(productToDelete != null)
             {
                 bool success = _productRepo.Delete(productToDelete);
-
                 return success;
             }
+            else
+            {
+                throw new EntityNotFoundException("Product not found");
+            }
 
-            return false;
+ 
+        }
+
+        public ProductViewModel GetModel(Product product)
+        {
+            return new ProductViewModel() { 
+                ImgPath = product.ImgPath, 
+                ProductPrice = product.ProductPrice, 
+                ProductDescription = product.ProductDescription, 
+                ProductId = product.ProductId, 
+                ProductName = product.ProductName 
+            };
+
         }
 
         /*public void CreateBaseProducts(List<ProductCity> cities)

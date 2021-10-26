@@ -1,7 +1,7 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
 
-export default class Login extends Component {
+export default class LoginPartial extends Component {
     state = {
         loginModel: {userName: "", password: "", rememberMe: false}
     }

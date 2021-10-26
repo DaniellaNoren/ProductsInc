@@ -43,9 +43,7 @@ namespace Products_Inc.Data
         {
             
             
-            List<Product> pList = _productListContext.Products
-                .Include(f => f.OrderProducts).ThenInclude(g => g.Order)
-                .ToList();
+            List<Product> pList = _productListContext.Products.ToList();
 
             return pList;
         }
@@ -54,7 +52,6 @@ namespace Products_Inc.Data
         {
             Product person = _productListContext.Products
                 .Where(c => c.ProductId == id)
-                .Include(f => f.OrderProducts).ThenInclude(g => g.Order)
                 .FirstOrDefault();
 
             return person;

@@ -19,6 +19,7 @@ using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 using Microsoft.AspNetCore.Http;
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc
 {
@@ -90,7 +91,7 @@ namespace Products_Inc
                 options.AccessDeniedPath = $"/test/Account/AccessDenied";
             });
 
-
+            
 
 
             // -- Database
@@ -109,6 +110,9 @@ namespace Products_Inc
             services.AddScoped<IProductRepo, DbProductRepo>();
 
             services.AddRazorPages();
+
+            services.AddControllers(options =>
+    options.Filters.Add(new HttpResponseExceptionFilter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,12 +120,14 @@ namespace Products_Inc
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseExceptionHandler("/error");
+
+               // app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

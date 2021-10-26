@@ -15,14 +15,14 @@ namespace Products_Inc.Models.ViewModels
         [DefaultValue(true)]
         public bool Active { get; set; }
         public bool TransactionComplete { get; set; }
-        public List<int> ProductIds { get; set; }
+        public List<ShoppingCartProductViewModel> Products { get; set; }
 
-        public void AddProductId(int id)
+        public void AddProduct(ShoppingCartProductViewModel product)
         {
-            if (ProductIds == null)
-                ProductIds = new List<int>();
+            if (Products == null)
+                Products = new List<ShoppingCartProductViewModel>();
 
-            ProductIds.Add(id);
+            Products.Add(product);
         }
     }  
      

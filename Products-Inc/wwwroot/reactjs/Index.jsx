@@ -1,17 +1,29 @@
 ﻿
 import { Component, Fragment } from 'react';
-import OrderThingy from './Orders.jsx';
+import Orders from './Orders.jsx';
 import Products from './Products.jsx';
-import Headerpart from './Headerpart.jsx';
-import Footerpart from './Footerpart.jsx';
+import HeaderPartial from './HeaderPartial.jsx';
+import FooterPartial from './FooterPartial.jsx';
+import Login from './Login.jsx';
+import Register from './Register.jsx';
+import Logout from './Logout.jsx';
+import ContactUs from './ContactUs.jsx';
+import UserPage from './UserPage.jsx';
+import Checkout from './Checkout.jsx';
+import AdminOrders from './AdminOrders.jsx';
+import AdminProducts from './AdminProducts.jsx';
+import AdminUsers from './AdminUsers.jsx';
+import UserOrders from './UserOrders.jsx';
+import UserDetails from './UserDetails.jsx';
 import {
     Link,
     BrowserRouter,
     Route,
     Switch,
     StaticRouter,
-    Redirect,
+    Redirect
 } from 'react-router-dom';
+
 
 class OrderPage extends Component{
     //get the orders by calling the partialview with user orders. render the html 
@@ -24,7 +36,7 @@ class OrderPage extends Component{
     render(){
         return (
             <div>
-                <OrderThingy />
+                <Orders />
             </div>
         )
     }
@@ -67,16 +79,6 @@ function SideMenu({viewOrders, location, context}) {
             <li className="nav-item">
 
                
-
-            </li>
-            <li className="nav-item">
-                <button onClick={() => viewOrders()}>My Ordersssssssssssrgsr</button>
-            </li>
-            <li className="nav-item">
-                <a onClick={() => console.log("edit profile")} className="nav-link" href="#">Edit profile</a>
-            </li>
-            <li className="nav-item">
-                <a onClick={() => console.log("edit profile")} className="nav-link" href="#">Logout</a>
             </li>
         </ul>
     )
@@ -84,66 +86,78 @@ function SideMenu({viewOrders, location, context}) {
 
 export default class Index extends Component {
    state = {
-       viewOrders: false
+       viewOrders: false,
+       isUserAuthenticated: false
     }
     render() {
         const app = (
-            //<div className="container">
 
-            //    <main role="main" className="pb-3">
             <div className="pagewrapper">
-                    <Headerpart />  {/*Header component*/}
-
-                    <div className="item-reactcontent">
-
-                        <p>{this.props.someProp}</p>
-
-                        <ul>
-                            <li>
-
-                                <Link to="/orders">Router test</Link>
-                            </li>
-                            <li>
-                                <Link to="/admin">Router test bleh</Link>
-                            </li>
-                            <li>
-                                <Link to="/products">Products</Link>
-                            </li>
-                        </ul>
-                        <Switch>
-                            <Route path="/orders"><OrderThingy /></Route>
-                            <Route
-                                path="/bleh"><h1>test</h1></Route>
-                            <Route
-                                path="/products"
-
-                            ><Products />
-                            </Route>
-                            {/*<Route*/}
-                            {/*        path="*"*/}
-                            {/*        component={() => {*/}
+                <HeaderPartial />  {/*Header component*/}
 
 
-                            {/*        return <h1>Not Found </h1>;*/}
-                            {/*    }}*/}
-                            {/*/>*/}
-                        </Switch>
 
 
-                        <h1>{this.props.test}</h1>
-                        <SideMenu viewOrders={() => {
-                            this.setState({ viewOrders: !this.state.viewOrders });
-                        }} />
 
-                        <div>
-                            {this.state.viewOrders ? <OrderPage /> : null}
-                        </div>
+                <div className="item-reactcontent">
+                    <p>
+                        {/*{(() => {    this is for later .. when checking userlogged in role and hide show buttons and elements /ER */}
+                        {/*    switch (this.state.isUserAuthenticated) {*/}
+                        {/*        case false: return "No user is logged in";*/}
+                        {/*        case true: return "Yes user is logged in";*/}
+                        {/*        default: return "this is default not true of fale if logged in";*/}
+                        {/*    }*/}
+                        {/*})()}*/}
+                    </p>
 
-                    </div>
 
-                    <Footerpart />  {/*Footer component*/}
 
-            </div>
+                    <a></a>
+
+                    <br />
+                    {/*<p>{this.props.someProp}</p>*/}
+                    {/*<br/>*/}
+
+
+                    <Switch>
+                        <Route exact path="/"><Redirect to="/products" /></Route>
+
+                        <Route path="/login"><Login /></Route>
+                        <Route path="/register"><Register /></Route>
+                        <Route path="/logout"><Logout /></Route>
+
+                        <Route path="/products"><Products /></Route>
+                        <Route path="/orders"><Orders /></Route>
+                        <Route path="/contactus"><ContactUs /></Route>
+
+                        <Route path="/userpage"><UserPage /></Route>
+                        <Route path="/userorders"><UserOrders /></Route>
+                        <Route path="/userdetails"><UserDetails /></Route>
+                        <Route path="/checkout"><Checkout /></Route>
+
+
+                        <Route path="/adminorders"><AdminOrders /></Route>
+                        <Route path="/adminusers"><AdminUsers /></Route>
+                        <Route path="/adminproducts"><AdminProducts /></Route>
+
+
+                    </Switch>
+
+
+                    {/*<h1>{this.props.test}</h1>*/}
+                    {/*<SideMenu viewOrders={() => {*/}
+                    {/*    this.setState({ viewOrders: !this.state.viewOrders });*/}
+                    {/*}} />*/}
+
+                    {/*<div>*/}
+                    {/*    {this.state.viewOrders ? <OrderPage /> : null}*/}
+                    {/*</div>*/}
+
+                </div>
+
+                <FooterPartial />  {/*Footer component*/}
+
+            </div> 
 
         );
 
@@ -156,10 +170,12 @@ export default class Index extends Component {
                 >
                     {app}
                 </StaticRouter>
-            );
+            )
         }
-        return <BrowserRouter>{app}</BrowserRouter>;
+        return (<BrowserRouter>{app}</BrowserRouter>)
         
     }
 }
+
+
 

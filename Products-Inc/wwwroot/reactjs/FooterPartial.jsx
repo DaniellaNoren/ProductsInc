@@ -13,7 +13,7 @@ export default class Footer extends Component {
         return (
             <footer className="item-footer border-top foot text-dark">
                 <div className="container">
-                    &copy; 2021 - Products_Inc - <a>Privacy no link</a>
+                    &copy; 2021 - Products Inc
                 </div>
             </footer>
         )
