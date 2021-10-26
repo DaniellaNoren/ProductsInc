@@ -120,9 +120,8 @@ namespace Products_Inc
         {
             if (env.IsDevelopment())
             {
-                app.UseExceptionHandler("/error");
 
-               // app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
