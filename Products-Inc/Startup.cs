@@ -19,7 +19,8 @@ using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 using Microsoft.AspNetCore.Http;
-using Products_Inc.Models.Exceptions;
+
+
 
 namespace Products_Inc
 {
@@ -42,8 +43,12 @@ namespace Products_Inc
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ProductIncConnection")));
 
+            services.AddDbContext<IdentityAppDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ProductIncConnection")));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUserService, UserService>();
             services.AddReact();
 
             services.AddJsEngineSwitcher(options =>
@@ -52,14 +57,6 @@ namespace Products_Inc
                 options.EngineFactories.AddV8();
             }
             );
-
-
-
-
-            // ------ Identity part start ------------
-            services.AddDbContext<IdentityAppDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("UserConnection")));
 
 
             services.AddIdentity<User, IdentityRole>(o =>
@@ -88,31 +85,15 @@ namespace Products_Inc
             {
                 options.LoginPath = $"/user/login";
                 options.LogoutPath = $"/user/Logout";
-                options.AccessDeniedPath = $"/test/Account/AccessDenied";
+                options.AccessDeniedPath = $"/user/AccessDenied";
             });
 
-            
+            services.AddControllersWithViews();
 
-
-            // -- Database
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("ProductIncConnection")));
-
-
-            services.AddScoped<IUserService, UserService>(); // identity
-            services.AddScoped<IOrderService, OrderService>();
-            services.AddScoped<IShoppingCartService, ShoppingCartService>();
-            services.AddScoped<IProductService, ProductService>();
-            
-            services.AddScoped<IShoppingCartRepo, DbShoppingCartRepo>(); 
-            services.AddScoped<IOrderRepo, DbOrderRepo>(); 
             services.AddScoped<IProductRepo, DbProductRepo>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddRazorPages();
-
-            services.AddControllers(options =>
-    options.Filters.Add(new HttpResponseExceptionFilter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,21 +101,16 @@ namespace Products_Inc
         {
             if (env.IsDevelopment())
             {
-                app.UseExceptionHandler("/error");
-
-               // app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/error");
+                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
 
-
-            // Initialise ReactJS.NET. Must be before static files.
             app.UseReact(config =>
             {
                 config
@@ -142,16 +118,19 @@ namespace Products_Inc
                     .SetLoadBabel(false)
                     .SetLoadReact(false)
                     .SetReactAppBuildPath("~/reactjs/dist")
+                    //.AddScriptWithoutTransform("~/js/ajaxactions.js")
                     .AddScriptWithoutTransform("~/reactjs/dist/runtime.js")
-  .AddScriptWithoutTransform("~/reactjs/dist/vendor.js")
-  .AddScriptWithoutTransform("~/reactjs/dist/main.js");
+                    .AddScriptWithoutTransform("~/reactjs/dist/vendor.js")
+                    .AddScriptWithoutTransform("~/reactjs/dist/main.js");
+
 
 
 
             });
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
 
+            app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
 
 
             app.UseRouting();
@@ -161,9 +140,44 @@ namespace Products_Inc
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute("default", "{path?}", new { controller = "Home", action = "Index" });
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+                //endpoints.MapControllerRoute(
+                //name: "ReactSPA",
+                //pattern: "React/{id?}",
+                //defaults: new { controller = "React", action = "Index" });
+
+                //endpoints.MapControllerRoute(
+                //name: "ReactSPA",
+                //pattern: "User/{id?}",
+                //defaults: new { controller = "User", action = "Index" });
+
+                //endpoints.MapControllerRoute(
+                //name: "Reactpartview",
+                //pattern: "React/{id?}",
+                //defaults: new { controller = "React", action = "get" });
+
+                //endpoints.MapControllerRoute(
+                //name: "Edituserroles",
+                //pattern: "UserRoles/{id?}",
+                //defaults: new { controller = "Identity", action = "Index" });
+
+                //endpoints.MapControllerRoute(
+                //name: "CreateRoles",
+                //pattern: "CreateRole/{id?}",
+                //defaults: new { controller = "Identity", action = "Create" });
+
+                //endpoints.MapControllerRoute(
+                //name: "UpdateRoles",
+                //pattern: "UpdateRole/{id?}",
+                //defaults: new { controller = "Identity", action = "Update" });
+
+
+                endpoints.MapFallbackToController("Index", "Home");
 
                 endpoints.MapRazorPages();
 

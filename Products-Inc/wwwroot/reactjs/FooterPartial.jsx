@@ -24,4 +24,3 @@ export default class Footer extends Component {
 } // class end tag
 
 
-

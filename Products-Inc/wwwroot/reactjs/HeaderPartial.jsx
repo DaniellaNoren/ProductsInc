@@ -30,7 +30,7 @@ export default class Headerpart extends Component {
                     <div className="container-fluid">
                         <div className="navbar-brand text-info" id="menulogo" alt="Company Logo">
                             <Link to="/"><img alt="logo" src="./img/logo.png" /></Link>
-                            
+
                         </div>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
                             <span className="navbar-toggler-icon"></span>
@@ -85,10 +85,12 @@ export default class Headerpart extends Component {
                                     <a className="nav-link"><Logout /></a>
                                 </li>
                             </ul>  {/*problem li after li,,,, and atag after atag (atag and link)*/}
-                    </div>
+                        </div>
 
                     </div>
                 </nav>
+
+
             </header >
 
         )

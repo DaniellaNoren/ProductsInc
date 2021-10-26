@@ -8,9 +8,13 @@
 
   <ItemGroup>
     <Compile Remove="Content\**" />
+    <Compile Remove="Data\Migrations\**" />
     <Content Remove="Content\**" />
+    <Content Remove="Data\Migrations\**" />
     <EmbeddedResource Remove="Content\**" />
+    <EmbeddedResource Remove="Data\Migrations\**" />
     <None Remove="Content\**" />
+    <None Remove="Data\Migrations\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,8 +30,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="React.AspNet" Version="5.2.11" />
-    <PackageReference Include="React.Router" Version="5.2.11" />
+    <PackageReference Include="React.AspNet" Version="5.2.12" />
+    <PackageReference Include="React.Router" Version="5.2.12" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,10 +47,6 @@
     <Content Update="wwwroot\toothpaste.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Migrations\" />
   </ItemGroup>
 
 </Project>

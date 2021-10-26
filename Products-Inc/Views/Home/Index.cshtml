@@ -1,16 +1,20 @@
 ﻿@{ //ViewData["Title"] = "Home Page";
 }
 
-@{ 
-    var prop = "prop from net";
+
+@{
+    var prop = "All Products";
+
+    @Html.ReactRouter("Components.Index", new
+{
+   someProp = @prop
+});
 }
 
-@Html.ReactRouter("Components.Products", new
-{
-    someProp = @prop
-});
+<div id="reactcontent"></div>
 
 
-@*@Html.ReactInitJavaScript()*@
+
+@Html.ReactInitJavaScript()
 
 

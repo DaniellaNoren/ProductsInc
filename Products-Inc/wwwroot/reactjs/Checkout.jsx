@@ -100,8 +100,8 @@ export default class Checkout extends Component {
 
 
 function Receipt({ order, user }) {
-    const printReceipt = () => { 
-       
+    const printReceipt = () => {
+
         var divContents = document.getElementById("receipt").innerHTML;
         var receiptWindow = window.open('', '', 'height=500, width=500');
         receiptWindow.document.write('<html>');
@@ -111,56 +111,55 @@ function Receipt({ order, user }) {
         receiptWindow.document.close();
         receiptWindow.print();
 
-    
+
     };
 
     return (
         <div id="receipt" className="d-flex align-items-center justify-content-center">
             <div>
-            <h2>{user.UserName}, your order has been placed!</h2>
-            
-            {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
-            <h4>Products Inc</h4>
-            <ul>
-                {order.Products.map(p => <li key={p.Id}>{p.ProductName}, {p.Price}kr</li>)}
-            </ul>
-            {/*<h3>{order.Price}kr</h3>*/}
+                <h2>{user.UserName}, your order has been placed!</h2>
 
-            <h4>Thank you for ordering!</h4>
+                {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
+                <h4>Products Inc</h4>
+                <ul>
+                    {order.Products.map(p => <li key={p.Id}>{p.ProductName}, {p.Price}kr</li>)}
+                </ul>
+                {/*<h3>{order.Price}kr</h3>*/}
 
-            <div className="d-flex align-items-end justify-content-end">
-                <button className="p-2 m-2 btn btn-success" onClick={printReceipt}>PRINT RECEIPT</button>
+                <h4>Thank you for ordering!</h4>
+
+                <div className="d-flex align-items-end justify-content-end">
+                    <button className="p-2 m-2 btn btn-success" onClick={printReceipt}>PRINT RECEIPT</button>
                 </div>
-                
+
 
             </div>
         </div>
     )
 }
 
-function Product({product, removeMe}){
+function Product({ product, removeMe }) {
     return (
         <tr>
-           <td colSpan={5}>{product.ProductName}</td>
-           <td colSpan={4}>{product.Price}</td>    
-           <td colSpan={1}><button className="btn btn-danger" onClick={() => removeMe(product.Id)}>-</button></td>
+            <td colSpan={5}>{product.ProductName}</td>
+            <td colSpan={4}>{product.Price}</td>
+            <td colSpan={1}><button className="btn btn-danger" onClick={() => removeMe(product.Id)}>-</button></td>
         </tr>
     )
 }
 
-function ProductList({products, removeProductMethod}){
+function ProductList({ products, removeProductMethod }) {
     return (
         <table className="table">
-           <thead>
+            <thead>
                 <tr>
                     <th colSpan={5}>Product</th>
                     <th colSpan={5}>Price</th>
                 </tr>
-            </thead>     
+            </thead>
             <tbody>
-                { products.map(p => <Product product={p} key={p.Id} removeMe={removeProductMethod}/>) }
+                {products.map(p => <Product product={p} key={p.Id} removeMe={removeProductMethod} />)}
             </tbody>
         </table>
     )
 }
-

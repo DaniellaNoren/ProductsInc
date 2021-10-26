@@ -76,6 +76,16 @@ namespace Products_Inc.Data
             Product sunflowerbutter = new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 };
 
             modelBuilder.Entity<Product>().HasData(banana, satsumas, tomatos, sunflowerbutter);
+
+
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product() { ProductId = 50, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54, ImgPath = "./img/" },
+                new Product() { ProductId = 51, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54, ImgPath = "" }
+                );
+
+
+
             // -----------------------------------------
 
 

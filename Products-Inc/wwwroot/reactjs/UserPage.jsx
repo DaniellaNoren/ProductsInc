@@ -17,7 +17,7 @@ import {
 //    //     .done(r => $(".orders").html = r.data)
 //    // }
 
-    
+
 //    render(){
 //        return (
 //            <div>
@@ -60,7 +60,7 @@ import {
 //    }
 //    return (
 //        <ul className="nav flex-column">
-           
+
 //            <li className="nav-item">
 
 

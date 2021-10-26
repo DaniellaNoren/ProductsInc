@@ -8,14 +8,14 @@ import {
     Redirect
 } from 'react-router-dom';
 
-export default class ContactUs extends Component{
-    
-    render(){
+export default class ContactUs extends Component {
+
+    render() {
         return (
             <div>
                 <h4><b>Contact Us at:</b></h4>
-                <br/>
-           <p>Products Inc</p>
+                <br />
+                <p>Products Inc</p>
                 <p>Diddly Shop</p>
                 <p>5-12 Chipping Norton Road BB8</p>
                 <p>Chipping Norton BB8 3NR</p>

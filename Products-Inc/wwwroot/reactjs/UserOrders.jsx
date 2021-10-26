@@ -8,18 +8,18 @@ import {
     Redirect
 } from 'react-router-dom';
 
-export default class UserOrders extends Component{
-    
-    render(){
+export default class UserOrders extends Component {
+
+    render() {
         return (
             <div>
                 <h4><b>UserOrders:</b></h4>
-                <br/>
+                <br />
                 <ul>
                     <li>
                         Orderslist will be here
                     </li>
-                    </ul>
+                </ul>
             </div>
         )
     }

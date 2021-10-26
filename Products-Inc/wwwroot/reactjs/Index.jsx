@@ -1,5 +1,4 @@
-﻿
-import { Component, Fragment } from 'react';
+﻿import { Component, Fragment } from 'react';
 import Orders from './Orders.jsx';
 import Products from './Products.jsx';
 import HeaderPartial from './HeaderPartial.jsx';
@@ -25,15 +24,15 @@ import {
 } from 'react-router-dom';
 
 
-class OrderPage extends Component{
+class OrderPage extends Component {
     //get the orders by calling the partialview with user orders. render the html 
     // getOrders = () => {
     //     $.get("url")
     //     .done(r => $(".orders").html = r.data)
     // }
 
-    
-    render(){
+
+    render() {
         return (
             <div>
                 <Orders />
@@ -42,52 +41,52 @@ class OrderPage extends Component{
     }
 }
 
-function SideMenu({viewOrders, location, context}) {
+function SideMenu({ viewOrders, location, context }) {
     const logOut = () => {
-        $.ajax({      
+        $.ajax({
             url: "/user/logout",
             type: "POST",
-            success: function(res) {
+            success: function (res) {
                 console.log("succeeded");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
                 console.log(textStatus);
-                 console.log(errorThrown);
+                console.log(errorThrown);
             }
-          });
+        });
     }
     const showOrders = () => {
         let id = "";
 
-        $.ajax({      
+        $.ajax({
             url: `/user/${id}/orders`,
             type: "GET",
-            success: function(res) {
+            success: function (res) {
                 console.log("succeeded");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
                 console.log(textStatus);
-                 console.log(errorThrown);
+                console.log(errorThrown);
             }
-          });
+        });
     }
     return (
         <ul className="nav flex-column">
-           
+
             <li className="nav-item">
 
-               
+
             </li>
         </ul>
     )
 }
 
 export default class Index extends Component {
-   state = {
-       viewOrders: false,
-       isUserAuthenticated: false
+    state = {
+        viewOrders: false,
+        isUserAuthenticated: false
     }
     render() {
         const app = (
@@ -157,11 +156,9 @@ export default class Index extends Component {
 
                 <FooterPartial />  {/*Footer component*/}
 
-            </div> 
+            </div>
 
         );
-
-
         if (typeof window === 'undefined') {
             return (
                 <StaticRouter
@@ -173,9 +170,6 @@ export default class Index extends Component {
             )
         }
         return (<BrowserRouter>{app}</BrowserRouter>)
-        
+
     }
 }
-
-
-

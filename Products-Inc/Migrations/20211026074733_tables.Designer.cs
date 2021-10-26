@@ -9,8 +9,8 @@ using Products_Inc.Data;
 namespace Products_Inc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211025151454_Seedorders")]
-    partial class Seedorders
+    [Migration("20211026074733_tables")]
+    partial class tables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

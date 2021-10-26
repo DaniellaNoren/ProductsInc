@@ -8,9 +8,9 @@ import {
     Redirect
 } from 'react-router-dom';
 
-export default class AdminUsers extends Component{
-    
-    render(){
+export default class AdminUsers extends Component {
+
+    render() {
         return (
             <div>
                 <h4><b>AdminUsers:</b></h4>

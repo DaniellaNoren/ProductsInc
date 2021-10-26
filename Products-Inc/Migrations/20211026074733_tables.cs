@@ -2,7 +2,7 @@
 
 namespace Products_Inc.Migrations
 {
-    public partial class Alniga : Migration
+    public partial class tables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -102,6 +102,47 @@ namespace Products_Inc.Migrations
                         principalTable: "ShoppingCarts",
                         principalColumn: "ShoppingCartId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "OrderId", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "0030" },
+                    { 2, "0010" },
+                    { 3, "0020" },
+                    { 4, "0020" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "ImgPath", "ProductDescription", "ProductName", "ProductPrice" },
+                values: new object[,]
+                {
+                    { 10, null, "A nice eko quality bananas from peru.", "Pack of bananas", 34 },
+                    { 20, null, "Clementine fruit.", "Satsumas", 6 },
+                    { 30, null, "Sweet tomatos.", "Tomatos A-Class", 3 },
+                    { 40, null, "Butter made of sunflower seeds.", "Sunflower Butter", 54 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrderProducts",
+                columns: new[] { "OrderProductId", "Amount", "OrderId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 0, 1, 10 },
+                    { 2, 0, 1, 10 },
+                    { 9, 0, 3, 10 },
+                    { 10, 0, 3, 10 },
+                    { 6, 0, 1, 20 },
+                    { 7, 0, 3, 20 },
+                    { 11, 0, 3, 20 },
+                    { 3, 0, 1, 30 },
+                    { 5, 0, 1, 30 },
+                    { 8, 0, 3, 30 },
+                    { 12, 0, 3, 30 },
+                    { 4, 0, 1, 40 }
                 });
 
             migrationBuilder.CreateIndex(
