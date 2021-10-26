@@ -77,7 +77,7 @@ export default class Products extends Component {
             const productlist = JSON.parse(xhr.responseText)
             //console.log(productlist)
             this.setState({ products: productlist })
-
+           
         }
         xhr.send()
 
@@ -101,11 +101,17 @@ export default class Products extends Component {
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 
                     { this.state.products.map(p => (
+                       
                         <div key={p.productId.toString()} className="product w-2 m-2">
                             <div>
                                 <br />
                                 <br />
-                                <img src="./img/toothpaste.jpg" className="text-center product-img" alt="Product image"></img>
+                                { 
+                                p.imgPath ? 
+                                    <img src={`./${p.imgPath}`} className="text-center product-img" alt="Product image"></img>
+                                : 
+                                    <img src="./img/toothpaste.jpg" className="text-center product-img" alt="Product image"></img>
+                                }
                                 <h4>{p.productName}</h4>
                                 <p>{p.productPrice} kr</p>
                                 <p>{p.productDescription}</p>

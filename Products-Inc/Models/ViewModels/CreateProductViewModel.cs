@@ -16,8 +16,8 @@ namespace Products_Inc.Models.ViewModels
 
         public int ProductPrice { get; set; }
 
-
         public string ImgPath { get; set; }
+        public string ImgData { get; set; }
 
 
 

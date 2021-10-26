@@ -39,7 +39,7 @@ namespace Products_Inc.Controllers
            return new OkObjectResult(_productService.FindBy(id));
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateProduct([FromBody] CreateProductViewModel createProductViewModel)
         {
@@ -74,19 +74,7 @@ namespace Products_Inc.Controllers
 
         }
 
-       [HttpPost("img")]
-       public IActionResult UploadImage([FromBody]ImgUploadModel model)
-        {
-
-            bool success =_imageService.SaveImage(model.Data);
-          
-            return new OkObjectResult(success);
-        }
-
     }
 
-    public class ImgUploadModel
-    {
-        public string Data { get; set; }
-    }
+   
 }

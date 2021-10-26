@@ -30,29 +30,23 @@ namespace Products_Inc.Models.Services
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public bool SaveImage(string base64data)
+        public string SaveImage(string base64data)
         {
             byte[] newBytes = Convert.FromBase64String(base64data);
             string name = RandomString(10);
+            string path = $"{Options.RootPath}/{Options.FolderName}/{name}.{Options.ImageFormat}";
             Image image;
-      
+
             using (MemoryStream ms = new MemoryStream(newBytes))
             {
-                try
-                {
-                image = Image.FromStream(ms);
-                image.Save($"{Options.RootPath}/{Options.FolderName}/{name}.{Options.ImageFormat}");
 
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                image = Image.FromStream(ms);
+                image.Save(path);
             }
 
             image.Dispose();
 
-            return true;
+            return $"{Options.FolderName}/{name}.{Options.ImageFormat}";
 
         }
     }

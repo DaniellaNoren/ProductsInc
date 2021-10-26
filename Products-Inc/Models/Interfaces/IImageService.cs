@@ -7,7 +7,7 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IImageService
     {
-        bool SaveImage(string base64data);
+        string SaveImage(string base64data);
 
         byte[] GetImage(string name);
     }
