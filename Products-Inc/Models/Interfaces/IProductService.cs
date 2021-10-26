@@ -12,7 +12,7 @@ namespace Products_Inc.Models.Interfaces
     {
         ProductViewModel Create(CreateProductViewModel product);
 
-        List<Product> ReadAll();
+        List<ProductViewModel> ReadAll();
 
         //ProductViewModel FindBy(ProductViewModel search);
 

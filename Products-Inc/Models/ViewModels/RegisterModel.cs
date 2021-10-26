@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Models.ViewModels
 {
-    public class LoginModelCustom
+    public class RegisterModel
     {
-
-        
+        [Required]
+        public string Email { get; set; }
         [Required]
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
-        public bool RememberMe { get; set; }
+        [Required]
+        public string ConfirmPassword { get; set; }
 
-        public LoginModelCustom()
+        public RegisterModel()
         {
 
         }

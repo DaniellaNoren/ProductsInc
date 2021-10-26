@@ -31,7 +31,14 @@ namespace Products_Inc.Models.Services
                 Active = true,
                 TransactionComplete = shoppingCartViewModel.TransactionComplete,
                 UserId = shoppingCartViewModel.UserId,
-                Products = shoppingCartViewModel.Products.Select(p => new ShoppingCartProduct() { ProductId = p.ProductId, Amount = p.Amount }).ToList()
+                Products = shoppingCartViewModel.Products.Select(p =>
+                {
+                    return new ShoppingCartProduct()
+                    {
+                        ProductId = p.ProductId,
+                        Amount = p.Amount
+                    };
+                }).ToList()
             };
 
             createdShoppingCart = _repo.Create(createdShoppingCart);

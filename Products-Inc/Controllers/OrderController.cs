@@ -34,7 +34,7 @@ namespace Products_Inc.Controllers
                 return new OkObjectResult(_orderService.Create(createOrderViewModel));
 
             }
-            return new BadRequestResult();
+            return new BadRequestObjectResult(new { msg = "Invalid body" });
         }
 
         [Authorize(Roles = "Admin")]

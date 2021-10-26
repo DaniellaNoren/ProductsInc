@@ -14,6 +14,12 @@ namespace Products_Inc.Models.ViewModels
 
         public List<ShoppingCartProductViewModel> Products { get; set; }
 
+        public void AddProduct(ShoppingCartProductViewModel product)
+        {
+            if (Products == null)
+                Products = new List<ShoppingCartProductViewModel>();
 
+            Products.Add(product);
+        }
     }
 }
