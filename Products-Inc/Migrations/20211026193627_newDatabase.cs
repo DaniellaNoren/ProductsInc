@@ -2,7 +2,7 @@
 
 namespace Products_Inc.Migrations
 {
-    public partial class tables : Migration
+    public partial class newDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -120,10 +120,18 @@ namespace Products_Inc.Migrations
                 columns: new[] { "ProductId", "ImgPath", "ProductDescription", "ProductName", "ProductPrice" },
                 values: new object[,]
                 {
-                    { 10, null, "A nice eko quality bananas from peru.", "Pack of bananas", 34 },
-                    { 20, null, "Clementine fruit.", "Satsumas", 6 },
-                    { 30, null, "Sweet tomatos.", "Tomatos A-Class", 3 },
-                    { 40, null, "Butter made of sunflower seeds.", "Sunflower Butter", 54 }
+                    { 10, "/img/img1.png", "A nice eko quality bananas from peru.", "Banana", 34 },
+                    { 20, "/img/img2.jpg", "Nice for your health.", "Pomegranate", 6 },
+                    { 30, "/img/img11.jpg", "Fresh sweet tomatos.", "Tomatos", 3 },
+                    { 40, "/img/img3.jpg", "Nice for your teeth", "Tooth Cleaner", 54 },
+                    { 50, "/img/img4.jpg", "Nice for your health", "Orange", 30 },
+                    { 51, "/img/img6.jpg", "Good to drink", "Coca Cola", 16 },
+                    { 52, "/img/img7.jpg", "Good for health", "Oreo", 10 },
+                    { 53, "/img/img8.jpg", "Healthy breakfast", "Corn Flakes", 25 },
+                    { 54, "/img/img9.jpg", "Niceto make food", "Salt", 9 },
+                    { 55, "/img/img12.jpg", "Good for health", "Avocado", 18 },
+                    { 56, "/img/img14.jpg", "Nice to eat", "Eggo", 30 },
+                    { 57, "/img/img16.png", "Creamy sun butter", "SunButter", 35 }
                 });
 
             migrationBuilder.InsertData(

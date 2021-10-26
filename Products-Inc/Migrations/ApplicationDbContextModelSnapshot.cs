@@ -193,30 +193,98 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 10,
+                            ImgPath = "/img/img1.png",
                             ProductDescription = "A nice eko quality bananas from peru.",
-                            ProductName = "Pack of bananas",
+                            ProductName = "Banana",
                             ProductPrice = 34
                         },
                         new
                         {
                             ProductId = 20,
-                            ProductDescription = "Clementine fruit.",
-                            ProductName = "Satsumas",
+                            ImgPath = "/img/img2.jpg",
+                            ProductDescription = "Nice for your health.",
+                            ProductName = "Pomegranate",
                             ProductPrice = 6
                         },
                         new
                         {
                             ProductId = 30,
-                            ProductDescription = "Sweet tomatos.",
-                            ProductName = "Tomatos A-Class",
+                            ImgPath = "/img/img11.jpg",
+                            ProductDescription = "Fresh sweet tomatos.",
+                            ProductName = "Tomatos",
                             ProductPrice = 3
                         },
                         new
                         {
                             ProductId = 40,
-                            ProductDescription = "Butter made of sunflower seeds.",
-                            ProductName = "Sunflower Butter",
+                            ImgPath = "/img/img3.jpg",
+                            ProductDescription = "Nice for your teeth",
+                            ProductName = "Tooth Cleaner",
                             ProductPrice = 54
+                        },
+                        new
+                        {
+                            ProductId = 50,
+                            ImgPath = "/img/img4.jpg",
+                            ProductDescription = "Nice for your health",
+                            ProductName = "Orange",
+                            ProductPrice = 30
+                        },
+                        new
+                        {
+                            ProductId = 51,
+                            ImgPath = "/img/img6.jpg",
+                            ProductDescription = "Good to drink",
+                            ProductName = "Coca Cola",
+                            ProductPrice = 16
+                        },
+                        new
+                        {
+                            ProductId = 52,
+                            ImgPath = "/img/img7.jpg",
+                            ProductDescription = "Good for health",
+                            ProductName = "Oreo",
+                            ProductPrice = 10
+                        },
+                        new
+                        {
+                            ProductId = 53,
+                            ImgPath = "/img/img8.jpg",
+                            ProductDescription = "Healthy breakfast",
+                            ProductName = "Corn Flakes",
+                            ProductPrice = 25
+                        },
+                        new
+                        {
+                            ProductId = 54,
+                            ImgPath = "/img/img9.jpg",
+                            ProductDescription = "Niceto make food",
+                            ProductName = "Salt",
+                            ProductPrice = 9
+                        },
+                        new
+                        {
+                            ProductId = 55,
+                            ImgPath = "/img/img12.jpg",
+                            ProductDescription = "Good for health",
+                            ProductName = "Avocado",
+                            ProductPrice = 18
+                        },
+                        new
+                        {
+                            ProductId = 56,
+                            ImgPath = "/img/img14.jpg",
+                            ProductDescription = "Nice to eat",
+                            ProductName = "Eggo",
+                            ProductPrice = 30
+                        },
+                        new
+                        {
+                            ProductId = 57,
+                            ImgPath = "/img/img16.png",
+                            ProductDescription = "Creamy sun butter",
+                            ProductName = "SunButter",
+                            ProductPrice = 35
                         });
                 });
 
