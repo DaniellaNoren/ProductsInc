@@ -55,8 +55,16 @@ export default class UserDetails extends Component{
         };
 
 
-        changeUserPassword = e => {
+    changeUserPassword = e => {
+        e.preventDefault()
 
+/*        If-else to make sure password match before savning new password  /ER  */
+            if (this.state.changePasswordModel.password === this.state.changePasswordModel.passwordAgain) {
+                document.getElementById('passwordmatchmessage').textContent = "Password match!";
+            } else {
+                document.getElementById('passwordmatchmessage').textContent = "Password do not match";
+            }
+        
         }
 
 
@@ -71,11 +79,12 @@ export default class UserDetails extends Component{
                                 <label for="username-input">Username</label>
                                 <input value={this.state.userDetailsModel.userName} onChange={e => this.setState({ userDetailsModel: { ...this.state.userDetailsModel, userName: e.target.value } })} className="form-control" id="username-input" type="text" />
                             </div>
-                            <button type="submit" className="btn btn-primary">Save</button>
+                            <button type="submit" className="btn btn-primary">Save Details</button>
                         </form>
                     </div>
                     <br />
                     <form className="formlogin" onSubmit={this.changeUserPassword}>
+                        <p id="passwordmatchmessage" ref="passwordmatchmessage"></p>
                         <div className="form-group">
                             <label for="password-input">Password</label>
                             <input value={this.state.changePasswordModel.password} onChange={e => this.setState({ changePasswordModel: { ...this.state.changePasswordModel, password: e.target.value } })} className="form-control" id="password-input" type="password" />
@@ -84,6 +93,7 @@ export default class UserDetails extends Component{
                             <label for="password-again">Password again</label>
                             <input value={this.state.changePasswordModel.passwordAgain} onChange={e => this.setState({ changePasswordModel: { ...this.state.changePasswordModel, passwordAgain: e.target.value } })} className="form-control" id="password-again" type="password" />
                         </div>
+                        <button type="submit" className="btn btn-primary">Save New Password</button>
                     </form>
 
 

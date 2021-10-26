@@ -27,15 +27,7 @@ namespace Products_Inc.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Seeding db with start products
-            Product banana = new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 };
-            Product satsumas = new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 };
-            Product tomatos = new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 };
-            Product sunflowerbutter = new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 };
-
-            modelBuilder.Entity<Product>().HasData(banana, satsumas, tomatos, sunflowerbutter);
-
-
+            
             // Setting Primarykeys, instead of [Key] in code. One place to handle all of it /ER
             modelBuilder.Entity<Product>()
                 .HasKey(mb => mb.ProductId);
@@ -69,7 +61,60 @@ namespace Products_Inc.Data
              .WithMany()
              .HasForeignKey(scp => scp.ProductId);
 
-      
+
+
+
+            // ____________ SEEDING SECTION ____________
+
+
+
+
+            // Seeding db with start products
+            Product banana = new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 };
+            Product satsumas = new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 };
+            Product tomatos = new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 };
+            Product sunflowerbutter = new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 };
+
+            modelBuilder.Entity<Product>().HasData(banana, satsumas, tomatos, sunflowerbutter);
+            // -----------------------------------------
+
+
+
+            // --- Seeding with orders
+
+            //List<Product> listA_OfProductsInOrder[] { satsumas, banana, banana, banana, sunflowerbutter}.ToList();
+            //List<Product> listB_OfProductsInOrder[] { satsumas, tomatos, banana, tomatos, tomatos}.ToList;
+
+
+            modelBuilder.Entity<Order>().HasData(
+                new Order { OrderId = 1, UserId = "0030" },
+                new Order { OrderId = 2, UserId = "0010" },
+                new Order { OrderId = 3, UserId = "0020" },
+                new Order { OrderId = 4, UserId = "0020" }
+            );
+
+
+            modelBuilder.Entity<OrderProduct>().HasData(
+                new OrderProduct { OrderProductId = 1, OrderId = 1, ProductId = 10 },
+                new OrderProduct { OrderProductId = 2, OrderId = 1, ProductId = 10 },
+                new OrderProduct { OrderProductId = 3, OrderId = 1, ProductId = 30 },
+                new OrderProduct { OrderProductId = 4, OrderId = 1, ProductId = 40 },
+                new OrderProduct { OrderProductId = 5, OrderId = 1, ProductId = 30 },
+                new OrderProduct { OrderProductId = 6, OrderId = 1, ProductId = 20 },
+
+                new OrderProduct { OrderProductId = 7, OrderId = 3, ProductId = 20 },
+                new OrderProduct { OrderProductId = 8, OrderId = 3, ProductId = 30 },
+                new OrderProduct { OrderProductId = 9, OrderId = 3, ProductId = 10 },
+                new OrderProduct { OrderProductId = 10, OrderId = 3, ProductId = 10 },
+                new OrderProduct { OrderProductId = 11, OrderId = 3, ProductId = 20 },
+                new OrderProduct { OrderProductId = 12, OrderId = 3, ProductId = 30 }
+            );
+
+
+
+
+
+            // ---------------------------------------
 
         }
     }
