@@ -1,17 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Products_Inc.Models;
-using Products_Inc.Models.ViewModels;
-using Products_Inc.Models.Services;
 using Products_Inc.Models.Interfaces;
-using System.Data;
-using Products_Inc.Models.Exceptions;
+using Products_Inc.Models.ViewModels;
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace Products_Inc.Controllers
 {
@@ -20,9 +15,11 @@ namespace Products_Inc.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IImageService _imageService;
 
-        public ProductController(IProductService iProductService)
+        public ProductController(IImageService imageService, IProductService iProductService)
         {
+            _imageService = imageService;
             _productService = iProductService;
 
         }
@@ -77,7 +74,19 @@ namespace Products_Inc.Controllers
 
         }
 
-       
+       [HttpPost("img")]
+       public IActionResult UploadImage([FromBody]ImgUploadModel model)
+        {
 
+            bool success =_imageService.SaveImage(model.Data);
+          
+            return new OkObjectResult(success);
+        }
+
+    }
+
+    public class ImgUploadModel
+    {
+        public string Data { get; set; }
     }
 }

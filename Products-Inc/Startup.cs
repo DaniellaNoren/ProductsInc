@@ -25,12 +25,14 @@ namespace Products_Inc
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IWebHostEnvironment Environment { get;  }
+        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -104,7 +106,8 @@ namespace Products_Inc
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IShoppingCartService, ShoppingCartService>();
             services.AddScoped<IProductService, ProductService>();
-            
+            services.AddScoped<IImageService, ImageService>();
+            services.AddSingleton<ImageServiceOptions>(new ImageServiceOptions(Environment.WebRootPath, "img", "jpg"));
             services.AddScoped<IShoppingCartRepo, DbShoppingCartRepo>(); 
             services.AddScoped<IOrderRepo, DbOrderRepo>(); 
             services.AddScoped<IProductRepo, DbProductRepo>();
