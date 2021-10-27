@@ -6,6 +6,46 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    background-color:white;
+}
+#navmenubox {
+    height: 120px;
+}
+
+
+#menulogo {
+    height: 95px;
+    margin-right: auto;
+    padding: 0px;
+}
+
+    #menulogo img {
+        width: 120px;
+        height: auto;
+    }
+
+.navbar {
+    border: none;
+}
+
+.navbar-brand {
+    border: none;
+}
+
+.navbar-nav {
+    color: white;
+}
+
+.navbar-nav .nav-item {
+    border: none;
+}
+
+.navbar-nav .nav-link {
+    border: none;
+    color: white;
+}
+
+.form-group {
 }
 .container {
     padding: 0px;
@@ -112,40 +152,115 @@ button.accept-policy {
         'footerarea footerarea';
 }
 
-#navmenubox {
-    height: 120px;
-}
 
 
-#menulogo {
-    height: 95px;
-    margin-right: auto;
-    padding: 0px;
-}
-
-    #menulogo img {
-        width: 120px;
-        height: auto;
-    }
-
-.navbar {
-    border: none;
-}
-
-.navbar-brand {
-    border: none;
-}
-
-.navbar-nav {
+/*
+ //Ramya CSs code*/
+.btn {
+    background-color: #dc3545;
+    float: right;
     color: white;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    border: none;
+    cursor: pointer;
+    outline: none;
+}
+.submitButton {
+    float: left;
+    background-color: #dc3545;
+}
+.registerBtnDiv{
+    padding-left: 180px;
+}
+.logInBtnDiv {
+    padding-left: 210px;
+}
+.form-group {
+    margin-bottom: 20px;
+    width: 400px;
+    padding-left: 100px;
+}
+.form-check {
+    padding-left: 120px;
+}
+.carouselImage {
+    width: 100%;
+}
+.carouselImage {
+    height: 300px;
 }
 
-    .navbar-nav .nav-item {
-        border: none;
+.quotes {
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
+.content {
+    margin: -55px -40px 0px -15px;
+}
+.wrapper {
+    display: grid;
+    grid-template-columns: 150px 100px;
+}
+.contactUsContents {
+    padding-left: 100px;
+    color:white;
+}
+
+/*dropdown menu styling*/
+.dropbtn {
+    background-color: #dc3545;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #dc3545;
+    opacity:.8;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color:white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+    .dropdown-content a:hover {
+        background-color: #dc3545
     }
 
-    .navbar-nav .nav-link {
-        border: none;
-        color: white;
-    }
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #dc3545;
+}
+
+
+
+
+.headerButtons {
+    background-color: #dc3545;
+    border:none;
+    color:white;
+}
+.headerRightSideMenu{
+    margin-left:100px;
+}
+
+
 

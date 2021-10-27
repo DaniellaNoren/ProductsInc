@@ -18,16 +18,7 @@
     text-align-last: left;
     line-height:5px;
 }
-.btn {
-    background-color: #dc3545;
-    float: right;
-    color: black;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-    border: none;
-    cursor: pointer;
-    outline: none;
-}
+
 .btn:hover {
     color: black;
     background-color: #3e8e41

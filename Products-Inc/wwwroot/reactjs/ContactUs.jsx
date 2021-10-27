@@ -12,7 +12,7 @@ export default class ContactUs extends Component {
 
     render() {
         return (
-            <div>
+            <div className="contactUsContents">
                 <h4><b>Contact Us at:</b></h4>
                 <br />
                 <p>Products Inc</p>

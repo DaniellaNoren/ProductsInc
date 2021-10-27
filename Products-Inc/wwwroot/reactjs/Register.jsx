@@ -33,8 +33,9 @@ export default class Register extends Component {
         return (
             <div>
                 <form className="form" onSubmit={this.register}>
-                    <div className="form-group">
+                    <div className="form-group ">
                         <label for="username-input">Username</label>
+                        
                         <input value={this.state.registerModel.userName} onChange={e => this.setState({ registerModel: { ...this.state.registerModel, userName: e.target.value } })} className="form-control" id="username-input" type="text" />
                     </div>
                     <div className="form-group">
@@ -49,7 +50,10 @@ export default class Register extends Component {
                         <label for="confirm-password-input">Repeat Password</label>
                         <input value={this.state.registerModel.confirmPassword} onChange={e => this.setState({ registerModel: { ...this.state.registerModel, confirmPassword: e.target.value } })} className="form-control" id="confirm-password-input" type="password" />
                     </div>
-                    <button type="submit" className="btn btn-primary">Register</button>
+                    <br />
+                     <div className="registerBtnDiv">
+                        <button type="submit" className="submitButton btn">Register</button>
+                    </div>
                 </form>
             </div>
         )
