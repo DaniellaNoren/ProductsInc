@@ -11,29 +11,54 @@ export default class CreateProduct extends Component {
         },
         errorMsg: ''
     }
+    checkData = () => {
+        let product = this.state.createdProduct;
+        let errorMsg = '';
+
+        if(!product.ProductName){
+            this.setState({errorMsg: "Productname cannot be empty."})
+            return false;
+        }
+        else if(!product.ProductDescription){
+            this.setState({errorMsg: "Productdescription cannot be empty."})
+            return false;
+        }
+        else if(!product.ImgData){
+            this.setState({errorMsg: "Image not chosen."})
+            return false;
+        }
+        else if(product.ProductPrice <= 0){
+            this.setState({errorMsg: "Price not set."})
+            return false;
+        }
+
+        return true;
+    }
     postProduct = () => {
-        let t = this;
-        $.ajax({      
-            url: "/api/product",
-            type: "POST",
-            data: JSON.stringify(this.state.createdProduct),
-            Accept: "application/json",
-            contentType: "application/json", 
-            dataType: "json",
-            success: function(res) {
-                t.setState({createdProduct: { 
-                    ProductName: '',
-                    ProductDescription: '',
-                    ImgPath: '',
-                    ImgData: '',
-                    ProductPrice: 0}
-                , errorMsg: ''})
-                $("#IMG-input").val(null)
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                t.setState({errorMsg: errorThrown});
-            }
-        });
+        if(this.checkData()){
+            let t = this;
+            $.ajax({      
+                url: "/api/product",
+                type: "POST",
+                data: JSON.stringify(this.state.createdProduct),
+                Accept: "application/json",
+                contentType: "application/json", 
+                dataType: "json",
+                success: function(res) {
+                    t.setState({createdProduct: { 
+                                    ProductName: '',
+                                    ProductDescription: '',
+                                    ImgPath: '',
+                                    ImgData: '',
+                                    ProductPrice: 0}
+                                , errorMsg: ''})
+                    $("#IMG-input").val(null)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    t.setState({errorMsg: errorThrown});
+                }
+            });
+        }
     }
     setFile = file => {
         const reader = new FileReader();
