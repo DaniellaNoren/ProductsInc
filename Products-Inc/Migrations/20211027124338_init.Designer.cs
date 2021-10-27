@@ -9,8 +9,8 @@ using Products_Inc.Data;
 namespace Products_Inc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211025143505_products")]
-    partial class products
+    [Migration("20211027124338_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,12 +27,34 @@ namespace Products_Inc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = 1,
+                            Id = "0030"
+                        },
+                        new
+                        {
+                            OrderId = 2,
+                            Id = "0010"
+                        },
+                        new
+                        {
+                            OrderId = 3,
+                            Id = "0020"
+                        },
+                        new
+                        {
+                            OrderId = 4,
+                            Id = "0020"
+                        });
                 });
 
             modelBuilder.Entity("Products_Inc.Models.OrderProduct", b =>
@@ -58,6 +80,92 @@ namespace Products_Inc.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderProducts");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderProductId = 1,
+                            Amount = 0,
+                            OrderId = 1,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            OrderProductId = 2,
+                            Amount = 0,
+                            OrderId = 1,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            OrderProductId = 3,
+                            Amount = 0,
+                            OrderId = 1,
+                            ProductId = 30
+                        },
+                        new
+                        {
+                            OrderProductId = 4,
+                            Amount = 0,
+                            OrderId = 1,
+                            ProductId = 40
+                        },
+                        new
+                        {
+                            OrderProductId = 5,
+                            Amount = 0,
+                            OrderId = 1,
+                            ProductId = 30
+                        },
+                        new
+                        {
+                            OrderProductId = 6,
+                            Amount = 0,
+                            OrderId = 1,
+                            ProductId = 20
+                        },
+                        new
+                        {
+                            OrderProductId = 7,
+                            Amount = 0,
+                            OrderId = 3,
+                            ProductId = 20
+                        },
+                        new
+                        {
+                            OrderProductId = 8,
+                            Amount = 0,
+                            OrderId = 3,
+                            ProductId = 30
+                        },
+                        new
+                        {
+                            OrderProductId = 9,
+                            Amount = 0,
+                            OrderId = 3,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            OrderProductId = 10,
+                            Amount = 0,
+                            OrderId = 3,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            OrderProductId = 11,
+                            Amount = 0,
+                            OrderId = 3,
+                            ProductId = 20
+                        },
+                        new
+                        {
+                            OrderProductId = 12,
+                            Amount = 0,
+                            OrderId = 3,
+                            ProductId = 30
+                        });
                 });
 
             modelBuilder.Entity("Products_Inc.Models.Product", b =>
@@ -111,6 +219,70 @@ namespace Products_Inc.Migrations
                             ProductDescription = "Butter made of sunflower seeds.",
                             ProductName = "Sunflower Butter",
                             ProductPrice = 54
+                        },
+                        new
+                        {
+                            ProductId = 50,
+                            ImgPath = "./img/img4.jpg",
+                            ProductDescription = "Nice for your health",
+                            ProductName = "Orange",
+                            ProductPrice = 30
+                        },
+                        new
+                        {
+                            ProductId = 51,
+                            ImgPath = "./img/img6.jpg",
+                            ProductDescription = "Good to drink",
+                            ProductName = "Coca Cola",
+                            ProductPrice = 16
+                        },
+                        new
+                        {
+                            ProductId = 52,
+                            ImgPath = "./img/img7.jpg",
+                            ProductDescription = "Good for health",
+                            ProductName = "Oreo",
+                            ProductPrice = 10
+                        },
+                        new
+                        {
+                            ProductId = 53,
+                            ImgPath = "./img/img8.jpg",
+                            ProductDescription = "Healthy breakfast",
+                            ProductName = "Corn Flakes",
+                            ProductPrice = 25
+                        },
+                        new
+                        {
+                            ProductId = 54,
+                            ImgPath = "./img/img9.jpg",
+                            ProductDescription = "Nice to make food",
+                            ProductName = "Salt",
+                            ProductPrice = 9
+                        },
+                        new
+                        {
+                            ProductId = 55,
+                            ImgPath = "./img/img12.jpg",
+                            ProductDescription = "Good for health",
+                            ProductName = "Avocado",
+                            ProductPrice = 18
+                        },
+                        new
+                        {
+                            ProductId = 56,
+                            ImgPath = "./img/img14.jpg",
+                            ProductDescription = "Nice to eat",
+                            ProductName = "Eggo",
+                            ProductPrice = 30
+                        },
+                        new
+                        {
+                            ProductId = 57,
+                            ImgPath = "./img/img16.jpg",
+                            ProductDescription = "Creamy sun butter",
+                            ProductName = "SunButter",
+                            ProductPrice = 35
                         });
                 });
 

@@ -83,12 +83,12 @@ export default class Products extends Component {
         )
     }
 }
-            <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
-                {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
-            </div>
-        );
-    }
-}
+            // <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
+            //     {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
+            // </div>
+        
+    
+
 
 function Product({ product, addProductEvent }) {
     return (

@@ -1,5 +1,6 @@
 ﻿
 import { Component, Fragment } from 'react';
+import Cookies from 'js-cookies'
 import Orders from './Orders.jsx';
 import Products from './Products.jsx';
 import HeaderPartial from './HeaderPartial.jsx';
@@ -88,6 +89,13 @@ export default class Index extends Component {
    state = {
        viewOrders: false,
        isUserAuthenticated: false
+    }
+    componentDidMount(){
+        console.log(this.props.userIsAuthenticated)
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+            $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
+            .done(r => console.log(r)).fail(e => console.log(e));
+        }
     }
     render() {
         const app = (

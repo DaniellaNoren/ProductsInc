@@ -21,7 +21,7 @@ namespace Products_Inc.Controllers
             this._userService = userService;
         }
 
-        [HttpPost]
+        [HttpPost("[controller]/login")]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             if (ModelState.IsValid)

@@ -26,8 +26,17 @@ namespace Products_Inc.Controllers
    
         [Authorize(Roles = "User")]
         [HttpPost("buy")]
-        public IActionResult GetOrder(ShoppingCartViewModel shoppingCart)
+        public async Task<IActionResult> GetOrder(ShoppingCartViewModel shoppingCart)
         {
+            if (string.IsNullOrEmpty(shoppingCart.ShoppingCartId))
+            {
+                shoppingCart = _service.Create(await GetCreateShoppingCartModel(shoppingCart));
+            }
+            if (string.IsNullOrEmpty(shoppingCart.UserId))
+            {
+
+            }
+
             OrderViewModel order = _service.CreateOrder(shoppingCart);
             
             if (this.Request.Cookies["shopping-cart"] != null)
@@ -38,12 +47,21 @@ namespace Products_Inc.Controllers
             return new OkObjectResult(order);
         }
 
-        [HttpGet("users/{userId}")]
-        public IActionResult GetShoppingCart(string userId)
+        [HttpGet("users")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetShoppingCart()
         {
-            ShoppingCartViewModel shoppingCart = _service.FindActiveBy(userId);
-            this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
-            return new OkObjectResult(shoppingCart);
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var user = await _userService.FindBy(this.User.Identity.Name);
+                ShoppingCartViewModel shoppingCart = _service.FindActiveBy(user.Id);
+                this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
+                return new OkObjectResult(shoppingCart);
+            }
+            else
+            {
+                return new UnauthorizedResult();
+            }
         }
 
         private ShoppingCartViewModel TryGetCookie()
@@ -66,12 +84,13 @@ namespace Products_Inc.Controllers
             this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
         }
 
+        [Authorize(Roles = "User")]
         [HttpPost]
-        public IActionResult PostShoppingCart([FromBody] CreateShoppingCartViewModel createShoppingCartViewModel)
+        public async Task<IActionResult> PostShoppingCart([FromBody] ShoppingCartViewModel shoppingCartViewModel)
         {
             if (ModelState.IsValid)
             {
-                ShoppingCartViewModel shoppingCart = _service.Create(createShoppingCartViewModel);
+                ShoppingCartViewModel shoppingCart = _service.Create(await GetCreateShoppingCartModel(shoppingCartViewModel));
                 TryAppendCookie(shoppingCart);
 
                 return new CreatedAtRouteResult("/api/shoppingcart", shoppingCart);
@@ -85,6 +104,19 @@ namespace Products_Inc.Controllers
         {
             CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
             createShoppingCart.AddProduct(product);
+            UserViewModel user = await _userService.FindBy(User.Identity.Name);
+            createShoppingCart.UserId = user.Id;
+            return createShoppingCart;
+        }
+
+        private async Task<CreateShoppingCartViewModel> GetCreateShoppingCartModel(ShoppingCartViewModel cart)
+        {
+            CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
+            foreach(ShoppingCartProductViewModel product in cart.Products)
+            {
+                createShoppingCart.AddProduct(product);
+            }
+
             UserViewModel user = await _userService.FindBy(User.Identity.Name);
             createShoppingCart.UserId = user.Id;
             return createShoppingCart;

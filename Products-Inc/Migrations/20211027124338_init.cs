@@ -2,7 +2,7 @@
 
 namespace Products_Inc.Migrations
 {
-    public partial class Alniga : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace Products_Inc.Migrations
                 {
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(nullable: true)
+                    Id = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -102,6 +102,55 @@ namespace Products_Inc.Migrations
                         principalTable: "ShoppingCarts",
                         principalColumn: "ShoppingCartId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "OrderId", "Id" },
+                values: new object[,]
+                {
+                    { 1, "0030" },
+                    { 2, "0010" },
+                    { 3, "0020" },
+                    { 4, "0020" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductId", "ImgPath", "ProductDescription", "ProductName", "ProductPrice" },
+                values: new object[,]
+                {
+                    { 10, null, "A nice eko quality bananas from peru.", "Pack of bananas", 34 },
+                    { 20, null, "Clementine fruit.", "Satsumas", 6 },
+                    { 30, null, "Sweet tomatos.", "Tomatos A-Class", 3 },
+                    { 40, null, "Butter made of sunflower seeds.", "Sunflower Butter", 54 },
+                    { 50, "./img/img4.jpg", "Nice for your health", "Orange", 30 },
+                    { 51, "./img/img6.jpg", "Good to drink", "Coca Cola", 16 },
+                    { 52, "./img/img7.jpg", "Good for health", "Oreo", 10 },
+                    { 53, "./img/img8.jpg", "Healthy breakfast", "Corn Flakes", 25 },
+                    { 54, "./img/img9.jpg", "Nice to make food", "Salt", 9 },
+                    { 55, "./img/img12.jpg", "Good for health", "Avocado", 18 },
+                    { 56, "./img/img14.jpg", "Nice to eat", "Eggo", 30 },
+                    { 57, "./img/img16.jpg", "Creamy sun butter", "SunButter", 35 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "OrderProducts",
+                columns: new[] { "OrderProductId", "Amount", "OrderId", "ProductId" },
+                values: new object[,]
+                {
+                    { 1, 0, 1, 10 },
+                    { 2, 0, 1, 10 },
+                    { 9, 0, 3, 10 },
+                    { 10, 0, 3, 10 },
+                    { 6, 0, 1, 20 },
+                    { 7, 0, 3, 20 },
+                    { 11, 0, 3, 20 },
+                    { 3, 0, 1, 30 },
+                    { 5, 0, 1, 30 },
+                    { 8, 0, 3, 30 },
+                    { 12, 0, 3, 30 },
+                    { 4, 0, 1, 40 }
                 });
 
             migrationBuilder.CreateIndex(

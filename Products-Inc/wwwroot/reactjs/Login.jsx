@@ -1,5 +1,6 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
+import Cookies from 'js-cookies';
 
 export default class Login extends Component {
     state = {
@@ -19,6 +20,29 @@ export default class Login extends Component {
             dataType: "json",
             success: function(res) {
                 console.log("succeeded");
+                let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"));
+                if(shoppingCart){
+
+                    if(!shoppingCart.shoppingCartId || !shoppingCart.UserId){
+                        $.ajax({      
+                            url: "/api/shoppingcart",
+                            type: "POST",
+                            data: JSON.stringify(shoppingCart),
+                            Accept : "application/json",
+                            contentType: "application/json", 
+                            dataType: "json",
+                            success: function(res) {
+                                console.log(res)
+                            },
+                            error: function(res) {
+                                    console.log(res);
+                            }
+                        })
+                    }
+                }else{
+                    $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
+                    .done(r => console.log(r)).fail(e => console.log(e));
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);

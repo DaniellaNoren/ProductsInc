@@ -221,7 +221,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 50,
-                            ImgPath = "/img/img4.jpg",
+                            ImgPath = "./img/img4.jpg",
                             ProductDescription = "Nice for your health",
                             ProductName = "Orange",
                             ProductPrice = 30
@@ -229,7 +229,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 51,
-                            ImgPath = "/img/img6.jpg",
+                            ImgPath = "./img/img6.jpg",
                             ProductDescription = "Good to drink",
                             ProductName = "Coca Cola",
                             ProductPrice = 16
@@ -237,7 +237,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 52,
-                            ImgPath = "/img/img7.jpg",
+                            ImgPath = "./img/img7.jpg",
                             ProductDescription = "Good for health",
                             ProductName = "Oreo",
                             ProductPrice = 10
@@ -245,7 +245,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 53,
-                            ImgPath = "/img/img8.jpg",
+                            ImgPath = "./img/img8.jpg",
                             ProductDescription = "Healthy breakfast",
                             ProductName = "Corn Flakes",
                             ProductPrice = 25
@@ -253,7 +253,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 54,
-                            ImgPath = "/img/img9.jpg",
+                            ImgPath = "./img/img9.jpg",
                             ProductDescription = "Nice to make food",
                             ProductName = "Salt",
                             ProductPrice = 9
@@ -261,7 +261,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 55,
-                            ImgPath = "/img/img12.jpg",
+                            ImgPath = "./img/img12.jpg",
                             ProductDescription = "Good for health",
                             ProductName = "Avocado",
                             ProductPrice = 18
@@ -269,7 +269,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 56,
-                            ImgPath = "/img/img14.jpg",
+                            ImgPath = "./img/img14.jpg",
                             ProductDescription = "Nice to eat",
                             ProductName = "Eggo",
                             ProductPrice = 30
@@ -277,7 +277,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 57,
-                            ImgPath = "/img/img16.jpg",
+                            ImgPath = "./img/img16.jpg",
                             ProductDescription = "Creamy sun butter",
                             ProductName = "SunButter",
                             ProductPrice = 35
