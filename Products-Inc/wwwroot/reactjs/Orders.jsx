@@ -12,7 +12,7 @@ function OrderProduct({product, editable, onDelete}){
     return (
         <div>
             {product.name}
-            { editable ? <button onClick={() => onDelete(product)}>Delete</button> : null }
+            { editable ? <button  onClick={() => onDelete(product)}>Delete</button> : null }
         </div>
     )
 }

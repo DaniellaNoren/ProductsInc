@@ -37,14 +37,14 @@ namespace Products_Inc.Controllers
             return new BadRequestObjectResult(new { msg = "Invalid body" });
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult GetAllOrders()
         {
             return new OkObjectResult(_orderService.ReadAll());
         }
 
-        [Authorize(Roles = "Admin, User")]
+        //[Authorize(Roles = "Admin, User")]
         [HttpGet("users/{userid}")]
         public IActionResult GetUserOrders(string userid)
         {

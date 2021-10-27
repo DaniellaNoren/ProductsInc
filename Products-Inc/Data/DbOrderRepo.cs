@@ -37,6 +37,7 @@ namespace Products_Inc.Data
         {
             List<Order> pList = _orderListContext.Orders
                 .Include(f => f.Products).ThenInclude(g => g.Product)
+                .Include(h => h.Id)
                 .ToList();
 
             return pList;
@@ -54,7 +55,7 @@ namespace Products_Inc.Data
 
         public List<Order> ReadByUser(string userId)
         {
-            return _orderListContext.Orders.Include(o => o.Products).ThenInclude(op => op.Product).Where(o => o.UserId.Equals(userId)).ToList();
+            return _orderListContext.Orders.Include(o => o.Products).ThenInclude(op => op.Product).Where(o => o.Id.Equals(userId)).ToList();
         }
 
         public Order Update(Order order)
