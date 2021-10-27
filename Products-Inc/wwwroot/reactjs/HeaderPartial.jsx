@@ -71,20 +71,19 @@ export default class Headerpart extends Component {
                                         </ul>
                                     </div>
                                 </li>
-                                <div className="headerRightSideMenu">
-                                    <li className="nav-item">
-                                        <Link to="/checkout" className="nav-link text-dark"><img src="./img/cart.jpg" width="35" height="3" /></Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/register" className="nav-link"><button className="headerButtons">Register</button></Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/login" className="nav-link" ><button className="headerButtons">Login</button></Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link"><Logout /></a>
-                                    </li>
-                                </div>
+
+                                <li className="nav-item">
+                                    <Link to="/checkout" className="nav-link text-dark"><img src="./img/cart.jpg" width="35" height="35" /></Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/register" className="nav-link"><button className="headerButtons">Register</button></Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/login" className="nav-link" ><button className="headerButtons">Login</button></Link>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link"><Logout /></a>
+                                </li>
                             </ul>  {/*problem li after li,,,, and atag after atag (atag and link)*/}
                         </div>
 

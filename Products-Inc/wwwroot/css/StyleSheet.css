@@ -176,6 +176,12 @@ button.accept-policy {
 .logInBtnDiv {
     padding-left: 210px;
 }
+.savePasswordButtonDiv {
+    padding-left: 180px;
+}
+.saveDetailsBtnDiv {
+    padding-left: 210px;
+}
 .form-group {
     margin-bottom: 20px;
     width: 400px;
@@ -237,10 +243,9 @@ button.accept-policy {
     text-decoration: none;
     display: block;
 }
-
-    .dropdown-content a:hover {
-        background-color: #dc3545
-    }
+.dropdown-content a:hover {
+    background-color: #dc3545
+}
 
 .dropdown:hover .dropdown-content {
     display: block;

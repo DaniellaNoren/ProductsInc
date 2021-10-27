@@ -139,7 +139,6 @@ export default class Products extends Component {
 
 
                {/* display of produtcs code goes here*/}
-                <h4><b>All Products:</b></h4>
 
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 

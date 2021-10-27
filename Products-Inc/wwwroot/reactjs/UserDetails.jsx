@@ -79,10 +79,13 @@ export default class UserDetails extends Component {
                             <label for="username-input">Username</label>
                             <input value={this.state.userDetailsModel.userName} onChange={e => this.setState({ userDetailsModel: { ...this.state.userDetailsModel, userName: e.target.value } })} className="form-control" id="username-input" type="text" />
                         </div>
-                        <button type="submit" className="btn btn-primary">Save Details</button>
+                        <div className="saveDetailsBtnDiv">
+                            <button type="submit" className="btn submitButton">Save Details</button>
+                        </div>
                     </form>
                 </div>
                 <br />
+                <br/>
                 <form className="formlogin" onSubmit={this.changeUserPassword}>
                     <p id="passwordmatchmessage" ref="passwordmatchmessage"></p>
                     <div className="form-group">
@@ -93,7 +96,9 @@ export default class UserDetails extends Component {
                         <label for="password-again">Password again</label>
                         <input value={this.state.changePasswordModel.passwordAgain} onChange={e => this.setState({ changePasswordModel: { ...this.state.changePasswordModel, passwordAgain: e.target.value } })} className="form-control" id="password-again" type="password" />
                     </div>
-                    <button type="submit" className="btn btn-primary">Save New Password</button>
+                    <div className="savePasswordButtonDiv">
+                        <button type="submit" className="btn submitButton">Save New Password</button>
+                    </div>
                 </form>
 
 

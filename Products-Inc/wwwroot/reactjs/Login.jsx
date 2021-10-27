@@ -26,6 +26,7 @@ export default class Login extends Component {
                 console.log(errorThrown);
             }
         });
+
     }
     render() {
         return (
@@ -43,7 +44,6 @@ export default class Login extends Component {
                         <label className="form-check-label" for="remember-me-check">Remember me</label>
                         <input value={this.state.loginModel.rememberMe} onChange={e => this.setState({ loginModel: { ...this.state.loginModel, rememberMe: e.target.value } })} id="remember-me-check" className="form-check-input" type="checkbox" />
                     </div>
-                    <br/>
                     <div className="logInBtnDiv">
                         <button type="submit" className="btn submitButton">Login</button>
                     </div>
