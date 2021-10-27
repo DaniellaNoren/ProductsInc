@@ -123,6 +123,33 @@ export default class Products extends Component {
         )
     }
 }
+            <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
+                {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
+            </div>
+        );
+    }
+}
+
+function Product({ product, addProductEvent }) {
+    return (
+        <div className="product w-2 m-2">
+            <div classNmae="img-hover-zoom">
+                <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
+            </div>
+            <div className="box">
+                <div className="contents">
+                    <h4>{product.ProductName}</h4>
+                    <p>{product.Price}kr</p>
+                    <p>{product.Description}</p>
+                </div>
+                <div className="addButton d-flex align-items-end justify-content-end">
+                    <button className="btn" onClick={() => addProductEvent(product)}>ADD</button>
+                </div>
+            </div>
+  
+        </div>
+    ) 
+}         
 
 
 //function Product(product, addProductEvent) {
