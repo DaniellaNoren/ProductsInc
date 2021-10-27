@@ -1,5 +1,8 @@
 ﻿import { Component, Fragment } from 'react';
 import Cookies from 'js-cookies'
+import {
+    Redirect
+  } from "react-router-dom";
 
 export default class Checkout extends Component {
     state = {
@@ -14,9 +17,12 @@ export default class Checkout extends Component {
             Products: [],
             Id: 0,
             OrderNr: ""
-        }
+        },
+        redirect: false
     }
     componentDidMount(){
+        this.setState({redirect: false})
+        console.log(this.props)
         let cookie = Cookies.getItem('shopping-cart');
         if(cookie){
             console.log(JSON.parse(cookie))
@@ -39,6 +45,7 @@ export default class Checkout extends Component {
     }
     checkoutOrder = () => {
         let t = this;
+        
         $.ajax({      
             url: "/api/shoppingcart/buy",
             type: "POST",
@@ -47,12 +54,12 @@ export default class Checkout extends Component {
             contentType: "application/json", 
             dataType: "json",
             success: function(res) {
-        
                 t.setState(oldState => ({ viewReceipt: !oldState.viewReceipt, order: res }))
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log("need to login, bitch")
-                //redirect to login/register
+                
+                t.setState({redirect: true})
+               
             }
         });
 
@@ -64,9 +71,11 @@ export default class Checkout extends Component {
     totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.ProductPrice }, 0) * 100) / 100;
 
     render() {
+        if(this.state.redirect) {
+            return ( <LoginRedirect/> ) 
+        }else{
         return (
             <div>
-
                 {!this.state.viewReceipt ?
                     <div>
                         <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
@@ -83,7 +92,9 @@ export default class Checkout extends Component {
                 }
 
             </div>
+        
         )
+            }
     }
 }
 
@@ -128,6 +139,10 @@ function Receipt({ order, user }) {
     )
 }
 
+const LoginRedirect = () => {
+    
+    return <Redirect to="/login"></Redirect>
+}
 function Product({product, removeMe}){
     return (
         <tr>
