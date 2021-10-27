@@ -63,5 +63,14 @@ namespace Products_Inc.Controllers
             }
         }
 
+        [HttpPost("[controller]/logout")]
+        public IActionResult Logout()
+        {
+            _userService.Logout();
+            return new OkResult();
+
+        }
+
+
     }
 }
