@@ -10,7 +10,7 @@ import Products from './Products.jsx';
 import Orders from './Orders.jsx';
 import Router from './Router.jsx';
 import Index from './Index.jsx';
-
+import CreateProduct from './CreateProduct.jsx'
 
 // any css-in-js or other libraries you want to use server-side
 import { ServerStyleSheet } from 'styled-components';
@@ -24,4 +24,4 @@ global.ReactDOMServer = ReactDOMServer;
 global.Styled = { ServerStyleSheet };
 global.Helmet = Helmet;
 
-global.Components = { Index, Router, UserPage, Products, Orders };
+global.Components = { CreateProduct, Index, Router, UserPage, Products, Orders };

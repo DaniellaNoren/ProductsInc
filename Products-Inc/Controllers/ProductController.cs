@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Products_Inc.Models;
-using Products_Inc.Models.ViewModels;
-using Products_Inc.Models.Services;
 using Products_Inc.Models.Interfaces;
-using System.Data;
+using Products_Inc.Models.ViewModels;
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace Products_Inc.Controllers
 {
@@ -19,9 +15,11 @@ namespace Products_Inc.Controllers
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IImageService _imageService;
 
-        public ProductController(IProductService iProductService)
+        public ProductController(IImageService imageService, IProductService iProductService)
         {
+            _imageService = imageService;
             _productService = iProductService;
 
         }
@@ -38,37 +36,25 @@ namespace Products_Inc.Controllers
         [HttpGet("{id}")]
         public IActionResult GetOne(int id)
         {
-            try
-            {
-                return new OkObjectResult(_productService.FindBy(id));
-            }
-            catch (Exception)
-            {
-                return new NotFoundObjectResult(new { msg = "Product with that id not found" });
-            }
-
+           return new OkObjectResult(_productService.FindBy(id));
         }
 
-       // [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult CreateProduct([FromBody] CreateProductViewModel createProductViewModel)
         {
-            try
-            {
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
                 {
                     ProductViewModel createdProduct = _productService.Create(createProductViewModel);
 
                     return new OkObjectResult(createdProduct);
 
-                }
             }
-            catch (DataException)
+            else
             {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                return new BadRequestObjectResult(new { msg = "Invalid body" });
             }
-
-            return new NotFoundResult();
+          
         }
 
         [Authorize(Roles = "Admin")]
@@ -81,11 +67,14 @@ namespace Products_Inc.Controllers
             {
                 return new OkResult();
             }
+            else
+            {
+                return new BadRequestObjectResult(new { msg = "Product not managed to be deleted. " });
+            }
 
-            return new NotFoundResult();
         }
 
-       
-
     }
+
+   
 }

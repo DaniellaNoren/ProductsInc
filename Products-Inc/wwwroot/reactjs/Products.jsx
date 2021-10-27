@@ -7,66 +7,6 @@ export default class Products extends Component {
         this.state = {
             products: []
             /*pollInterval: 2000*/
-            //products: [
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 1,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 2,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 3,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 4,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    ,
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 5,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 6,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    }
-            //    ,
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 7,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 8,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    }
-            //]
         }
     }
 
@@ -77,7 +17,7 @@ export default class Products extends Component {
             const productlist = JSON.parse(xhr.responseText)
             console.log(productlist)
             this.setState({ products: productlist })
-
+           
         }
         xhr.send()
 
@@ -90,7 +30,24 @@ export default class Products extends Component {
 
 
     addProduct = product => {
-        console.log(`Product with id ${product.Id} added`)
+        let shoppingCartProduct = {
+            product, amount: 1, productId: product.productId
+        };
+        $.ajax({      
+            url: "/api/shoppingcart/products",
+            type: "POST",
+            data: JSON.stringify(shoppingCartProduct),
+            Accept: "application/json",
+            contentType: "application/json", 
+            dataType: "json",
+            success: function(res) {
+                console.log(res);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                
+            }
+        });
     } 
 
     render() {
@@ -101,17 +58,20 @@ export default class Products extends Component {
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 
                     { this.state.products.map(p => (
+                       
                         <div key={p.productId.toString()} className="product w-2 m-2">
                             <div>
                                 <br />
                                 <br />
+
                                 <img src={p.imgPath} className="text-center product-img" alt="Product image"></img>
+
                                 <h4>{p.productName}</h4>
                                 <p>{p.productPrice} kr</p>
                                 <p>{p.productDescription}</p>
 
                                 <div className="d-flex align-items-end justify-content-end">
-                                    <button className="btn btn-success" onClick={() => addProductEvent(p)}>ADD</button>
+                                    <button className="btn btn-success" onClick={() => this.addProduct(p)}>ADD</button>
                                 </div>
                             </div>
                             {/*<Product product={p} addProductEvent={this.addProduct} />*/}
