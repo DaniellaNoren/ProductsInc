@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Products_Inc.Models;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
@@ -27,8 +24,8 @@ namespace Products_Inc.Controllers
         }
      
    
-
-        [HttpGet("buy")]
+        [Authorize(Roles = "User")]
+        [HttpPost("buy")]
         public IActionResult GetOrder(ShoppingCartViewModel shoppingCart)
         {
             OrderViewModel order = _service.CreateOrder(shoppingCart);
@@ -136,8 +133,11 @@ namespace Products_Inc.Controllers
                             }
                             shoppingCart = _service.Create(createShoppingCart);
                         }
+                        else
+                        {
+                            shoppingCart = _service.AddProduct(product.ProductId, shoppingCart.ShoppingCartId);
+                        }
 
-                        shoppingCart = _service.AddProduct(product.ProductId, shoppingCart.ShoppingCartId);
                     }
                     else
                     {

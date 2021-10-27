@@ -1,37 +1,26 @@
 ﻿import { Component, Fragment } from 'react';
+import Cookies from 'js-cookies'
 
 export default class Checkout extends Component {
     state = {
         viewReceipt: false,
-        products: [
-            {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
-                Id: 1,
-                ImgPath: "/img/toothpaste.jpg"
-            },
-            {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
-                Id: 2,
-                ImgPath: "/img/toothpaste.jpg"
-            },
-            {
-                ProductName: "Toothpaste",
-                Price: 17.90,
-                Description: "Nice for your teeth",
-                Id: 3,
-                ImgPath: "/img/toothpaste.jpg"
-            }
-        ],
+        shoppingCart: {
+            Products: [],
+            ShoppingCartId: ''
+        },
         order: {
             Price: 0.0,
             UserId: 0,
             Products: [],
             Id: 0,
             OrderNr: ""
+        }
+    }
+    componentDidMount(){
+        let cookie = Cookies.getItem('shopping-cart');
+        if(cookie){
+            console.log(JSON.parse(cookie))
+            this.setState({shoppingCart: JSON.parse(cookie)})
         }
     }
     cancelOrder = () => {
@@ -49,29 +38,30 @@ export default class Checkout extends Component {
 
     }
     checkoutOrder = () => {
-
-        console.log(this.state.products)
-        this.setState({
-            order: {
-                Price: this.totalPrice,
-                UserId: 0,
-                Products: this.state.products,
-                OrderNr: "1875360286-57382699",
-                Id: 0
+        let t = this;
+        $.ajax({      
+            url: "/api/shoppingcart/buy",
+            type: "POST",
+            data: JSON.stringify(this.state.shoppingCart),
+            Accept: "application/json",
+            contentType: "application/json", 
+            dataType: "json",
+            success: function(res) {
+        
+                t.setState(oldState => ({ viewReceipt: !oldState.viewReceipt, order: res }))
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("need to login, bitch")
+                //redirect to login/register
             }
-        })
-
-        console.log("Products have been bought")
-        console.log("Order: " + this.state.order)
-
-        this.setState(oldState => ({ viewReceipt: !oldState.viewReceipt }))
+        });
 
     }
     removeProduct = id => {
-        this.setState(oldState => ({ products: oldState.products.filter(p => p.Id !== id) }))
+        this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
         this.totalPrice();
     }
-    totalPrice = () => Math.round(this.state.products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Price }, 0) * 100) / 100;
+    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.ProductPrice }, 0) * 100) / 100;
 
     render() {
         return (
@@ -79,7 +69,7 @@ export default class Checkout extends Component {
 
                 {!this.state.viewReceipt ?
                     <div>
-                        <ProductList products={this.state.products} removeProductMethod={this.removeProduct} />
+                        <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
                         <div className="d-flex align-items-end justify-content-end">
                             <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice}kr</h3>
                         </div>
@@ -88,7 +78,7 @@ export default class Checkout extends Component {
                     </div>
                     :
                     <div>
-                        <Receipt order={this.state.order} user={{ UserName: "user", Id: 1 }} />
+                        <Receipt order={this.state.order} />
                     </div>
                 }
 
@@ -117,12 +107,12 @@ function Receipt({ order, user }) {
     return (
         <div id="receipt" className="d-flex align-items-center justify-content-center">
             <div>
-            <h2>{user.UserName}, your order has been placed!</h2>
+            <h2>Your order has been placed!</h2>
             
             {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
-            <h4>Products Inc</h4>
+            <h4>Ordernr: {order.orderId}</h4>
             <ul>
-                {order.Products.map(p => <li key={p.Id}>{p.ProductName}, {p.Price}kr</li>)}
+                {order.products.map(p => <li key={p.product.productId}>{p.product.productName}, {p.product.productPrice}kr</li>)}
             </ul>
             {/*<h3>{order.Price}kr</h3>*/}
 
@@ -142,8 +132,8 @@ function Product({product, removeMe}){
     return (
         <tr>
            <td colSpan={5}>{product.ProductName}</td>
-           <td colSpan={4}>{product.Price}</td>    
-           <td colSpan={1}><button className="btn btn-danger" onClick={() => removeMe(product.Id)}>-</button></td>
+           <td colSpan={4}>{product.ProductPrice}</td>    
+           <td colSpan={1}><button className="btn btn-danger" onClick={() => removeMe(product.ProductId)}>-</button></td>
         </tr>
     )
 }
@@ -158,7 +148,7 @@ function ProductList({products, removeProductMethod}){
                 </tr>
             </thead>     
             <tbody>
-                { products.map(p => <Product product={p} key={p.Id} removeMe={removeProductMethod}/>) }
+                { products.map(p => <Product product={p.Product} key={p.ProductId} removeMe={removeProductMethod}/>) }
             </tbody>
         </table>
     )

@@ -90,7 +90,24 @@ export default class Products extends Component {
 
 
     addProduct = product => {
-        console.log(`Product with id ${product.Id} added`)
+        let shoppingCartProduct = {
+            product, amount: 1, productId: product.productId
+        };
+        $.ajax({      
+            url: "/api/shoppingcart/products",
+            type: "POST",
+            data: JSON.stringify(shoppingCartProduct),
+            Accept: "application/json",
+            contentType: "application/json", 
+            dataType: "json",
+            success: function(res) {
+                console.log(res);
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                
+            }
+        });
     } 
 
     render() {
@@ -117,7 +134,7 @@ export default class Products extends Component {
                                 <p>{p.productDescription}</p>
 
                                 <div className="d-flex align-items-end justify-content-end">
-                                    <button className="btn btn-success" onClick={() => addProductEvent(p)}>ADD</button>
+                                    <button className="btn btn-success" onClick={() => this.addProduct(p)}>ADD</button>
                                 </div>
                             </div>
                             {/*<Product product={p} addProductEvent={this.addProduct} />*/}
