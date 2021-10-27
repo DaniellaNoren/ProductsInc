@@ -1,15 +1,21 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
+import {
+    Redirect
+} from 'react-router-dom';
 import Cookies from 'js-cookies';
 
 export default class Login extends Component {
     state = {
-        loginModel: {userName: "", password: "", rememberMe: false}
+        loginModel: {userName: "", password: "", rememberMe: false},
+        redirect: false
+    }
+    componentDidMount(){
+        this.setState({redirect: false})
     }
     tryToLogin = e => {
         e.preventDefault();
-        console.log(this.state.loginModel);
-        console.log(JSON.stringify(this.state.loginModel));
+        let t = this;
 
         $.ajax({      
             url: "/user/login",
@@ -43,6 +49,8 @@ export default class Login extends Component {
                     $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
                     .done(r => console.log(r)).fail(e => console.log(e));
                 }
+
+                t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
@@ -53,7 +61,11 @@ export default class Login extends Component {
 
     }
     render() {
-        return (
+        
+             if(this.state.redirect){
+                return <Redirect to="/"/>
+            }else
+                return (
             <div>
                 <form className="formlogin" onSubmit={this.tryToLogin}>
                     <div className="form-group">

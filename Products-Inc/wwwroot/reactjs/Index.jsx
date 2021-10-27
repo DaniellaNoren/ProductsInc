@@ -132,7 +132,7 @@ export default class Index extends Component {
 
                         <Route path="/login"><Login /></Route>
                         <Route path="/register"><Register /></Route>
-                        <Route path="/logout"><Logout /></Route>
+                        <Route path="/logout"><Logout/></Route>
 
                         <Route path="/products"><Products /></Route>
                         <Route path="/orders"><Orders /></Route>
