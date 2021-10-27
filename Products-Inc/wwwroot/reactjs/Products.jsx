@@ -75,7 +75,7 @@ export default class Products extends Component {
         xhr.open('get', "api/product", true)
         xhr.onload = () => {
             const productlist = JSON.parse(xhr.responseText)
-            //console.log(productlist)
+            console.log(productlist)
             this.setState({ products: productlist })
 
         }
@@ -105,7 +105,7 @@ export default class Products extends Component {
                             <div>
                                 <br />
                                 <br />
-                                <img src="./img/toothpaste.jpg" className="text-center product-img" alt="Product image"></img>
+                                <img src={p.imgPath} className="text-center product-img" alt="Product image"></img>
                                 <h4>{p.productName}</h4>
                                 <p>{p.productPrice} kr</p>
                                 <p>{p.productDescription}</p>

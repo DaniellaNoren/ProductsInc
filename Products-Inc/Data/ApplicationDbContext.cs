@@ -70,12 +70,25 @@ namespace Products_Inc.Data
 
 
             // Seeding db with start products
-            Product banana = new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 };
-            Product satsumas = new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 };
-            Product tomatos = new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 };
-            Product sunflowerbutter = new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 };
 
-            modelBuilder.Entity<Product>().HasData(banana, satsumas, tomatos, sunflowerbutter);
+            modelBuilder.Entity<Product>().HasData(
+            new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 },
+            new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 },
+            new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 },
+            new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 },
+
+            new Product() { ProductId = 50, ProductName = "Orange", ProductDescription = "Nice for your health", ProductPrice = 30, ImgPath = "./img/img4.jpg" },
+            new Product() { ProductId = 51, ProductName = "Coca Cola", ProductDescription = "Good to drink", ProductPrice = 16, ImgPath = "./img/img6.jpg" },
+            new Product() { ProductId = 52, ProductName = "Oreo", ProductDescription = "Good for health", ProductPrice = 10, ImgPath = "./img/img7.jpg" },
+            new Product() { ProductId = 53, ProductName = "Corn Flakes", ProductDescription = "Healthy breakfast", ProductPrice = 25, ImgPath = "./img/img8.jpg" },
+            new Product() { ProductId = 54, ProductName = "Salt", ProductDescription = "Nice to make food", ProductPrice = 9, ImgPath = "./img/img9.jpg" },
+            new Product() { ProductId = 55, ProductName = "Avocado", ProductDescription = "Good for health", ProductPrice = 18, ImgPath = "./img/img12.jpg" },
+            new Product() { ProductId = 56, ProductName = "Eggo", ProductDescription = "Nice to eat", ProductPrice = 30, ImgPath = "./img/img14.jpg" },
+            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.jpg" }
+            );
+
+
+
             // -----------------------------------------
 
 
@@ -87,10 +100,10 @@ namespace Products_Inc.Data
 
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, UserId = "0030" },
-                new Order { OrderId = 2, UserId = "0010" },
-                new Order { OrderId = 3, UserId = "0020" },
-                new Order { OrderId = 4, UserId = "0020" }
+                new Order { OrderId = 1, Id = "0030" },
+                new Order { OrderId = 2, Id = "0010" },
+                new Order { OrderId = 3, Id = "0020" },
+                new Order { OrderId = 4, Id = "0020" }
             );
 
 

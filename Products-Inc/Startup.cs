@@ -141,6 +141,7 @@ namespace Products_Inc
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{path?}", new { controller = "Home", action = "Index" });
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
