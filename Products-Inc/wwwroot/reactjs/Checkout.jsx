@@ -4,7 +4,7 @@ import {
     Redirect
   } from "react-router-dom";
 
-export default class Checkout extends Component {
+class Checkout extends Component {
     state = {
         viewReceipt: false,
         shoppingCart: {
@@ -18,7 +18,8 @@ export default class Checkout extends Component {
             Id: 0,
             OrderNr: ""
         },
-        redirect: false
+        redirect: false,
+        redirectUrl: "/products"
     }
     componentDidMount(){
         this.setState({redirect: false})
@@ -30,7 +31,6 @@ export default class Checkout extends Component {
         }
     }
     cancelOrder = () => {
-        console.log("Going back to homepage.")
 
         this.setState({
             order: {
@@ -41,6 +41,8 @@ export default class Checkout extends Component {
                 OrderNr: ""
             }
         })
+
+        this.setState({redirectUrl: "/products", redirect: true})
 
     }
     checkoutOrder = () => {
@@ -58,7 +60,7 @@ export default class Checkout extends Component {
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 
-                t.setState({redirect: true})
+                t.setState({redirectUrl: "/login", redirect: true})
                
             }
         });
@@ -71,10 +73,9 @@ export default class Checkout extends Component {
     totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.ProductPrice }, 0) * 100) / 100;
 
     render() {
-        if(this.state.redirect) {
-            return ( <LoginRedirect/> ) 
-        }else{
-        return (
+        return ( <div>
+        { this.state.redirect ?  <RedirectTo url={this.state.redirectUrl}/> 
+            : 
             <div>
                 {!this.state.viewReceipt ?
                     <div>
@@ -87,20 +88,21 @@ export default class Checkout extends Component {
                     </div>
                     :
                     <div>
-                        <Receipt order={this.state.order} />
+                        <Receipt propMsg={"Your order has been placed!"} propOrder={this.state.order} />
                     </div>
                 }
 
             </div>
         
-        )
             }
-    }
+        </div>
+    )
+} 
 }
 
 
 
-function Receipt({ order, user }) {
+const Receipt = ({ propOrder, propMsg, user, location }) => {
     const printReceipt = () => { 
        
         var divContents = document.getElementById("receipt").innerHTML;
@@ -114,11 +116,13 @@ function Receipt({ order, user }) {
 
     
     };
+    const order = propOrder ? propOrder : location.order
+    const msg = propMsg ? propMsg : location.msg
 
     return (
         <div id="receipt" className="d-flex align-items-center justify-content-center">
             <div>
-            <h2>Your order has been placed!</h2>
+            <h2>{msg}</h2>
             
             {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
             <h4>Ordernr: {order.orderId}</h4>
@@ -139,10 +143,12 @@ function Receipt({ order, user }) {
     )
 }
 
-const LoginRedirect = () => {
+const RedirectTo = ({url}) => {
     
-    return <Redirect to="/login"></Redirect>
+    return <Redirect to={url}></Redirect>
 }
+
+
 function Product({product, removeMe}){
     return (
         <tr>
@@ -169,3 +175,4 @@ function ProductList({products, removeProductMethod}){
     )
 }
 
+export {Checkout, Receipt}

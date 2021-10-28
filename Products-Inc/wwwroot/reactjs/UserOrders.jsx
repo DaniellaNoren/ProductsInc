@@ -1,25 +1,40 @@
 ﻿import { Component, Fragment } from 'react';
+
+
 import {
-    Link,
-    BrowserRouter,
-    Route,
-    Switch,
-    StaticRouter,
-    Redirect
+    Link
 } from 'react-router-dom';
 
+function UserOrderTable({orders}){
+ return (
+    <div>
+        { orders.map(o => <UserOrder key={o.orderId} order={o}/>) }
+    </div>
+ )
+}
+
+function UserOrder({order}){
+    return (<div className="row">
+       <Link to={{pathname: "/orderdetails", order, msg: "Receipt"}} >Ordernr: {order.orderId} </Link>
+    </div>
+    )
+}
 export default class UserOrders extends Component{
-    
+    state = {
+        orders: []
+    }
+    componentDidMount(){
+        let t = this;
+
+        $.get("/api/order/users", function(){})
+        .done(res => t.setState({orders: res}))
+        .fail(e => console.log(e));
+    }
     render(){
         return (
             <div>
-                <h4><b>UserOrders:</b></h4>
-                <br/>
-                <ul>
-                    <li>
-                        Orderslist will be here
-                    </li>
-                    </ul>
+                <h4>UserOrders:</h4>
+                <UserOrderTable orders={this.state.orders}/>
             </div>
         )
     }

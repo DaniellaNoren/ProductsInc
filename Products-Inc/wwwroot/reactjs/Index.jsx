@@ -10,7 +10,7 @@ import Register from './Register.jsx';
 import Logout from './Logout.jsx';
 import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
-import Checkout from './Checkout.jsx';
+import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminProducts from './AdminProducts.jsx';
 import AdminUsers from './AdminUsers.jsx';
@@ -142,7 +142,7 @@ export default class Index extends Component {
                         <Route path="/userorders"><UserOrders /></Route>
                         <Route path="/userdetails"><UserDetails /></Route>
                         <Route path="/checkout"><Checkout /></Route>
-
+                        <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
                         <Route path="/adminorders"><AdminOrders /></Route>
                         <Route path="/adminusers"><AdminUsers /></Route>
