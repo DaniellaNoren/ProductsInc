@@ -23,5 +23,6 @@ namespace Products_Inc.Models.Interfaces
         Task<bool> Login(LoginModel loginModel);
 
         void Logout();
+        Task<UserViewModel> Update(string userId, RegisterModel updateModel);
     }
 }
