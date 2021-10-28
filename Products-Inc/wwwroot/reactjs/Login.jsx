@@ -29,6 +29,7 @@ export default class Login extends Component {
 
     }
     render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <form className="formlogin" onSubmit={this.tryToLogin}>

@@ -7,66 +7,7 @@ export default class Products extends Component {
         this.state = {
             products: []
             /*pollInterval: 2000*/
-            //products: [
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 1,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 2,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 3,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 4,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    ,
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 5,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 6,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    }
-            //    ,
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 7,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    },
-            //    {
-            //        ProductName: "Toothpaste",
-            //        Price: 17.90,
-            //        Description: "Nice for your teeth",
-            //        Id: 8,
-            //        ImgPath: "/img/toothpaste.jpg"
-            //    }
-            //]
+           
         }
     }
 
@@ -75,7 +16,7 @@ export default class Products extends Component {
         xhr.open('get', "api/product", true)
         xhr.onload = () => {
             const productlist = JSON.parse(xhr.responseText)
-            console.log(productlist)
+            //console.log(productlist)
             this.setState({ products: productlist })
 
         }
@@ -94,6 +35,7 @@ export default class Products extends Component {
     } 
 
     render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <h4><b>All Products:</b></h4>
@@ -123,12 +65,12 @@ export default class Products extends Component {
         )
     }
 }
-            <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
-                {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
-            </div>
-        );
-    }
-}
+//            <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
+//                {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
+//            </div>
+//        );
+//    }
+//}
 
 function Product({ product, addProductEvent }) {
     return (
@@ -150,23 +92,3 @@ function Product({ product, addProductEvent }) {
         </div>
     ) 
 }         
-
-
-//function Product(product, addProductEvent) {
-//    console.log(product.productName)
-//    return (
-//        <div>
-//            <br/>
-//            <br/>
-//            <img src="./img/toothpaste.jpg" className="text-center product-img" alt="Product image"></img>
-//            <p>{/*{product.productId.toString()}*/}</p>
-//            <h4>{product.productName}namn</h4>
-//            <p>{product.productPrice}kr</p>
-//            <p>{product.productDescription}desc</p>
-
-//            <div className="d-flex align-items-end justify-content-end">
-//                <button className="btn btn-success" onClick={() => addProductEvent(product)}>ADD</button>
-//            </div>
-//        </div>
-//    )
-//}

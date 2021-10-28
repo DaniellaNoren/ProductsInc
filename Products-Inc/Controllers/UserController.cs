@@ -13,10 +13,14 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
+
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
+
 
         public UserController(IUserService userService, ILogger<UserController> logger)
         {
@@ -92,6 +96,20 @@ namespace Products_Inc.Controllers
             return View();
         }
 
+
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            Task<UserViewModel> user = _userService.FindById(id);
+
+            if (user.Result.FoundUser)
+            {
+                return new OkObjectResult(user.Result);
+            }
+            else
+            {
+                return new BadRequestObjectResult(new { errorMsg = "UserId not found." });
+            }
+        }
 
 
 

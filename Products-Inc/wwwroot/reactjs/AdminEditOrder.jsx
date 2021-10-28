@@ -5,73 +5,49 @@ import {
     Route,
     Switch,
     StaticRouter,
-    Redirect
+    Redirect,
+    useLocation
 } from 'react-router-dom';
 
 
 export default class AdminEditOrder extends Component {
-    state = {
-        orders: [
-            { products: [{ name: "test" }], orderId: "234784834", userId: 1 },
-            { products: [{ name: "test" }], orderId: "2342334029834", userId: 1 },
-            { products: [{ name: "test" }], orderId: "23423945645", userId: 2 },
-            { products: [{ name: "test" }], orderId: "2342361234", userId: 3 },
-        ]
+
+
+
+    constructor(props) {
+        super(props)
+        //this.state = {
+        //    dtprops: ""
+        //}
     }
-    deleteProductFromOrder = (order, p) => {
-        console.log(order)
-        console.log(p);
-        //ajax call to delete order from product
-    }
+
 
     render() {
+        console.log(this.props.location.ao)
         return (
             <div>
+                <h4><b>AdminEditOrder & Details:</b></h4>
+                <br />
+                <div> {/*this div is sidemenu-tab*/}
+                    <div className="nav-item">
+                        <button className="nav-link text-dark">ALL Orders</button>
+                    </div>
+                    <div>
+                        <button className="nav-link text-dark">Users Orders</button>
+                    </div>
 
-                <h1>From order component in a different fiiiile</h1>
-                {/*<OrderList onDelete={deleteProductFromOrder} orders={this.props.orders.orders} editable={this.props.editable}/>     */}
+                </div>
+                <div> {/*this div is content of the selected tab*/}
+                    <div>
+                        {this.props.location.ao.orderProductViewModel.map((ap, index) => (
+                            <div key={index + 200}>
+                                <p>{ap.productId}, {ap.product.productName}, {ap.product.productDescription},
+                                    {ap.product.productPrice}, {ao.products.amount}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         )
     }
 }
-
-
-function OrderList({ orders, editable }) {
-    return (
-        <div>
-            { orders.map(o => <Order editable={editable} order={o} key={o.orderId}/>) }
-        </div>
-    )
-}
-
-function OrderProduct({product, editable, onDelete}){
-    return (
-        <div>
-            {product.name}
-            { editable ? <button onClick={() => onDelete(product)}>Delete</button> : null }
-        </div>
-    )
-}
-function OrderProducts({products, editable, onDelete}){
-    return (
-        <div>
-            {products.map(p => <OrderProduct onDelete={onDelete} editable={editable} product={p} key={p.name}/>)}
-            
-        </div>
-    )
-}
-function Order({order, editable, onDelete}){
-    let deleteDetected = p => {
-        onDelete(order, p);
-    }
-    return (
-        <div className="row">
-            <p>{order.orderId}</p>
-            <OrderProduct onDelete={deleteDetected} editable={editable} products={order.products}/>
-          
-        </div>
-    )
-}
-
-
-

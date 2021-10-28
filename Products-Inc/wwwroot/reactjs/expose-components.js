@@ -5,9 +5,7 @@ import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import ReactRouter from 'react-router-dom';
 
-import UserPage from './UserPage.jsx';
-import Products from './Products.jsx';
-import Orders from './Orders.jsx';
+
 import Router from './Router.jsx';
 import Index from './Index.jsx';
 
@@ -20,8 +18,9 @@ import Helmet from 'react-helmet';
 global.React = React;
 global.ReactDOM = ReactDOM;
 global.ReactDOMServer = ReactDOMServer;
+global.ReactRouter = ReactRouter;
 
 global.Styled = { ServerStyleSheet };
 global.Helmet = Helmet;
 
-global.Components = { Index, Router, UserPage, Products, Orders };
+global.Components = { Index, Router };

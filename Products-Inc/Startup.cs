@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Products_Inc.Controllers;
 using Products_Inc.Models;
 using Products_Inc.Data;
 using Products_Inc.Models.Interfaces;
@@ -43,12 +44,13 @@ namespace Products_Inc
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ProductIncConnection")));
 
-            services.AddDbContext<IdentityAppDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("ProductIncConnection")));
+            //services.AddDbContext<IdentityAppDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("ProductIncConnection")));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUserService, UserService>();
+
             services.AddReact();
 
             services.AddJsEngineSwitcher(options =>
@@ -61,7 +63,7 @@ namespace Products_Inc
 
             services.AddIdentity<User, IdentityRole>(o =>
                 o.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<IdentityAppDbContext>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
 
@@ -90,8 +92,17 @@ namespace Products_Inc
 
             services.AddControllersWithViews();
 
-            services.AddScoped<IProductRepo, DbProductRepo>();
+            services.AddScoped<IUserService, UserService>(); // identity
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IShoppingCartService, ShoppingCartService>();
             services.AddScoped<IProductService, ProductService>();
+            //services.AddScoped<IImageService, ImageService>();
+            //services.AddSingleton<ImageServiceOptions>(new ImageServiceOptions(Environment.WebRootPath, "img", "jpg"));
+            services.AddScoped<IShoppingCartRepo, DbShoppingCartRepo>();
+            services.AddScoped<IOrderRepo, DbOrderRepo>();
+            services.AddScoped<IProductRepo, DbProductRepo>();
+
+            //services.AddTransient<UserController>();
 
             services.AddRazorPages();
         }
@@ -117,6 +128,7 @@ namespace Products_Inc
                     .SetReuseJavaScriptEngines(true)
                     .SetLoadBabel(false)
                     .SetLoadReact(false)
+                    .DisableServerSideRendering()
                     .SetReactAppBuildPath("~/reactjs/dist")
                     //.AddScriptWithoutTransform("~/js/ajaxactions.js")
                     .AddScriptWithoutTransform("~/reactjs/dist/runtime.js")
@@ -127,6 +139,7 @@ namespace Products_Inc
 
 
             });
+
 
             app.UseHttpsRedirection();
 

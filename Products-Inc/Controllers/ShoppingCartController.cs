@@ -76,7 +76,7 @@ namespace Products_Inc.Controllers
                     CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
                     createShoppingCart.AddProduct(product);
                     UserViewModel user = await _userService.FindBy(User.Identity.Name);
-                    createShoppingCart.UserId = user.Id;
+                    createShoppingCart.Id = user.Id;
                     shoppingCart = _service.Create(createShoppingCart);
                     this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
                 }

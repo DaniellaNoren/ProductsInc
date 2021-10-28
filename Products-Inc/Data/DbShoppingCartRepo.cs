@@ -59,12 +59,12 @@ namespace Products_Inc.Data
 
         public ShoppingCart ReadActiveByUser(string userid)
         {
-            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.UserId.Equals(userid) && sc.Active && !sc.TransactionComplete).FirstOrDefault();
+            return _context.ShoppingCarts.Include(sc => sc.Products).ThenInclude(scp => scp.Product).Where(sc => sc.Id.Equals(userid) && sc.Active && !sc.TransactionComplete).FirstOrDefault();
         }
 
         public List<ShoppingCart> ReadByUser(string userid)
         {
-            return _context.ShoppingCarts.Where(sc => sc.UserId.Equals(userid)).ToList();
+            return _context.ShoppingCarts.Where(sc => sc.Id.Equals(userid)).ToList();
         }
 
         public ShoppingCart Update(ShoppingCart shoppingCart)

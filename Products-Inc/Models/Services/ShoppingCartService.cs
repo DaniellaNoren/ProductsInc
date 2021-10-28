@@ -20,7 +20,11 @@ namespace Products_Inc.Models.Services
         public ShoppingCartViewModel AddProduct(int productId, string shoppingCartId)
         {
             ShoppingCart editedShoppingCart = _repo.AddProduct(productId, Int32.Parse(shoppingCartId));
-            return new ShoppingCartViewModel() { ShoppingCartId = editedShoppingCart.ShoppingCartId.ToString(), Products = editedShoppingCart.Products.Select(p => new ShoppingCartProductViewModel() { Product = new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription, ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }, Amount = p.Amount, ShoppingCartId = p.ShoppingCartId, ProductId = p.ProductId }).ToList(), UserId = editedShoppingCart.UserId };
+            return new ShoppingCartViewModel() { ShoppingCartId = editedShoppingCart.ShoppingCartId.ToString(),
+                Products = editedShoppingCart.Products.Select(p => new ShoppingCartProductViewModel()
+                { Product = new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription,
+                ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice },
+                Amount = p.Amount, ShoppingCartId = p.ShoppingCartId, ProductId = p.ProductId }).ToList(), Id = editedShoppingCart.Id };
 
         }
 
@@ -30,7 +34,7 @@ namespace Products_Inc.Models.Services
             {
                 Active = true,
                 TransactionComplete = shoppingCartViewModel.TransactionComplete,
-                UserId = shoppingCartViewModel.UserId,
+                Id = shoppingCartViewModel.Id,
                 Products = shoppingCartViewModel.Products.Select(p => new ShoppingCartProduct() { ProductId = p.ProductId, Amount = p.Amount }).ToList()
             };
 
@@ -47,7 +51,12 @@ namespace Products_Inc.Models.Services
         {
             ShoppingCart shoppingCart = _repo.Read(Int32.Parse(shoppingCartModel.ShoppingCartId));
 
-            CreateOrderViewModel order = new CreateOrderViewModel() { Products = shoppingCart.Products.Select(p => new OrderProductViewModel() { Product = new ProductViewModel() { ProductDescription = p.Product.ProductDescription, ProductId = p.Product.ProductId, ImgPath = p.Product.ImgPath, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }, Amount = p.Amount }).ToList(), UserId = shoppingCart.UserId };
+            CreateOrderViewModel order = new CreateOrderViewModel() { Products = shoppingCart.Products.Select(p => new OrderProductViewModel()
+            { ProductViewModel = new ProductViewModel() { ProductDescription = p.Product.ProductDescription, ProductId = p.Product.ProductId,
+            ImgPath = p.Product.ImgPath, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice },
+            Amount = p.Amount }).ToList(), Id = shoppingCart.Id
+            };
+
             OrderViewModel createdOrder = _orderService.Create(order);
 
             shoppingCart.Active = false;
@@ -57,9 +66,9 @@ namespace Products_Inc.Models.Services
 
             return createdOrder;
         }
-        public ShoppingCartViewModel FindActiveBy(string userid)
+        public ShoppingCartViewModel FindActiveBy(string userId)
         {
-            ShoppingCart shoppingCart =_repo.ReadActiveByUser(userid);
+            ShoppingCart shoppingCart =_repo.ReadActiveByUser(userId);
 
             if(shoppingCart == null)
             {
@@ -68,7 +77,7 @@ namespace Products_Inc.Models.Services
             return GetModel(shoppingCart);
         }
 
-        public List<ShoppingCartViewModel> FindAllBy(int userid)
+        public List<ShoppingCartViewModel> FindAllBy(string userId)
         {
             throw new NotImplementedException();
         }
@@ -111,7 +120,7 @@ namespace Products_Inc.Models.Services
                     ProductId = p.ProductId,
                     ShoppingCartId = shoppingCart.ShoppingCartId
                 }).ToList(),
-                UserId = shoppingCart.UserId
+                Id = shoppingCart.Id
             };
         }
     }

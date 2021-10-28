@@ -10,7 +10,8 @@ import {
 
 export default class ContactUs extends Component{
     
-    render(){
+    render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <h4><b>Contact Us at:</b></h4>

@@ -20,9 +20,9 @@ namespace Products_Inc.Models.Interfaces
         Product Read(int id);
 
 
-        Product Update(Product person);
+        Product Update(Product product);
 
 
-        bool Delete(Product person);
+        bool Delete(Product product);
     }
 }

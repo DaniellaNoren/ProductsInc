@@ -1,5 +1,6 @@
 ﻿
 import { Component, Fragment } from 'react';
+
 import Orders from './Orders.jsx';
 import Products from './Products.jsx';
 import HeaderPartial from './HeaderPartial.jsx';
@@ -11,92 +12,41 @@ import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
 import Checkout from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
+import AdminEditOrder from './AdminEditOrder.jsx';
 import AdminProducts from './AdminProducts.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
 import UserDetails from './UserDetails.jsx';
+
 import {
     Link,
     BrowserRouter,
     Route,
     Switch,
     StaticRouter,
-    Redirect
+    Redirect,
+    browserHistory,
+    useLocation,
+    useHistory
 } from 'react-router-dom';
+import React, { useEffect } from 'react';
 
 
-class OrderPage extends Component{
-    //get the orders by calling the partialview with user orders. render the html 
-    // getOrders = () => {
-    //     $.get("url")
-    //     .done(r => $(".orders").html = r.data)
-    // }
 
-    
-    render(){
-        return (
-            <div>
-                <Orders />
-            </div>
-        )
-    }
-}
-
-function SideMenu({viewOrders, location, context}) {
-    const logOut = () => {
-        $.ajax({      
-            url: "/user/logout",
-            type: "POST",
-            success: function(res) {
-                console.log("succeeded");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                 console.log(errorThrown);
-            }
-          });
-    }
-    const showOrders = () => {
-        let id = "";
-
-        $.ajax({      
-            url: `/user/${id}/orders`,
-            type: "GET",
-            success: function(res) {
-                console.log("succeeded");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                 console.log(errorThrown);
-            }
-          });
-    }
-    return (
-        <ul className="nav flex-column">
-           
-            <li className="nav-item">
-
-               
-            </li>
-        </ul>
-    )
-}
 
 export default class Index extends Component {
    state = {
        viewOrders: false,
        isUserAuthenticated: false
     }
+
+
     render() {
+
         const app = (
 
             <div className="pagewrapper">
                 <HeaderPartial />  {/*Header component*/}
-
-
-
 
 
                 <div className="item-reactcontent">
@@ -112,15 +62,9 @@ export default class Index extends Component {
 
 
 
-                    <a></a>
-
-                    <br />
-                    {/*<p>{this.props.someProp}</p>*/}
-                    {/*<br/>*/}
-
-
                     <Switch>
                         <Route exact path="/"><Redirect to="/products" /></Route>
+
 
                         <Route path="/login"><Login /></Route>
                         <Route path="/register"><Register /></Route>
@@ -136,10 +80,10 @@ export default class Index extends Component {
                         <Route path="/checkout"><Checkout /></Route>
 
 
-                        <Route path="/adminorders"><AdminOrders /></Route>
+                        <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>
+                        <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>
                         <Route path="/adminusers"><AdminUsers /></Route>
                         <Route path="/adminproducts"><AdminProducts /></Route>
-
 
                     </Switch>
 
@@ -156,26 +100,88 @@ export default class Index extends Component {
                 </div>
 
                 <FooterPartial />  {/*Footer component*/}
-
             </div> 
-
+                        
         );
+
 
 
         if (typeof window === 'undefined') {
             return (
-                <StaticRouter
-                    context={this.props.context}
-                    location={this.props.location}
-                >
+                <StaticRouter>
                     {app}
                 </StaticRouter>
             )
         }
-        return (<BrowserRouter>{app}</BrowserRouter>)
+
+
+        return (
+            <BrowserRouter>
+                {app}
+            </BrowserRouter>
+        )
+
         
     }
 }
 
 
 
+class OrderPage extends Component {
+    //get the orders by calling the partialview with user orders. render the html 
+    // getOrders = () => {
+    //     $.get("url")
+    //     .done(r => $(".orders").html = r.data)
+    // }
+
+
+    render() {
+        return (
+            <div>
+                <Orders />
+            </div>
+        )
+    }
+}
+
+function SideMenu({ viewOrders, location, context }) {
+    const logOut = () => {
+        $.ajax({
+            url: "/user/logout",
+            type: "POST",
+            success: function (res) {
+                console.log("succeeded");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    }
+    const showOrders = () => {
+        let id = "";
+
+        $.ajax({
+            url: `/user/${id}/orders`,
+            type: "GET",
+            success: function (res) {
+                console.log("succeeded");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                console.log(textStatus);
+                console.log(errorThrown);
+            }
+        });
+    }
+    return (
+        <ul className="nav flex-column">
+
+            <li className="nav-item">
+
+
+            </li>
+        </ul>
+    )
+}
