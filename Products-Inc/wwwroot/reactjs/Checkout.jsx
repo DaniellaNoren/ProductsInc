@@ -23,10 +23,10 @@ class Checkout extends Component {
     }
     componentDidMount(){
         this.setState({redirect: false})
-        console.log(this.props)
+       
         let cookie = Cookies.getItem('shopping-cart');
         if(cookie){
-            console.log(JSON.parse(cookie))
+            
             this.setState({shoppingCart: JSON.parse(cookie)})
         }
     }
@@ -70,39 +70,43 @@ class Checkout extends Component {
         this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
         this.totalPrice();
     }
-    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.ProductPrice }, 0) * 100) / 100;
+    totalPrice = function(){ return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
 
-    render() {
-        return ( <div>
-        { this.state.redirect ?  <RedirectTo url={this.state.redirectUrl}/> 
-            : 
-            <div>
-                {!this.state.viewReceipt ?
-                    <div>
-                        <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
-                        <div className="d-flex align-items-end justify-content-end">
-                            <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice}kr</h3>
+    render() 
+         {  
+        if(this.state.redirect)  
+            return ( 
+                <div>
+                    <RedirectTo url={this.state.redirectUrl}/>
+                </div> 
+            )
+        else
+            return (   
+                <div>
+                    {
+                    !this.state.viewReceipt ?
+                        <div>
+                            <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
+                            <div className="d-flex align-items-end justify-content-end">
+                                <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice()}kr</h3>
+                            </div>
+                            <button onClick={this.checkoutOrder} className="p-2 m-3 btn btn-primary">BUY</button>
+                            <button onClick={this.cancelOrder} className="p-2 m-3 btn btn-secondary">CANCEL</button>
                         </div>
-                        <button onClick={this.checkoutOrder} className="p-2 m-3 btn btn-primary">BUY</button>
-                        <button onClick={this.cancelOrder} className="p-2 m-3 btn btn-secondary">CANCEL</button>
-                    </div>
                     :
-                    <div>
-                        <Receipt propMsg={"Your order has been placed!"} propOrder={this.state.order} />
-                    </div>
-                }
+                        <div>
+                            <Receipt propMsg={"Your order has been placed!"} propOrder={this.state.order} />
+                        </div>
+                    }
 
-            </div>
-        
-            }
-        </div>
-    )
-} 
+                </div>
+         ) 
+    }
 }
 
 
 
-const Receipt = ({ propOrder, propMsg, user, location }) => {
+function Receipt({ propOrder, propMsg, user, location }) {
     const printReceipt = () => { 
        
         var divContents = document.getElementById("receipt").innerHTML;
@@ -143,7 +147,7 @@ const Receipt = ({ propOrder, propMsg, user, location }) => {
     )
 }
 
-const RedirectTo = ({url}) => {
+function RedirectTo ({url})  {
     
     return <Redirect to={url}></Redirect>
 }

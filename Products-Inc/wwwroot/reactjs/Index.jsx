@@ -143,7 +143,7 @@ export default class Index extends Component {
                         <Route path="/userdetails"><UserDetails /></Route>
                         <Route path="/checkout"><Checkout /></Route>
                         <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
-                        
+
                         <Route path="/adminorders"><AdminOrders /></Route>
                         <Route path="/adminusers"><AdminUsers /></Route>
                         <Route path="/adminproducts"><AdminProducts /></Route>

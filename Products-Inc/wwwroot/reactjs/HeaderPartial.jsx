@@ -61,15 +61,16 @@ export default class Headerpart extends Component {
                                 </li>
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        
+                                        <Link className="nav-link" to="/userpage" id="navbarDarkDropdownMenuLink" role="button" >
                                             My Page
-                                        </a>
-                                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                                            <li><Link to="/userorders">My Order History</Link></li>
+                                        </Link>
+                                         <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                            {/* <li><Link to="/userorders">My Order History</Link></li>
                                             <li><Link to="/userdetails">Edit My Details</Link></li>
-                                            {/*<li><Link to="/userpage">UserPage</Link></li>*/}
+                                            <li><Link to="/userpage">UserPage</Link></li> */}
 
-                                        </ul>
+                                        </ul> 
                                     </div>
                                 </li>
                                 <li className="nav-item">

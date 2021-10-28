@@ -16,12 +16,9 @@ export default class UserDetails extends Component{
     loadDataFromServer = () => {
         let t = this;
         $.get("/user/me", function(r){ t.setState({user: r, updateUserDetailsModel: {userName: r.userName, email: r.email, ...t.state.updateUserDetailsModel}})})
-        .done(r => console.log(r))
-        .fail(e => console.log(e));
     }
     componentDidMount = () => {
         this.loadDataFromServer();
-        console.log(this.state.updateUserDetailsModel)
     }
     changeUserDetails = () => { 
         
@@ -31,9 +28,7 @@ export default class UserDetails extends Component{
         if(updateUserModel.password && updateUserModel.password !== updateUserModel.confirmPassword){
             //error
         }
-        
-        console.log(updateUserModel);
-
+    
         $.ajax({      
             url: `/user/${this.state.user.id}`,
             type: "PUT",
@@ -68,19 +63,19 @@ function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
         <form className="form" onSubmit={e => {e.preventDefault(); updateUserMethod()}}>
             {user.userName}
               <div className="form-group">
-                    <label for="username-input">Username</label>
-                    <input className="form-control" placeHolder={user.userName} value={updateUserModel.userName} type="text" id="username-input" onChange={e => stateMethod({ userName: e.target.value})}/>
+                    <label htmlFor="username-input">Username</label>
+                    <input className="form-control" placeholder={user.userName} value={updateUserModel.userName} type="text" id="username-input" onChange={e => stateMethod({ userName: e.target.value})}/>
                 </div>
                 <div className="form-group">
-                    <label for="email-input">Email</label>
-                    <input className="form-control"  placeHolder={user.email} value={updateUserModel.email} type="email" id="email-input" onChange={e => stateMethod({ email: e.target.value})}/>
+                    <label htmlFor="email-input">Email</label>
+                    <input className="form-control"  placeholder={user.email} value={updateUserModel.email} type="email" id="email-input" onChange={e => stateMethod({ email: e.target.value})}/>
                 </div>
                 <div className="form-group">
-                    <label for="password-input">New password:</label>
-                    <input className="form-control"  value={updateUserModel.password} type="password" id="password-input" onChange={e => stateMethod({ password: e.target.value})}/>
+                    <label htmlFor="password-input">New password:</label>
+                    <input className="form-control" value={updateUserModel.password} type="password" id="password-input" onChange={e => stateMethod({ password: e.target.value})}/>
                 </div>
                 <div className="form-group">
-                    <label for="confirm-password-input">Confirm new password:</label>
+                    <label htmlFor="confirm-password-input">Confirm new password:</label>
                     <input className="form-control"  value={updateUserModel.confirmPassword} type="password" id="confirm-password-input" onChange={e => stateMethod({ confirmPassword: e.target.value})}/>
                 </div>
                 <button type="submit">Edit</button>
