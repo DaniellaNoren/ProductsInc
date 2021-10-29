@@ -17,7 +17,7 @@ export default class Register extends Component {
         e.preventDefault();
 
         $.ajax({      
-            url: "/user/register",
+            url: "/api/user/register",
             type: "POST",
             data: JSON.stringify(this.state.registerModel),
             Accept : "application/json",

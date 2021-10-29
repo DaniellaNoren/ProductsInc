@@ -28,7 +28,7 @@ namespace Products_Inc.Controllers
             this._userService = userService;
         }
 
-        [HttpPost("[controller]/login")]
+        [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             if (ModelState.IsValid)
@@ -43,7 +43,7 @@ namespace Products_Inc.Controllers
             }
         }
 
-        [HttpPost("[controller]/register")]
+        [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
             if (ModelState.IsValid)
@@ -51,7 +51,7 @@ namespace Products_Inc.Controllers
                 try
                 {
                     UserViewModel userModel = await _userService.Add(registerModel);
-                    return new CreatedResult("/user/register", userModel);
+                    return new CreatedResult("api/user/register", userModel);
 
                 }
                 catch (Exception e)
@@ -73,7 +73,7 @@ namespace Products_Inc.Controllers
 
         }
 
-        [HttpPut("[controller]/{userId}")]
+        [HttpPut("{userId}")]
         public async Task<IActionResult> EditUser(string userId, [FromBody] RegisterModel updateModel)
         {
             UserViewModel user = await _userService.Update(userId, updateModel);
@@ -83,7 +83,7 @@ namespace Products_Inc.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpGet("[controller]/me")]
+        [HttpGet("me")]
         public async Task<IActionResult> GetLoggedInUserInfo()
         {
             if (User.Identity.IsAuthenticated)

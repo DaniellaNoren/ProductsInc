@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Identity;
 namespace Products_Inc.Data
 {
 
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
-       
+
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -27,7 +27,7 @@ namespace Products_Inc.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            
+
             // Setting Primarykeys, instead of [Key] in code. One place to handle all of it /ER
             modelBuilder.Entity<Product>()
                 .HasKey(mb => mb.ProductId);
@@ -48,7 +48,7 @@ namespace Products_Inc.Data
                 .WithMany(o => o.OrderProducts)
                 .HasForeignKey(op => op.OrderId);
 
-            
+
             modelBuilder.Entity<ShoppingCartProduct>().HasKey(scp => scp.ShoppingCartProductId);
             modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
             modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithMany().HasForeignKey(sc => sc.UserId);
@@ -127,7 +127,91 @@ namespace Products_Inc.Data
 
 
 
+            IdentityRole roleAdmin = new IdentityRole()
+            {
+                Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            };
+            IdentityRole roleUser = new IdentityRole()
+            {
+                Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
+                Name = "User",
+                NormalizedName = "USER"
+            };
 
+            modelBuilder.Entity<IdentityRole>().HasData(
+              roleAdmin, roleUser);
+
+
+
+            // ---------  Seeding Users  ----------
+
+            //hash the password before storing in db
+            var hashit = new PasswordHasher<User>();
+
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id = "0001", // primary key
+                    UserName = "Admin",
+                    NormalizedUserName = "ADMIN",
+                    PasswordHash = hashit.HashPassword(null, "Admin")
+                },
+                new User
+                {
+                    Id = "0010", // primary key
+                    UserName = "customer1",
+                    NormalizedUserName = "CUSTOMER1",
+                    PasswordHash = hashit.HashPassword(null, "customer1")
+                },
+                new User
+                {
+                    Id = "0020", // primary key
+                    UserName = "customer2",
+                    NormalizedUserName = "CUSTOMER2",
+                    PasswordHash = hashit.HashPassword(null, "customer2")
+                },
+                new User
+                {
+                    Id = "0030", // primary key
+                    UserName = "customer3",
+                    NormalizedUserName = "CUSTOMER3",
+                    PasswordHash = hashit.HashPassword(null, "customer3")
+                }
+            );
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleAdmin.Id,
+                   UserId = "0001"
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = "0001"
+               },
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = "0010"
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = "0020"
+               }
+
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = "0030"
+               }
+           );
 
             // ---------------------------------------
 

@@ -8,7 +8,7 @@ export default function Logout({test, logoutCallback}) {
     
     const runlogout = () => {
     $.ajax({
-        url: "/user/logout",
+        url: "/api/user/logout",
         type: "POST",
         contentType: "application/json",
         success: function (res) {

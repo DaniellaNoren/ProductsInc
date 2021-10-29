@@ -160,7 +160,7 @@ class OrderPage extends Component {
 function SideMenu({ viewOrders, location, context }) {
     const logOut = () => {
         $.ajax({
-            url: "/user/logout",
+            url: "api/user/logout",
             type: "POST",
             success: function (res) {
                 console.log("succeeded");
@@ -176,7 +176,7 @@ function SideMenu({ viewOrders, location, context }) {
         let id = "";
 
         $.ajax({
-            url: `/user/${id}/orders`,
+            url: `api/user/${id}/orders`,
             type: "GET",
             success: function (res) {
                 console.log("succeeded");

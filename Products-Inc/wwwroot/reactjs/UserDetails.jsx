@@ -12,7 +12,7 @@ export default class UserDetails extends Component{
     }
     loadDataFromServer = () => {
         let t = this;
-        $.get("/user/me", function(r){ t.setState({user: r, updateUserDetailsModel: {userName: r.userName, email: r.email, ...t.state.updateUserDetailsModel}})})
+        $.get("api/user/me", function(r){ t.setState({user: r, updateUserDetailsModel: {userName: r.userName, email: r.email, ...t.state.updateUserDetailsModel}})})
     }
     componentDidMount = () => {
         this.loadDataFromServer();
@@ -28,7 +28,7 @@ export default class UserDetails extends Component{
         }
     
         $.ajax({      
-            url: `/user/${this.state.user.id}`,
+            url: `api/user/${this.state.user.id}`,
             type: "PUT",
             data: JSON.stringify(updateUserModel),
             Accept: "application/json",

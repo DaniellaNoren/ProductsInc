@@ -19,7 +19,7 @@ export default class Login extends Component {
         let t = this;
 
         $.ajax({      
-            url: "/user/login",
+            url: "/api/user/login",
             type: "POST",
             data: JSON.stringify(this.state.loginModel),
             Accept : "application/json",
