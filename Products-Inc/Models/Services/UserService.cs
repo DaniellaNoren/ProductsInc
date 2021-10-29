@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Products_Inc.Models.Exceptions;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
 using System;
@@ -37,11 +38,11 @@ namespace Products_Inc.Models.Services
                 throw new Exception();
             }
 
-            IdentityResult result =  _userManager.CreateAsync(createdUser, registerModel.Password).Result;
+            IdentityResult result = _userManager.CreateAsync(createdUser, registerModel.Password).Result;
 
             if (result.Succeeded)
             {
-               await AddRole(registerModel.UserName, "User");
+                await AddRole(registerModel.UserName, "User");
             }
             else
             {
@@ -95,10 +96,12 @@ namespace Products_Inc.Models.Services
         public async Task<UserViewModel> FindBy(string userName)
         {
             User user = await _userManager.FindByNameAsync(userName);
-            return new UserViewModel() { Id = user.Id };
-        }
+            if (user == null)
+                throw new EntityNotFoundException("User with username " + userName + " not found.");
 
-        public async Task<UserViewModel> FindById(int id)
+            return GetUserViewModel(user);
+
+            public async Task<UserViewModel> FindById(int id)
         {
             User user = await _userManager.FindByIdAsync(Convert.ToString(id));
 
@@ -113,7 +116,7 @@ namespace Products_Inc.Models.Services
 
         public async Task<bool> Login(LoginModelCustom login)
         {
-            User user = await _userManager.FindByNameAsync(login.UserName);  
+            User user = await _userManager.FindByNameAsync(login.UserName);
 
             if (user != null)
             {
@@ -134,5 +137,47 @@ namespace Products_Inc.Models.Services
             throw new NotImplementedException();
         }
 
+        public async Task<UserViewModel> Update(string userId, RegisterModel updateModel)
+        {
+            User user = await _userManager.FindByIdAsync(Guid.Parse(userId).ToString());
+            if (!string.IsNullOrEmpty(updateModel.Password) && !string.IsNullOrEmpty(updateModel.ConfirmPassword))
+            {
+                if (updateModel.Password.Equals(updateModel.ConfirmPassword))
+                {
+                    PasswordHasher<User> passwordHasher = new PasswordHasher<User>();
+                    user.PasswordHash = passwordHasher.HashPassword(user, updateModel.Password);
+                }
+                else
+                {
+                    throw new UserUpdateException("Passwords do not match.");
+                }
+            }
+            if (!string.IsNullOrEmpty(updateModel.Email))
+            {
+                user.Email = updateModel.Email;
+                user.NormalizedEmail = updateModel.Email.ToUpper();
+            }
+            if (!string.IsNullOrEmpty(updateModel.UserName))
+            {
+                if(await _userManager.FindByNameAsync(updateModel.UserName) == null)
+                {
+                    user.UserName = updateModel.UserName;
+                    user.NormalizedUserName = updateModel.UserName.ToUpper();
+                }
+                else
+                {
+                    throw new UserUpdateException("Username already taken.");
+                }
+            }
+
+            await _userManager.UpdateAsync(user);
+            await _signInManager.SignInAsync(user, true);
+            return GetUserViewModel(user);
+        }
+
+        public UserViewModel GetUserViewModel(User user)
+        {
+            return new UserViewModel() { Id = user.Id, UserName = user.UserName, Email = user.Email };
+        }
     }
 }

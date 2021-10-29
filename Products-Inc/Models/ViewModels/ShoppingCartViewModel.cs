@@ -20,6 +20,14 @@ namespace Products_Inc.Models.ViewModels
                 Products = new List<ShoppingCartProductViewModel>();
 
             Products.Add(product);
+        } 
+        
+        public void RemoveProduct(ShoppingCartProductViewModel product)
+        {
+            if (Products == null)
+                return;
+
+            Products.Remove(product);
         }
     }
 }

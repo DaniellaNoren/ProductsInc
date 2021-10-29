@@ -1,7 +1,10 @@
 ﻿import { Component, Fragment } from 'react';
 import Cookies from 'js-cookies'
+import {
+    Redirect
+  } from "react-router-dom";
 
-export default class Checkout extends Component {
+class Checkout extends Component {
     state = {
         viewReceipt: false,
         shoppingCart: {
@@ -10,35 +13,41 @@ export default class Checkout extends Component {
         },
         order: {
             Price: 0.0,
-            Id: 0,
+            UserId: 0,
             Products: [],
             Id: 0,
             OrderNr: ""
-        }
+        },
+        redirect: false,
+        redirectUrl: "/products"
     }
     componentDidMount(){
+        this.setState({redirect: false})
+       
         let cookie = Cookies.getItem('shopping-cart');
         if(cookie){
-            console.log(JSON.parse(cookie))
+            
             this.setState({shoppingCart: JSON.parse(cookie)})
         }
     }
     cancelOrder = () => {
-        console.log("Going back to homepage.")
 
         this.setState({
             order: {
                 Price: 0.0,
-                Id: 0,
+                UserId: 0,
                 Products: [],
                 Id: 0,
                 OrderNr: ""
             }
         })
 
+        this.setState({redirectUrl: "/products", redirect: true})
+
     }
     checkoutOrder = () => {
         let t = this;
+        
         $.ajax({      
             url: "/api/shoppingcart/buy",
             type: "POST",
@@ -47,55 +56,57 @@ export default class Checkout extends Component {
             contentType: "application/json", 
             dataType: "json",
             success: function(res) {
-        
                 t.setState(oldState => ({ viewReceipt: !oldState.viewReceipt, order: res }))
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log("need to login, bitch")
-                //redirect to login/register
+                
+                t.setState({redirectUrl: "/login", redirect: true})
+               
             }
         });
 
     }
     removeProduct = id => {
-        this.setState(oldState => ({
-            shoppingCart: {
-                ...this.state.shoppingCart,
-                Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id)
-            }
-        }))
+        this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
         this.totalPrice();
     }
-    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => {
-        return prevPr + nextPr.ProductPrice}, 0) * 100) / 100;
+    totalPrice = function(){ return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
 
-    render() {
-        return (
-            <div>
-
-                {!this.state.viewReceipt ?
-                    <div>
-                        <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
-                        <div className="d-flex align-items-end justify-content-end">
-                            <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice}kr</h3>
+    render() 
+         {  
+        if(this.state.redirect)  
+            return ( 
+                <div>
+                    <RedirectTo url={this.state.redirectUrl}/>
+                </div> 
+            )
+        else
+            return (   
+                <div>
+                    {
+                    !this.state.viewReceipt ?
+                        <div>
+                            <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
+                            <div className="d-flex align-items-end justify-content-end">
+                                <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice()}kr</h3>
+                            </div>
+                            <button onClick={this.checkoutOrder} className="p-2 m-3 btn btn-primary">BUY</button>
+                            <button onClick={this.cancelOrder} className="p-2 m-3 btn btn-secondary">CANCEL</button>
                         </div>
-                        <button onClick={this.checkoutOrder} className="p-2 m-3 btn btn-primary">BUY</button>
-                        <button onClick={this.cancelOrder} className="p-2 m-3 btn btn-secondary">CANCEL</button>
-                    </div>
                     :
-                    <div>
-                        <Receipt order={this.state.order} />
-                    </div>
-                }
+                        <div>
+                            <Receipt propMsg={"Your order has been placed!"} propOrder={this.state.order} />
+                        </div>
+                    }
 
-            </div>
-        )
+                </div>
+         ) 
     }
 }
 
 
 
-function Receipt({ order, user }) {
+function Receipt({ propOrder, propMsg, user, location }) {
     const printReceipt = () => { 
        
         var divContents = document.getElementById("receipt").innerHTML;
@@ -109,11 +120,13 @@ function Receipt({ order, user }) {
 
     
     };
+    const order = propOrder ? propOrder : location.order
+    const msg = propMsg ? propMsg : location.msg
 
     return (
         <div id="receipt" className="d-flex align-items-center justify-content-center">
             <div>
-            <h2>Your order has been placed!</h2>
+            <h2>{msg}</h2>
             
             {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
             <h4>Ordernr: {order.orderId}</h4>
@@ -133,6 +146,12 @@ function Receipt({ order, user }) {
         </div>
     )
 }
+
+function RedirectTo ({url})  {
+    
+    return <Redirect to={url}></Redirect>
+}
+
 
 function Product({product, removeMe}){
     return (
@@ -160,3 +179,4 @@ function ProductList({products, removeProductMethod}){
     )
 }
 
+export {Checkout, Receipt}

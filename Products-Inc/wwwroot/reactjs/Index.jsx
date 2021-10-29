@@ -1,6 +1,6 @@
 ﻿
 import { Component, Fragment } from 'react';
-
+import Cookies from 'js-cookies'
 import Orders from './Orders.jsx';
 import Products from './Products.jsx';
 import HeaderPartial from './HeaderPartial.jsx';
@@ -10,7 +10,7 @@ import Register from './Register.jsx';
 import Logout from './Logout.jsx';
 import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
-import Checkout from './Checkout.jsx';
+import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminEditOrder from './AdminEditOrder.jsx';
 import AdminProducts from './AdminProducts.jsx';
@@ -39,8 +39,13 @@ export default class Index extends Component {
        viewOrders: false,
        isUserAuthenticated: false
     }
-
-
+    componentDidMount(){
+        console.log(this.props.userIsAuthenticated)
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+            $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
+            .done(r => console.log(r)).fail(e => console.log(e));
+        }
+    }
     render() {
 
         const app = (
@@ -78,7 +83,7 @@ export default class Index extends Component {
                         <Route path="/userorders"><UserOrders /></Route>
                         <Route path="/userdetails"><UserDetails /></Route>
                         <Route path="/checkout"><Checkout /></Route>
-
+                        <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>
                         <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>

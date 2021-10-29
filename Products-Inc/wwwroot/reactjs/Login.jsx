@@ -1,14 +1,21 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
+import {
+    Redirect
+} from 'react-router-dom';
+import Cookies from 'js-cookies';
 
 export default class Login extends Component {
     state = {
-        loginModel: {userName: "", password: "", rememberMe: false}
+        loginModel: {userName: "", password: "", rememberMe: false},
+        redirect: false
+    }
+    componentDidMount(){
+        this.setState({redirect: false})
     }
     tryToLogin = e => {
         e.preventDefault();
-        console.log(this.state.loginModel);
-        console.log(JSON.stringify(this.state.loginModel));
+        let t = this;
 
         $.ajax({      
             url: "/user/login",
@@ -19,6 +26,31 @@ export default class Login extends Component {
             dataType: "json",
             success: function(res) {
                 console.log("succeeded");
+                let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"));
+                if(shoppingCart){
+
+                    if(!shoppingCart.shoppingCartId || !shoppingCart.UserId){
+                        $.ajax({      
+                            url: "/api/shoppingcart",
+                            type: "POST",
+                            data: JSON.stringify(shoppingCart),
+                            Accept : "application/json",
+                            contentType: "application/json", 
+                            dataType: "json",
+                            success: function(res) {
+                                console.log(res)
+                            },
+                            error: function(res) {
+                                    console.log(res);
+                            }
+                        })
+                    }
+                }else{
+                    $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
+                    .done(r => console.log(r)).fail(e => console.log(e));
+                }
+
+                t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
@@ -29,8 +61,11 @@ export default class Login extends Component {
 
     }
     render() {
-        $(window).scrollTop(0)
-        return (
+        
+             if(this.state.redirect){
+                return <Redirect to="/"/>
+            }else
+                return (
             <div>
                 <form className="formlogin" onSubmit={this.tryToLogin}>
                     <div className="form-group">

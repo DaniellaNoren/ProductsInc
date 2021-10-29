@@ -1,12 +1,19 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
+import {
+    Redirect
+} from 'react-router-dom';
 
 export default class Register extends Component {
     state = {
-        registerModel: {userName: "", password: "", confirmPassword: "", email: ""}
+        registerModel: {userName: "", password: "", confirmPassword: "", email: ""},
+        redirect: false
+    }
+    componentDidMount(){
+        this.setState({redirect: false})
     }
     register = e => {
-
+        let t = this;
         e.preventDefault();
 
         $.ajax({      
@@ -18,6 +25,7 @@ export default class Register extends Component {
             dataType: "json",
             success: function(response, textStatus, jqXHR) {
                 console.log("succeeded");
+                t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
@@ -30,6 +38,9 @@ export default class Register extends Component {
 
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect to="/login"/>
+        }else
         return (
             <div>
                 <form className="form" onSubmit={this.register}>

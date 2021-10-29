@@ -16,6 +16,7 @@ namespace Products_Inc.Models.Exceptions
         private readonly IModelMetadataProvider _modelMetadataProvider;
 
         private readonly int NOT_FOUND_STATUS = 404;
+        private readonly int CONFLICT_STATUS = 409;
         
         public HttpResponseExceptionFilter()
         {
@@ -34,7 +35,10 @@ namespace Products_Inc.Models.Exceptions
             {
                 res.StatusCode = NOT_FOUND_STATUS;
 
-                context.ExceptionHandled = true; 
+            }
+            else if(context.Exception is UserUpdateException)
+            {
+                res.StatusCode = CONFLICT_STATUS;
             }
             else if(context.Exception is DataException)
             {
@@ -46,6 +50,7 @@ namespace Products_Inc.Models.Exceptions
                 res.Value = "Converting with JSON-failed.";
             }
 
+            context.ExceptionHandled = true;
             context.Result = res;
            
         }
