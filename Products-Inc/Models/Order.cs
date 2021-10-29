@@ -13,25 +13,20 @@ namespace Products_Inc.Models
         {
             Id = userId; 
         }
-        public Order(string userId, List<OrderProduct> orderProducts)
+        public Order(string userId, List<OrderProduct> products)
         {
             Id = userId;
-            OrderProducts = orderProducts;
+            OrderProducts = products;
         }
 
 
         public int OrderId { get; set; }
 
-        public string Id { get; set; } // This is Identity UserID named Id as a string in identity table
+        public string Id { get; set; } // This is Identity userID named Id only in database
 
 
         
 
         public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
-
-        public List<User> Users { get; set; } // get objectlist of users. So that in repo,
-                                       // we can match userobject with an order that has userId by include theninclude
-        public User User { get; set; }
-        //public List<Order> Orders { get; set; }
     }
 }

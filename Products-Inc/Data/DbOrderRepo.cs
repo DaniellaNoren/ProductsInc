@@ -23,7 +23,7 @@ namespace Products_Inc.Data
 
         public Order Create(CreateOrderViewModel createOrderViewModel)
         {
-            Order newOrder = new Order(createOrderViewModel.Id) { 
+            Order newOrder = new Order(createOrderViewModel.UserId) { 
             OrderProducts = createOrderViewModel.Products.Select(op => new OrderProduct()
             { ProductId =  op.Product.ProductId, Amount = op.Amount}).ToList() };
 

@@ -13,11 +13,7 @@ namespace Products_Inc.Models.Interfaces
 
         List<UserViewModel> All();
 
-        Task<UserViewModel> FindById(int id);
-
         Task<UserViewModel> FindBy(string userName);
-
-        Task<UserViewModel> Edit(int id, User user);
 
         bool Remove(int id);
 
