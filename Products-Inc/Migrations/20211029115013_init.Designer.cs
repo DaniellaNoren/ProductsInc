@@ -10,8 +10,8 @@ using Products_Inc.Data;
 namespace Products_Inc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211028224020_NewDbreconstruct")]
-    partial class NewDbreconstruct
+    [Migration("20211029115013_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,14 +51,14 @@ namespace Products_Inc.Migrations
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "399450f3-635d-46b2-bf24-d4710ba649b6",
+                            ConcurrencyStamp = "d2761f4d-aed3-4337-9cbd-319a80ca1ca1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "4db61945-6c94-422b-b618-957ba8d9043a",
+                            ConcurrencyStamp = "e907deab-d488-4e7b-97ab-1d22e2973c9c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -235,86 +235,86 @@ namespace Products_Inc.Migrations
                         new
                         {
                             OrderProductId = 1,
-                            Amount = 0,
+                            Amount = 4,
                             OrderId = 1,
-                            ProductId = 10
+                            ProductId = 50
                         },
                         new
                         {
                             OrderProductId = 2,
-                            Amount = 0,
+                            Amount = 2,
                             OrderId = 1,
-                            ProductId = 10
+                            ProductId = 52
                         },
                         new
                         {
                             OrderProductId = 3,
-                            Amount = 0,
+                            Amount = 1,
                             OrderId = 1,
-                            ProductId = 30
+                            ProductId = 57
                         },
                         new
                         {
                             OrderProductId = 4,
-                            Amount = 0,
-                            OrderId = 1,
-                            ProductId = 40
+                            Amount = 6,
+                            OrderId = 2,
+                            ProductId = 52
                         },
                         new
                         {
                             OrderProductId = 5,
-                            Amount = 0,
-                            OrderId = 1,
-                            ProductId = 30
+                            Amount = 1,
+                            OrderId = 2,
+                            ProductId = 54
                         },
                         new
                         {
                             OrderProductId = 6,
-                            Amount = 0,
-                            OrderId = 1,
-                            ProductId = 20
+                            Amount = 2,
+                            OrderId = 2,
+                            ProductId = 56
                         },
                         new
                         {
                             OrderProductId = 7,
-                            Amount = 0,
+                            Amount = 9,
                             OrderId = 3,
-                            ProductId = 20
+                            ProductId = 55
                         },
                         new
                         {
                             OrderProductId = 8,
-                            Amount = 0,
+                            Amount = 1,
                             OrderId = 3,
-                            ProductId = 30
+                            ProductId = 57
                         },
                         new
                         {
                             OrderProductId = 9,
-                            Amount = 0,
+                            Amount = 3,
                             OrderId = 3,
-                            ProductId = 10
+                            ProductId = 51
                         },
                         new
                         {
                             OrderProductId = 10,
-                            Amount = 0,
-                            OrderId = 3,
-                            ProductId = 10
+                            Amount = 5,
+                            OrderId = 4,
+                            ProductId = 52
                         },
                         new
                         {
                             OrderProductId = 11,
-                            Amount = 0,
-                            OrderId = 3,
-                            ProductId = 20
+                            Amount = 3,
+                            OrderId = 4,
+                            ProductId = 53
                         },
                         new
                         {
                             OrderProductId = 12,
-                            Amount = 0,
-                            OrderId = 3,
-                            ProductId = 30
+                            Amount = 1,
+                            OrderId = 4,
+                            ProductId = 55
                         });
                 });
 
@@ -342,34 +342,6 @@ namespace Products_Inc.Migrations
                     b.ToTable("Products");
 
                     b.HasData(
-                        new
-                        {
-                            ProductId = 10,
-                            ProductDescription = "A nice eko quality bananas from peru.",
-                            ProductName = "Pack of bananas",
-                            ProductPrice = 34
-                        },
-                        new
-                        {
-                            ProductId = 20,
-                            ProductDescription = "Clementine fruit.",
-                            ProductName = "Satsumas",
-                            ProductPrice = 6
-                        },
-                        new
-                        {
-                            ProductId = 30,
-                            ProductDescription = "Sweet tomatos.",
-                            ProductName = "Tomatos A-Class",
-                            ProductPrice = 3
-                        },
-                        new
-                        {
-                            ProductId = 40,
-                            ProductDescription = "Butter made of sunflower seeds.",
-                            ProductName = "Sunflower Butter",
-                            ProductPrice = 54
-                        },
                         new
                         {
                             ProductId = 50,
@@ -429,7 +401,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 57,
-                            ImgPath = "./img/img16.jpg",
+                            ImgPath = "./img/img16.png",
                             ProductDescription = "Creamy sun butter",
                             ProductName = "SunButter",
                             ProductPrice = 35
@@ -556,13 +528,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "119bf77e-e3bf-43a2-b166-e9d4955dea41",
+                            ConcurrencyStamp = "732f6530-3495-4100-b64d-9e65935c966c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAELgJGXIZQ/jepIURy3raSGegCUo1dkjJeJY0w4OVXP9710GrqBCIGwIAOAaRZ2bU7w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOftv9WX4uCQYFkUugpct3ryTfaux4+ugEB4u4ngG51sFEalnKOmAhTdWN/cwszoog==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bdfe3566-5778-4613-b523-79b39b3a9bc3",
+                            SecurityStamp = "cb55a26d-fa81-4e56-8a3d-0e8dfc64ddb9",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -570,13 +542,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "10",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "132bbe5d-0d82-4e23-9129-3df477a71cfd",
+                            ConcurrencyStamp = "4c1377cd-9b50-4495-824a-d06a5ec5b10f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK/lt8NXkSBTKaoXO0C4mzSN1EYJaW1vyc1TobqEyfyhIB0NPf5TgOO6jxsVUeeRTw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAs3zbd88YcjwS5qV2K1ou1aHsEnbOPLlEPmusV9C75NB4oqHMgTxXow4rncyCk4Xg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f80fdaf0-5562-44e1-8506-c70304e3ba7d",
+                            SecurityStamp = "801c29d3-3e77-4f96-93c1-fe2d19a53ac5",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -584,13 +556,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "20",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7c4a8d8f-864f-4163-9be3-d73dc42eff80",
+                            ConcurrencyStamp = "e5de6a09-053c-45bb-ab24-f0c183108c33",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAECj2SZISMU1Ip7P6mqlEpX1B0cmF+9l4ZFoTgan5z23jW6OMEljf1D+oacadpL7axA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA/jX33/FjT4zp7DKatGCuVhPu9g2+TNWpwIfIB93ZDq53LWInmoPCSr6cjzC0gNAQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0dfa0e50-6358-4bda-8d5e-ab5a4bd84613",
+                            SecurityStamp = "fcccb072-73bc-47e3-a57d-6d5e17c7b4ba",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -598,13 +570,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "30",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "78876eb8-dab8-493f-95a4-2547b9827a84",
+                            ConcurrencyStamp = "ca191d60-8ddf-4312-8e60-928886499031",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER3",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMK/QRIYySp0oyPWtkGhte2/p1/JGV67JyCwR2sz6FzhlIRKoVcP/HVuwscFctau2A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMXKZMrjs6ZDPQIy2JL6qBJQKYYVPvDW17qsv/Qa6oFAHIxEi1TSNslWnO4U63ioFw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d65bf29a-5783-4278-b7d6-af2014ad2193",
+                            SecurityStamp = "9a4efd4e-f06f-46be-a4b7-1bf7f0f8df7f",
                             TwoFactorEnabled = false,
                             UserName = "customer3"
                         });

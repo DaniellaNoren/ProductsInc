@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using Products_Inc.Models;
@@ -137,7 +138,7 @@ namespace Products_Inc.Controllers
                     CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
                     createShoppingCart.AddProduct(product);
                     UserViewModel user = await _userService.FindBy(User.Identity.Name);
-                    createShoppingCart.Id = user.Id;
+                    createShoppingCart.UserId = user.Id;
                     shoppingCart = _service.Create(createShoppingCart);
                     this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
                 }

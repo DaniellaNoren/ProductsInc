@@ -44,7 +44,7 @@ namespace Products_Inc.Controllers
         }
 
         [HttpPost("[controller]/register")]
-        public async Task<ActionResult> Register([FromBody] RegisterModelCustom registerModel)
+        public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
             if (ModelState.IsValid)
             {

@@ -49,14 +49,14 @@ namespace Products_Inc.Migrations
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "9ada17b7-6eb0-439b-a7a9-4ef04ec25f53",
+                            ConcurrencyStamp = "d2761f4d-aed3-4337-9cbd-319a80ca1ca1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "350ca24c-9826-4e09-a3d7-23fa7995e7cc",
+                            ConcurrencyStamp = "e907deab-d488-4e7b-97ab-1d22e2973c9c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -399,7 +399,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 57,
-                            ImgPath = "./img/img16.jpg",
+                            ImgPath = "./img/img16.png",
                             ProductDescription = "Creamy sun butter",
                             ProductName = "SunButter",
                             ProductPrice = 35
@@ -526,13 +526,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "90b56ba5-f8dd-4860-8638-167b126a8454",
+                            ConcurrencyStamp = "732f6530-3495-4100-b64d-9e65935c966c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECJHHob0Z9EQRL4YP6OP6/LHkbLSb1SN3YL9tQJl5yLmyl/19eBE68WRmiFMYA6+UA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOftv9WX4uCQYFkUugpct3ryTfaux4+ugEB4u4ngG51sFEalnKOmAhTdWN/cwszoog==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "33b338bf-fbfe-437d-bba2-a9febe36c405",
+                            SecurityStamp = "cb55a26d-fa81-4e56-8a3d-0e8dfc64ddb9",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -540,13 +540,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "10",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "71af795e-d415-4165-b8ab-241ce8ee5650",
+                            ConcurrencyStamp = "4c1377cd-9b50-4495-824a-d06a5ec5b10f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDavUcXp2NR80W1tCnOG4KruClh2xuBlfm/IAuauvaG6+pWGMcRo5jnR+uMDJnp+9w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAs3zbd88YcjwS5qV2K1ou1aHsEnbOPLlEPmusV9C75NB4oqHMgTxXow4rncyCk4Xg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bb954d43-7ab3-4d41-842e-a58f8d382d0c",
+                            SecurityStamp = "801c29d3-3e77-4f96-93c1-fe2d19a53ac5",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -554,13 +554,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "20",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1de6bca1-51e9-4ff3-bbce-2e37e475c4f3",
+                            ConcurrencyStamp = "e5de6a09-053c-45bb-ab24-f0c183108c33",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAELHIfGDgoe335rRblGcnXaqEuHerg0qU8fwMBjUIXWAiRxRR+o/nkbLwC6paF86JiQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA/jX33/FjT4zp7DKatGCuVhPu9g2+TNWpwIfIB93ZDq53LWInmoPCSr6cjzC0gNAQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d9464794-7544-4046-ad3d-68220c4fb542",
+                            SecurityStamp = "fcccb072-73bc-47e3-a57d-6d5e17c7b4ba",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -568,13 +568,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "30",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "301a9815-2c55-44ce-9750-f824026f74da",
+                            ConcurrencyStamp = "ca191d60-8ddf-4312-8e60-928886499031",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER3",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIaiEgGhIHHLH0X6jP7GXejxQZlG9q+SRQUgLXsL9pqWbf8lsAU6y4ixheLPeb2BRA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMXKZMrjs6ZDPQIy2JL6qBJQKYYVPvDW17qsv/Qa6oFAHIxEi1TSNslWnO4U63ioFw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a313ed5e-7aed-4157-a8b5-af5fd93adc0e",
+                            SecurityStamp = "9a4efd4e-f06f-46be-a4b7-1bf7f0f8df7f",
                             TwoFactorEnabled = false,
                             UserName = "customer3"
                         });

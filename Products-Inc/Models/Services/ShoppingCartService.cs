@@ -24,7 +24,7 @@ namespace Products_Inc.Models.Services
                 Products = editedShoppingCart.Products.Select(p => new ShoppingCartProductViewModel()
                 { Product = new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription,
                 ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice },
-                Amount = p.Amount, ShoppingCartId = p.ShoppingCartId, ProductId = p.ProductId }).ToList(), Id = editedShoppingCart.Id };
+                Amount = p.Amount, ShoppingCartId = p.ShoppingCartId, ProductId = p.ProductId }).ToList(), UserId = editedShoppingCart.Id };
 
         }
 
@@ -34,7 +34,7 @@ namespace Products_Inc.Models.Services
             {
                 Active = true,
                 TransactionComplete = shoppingCartViewModel.TransactionComplete,
-                Id = shoppingCartViewModel.Id,
+                Id = shoppingCartViewModel.UserId,
                 Products = shoppingCartViewModel.Products.Select(p => new ShoppingCartProduct() { ProductId = p.ProductId, Amount = p.Amount }).ToList()
             };
 
@@ -125,7 +125,7 @@ namespace Products_Inc.Models.Services
                     ProductId = p.ProductId,
                     ShoppingCartId = shoppingCart.ShoppingCartId
                 }).ToList(),
-                Id = shoppingCart.Id
+                UserId = shoppingCart.Id
             };
         }
     }
