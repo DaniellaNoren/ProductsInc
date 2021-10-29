@@ -11,20 +11,21 @@ namespace Products_Inc.Models
         public Order() { }
         public Order(string userId)
         {
-            Id = userId; 
+            UserId = userId; 
         }
         public Order(string userId, List<OrderProduct> products)
         {
-            Id = userId;
+            UserId = userId;
             OrderProducts = products;
         }
 
 
         public int OrderId { get; set; }
 
-        public string Id { get; set; } // This is Identity userID named Id only in database
+        public string UserId { get; set; } // This is Identity userID named Id only in database
 
 
+        public User User { get; set; }
         
 
         public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link

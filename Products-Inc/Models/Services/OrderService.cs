@@ -75,7 +75,8 @@ namespace Products_Inc.Models.Services
             return new OrderViewModel()
             {
                 OrderId = order.OrderId,
-                UserId = order.Id.ToString(),
+                UserId = order.UserId.ToString(),
+                User = new UserViewModel() { Email = order.User.Email, UserName = order.User.UserName, Id = order.User.Id },
                 OrderProducts = order.OrderProducts.Select(p =>
                     new OrderProductViewModel()
                     {

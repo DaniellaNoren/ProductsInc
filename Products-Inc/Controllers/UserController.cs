@@ -65,8 +65,8 @@ namespace Products_Inc.Controllers
             }
         }
 
-        [HttpPost("[controller]/logout")]
-        public async Task<ActionResult> Logout([FromBody] RegisterModelCustom registerModel)
+        [HttpPost("logout")]
+        public async Task<ActionResult> Logout()
         {
             _userService.Logout();
             return new OkResult();

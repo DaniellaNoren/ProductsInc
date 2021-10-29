@@ -70,7 +70,7 @@ export default class Products extends Component {
                                 <p>{p.productDescription}</p>
 
                                 <div className="d-flex align-items-end justify-content-end">
-                                    <button className="btn btn-success" onClick={() => addProductEvent(p)}>ADD</button>
+                                    <button className="btn btn-success" onClick={() => this.addProduct(p)}>ADD</button>
                                 </div>
                             </div>
                             {/*<Product product={p} addProductEvent={this.addProduct} />*/}

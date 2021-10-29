@@ -35,6 +35,10 @@ namespace Products_Inc.Data
 
             modelBuilder.Entity<Order>()
                 .HasKey(mb => mb.OrderId);
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany()
+                .HasForeignKey(o => o.UserId);
 
             modelBuilder.Entity<OrderProduct>().HasKey(op => op.OrderProductId);
 
@@ -102,10 +106,10 @@ namespace Products_Inc.Data
 
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, Id = "0030" },
-                new Order { OrderId = 2, Id = "0010" },
-                new Order { OrderId = 3, Id = "0020" },
-                new Order { OrderId = 4, Id = "0020" }
+                new Order { OrderId = 1, UserId = "0030" },
+                new Order { OrderId = 2, UserId = "0010" },
+                new Order { OrderId = 3, UserId = "0020" },
+                new Order { OrderId = 4, UserId = "0020" }
             );
 
 

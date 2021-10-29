@@ -26,7 +26,6 @@ class Checkout extends Component {
        
         let cookie = Cookies.getItem('shopping-cart');
         if(cookie){
-            
             this.setState({shoppingCart: JSON.parse(cookie)})
         }
     }
@@ -75,11 +74,12 @@ class Checkout extends Component {
         }))
         this.totalPrice();
     }
-    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => {
-        return prevPr + nextPr.ProductPrice}, 0) * 100) / 100;
+    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { console.log(nextPr)
+        return prevPr + nextPr.Product.ProductPrice}, 0) * 100) / 100;
 
     render() 
          {  
+             console.log(this.state.shoppingCart)
         if(this.state.redirect)  
             return ( 
                 <div>
@@ -137,7 +137,7 @@ function Receipt({ propOrder, propMsg, user, location }) {
             {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
             <h4>Ordernr: {order.orderId}</h4>
             <ul>
-                {order.products.map(p => <li key={p.product.productId}>{p.product.productName}, {p.product.productPrice}kr</li>)}
+                {order.orderProducts.map(p => <li key={p.product.productId}>{p.product.productName}, {p.product.productPrice}kr</li>)}
             </ul>
             {/*<h3>{order.Price}kr</h3>*/}
 

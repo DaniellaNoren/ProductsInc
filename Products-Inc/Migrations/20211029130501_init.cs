@@ -174,8 +174,8 @@ namespace Products_Inc.Migrations
                 {
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Id = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: true),
+                    UserId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -183,6 +183,12 @@ namespace Products_Inc.Migrations
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Orders_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -275,8 +281,8 @@ namespace Products_Inc.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "fad68990-6834-4b3b-bcbc-7608eab83aad", "Admin", "ADMIN" },
-                    { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "bb6fc1d0-c58d-4636-87ff-6e63cc6eae62", "User", "USER" }
+                    { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "c047ce55-a2c0-4611-9708-adbce3086535", "Admin", "ADMIN" },
+                    { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "b8543155-3520-475b-b5ff-b96bffe5bbb8", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -284,21 +290,10 @@ namespace Products_Inc.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "0010", 0, "89843d7b-84b7-42e6-b2f9-34a7a90c1ad2", null, false, false, null, null, "CUSTOMER1", "AQAAAAEAACcQAAAAEIy3E+c/PtMQhfO/HEg64i2w9ZLiOn7G78JqdJrezQNwZ63VNZt6lXKRO0qkJECgpQ==", null, false, "6a7705fe-3e3f-4d31-bee3-3aa9571b3f66", false, "customer1" },
-                    { "0001", 0, "e490eb69-621f-4038-8497-21186e8c6cb0", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEL2lKJf1aUOH55HXSddJ4knO8ZAcYgVaB3tGnJ0yVLTP/wgfiqR+7fAghH5oFmZhbA==", null, false, "c06d54c9-daaf-4bde-a9a4-9fc987dfc3ac", false, "Admin" },
-                    { "0020", 0, "27ac36d2-5503-4fb3-91ea-f6c68368c1f2", null, false, false, null, null, "CUSTOMER2", "AQAAAAEAACcQAAAAEEJu0KYd/jsWuxaDSpJcDUpWItxxH+nqjYSY3ior9A1+F6H9OjXWp+aPN30ez4qLNA==", null, false, "f876be16-8937-44e4-88f7-66583765942a", false, "customer2" },
-                    { "0030", 0, "0f76079e-2cc4-4568-b95a-386f11668ed8", null, false, false, null, null, "CUSTOMER3", "AQAAAAEAACcQAAAAEHeV/W1Ky6OiSFDkCkWsSoi5YgxF+UJUWna7IXk4vRmq/Wbje6BfZ9GRCoeRYPM+pA==", null, false, "33301b98-dc4e-4fc4-aee6-541e49d456c6", false, "customer3" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "OrderId", "Id", "UserId" },
-                values: new object[,]
-                {
-                    { 3, "0020", null },
-                    { 2, "0010", null },
-                    { 1, "0030", null },
-                    { 4, "0020", null }
+                    { "0010", 0, "3344c1d2-94ee-4556-bcc8-d2e1dc331803", null, false, false, null, null, "CUSTOMER1", "AQAAAAEAACcQAAAAEH2TP46w3R5hpog2DyiKWR1QhwqH6ZUJFSupG0tFtmApyYvZILBsJmbh6OB6Gfe2Ug==", null, false, "2cffcb50-6b63-4ce4-8211-ca2406f1c9a0", false, "customer1" },
+                    { "0001", 0, "cecb1189-198d-410e-b2d0-a04abcb5d503", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAENCGS5wMtAsiBD+8gkMARe0skD2Z0xPOw5HL+miMBcMOGiuO+HYYhih7tlGAWqtSbg==", null, false, "6e991e82-6ffb-4e7a-b318-9cc757b2a8f6", false, "Admin" },
+                    { "0020", 0, "4e731ee0-065f-4de7-be78-e7ead2a3a336", null, false, false, null, null, "CUSTOMER2", "AQAAAAEAACcQAAAAEBzJBK+kESvwU/sbiUHs8hviqTHfk31ayYr8fkpUhSVub2+erMlqmlOIoEmFXK4XfA==", null, false, "4c62bd3c-084e-4734-bba4-1e9488fb4901", false, "customer2" },
+                    { "0030", 0, "e0758bba-a0de-46bf-90ea-d4405c3796b2", null, false, false, null, null, "CUSTOMER3", "AQAAAAEAACcQAAAAEPV0YjHz6DMaDkTPxPfwKkEdV87QFAxXrQwOrtDroSI3Z4iN2ZKBOvAo59PFxoBq3g==", null, false, "ed6555a8-90f9-42c2-a3cf-3ebc98032fec", false, "customer3" }
                 });
 
             migrationBuilder.InsertData(
@@ -306,18 +301,18 @@ namespace Products_Inc.Migrations
                 columns: new[] { "ProductId", "ImgPath", "ProductDescription", "ProductName", "ProductPrice" },
                 values: new object[,]
                 {
-                    { 10, null, "A nice eko quality bananas from peru.", "Pack of bananas", 34 },
-                    { 20, null, "Clementine fruit.", "Satsumas", 6 },
-                    { 30, null, "Sweet tomatos.", "Tomatos A-Class", 3 },
-                    { 40, null, "Butter made of sunflower seeds.", "Sunflower Butter", 54 },
+                    { 50, "./img/img4.jpg", "Nice for your health", "Orange", 30 },
                     { 51, "./img/img6.jpg", "Good to drink", "Coca Cola", 16 },
-                    { 52, "./img/img7.jpg", "Good for health", "Oreo", 10 },
+                    { 30, null, "Sweet tomatos.", "Tomatos A-Class", 3 },
                     { 53, "./img/img8.jpg", "Healthy breakfast", "Corn Flakes", 25 },
                     { 54, "./img/img9.jpg", "Nice to make food", "Salt", 9 },
                     { 55, "./img/img12.jpg", "Good for health", "Avocado", 18 },
                     { 56, "./img/img14.jpg", "Nice to eat", "Eggo", 30 },
                     { 57, "./img/img16.jpg", "Creamy sun butter", "SunButter", 35 },
-                    { 50, "./img/img4.jpg", "Nice for your health", "Orange", 30 }
+                    { 20, null, "Clementine fruit.", "Satsumas", 6 },
+                    { 10, null, "A nice eko quality bananas from peru.", "Pack of bananas", 34 },
+                    { 40, null, "Butter made of sunflower seeds.", "Sunflower Butter", 54 },
+                    { 52, "./img/img7.jpg", "Good for health", "Oreo", 10 }
                 });
 
             migrationBuilder.InsertData(
@@ -325,11 +320,22 @@ namespace Products_Inc.Migrations
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { "0030", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "0010", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "0001", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
                     { "0001", "438db5c8-0513-43a0-a84c-cd416c4e3a54" },
-                    { "0020", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" }
+                    { "0001", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "0010", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "0020", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "0030", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "OrderId", "UserId", "UserId1" },
+                values: new object[,]
+                {
+                    { 2, "0010", null },
+                    { 3, "0020", null },
+                    { 4, "0020", null },
+                    { 1, "0030", null }
                 });
 
             migrationBuilder.InsertData(
@@ -337,18 +343,18 @@ namespace Products_Inc.Migrations
                 columns: new[] { "OrderProductId", "Amount", "OrderId", "ProductId", "ProductId1" },
                 values: new object[,]
                 {
-                    { 4, 0, 1, 40, null },
-                    { 12, 0, 3, 30, null },
-                    { 8, 0, 3, 30, null },
-                    { 5, 0, 1, 30, null },
-                    { 11, 0, 3, 20, null },
                     { 7, 0, 3, 20, null },
-                    { 6, 0, 1, 20, null },
-                    { 10, 0, 3, 10, null },
+                    { 8, 0, 3, 30, null },
                     { 9, 0, 3, 10, null },
+                    { 10, 0, 3, 10, null },
+                    { 11, 0, 3, 20, null },
+                    { 12, 0, 3, 30, null },
+                    { 1, 0, 1, 10, null },
                     { 2, 0, 1, 10, null },
                     { 3, 0, 1, 30, null },
-                    { 1, 0, 1, 10, null }
+                    { 4, 0, 1, 40, null },
+                    { 5, 0, 1, 30, null },
+                    { 6, 0, 1, 20, null }
                 });
 
             migrationBuilder.CreateIndex(
@@ -409,6 +415,11 @@ namespace Products_Inc.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId1",
+                table: "Orders",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingCartProducts_ProductId",

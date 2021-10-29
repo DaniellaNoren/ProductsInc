@@ -10,7 +10,7 @@ using Products_Inc.Data;
 namespace Products_Inc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211029125153_init")]
+    [Migration("20211029130501_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,14 +51,14 @@ namespace Products_Inc.Migrations
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "fad68990-6834-4b3b-bcbc-7608eab83aad",
+                            ConcurrencyStamp = "c047ce55-a2c0-4611-9708-adbce3086535",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "bb6fc1d0-c58d-4636-87ff-6e63cc6eae62",
+                            ConcurrencyStamp = "b8543155-3520-475b-b5ff-b96bffe5bbb8",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -202,15 +202,17 @@ namespace Products_Inc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("OrderId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
 
@@ -218,22 +220,22 @@ namespace Products_Inc.Migrations
                         new
                         {
                             OrderId = 1,
-                            Id = "0030"
+                            UserId = "0030"
                         },
                         new
                         {
                             OrderId = 2,
-                            Id = "0010"
+                            UserId = "0010"
                         },
                         new
                         {
                             OrderId = 3,
-                            Id = "0020"
+                            UserId = "0020"
                         },
                         new
                         {
                             OrderId = 4,
-                            Id = "0020"
+                            UserId = "0020"
                         });
                 });
 
@@ -588,13 +590,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "0001",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e490eb69-621f-4038-8497-21186e8c6cb0",
+                            ConcurrencyStamp = "cecb1189-198d-410e-b2d0-a04abcb5d503",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL2lKJf1aUOH55HXSddJ4knO8ZAcYgVaB3tGnJ0yVLTP/wgfiqR+7fAghH5oFmZhbA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENCGS5wMtAsiBD+8gkMARe0skD2Z0xPOw5HL+miMBcMOGiuO+HYYhih7tlGAWqtSbg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c06d54c9-daaf-4bde-a9a4-9fc987dfc3ac",
+                            SecurityStamp = "6e991e82-6ffb-4e7a-b318-9cc757b2a8f6",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -602,13 +604,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "0010",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "89843d7b-84b7-42e6-b2f9-34a7a90c1ad2",
+                            ConcurrencyStamp = "3344c1d2-94ee-4556-bcc8-d2e1dc331803",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIy3E+c/PtMQhfO/HEg64i2w9ZLiOn7G78JqdJrezQNwZ63VNZt6lXKRO0qkJECgpQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH2TP46w3R5hpog2DyiKWR1QhwqH6ZUJFSupG0tFtmApyYvZILBsJmbh6OB6Gfe2Ug==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6a7705fe-3e3f-4d31-bee3-3aa9571b3f66",
+                            SecurityStamp = "2cffcb50-6b63-4ce4-8211-ca2406f1c9a0",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -616,13 +618,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "0020",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "27ac36d2-5503-4fb3-91ea-f6c68368c1f2",
+                            ConcurrencyStamp = "4e731ee0-065f-4de7-be78-e7ead2a3a336",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEJu0KYd/jsWuxaDSpJcDUpWItxxH+nqjYSY3ior9A1+F6H9OjXWp+aPN30ez4qLNA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBzJBK+kESvwU/sbiUHs8hviqTHfk31ayYr8fkpUhSVub2+erMlqmlOIoEmFXK4XfA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f876be16-8937-44e4-88f7-66583765942a",
+                            SecurityStamp = "4c62bd3c-084e-4734-bba4-1e9488fb4901",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -630,13 +632,13 @@ namespace Products_Inc.Migrations
                         {
                             Id = "0030",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0f76079e-2cc4-4568-b95a-386f11668ed8",
+                            ConcurrencyStamp = "e0758bba-a0de-46bf-90ea-d4405c3796b2",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER3",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHeV/W1Ky6OiSFDkCkWsSoi5YgxF+UJUWna7IXk4vRmq/Wbje6BfZ9GRCoeRYPM+pA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPV0YjHz6DMaDkTPxPfwKkEdV87QFAxXrQwOrtDroSI3Z4iN2ZKBOvAo59PFxoBq3g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "33301b98-dc4e-4fc4-aee6-541e49d456c6",
+                            SecurityStamp = "ed6555a8-90f9-42c2-a3cf-3ebc98032fec",
                             TwoFactorEnabled = false,
                             UserName = "customer3"
                         });
@@ -695,9 +697,13 @@ namespace Products_Inc.Migrations
 
             modelBuilder.Entity("Products_Inc.Models.Order", b =>
                 {
+                    b.HasOne("Products_Inc.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
                     b.HasOne("Products_Inc.Models.User", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Products_Inc.Models.OrderProduct", b =>
