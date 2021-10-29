@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Products_Inc.Data;
 using Products_Inc.Models.Exceptions;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
@@ -14,9 +15,10 @@ namespace Products_Inc.Models.Services
         private static UserManager<User> _userManager;
         private static SignInManager<User> _signInManager;
         private static RoleManager<IdentityRole> _roleManager;
-        public UserService(SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        private static IUserRepo _userRepo;
+        public UserService(IUserRepo repo, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
-
+            _userRepo = repo;
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
@@ -176,6 +178,22 @@ namespace Products_Inc.Models.Services
         public UserViewModel GetUserViewModel(User user, IList<string> roles)
         {
             return new UserViewModel() { Roles = roles, Id = user.Id, UserName = user.UserName, Email = user.Email };
+        }
+
+
+       
+        public List<UserViewModel> GetAllUsers()
+        {
+            return _userRepo.GetAllUsers().Select(async u =>
+           {
+              return new { roles = await _userManager.GetRolesAsync(u), user = u };
+
+           }).Select(ur => GetUserViewModel(ur.Result.user, ur.Result.roles)).ToList();
+        }
+
+        private object GetUserViewModel(object user, object roles)
+        {
+            throw new NotImplementedException();
         }
     }
 }

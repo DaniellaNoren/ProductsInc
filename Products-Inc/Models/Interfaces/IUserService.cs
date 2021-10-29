@@ -22,5 +22,6 @@ namespace Products_Inc.Models.Interfaces
 
         void Logout();
         Task<UserViewModel> Update(string userId, RegisterModel updateModel);
+        List<UserViewModel> GetAllUsers();
     }
 }

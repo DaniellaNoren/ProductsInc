@@ -28,6 +28,12 @@ namespace Products_Inc.Controllers
             this._userService = userService;
         }
 
+        //[Authorize(Roles ="Admin")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            return new OkObjectResult(_userService.GetAllUsers());
+        }
+
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {

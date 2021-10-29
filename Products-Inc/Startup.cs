@@ -100,7 +100,8 @@ namespace Products_Inc
                     Configuration.GetConnectionString("ProductIncConnection")));
 
 
-            services.AddScoped<IUserService, UserService>(); // identity
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepo, DbUserRepo>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IShoppingCartService, ShoppingCartService>();
             services.AddScoped<IProductService, ProductService>();
