@@ -148,17 +148,31 @@
     border: 3px solid #000
 }
 
-#optionBtnBlue {
+.optionBtnBlue {
     background-color: blue;
     border: 3px solid #000
 }
 
-#optionBtnRed {
+.optionBtnRed {
     background-color: red;
     border: 3px solid #000
 }
 
-#optionBtnGray {
+.optionBtnGray {
     background-color: dimgray;
-    border: 3px solid #000
+    border: 3px solid #000;
+    color: black !important;
 }
+
+.optionBtnGray a {
+    color: black !important;
+}
+
+.productamount {
+    width: 40px;
+}
+
+.admineditorder_img {
+    height: 80px;
+}
+

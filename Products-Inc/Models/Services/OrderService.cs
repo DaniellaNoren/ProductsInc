@@ -84,19 +84,20 @@ namespace Products_Inc.Models.Services
                 
 
                 OrderId = order.OrderId,
+                Id = order.Id,
                 User = userViewModel,
-                OrderProductViewModel = order.OrderProducts.Select(p =>
+                OrderProducts = order.OrderProducts.Select(p =>
                     new OrderProductViewModel()
                     {
                         ProductId = p.ProductId,
                         OrderId = p.OrderId,
                         Amount = p.Amount,
-                        ProductViewModel = new ProductViewModel()
+                        Product = new ProductViewModel()
                         {
-                            ProductDescription = p.Product.ProductDescription,
-                            ImgPath = p.Product.ImgPath,
                             ProductName = p.Product.ProductName,
-                            ProductPrice = p.Product.ProductPrice
+                            ProductDescription = p.Product.ProductDescription,
+                            ProductPrice = p.Product.ProductPrice,
+                            ImgPath = p.Product.ImgPath
                         }
                     }).ToList()
             };

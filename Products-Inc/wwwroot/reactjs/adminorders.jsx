@@ -78,34 +78,27 @@ export default class AdminOrders extends Component {
                         <table className="table" id="adminorderslist">
                             <thead>
                                 <tr>
-                                    <th>Option</th>
                                     <th scope="col">OrderID</th>
-                                    <th scope="col">UserID, UserName</th>
+                                    <th scope="col">UserID</th>
+                                    <th scope="col">UserName</th>
+                                    <th>Options</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {/*onClick={() => this.orderDetails(ao)}*/}
-                                {console.log(this.state.allorders)}
                                         {this.state.allorders.map(ao => (
-                                            <tr key={ao.orderId} className="allorders" id="clickabletablerow">
-                                                <td><button className="optionBtnGreen"><Link to={{pathname: "/admineditorder", ao}}>SHOW/EDIT</Link></button></td>
+                                            <tr key={ao.orderId} className="allorders">
                                                 <td scope="row">{ao.orderId}</td>
-                                                <td scope="row">{ao.user.id}, {ao.user.userName}
-                                            
-                                                    {/*{ao.orderProductViewModel.map((ap, index) => (*/}
-                                            {/*    <div key={"22" + index}>*/}
-                                            {/*        */}{/*<p>{ap.productId}, {ap.product.productName}, {ap.product.productDescription},*/}
-                                            {/*        */}{/*    {ap.product.productPrice}, {ao.products.amount}</p>*/}
-                                            {/*        */}{/*{console.log(ap)}*/}
-                                            {/*    </div>*/}
-                                            {/*))}*/}
-                                                    
-                                            </td>
+                                                <td scope="row">{ao.user.id}</td>
+                                                <td scope="row">{ao.user.userName}</td>
+                                                <td><button className="optionBtnGreen">
+                                                    <Link to={{ pathname: "/admineditorder", ao }}>SHOW / EDIT</Link>
+                                                </button></td>
 
                                             </tr>
                                         ))}
-                                    </tbody>
-                                </table>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
         )

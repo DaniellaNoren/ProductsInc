@@ -136,10 +136,6 @@ namespace Products_Inc.Data
             // ----------- Seeding db with start products --------------
 
             modelBuilder.Entity<Product>().HasData(
-            new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 },
-            new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 },
-            new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 },
-            new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 },
 
             new Product() { ProductId = 50, ProductName = "Orange", ProductDescription = "Nice for your health", ProductPrice = 30, ImgPath = "./img/img4.jpg" },
             new Product() { ProductId = 51, ProductName = "Coca Cola", ProductDescription = "Good to drink", ProductPrice = 16, ImgPath = "./img/img6.jpg" },
@@ -148,7 +144,7 @@ namespace Products_Inc.Data
             new Product() { ProductId = 54, ProductName = "Salt", ProductDescription = "Nice to make food", ProductPrice = 9, ImgPath = "./img/img9.jpg" },
             new Product() { ProductId = 55, ProductName = "Avocado", ProductDescription = "Good for health", ProductPrice = 18, ImgPath = "./img/img12.jpg" },
             new Product() { ProductId = 56, ProductName = "Eggo", ProductDescription = "Nice to eat", ProductPrice = 30, ImgPath = "./img/img14.jpg" },
-            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.jpg" }
+            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.png" }
             );
 
 
@@ -158,9 +154,6 @@ namespace Products_Inc.Data
 
 
             // --- Seeding with orders
-
-            //List<Product> listA_OfProductsInOrder[] { satsumas, banana, banana, banana, sunflowerbutter}.ToList();
-            //List<Product> listB_OfProductsInOrder[] { satsumas, tomatos, banana, tomatos, tomatos}.ToList;
 
 
             modelBuilder.Entity<Order>().HasData(
@@ -172,19 +165,19 @@ namespace Products_Inc.Data
 
 
             modelBuilder.Entity<OrderProduct>().HasData(
-                new OrderProduct { OrderProductId = 1, OrderId = 1, ProductId = 10 },
-                new OrderProduct { OrderProductId = 2, OrderId = 1, ProductId = 10 },
-                new OrderProduct { OrderProductId = 3, OrderId = 1, ProductId = 30 },
-                new OrderProduct { OrderProductId = 4, OrderId = 1, ProductId = 40 },
-                new OrderProduct { OrderProductId = 5, OrderId = 1, ProductId = 30 },
-                new OrderProduct { OrderProductId = 6, OrderId = 1, ProductId = 20 },
+                new OrderProduct { OrderProductId = 1, OrderId = 1, ProductId = 50, Amount = 4 },
+                new OrderProduct { OrderProductId = 2, OrderId = 1, ProductId = 52, Amount = 2 },
+                new OrderProduct { OrderProductId = 3, OrderId = 1, ProductId = 57, Amount = 1 },
+                new OrderProduct { OrderProductId = 4, OrderId = 2, ProductId = 52, Amount = 6 },
+                new OrderProduct { OrderProductId = 5, OrderId = 2, ProductId = 54, Amount = 1 },
+                new OrderProduct { OrderProductId = 6, OrderId = 2, ProductId = 56, Amount = 2 },
 
-                new OrderProduct { OrderProductId = 7, OrderId = 3, ProductId = 20 },
-                new OrderProduct { OrderProductId = 8, OrderId = 3, ProductId = 30 },
-                new OrderProduct { OrderProductId = 9, OrderId = 3, ProductId = 10 },
-                new OrderProduct { OrderProductId = 10, OrderId = 3, ProductId = 10 },
-                new OrderProduct { OrderProductId = 11, OrderId = 3, ProductId = 20 },
-                new OrderProduct { OrderProductId = 12, OrderId = 3, ProductId = 30 }
+                new OrderProduct { OrderProductId = 7, OrderId = 3, ProductId = 55, Amount = 9 },
+                new OrderProduct { OrderProductId = 8, OrderId = 3, ProductId = 57, Amount = 1 },
+                new OrderProduct { OrderProductId = 9, OrderId = 3, ProductId = 51, Amount = 3 },
+                new OrderProduct { OrderProductId = 10, OrderId = 4, ProductId = 52, Amount = 5 },
+                new OrderProduct { OrderProductId = 11, OrderId = 4, ProductId = 53, Amount = 3 },
+                new OrderProduct { OrderProductId = 12, OrderId = 4, ProductId = 55, Amount = 1 }
             );
 
 

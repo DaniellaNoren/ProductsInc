@@ -9,7 +9,7 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IUserService
     {
-       Task<UserViewModel> Add(RegisterModel registerModel);
+       Task<UserViewModel> Add(RegisterModelCustom registerModel);
 
         List<UserViewModel> All();
 
@@ -22,7 +22,7 @@ namespace Products_Inc.Models.Interfaces
         bool Remove(int id);
 
         Task<bool> AddRole(string userName, string role);
-        Task<bool> Login(LoginModel loginModel);
+        Task<bool> Login(LoginModelCustom loginModel);
 
         void Logout();
     }

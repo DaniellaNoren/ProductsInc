@@ -52,7 +52,7 @@ namespace Products_Inc.Models.Services
             ShoppingCart shoppingCart = _repo.Read(Int32.Parse(shoppingCartModel.ShoppingCartId));
 
             CreateOrderViewModel order = new CreateOrderViewModel() { Products = shoppingCart.Products.Select(p => new OrderProductViewModel()
-            { ProductViewModel = new ProductViewModel() { ProductDescription = p.Product.ProductDescription, ProductId = p.Product.ProductId,
+            { Product = new ProductViewModel() { ProductDescription = p.Product.ProductDescription, ProductId = p.Product.ProductId,
             ImgPath = p.Product.ImgPath, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice },
             Amount = p.Amount }).ToList(), Id = shoppingCart.Id
             };

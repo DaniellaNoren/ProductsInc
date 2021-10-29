@@ -10,7 +10,7 @@ export default class Checkout extends Component {
         },
         order: {
             Price: 0.0,
-            UserId: 0,
+            Id: 0,
             Products: [],
             Id: 0,
             OrderNr: ""
@@ -29,7 +29,7 @@ export default class Checkout extends Component {
         this.setState({
             order: {
                 Price: 0.0,
-                UserId: 0,
+                Id: 0,
                 Products: [],
                 Id: 0,
                 OrderNr: ""
@@ -58,10 +58,16 @@ export default class Checkout extends Component {
 
     }
     removeProduct = id => {
-        this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
+        this.setState(oldState => ({
+            shoppingCart: {
+                ...this.state.shoppingCart,
+                Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id)
+            }
+        }))
         this.totalPrice();
     }
-    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.ProductPrice }, 0) * 100) / 100;
+    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => {
+        return prevPr + nextPr.ProductPrice}, 0) * 100) / 100;
 
     render() {
         return (
