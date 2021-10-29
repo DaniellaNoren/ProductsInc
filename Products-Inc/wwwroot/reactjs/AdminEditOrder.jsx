@@ -16,27 +16,52 @@ export default class AdminEditOrder extends Component {
 
     constructor(props) {
         super(props)
-        //this.state = {
-        //    dtprops: ""
-        //}
+        this.state = {
+            orderId: 0,
+            products: {
+                productId: 0,
+                amount: 0
+            },
+
+
+        }
     }
 
+
     removeProduct = id => {
+
         this.setState(oldState => ({
-            shoppingCart: {
-                ...this.state.shoppingCart,
-                Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id)
+            products: {
+                ...this.state.products,
+                products: oldState.products.filter(p => p.productId !== id)
             }
         }))
         this.totalPrice();
     }
-    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => {
+
+
+    totalPrice = () => Math.round(this.state.shoppingCart.products.reduce((prevPr, nextPr) => {
         return prevPr + nextPr.ProductPrice
     }, 0) * 100) / 100;
 
 
+    saveeditedorder = () => {
+        orderobject
+    }
+        /*delete o ändra amount setState....sedan vid onclick save so post till backend*/
+
+//removeProduct = id => {
+//        this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
+//        this.totalPrice();
+//    }
+//    totalPrice = function(){ return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
+   
+    
+//    }
+
+
     render() {
-        //console.log(this.props.location.ao)
+        console.log(this.props.location.ao)
         return (
             <div>
                 <h4><b>AdminEditOrder & Details:</b></h4>
@@ -75,7 +100,11 @@ export default class AdminEditOrder extends Component {
                                 <td>{ap.productId}</td>
                                 <td>{ap.product.productName}</td>
                                 <td>{ap.product.productDescription}</td>
-                                <td><input className="productamount" type="number" name="inputproductamount" value={ap.amount}/></td>
+
+                                <td><input className="productamount" type="number" name="inputproductamount" value={ap.amount}
+                                    onChange={e => this.setState({ orderobject: { ...this.state.orderobject, password: e.target.value } })}
+                                /></td>
+
                                 <td>{ap.product.productPrice}</td>
                                 <td><button className="optionBtnRed">Delete</button></td>
                             </tr>
@@ -83,7 +112,7 @@ export default class AdminEditOrder extends Component {
                         </tbody>
                     </table>
                     <br/>
-                    <div><button className="optionBtnGreen">SAVE</button></div>
+                    <div><button onClick={() => this.saveeditedorder} className="optionBtnGreen">SAVE</button></div>
                     <br/>
                     <div><button className="optionBtnGray"><Link to={{ pathname: "/adminorders"}}>BACK</Link></button></div>
                 </div>
