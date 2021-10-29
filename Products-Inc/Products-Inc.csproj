@@ -15,15 +15,14 @@
     <EmbeddedResource Remove="Data\Migrations\**" />
     <None Remove="Content\**" />
     <None Remove="Data\Migrations\**" />
+    <Compile Remove="wwwroot\reactjs\img\**" />
+    <Content Remove="wwwroot\reactjs\img\**" />
+    <EmbeddedResource Remove="wwwroot\reactjs\img\**" />
+    <None Remove="wwwroot\reactjs\img\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <COMReference Include="{d37e2a3e-8545-3a39-9f4f-31827c9124ab}">
-      <WrapperTool>tlbimp</WrapperTool>
-      <VersionMinor>4</VersionMinor>
-      <VersionMajor>2</VersionMajor>
-      <Guid>d37e2a3e-8545-3a39-9f4f-31827c9124ab</Guid>
-    </COMReference>
+    <None Remove="Content\components\Products.jsx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,14 +38,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-    <PackageReference Include="React.AspNet" Version="5.2.11" />
-    <PackageReference Include="React.Router" Version="5.2.11" />
+    <PackageReference Include="React.AspNet" Version="5.2.12" />
+    <PackageReference Include="React.Router" Version="5.2.12" />
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\reactjs\expose-components.js" />
-    <None Include="wwwroot\reactjs\img\toothpaste.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +55,11 @@
     <Content Update="wwwroot\toothpaste.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\components\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

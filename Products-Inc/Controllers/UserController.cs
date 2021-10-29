@@ -6,15 +6,21 @@ using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
+
     public class UserController : Controller
     {
         private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
+
 
         public UserController(IUserService userService, ILogger<UserController> logger)
         {
@@ -38,7 +44,7 @@ namespace Products_Inc.Controllers
         }
 
         [HttpPost("[controller]/register")]
-        public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
+        public async Task<ActionResult> Register([FromBody] RegisterModelCustom registerModel)
         {
             if (ModelState.IsValid)
             {
@@ -60,7 +66,7 @@ namespace Products_Inc.Controllers
         }
 
         [HttpPost("[controller]/logout")]
-        public IActionResult Logout()
+        public async Task<ActionResult> Logout([FromBody] RegisterModelCustom registerModel)
         {
             _userService.Logout();
             return new OkResult();
@@ -92,5 +98,55 @@ namespace Products_Inc.Controllers
         }
 
 
+
+
+
+
+        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ProductsViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }*/
     }
 }
+
+
+/*
+ 
+ 
+  [HttpPOST]
+C - Create new user 
+return view with the created product
+
+
+R -  GET user info
+
+
+U - get 1 user to view and edit. 
+When pressing save /submit button goto PUT/PAtch.
+
+ 
+U - PUT/Patch
+Edit user find by ID
+return partial view, viewmodel 
+
+
+
+D - 
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ */

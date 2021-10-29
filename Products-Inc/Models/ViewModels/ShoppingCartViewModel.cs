@@ -10,7 +10,7 @@ namespace Products_Inc.Models.ViewModels
     {
         public string ShoppingCartId { get; set; }
 
-        public string UserId { get; set; }
+        public string Id { get; set; } 
 
         public List<ShoppingCartProductViewModel> Products { get; set; }
 

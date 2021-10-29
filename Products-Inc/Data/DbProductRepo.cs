@@ -41,8 +41,6 @@ namespace Products_Inc.Data
 
         public List<Product> Read()
         {
-            
-            
             List<Product> pList = _productListContext.Products.ToList();
 
             return pList;

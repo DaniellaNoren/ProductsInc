@@ -52,7 +52,8 @@ export default class Orders extends Component{
         //ajax call to delete order from product
     }
 
-    render(){
+    render() {
+        $(window).scrollTop(0)
         return (
             <div>
 

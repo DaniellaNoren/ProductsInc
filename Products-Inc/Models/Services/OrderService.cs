@@ -6,17 +6,20 @@ using Products_Inc.Models;
 using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.Exceptions;
+using Microsoft.AspNetCore.Identity;
 
 namespace Products_Inc.Models.Services
 {
     public class OrderService : IOrderService
     {
         private readonly IOrderRepo _orderRepo;
+        private static UserManager<User> _userManager;
 
 
-        public OrderService(IOrderRepo iOrderRepo)
+        public OrderService(IOrderRepo iOrderRepo, UserManager<User> userManager)
         {
             _orderRepo = iOrderRepo;
+            _userManager = userManager;
         }
 
 
@@ -65,18 +68,25 @@ namespace Products_Inc.Models.Services
 
         }
 
-        public List<OrderViewModel> FindAllBy(string userid)
+        public List<OrderViewModel> FindAllBy(string userId)
         {
-            return _orderRepo.ReadByUser(userid).Select(o => GetModel(o)).ToList();
+            return _orderRepo.ReadByUser(userId).Select(o => GetModel(o)).ToList();
         }
 
         public OrderViewModel GetModel(Order order)
         {
+            User user = _userManager.Users.FirstOrDefault(u => u.Id == order.Id);
+            UserViewModel userViewModel = new UserViewModel() { Id = user.Id, UserName= user.UserName };
+
+
             return new OrderViewModel()
             {
-                OrderId = order.OrderId.ToString(),
-                UserId = order.Id.ToString(),
-                Products = order.Products.Select(p =>
+                
+
+                OrderId = order.OrderId,
+                Id = order.Id,
+                User = userViewModel,
+                OrderProducts = order.OrderProducts.Select(p =>
                     new OrderProductViewModel()
                     {
                         ProductId = p.ProductId,
@@ -84,10 +94,10 @@ namespace Products_Inc.Models.Services
                         Amount = p.Amount,
                         Product = new ProductViewModel()
                         {
-                            ProductDescription = p.Product.ProductDescription,
-                            ImgPath = p.Product.ImgPath,
                             ProductName = p.Product.ProductName,
-                            ProductPrice = p.Product.ProductPrice
+                            ProductDescription = p.Product.ProductDescription,
+                            ProductPrice = p.Product.ProductPrice,
+                            ImgPath = p.Product.ImgPath
                         }
                     }).ToList()
             };

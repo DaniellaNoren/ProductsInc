@@ -65,6 +65,8 @@ export default class Login extends Component {
 
     }
     render() {
+        $(window).scrollTop(0)
+        return (
         
              if(this.state.redirect){
                 return <Redirect to="/"/>

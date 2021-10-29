@@ -9,5 +9,7 @@ namespace Products_Inc.Models.ViewModels
         public string UserName { get; internal set; }
 
         public IList<string> Roles { get; set; }
+
+        public bool FoundUser { get; set; }
     }
 }
