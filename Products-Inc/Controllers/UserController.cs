@@ -27,14 +27,9 @@ namespace Products_Inc.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await _userService.Login(loginModel))
-                {
-                    return new OkObjectResult(new { msg = "Logged in" });
-                }
-                else
-                {
-                    return new BadRequestObjectResult(new { errorMsg = "Incorrect password/username" });
-                }
+                UserViewModel user = await _userService.Login(loginModel);
+
+                return new OkObjectResult(user);
             }
             else
             {

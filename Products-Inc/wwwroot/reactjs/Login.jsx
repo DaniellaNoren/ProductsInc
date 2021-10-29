@@ -15,6 +15,7 @@ export default class Login extends Component {
     }
     tryToLogin = e => {
         e.preventDefault();
+        
         let t = this;
 
         $.ajax({      
@@ -25,7 +26,7 @@ export default class Login extends Component {
             contentType: "application/json", 
             dataType: "json",
             success: function(res) {
-                console.log("succeeded");
+               
                 let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"));
                 if(shoppingCart){
 
@@ -45,11 +46,14 @@ export default class Login extends Component {
                             }
                         })
                     }
+                   
+                  
                 }else{
                     $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
                     .done(r => console.log(r)).fail(e => console.log(e));
                 }
-
+             
+                t.props.location.loggedInCallback(res);
                 t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {

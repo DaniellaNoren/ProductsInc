@@ -88,20 +88,27 @@ function SideMenu({viewOrders, location, context}) {
 export default class Index extends Component {
    state = {
        viewOrders: false,
-       isUserAuthenticated: false
+       isUserAuthenticated: false,
+       isUserAdmin: false
     }
     componentDidMount(){
-        console.log(this.props.userIsAuthenticated)
+        this.setState({isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin})
         if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
             $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
             .done(r => console.log(r)).fail(e => console.log(e));
         }
     }
+    loggedIn = (user) => {
+        this.setState({isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin")})
+    }
+    loggedOut= () => {
+        this.setState({isUserAuthenticated: false, isUserAdmin: false})
+    }
     render() {
         const app = (
 
             <div className="pagewrapper">
-                <HeaderPartial />  {/*Header component*/}
+                <HeaderPartial setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
 
 
 
@@ -130,9 +137,9 @@ export default class Index extends Component {
                     <Switch>
                         <Route exact path="/"><Redirect to="/products" /></Route>
 
-                        <Route path="/login"><Login /></Route>
+                        <Route path="/login" render={(props) => <Login {...props } />}/>
                         <Route path="/register"><Register /></Route>
-                        <Route path="/logout"><Logout/></Route>
+                        <Route path="/logout" render={(props) => <Logout {...props } />}/>
 
                         <Route path="/products"><Products /></Route>
                         <Route path="/orders"><Orders /></Route>

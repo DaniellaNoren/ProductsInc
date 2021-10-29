@@ -4,32 +4,27 @@ import {
     Redirect
 } from 'react-router-dom';
 
-export default class Logout extends Component {
-    runlogout = () => {
-    let t = this;
+export default function Logout({test, logoutCallback}) {
+    
+    const runlogout = () => {
     $.ajax({
         url: "/user/logout",
         type: "POST",
         contentType: "application/json",
         success: function (res) {
-            /*this.props.history.push('/') change back to -/ when successfully logged in*/
-            //console.log("yes we are logged in")
+            logoutCallback();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+           
         }
     })
 
         
     }
 
-
-    render() {
         return (
-                <button onClick={this.runlogout}>Logout</button>               
+                <button className="btn btn-primary" onClick={() => runlogout()}>Logout</button>               
         )
-    }
+    
 }
 

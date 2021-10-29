@@ -102,17 +102,26 @@ namespace Products_Inc.Models.Services
             return GetUserViewModel(user);
         }
 
-        public async Task<bool> Login(LoginModel login)
+        public async Task<UserViewModel> Login(LoginModel login)
         {
             User user = await _userManager.FindByNameAsync(login.UserName);
-
+            
             if (user != null)
             {
                 var signInResult = _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
-                return signInResult.Result.Succeeded;
+
+                if (signInResult.Result.Succeeded)
+                {
+                    IList<string> roles = await _userManager.GetRolesAsync(user);
+                    return GetUserViewModel(user, roles);
+                }
+                else
+                {
+                    throw new LoginException("Wrong username/password");
+                }
             }
 
-            return false;
+            throw new EntityNotFoundException("User with username " + login.UserName + " not found");
         }
 
         public async void Logout()
@@ -166,6 +175,11 @@ namespace Products_Inc.Models.Services
         public UserViewModel GetUserViewModel(User user)
         {
             return new UserViewModel() { Id = user.Id, UserName = user.UserName, Email = user.Email };
+        }
+
+        public UserViewModel GetUserViewModel(User user, IList<string> roles)
+        {
+            return new UserViewModel() { Roles = roles, Id = user.Id, UserName = user.UserName, Email = user.Email };
         }
     }
 }

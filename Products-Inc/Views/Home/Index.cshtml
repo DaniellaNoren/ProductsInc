@@ -3,12 +3,14 @@
 
 
     @{
-        var prop = this.User.Identity.IsAuthenticated;
+        bool isAuthenticated = this.User.Identity.IsAuthenticated;
+        bool isAdmin = this.User.IsInRole("Admin");
 
         @Html.ReactRouter("Components.Index", new
    {
-       UserIsAuthenticated = prop
-   });;
+       userIsAuthenticated = isAuthenticated,
+       userIsAdmin = isAdmin
+   });  
         }
 
 
