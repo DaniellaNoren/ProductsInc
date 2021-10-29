@@ -14,8 +14,8 @@ function UserOrderTable({orders}){
 }
 
 function UserOrder({order}){
-    return (<div className="row">
-       <Link to={{pathname: "/orderdetails", order, msg: "Receipt"}} >Ordernr: {order.orderId} </Link>
+    return (<div className="row text-primary">
+       <Link className="text-primary" to={{pathname: "/orderdetails", order, msg: "Receipt"}} >Ordernr: {order.orderId} </Link>
     </div>
     )
 }
@@ -34,6 +34,7 @@ export default class UserOrders extends Component{
         return (
             <div>
                 <h4>UserOrders:</h4>
+                <Link className="btn btn-primary" to="/userpage">Back</Link>
                 <UserOrderTable orders={this.state.orders}/>
             </div>
         )

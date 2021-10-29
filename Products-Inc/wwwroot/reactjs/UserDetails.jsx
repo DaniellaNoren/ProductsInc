@@ -1,17 +1,14 @@
 ﻿import { Component, Fragment } from 'react';
 import {
-    Link,
-    BrowserRouter,
-    Route,
-    Switch,
-    StaticRouter,
-    Redirect
+    Link
 } from 'react-router-dom';
 
 export default class UserDetails extends Component{
     state = {
         user: { userName: "", id: "", email: ""},
-        updateUserDetailsModel: { userName: "", email: "", password: "", confirmPassword: "" }
+        updateUserDetailsModel: { userName: "", email: "", password: "", confirmPassword: "" },
+        msgIsError: false,
+        msg: ""
     }
     loadDataFromServer = () => {
         let t = this;
@@ -22,11 +19,12 @@ export default class UserDetails extends Component{
     }
     changeUserDetails = () => { 
         
+        this.setState({msgIsError: false, msg: ""})
         let updateUserModel = this.state.updateUserDetailsModel;
         let t = this;
 
         if(updateUserModel.password && updateUserModel.password !== updateUserModel.confirmPassword){
-            //error
+            this.setState({msgIsError: true, msg: "Passwords do not match"})
         }
     
         $.ajax({      
@@ -37,21 +35,22 @@ export default class UserDetails extends Component{
             contentType: "application/json", 
             dataType: "json",
             success: function(res) {
-                console.log(res)
+                t.setState({msgIsError: false, msg: "Details updated!"})
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus)
+                t.setState({msgIsError: true, msg: jqXHR.responseText})
             }
         });
     }
     stateMethod = (newDetail) => {
         this.setState({updateUserDetailsModel: {...this.state.updateUserDetailsModel, ...newDetail}})
-        console.log(this.state.updateUserDetailsModel);
     }
      render() {
             return (
                 <div>
                     <h4><b>UserDetails:</b></h4>
+                    <Link className="btn btn-primary" to="/userpage">Back</Link>
+                   {this.state.msgIsError ? <p className="text-danger">{this.state.msg}</p> : <p className="text-success">{this.state.msg}</p> }
                    <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/> 
                 </div>
             )
@@ -61,7 +60,6 @@ export default class UserDetails extends Component{
 function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
     return (
         <form className="form" onSubmit={e => {e.preventDefault(); updateUserMethod()}}>
-            {user.userName}
               <div className="form-group">
                     <label htmlFor="username-input">Username</label>
                     <input className="form-control" placeholder={user.userName} value={updateUserModel.userName} type="text" id="username-input" onChange={e => stateMethod({ userName: e.target.value})}/>
@@ -78,7 +76,7 @@ function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
                     <label htmlFor="confirm-password-input">Confirm new password:</label>
                     <input className="form-control"  value={updateUserModel.confirmPassword} type="password" id="confirm-password-input" onChange={e => stateMethod({ confirmPassword: e.target.value})}/>
                 </div>
-                <button type="submit">Edit</button>
+                <button className="btn btn-primary" type="submit">Edit</button>
         </form>
     )
 }    
