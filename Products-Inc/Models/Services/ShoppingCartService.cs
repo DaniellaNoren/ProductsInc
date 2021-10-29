@@ -52,6 +52,11 @@ namespace Products_Inc.Models.Services
 
         public OrderViewModel CreateOrder(ShoppingCartViewModel shoppingCartModel)
         {
+            if (string.IsNullOrEmpty(shoppingCartModel.ShoppingCartId))
+            {
+
+            }
+            
             ShoppingCart shoppingCart = _repo.Read(Int32.Parse(shoppingCartModel.ShoppingCartId));
 
             CreateOrderViewModel order = new CreateOrderViewModel() { Products = shoppingCart.Products.Select(p => new OrderProductViewModel() { Product = new ProductViewModel() { ProductDescription = p.Product.ProductDescription, ProductId = p.Product.ProductId, ImgPath = p.Product.ImgPath, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice }, Amount = p.Amount }).ToList(), UserId = shoppingCart.UserId };

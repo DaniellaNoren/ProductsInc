@@ -19,10 +19,12 @@ namespace Products_Inc.Controllers
     {
       
         private readonly IOrderService _orderService;
+        private readonly IUserService _userService;
 
-        public OrderController(IOrderService iOrderService)
+        public OrderController(IOrderService iOrderService, IUserService userService)
         {
             _orderService = iOrderService;
+            _userService = userService;
 
         }
 
@@ -44,12 +46,27 @@ namespace Products_Inc.Controllers
             return new OkObjectResult(_orderService.ReadAll());
         }
 
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("users/{userid}")]
         public IActionResult GetUserOrders(string userid)
         {
-           //todo: check that the user requesting the orders is the owner 
             return new OkObjectResult(_orderService.FindAllBy(userid));
+        } 
+        
+        [Authorize(Roles = "User")]
+        [HttpGet("users")]
+        public async Task<IActionResult> GetLoggedInUserOrders()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                UserViewModel user = await _userService.FindBy(User.Identity.Name);
+                return new OkObjectResult(_orderService.FindAllBy(user.Id));
+
+            }
+            else
+            {
+                return new UnauthorizedResult();
+            }
         }
 
 

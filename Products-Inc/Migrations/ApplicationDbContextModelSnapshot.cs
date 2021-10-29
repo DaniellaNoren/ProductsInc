@@ -25,7 +25,7 @@ namespace Products_Inc.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrderId");
@@ -36,22 +36,22 @@ namespace Products_Inc.Migrations
                         new
                         {
                             OrderId = 1,
-                            UserId = "0030"
+                            Id = "0030"
                         },
                         new
                         {
                             OrderId = 2,
-                            UserId = "0010"
+                            Id = "0010"
                         },
                         new
                         {
                             OrderId = 3,
-                            UserId = "0020"
+                            Id = "0020"
                         },
                         new
                         {
                             OrderId = 4,
-                            UserId = "0020"
+                            Id = "0020"
                         });
                 });
 
@@ -193,39 +193,35 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 10,
-                            ImgPath = "/img/img1.png",
                             ProductDescription = "A nice eko quality bananas from peru.",
-                            ProductName = "Banana",
+                            ProductName = "Pack of bananas",
                             ProductPrice = 34
                         },
                         new
                         {
                             ProductId = 20,
-                            ImgPath = "/img/img2.jpg",
-                            ProductDescription = "Nice for your health.",
-                            ProductName = "Pomegranate",
+                            ProductDescription = "Clementine fruit.",
+                            ProductName = "Satsumas",
                             ProductPrice = 6
                         },
                         new
                         {
                             ProductId = 30,
-                            ImgPath = "/img/img11.jpg",
-                            ProductDescription = "Fresh sweet tomatos.",
-                            ProductName = "Tomatos",
+                            ProductDescription = "Sweet tomatos.",
+                            ProductName = "Tomatos A-Class",
                             ProductPrice = 3
                         },
                         new
                         {
                             ProductId = 40,
-                            ImgPath = "/img/img3.jpg",
-                            ProductDescription = "Nice for your teeth",
-                            ProductName = "Tooth Cleaner",
+                            ProductDescription = "Butter made of sunflower seeds.",
+                            ProductName = "Sunflower Butter",
                             ProductPrice = 54
                         },
                         new
                         {
                             ProductId = 50,
-                            ImgPath = "/img/img4.jpg",
+                            ImgPath = "./img/img4.jpg",
                             ProductDescription = "Nice for your health",
                             ProductName = "Orange",
                             ProductPrice = 30
@@ -233,7 +229,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 51,
-                            ImgPath = "/img/img6.jpg",
+                            ImgPath = "./img/img6.jpg",
                             ProductDescription = "Good to drink",
                             ProductName = "Coca Cola",
                             ProductPrice = 16
@@ -241,7 +237,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 52,
-                            ImgPath = "/img/img7.jpg",
+                            ImgPath = "./img/img7.jpg",
                             ProductDescription = "Good for health",
                             ProductName = "Oreo",
                             ProductPrice = 10
@@ -249,7 +245,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 53,
-                            ImgPath = "/img/img8.jpg",
+                            ImgPath = "./img/img8.jpg",
                             ProductDescription = "Healthy breakfast",
                             ProductName = "Corn Flakes",
                             ProductPrice = 25
@@ -257,15 +253,15 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 54,
-                            ImgPath = "/img/img9.jpg",
-                            ProductDescription = "Niceto make food",
+                            ImgPath = "./img/img9.jpg",
+                            ProductDescription = "Nice to make food",
                             ProductName = "Salt",
                             ProductPrice = 9
                         },
                         new
                         {
                             ProductId = 55,
-                            ImgPath = "/img/img12.jpg",
+                            ImgPath = "./img/img12.jpg",
                             ProductDescription = "Good for health",
                             ProductName = "Avocado",
                             ProductPrice = 18
@@ -273,7 +269,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 56,
-                            ImgPath = "/img/img14.jpg",
+                            ImgPath = "./img/img14.jpg",
                             ProductDescription = "Nice to eat",
                             ProductName = "Eggo",
                             ProductPrice = 30
@@ -281,7 +277,7 @@ namespace Products_Inc.Migrations
                         new
                         {
                             ProductId = 57,
-                            ImgPath = "/img/img16.png",
+                            ImgPath = "./img/img16.jpg",
                             ProductDescription = "Creamy sun butter",
                             ProductName = "SunButter",
                             ProductPrice = 35

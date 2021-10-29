@@ -1,4 +1,6 @@
-﻿import { Component, Fragment } from 'react';
+﻿
+import { Component, Fragment } from 'react';
+import Cookies from 'js-cookies'
 import Orders from './Orders.jsx';
 import Products from './Products.jsx';
 import HeaderPartial from './HeaderPartial.jsx';
@@ -8,7 +10,7 @@ import Register from './Register.jsx';
 import Logout from './Logout.jsx';
 import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
-import Checkout from './Checkout.jsx';
+import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminProducts from './AdminProducts.jsx';
 import AdminUsers from './AdminUsers.jsx';
@@ -24,15 +26,15 @@ import {
 } from 'react-router-dom';
 
 
-class OrderPage extends Component {
+class OrderPage extends Component{
     //get the orders by calling the partialview with user orders. render the html 
     // getOrders = () => {
     //     $.get("url")
     //     .done(r => $(".orders").html = r.data)
     // }
 
-
-    render() {
+    
+    render(){
         return (
             <div>
                 <Orders />
@@ -41,52 +43,59 @@ class OrderPage extends Component {
     }
 }
 
-function SideMenu({ viewOrders, location, context }) {
+function SideMenu({viewOrders, location, context}) {
     const logOut = () => {
-        $.ajax({
+        $.ajax({      
             url: "/user/logout",
             type: "POST",
-            success: function (res) {
+            success: function(res) {
                 console.log("succeeded");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
                 console.log(textStatus);
-                console.log(errorThrown);
+                 console.log(errorThrown);
             }
-        });
+          });
     }
     const showOrders = () => {
         let id = "";
 
-        $.ajax({
+        $.ajax({      
             url: `/user/${id}/orders`,
             type: "GET",
-            success: function (res) {
+            success: function(res) {
                 console.log("succeeded");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
                 console.log(textStatus);
-                console.log(errorThrown);
+                 console.log(errorThrown);
             }
-        });
+          });
     }
     return (
         <ul className="nav flex-column">
-
+           
             <li className="nav-item">
 
-
+               
             </li>
         </ul>
     )
 }
 
 export default class Index extends Component {
-    state = {
-        viewOrders: false,
-        isUserAuthenticated: false
+   state = {
+       viewOrders: false,
+       isUserAuthenticated: false
+    }
+    componentDidMount(){
+        console.log(this.props.userIsAuthenticated)
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+            $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
+            .done(r => console.log(r)).fail(e => console.log(e));
+        }
     }
     render() {
         const app = (
@@ -123,7 +132,7 @@ export default class Index extends Component {
 
                         <Route path="/login"><Login /></Route>
                         <Route path="/register"><Register /></Route>
-                        <Route path="/logout"><Logout /></Route>
+                        <Route path="/logout"><Logout/></Route>
 
                         <Route path="/products"><Products /></Route>
                         <Route path="/orders"><Orders /></Route>
@@ -133,7 +142,7 @@ export default class Index extends Component {
                         <Route path="/userorders"><UserOrders /></Route>
                         <Route path="/userdetails"><UserDetails /></Route>
                         <Route path="/checkout"><Checkout /></Route>
-
+                        <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
                         <Route path="/adminorders"><AdminOrders /></Route>
                         <Route path="/adminusers"><AdminUsers /></Route>
@@ -156,9 +165,11 @@ export default class Index extends Component {
 
                 <FooterPartial />  {/*Footer component*/}
 
-            </div>
+            </div> 
 
         );
+
+
         if (typeof window === 'undefined') {
             return (
                 <StaticRouter
@@ -170,6 +181,9 @@ export default class Index extends Component {
             )
         }
         return (<BrowserRouter>{app}</BrowserRouter>)
-
+        
     }
 }
+
+
+

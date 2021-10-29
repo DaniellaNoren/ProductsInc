@@ -2,14 +2,16 @@
 }
 
 
-@{
-    var prop = "All Products";
+    @{
+        var prop = this.User.Identity.IsAuthenticated;
 
-    @Html.ReactRouter("Components.Index", new
-{
-   someProp = @prop
-});
-}
+        @Html.ReactRouter("Components.Index", new
+   {
+       UserIsAuthenticated = prop
+   });;
+        }
+
+
 
 <div id="reactcontent"></div>
 

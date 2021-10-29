@@ -1,61 +1,69 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
+import {
+    Redirect
+} from 'react-router-dom';
 
 export default class Register extends Component {
     state = {
-        registerModel: { userName: "", password: "", confirmPassword: "", email: "" }
+        registerModel: {userName: "", password: "", confirmPassword: "", email: ""},
+        redirect: false
+    }
+    componentDidMount(){
+        this.setState({redirect: false})
     }
     register = e => {
-
+        let t = this;
         e.preventDefault();
 
-        $.ajax({
+        $.ajax({      
             url: "/user/register",
             type: "POST",
             data: JSON.stringify(this.state.registerModel),
-            Accept: "application/json",
-            contentType: "application/json",
+            Accept : "application/json",
+            contentType: "application/json", 
             dataType: "json",
-            success: function (response, textStatus, jqXHR) {
+            success: function(response, textStatus, jqXHR) {
                 console.log("succeeded");
+                t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
+                    console.log(jqXHR);
+                  console.log(textStatus);
+                  console.log(errorThrown);
             }
-        });
+          });
 
-
+        
 
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect to="/login"/>
+        }else
         return (
             <div>
                 <form className="form" onSubmit={this.register}>
-                    <div className="form-group ">
+                    <div className="form-group">
                         <label for="username-input">Username</label>
-                        
-                        <input value={this.state.registerModel.userName} onChange={e => this.setState({ registerModel: { ...this.state.registerModel, userName: e.target.value } })} className="form-control" id="username-input" type="text" />
+                        <input value={this.state.registerModel.userName} onChange={e => this.setState({registerModel: {...this.state.registerModel, userName: e.target.value}})} className="form-control" id="username-input" type="text" />
                     </div>
                     <div className="form-group">
                         <label for="email-input">Email</label>
-                        <input value={this.state.registerModel.email} onChange={e => this.setState({ registerModel: { ...this.state.registerModel, email: e.target.value } })} className="form-control" id="email-input" type="email" />
+                        <input value={this.state.registerModel.email} onChange={e => this.setState({registerModel: {...this.state.registerModel, email: e.target.value}})} className="form-control" id="email-input" type="email" />
                     </div>
                     <div className="form-group">
                         <label for="password-input">Password</label>
-                        <input value={this.state.registerModel.password} onChange={e => this.setState({ registerModel: { ...this.state.registerModel, password: e.target.value } })} className="form-control" id="password-input" type="password" />
+                        <input value={this.state.registerModel.password} onChange={e => this.setState({registerModel: {...this.state.registerModel, password: e.target.value}})} className="form-control" id="password-input" type="password" />
                     </div>
                     <div className="form-group">
                         <label for="confirm-password-input">Repeat Password</label>
-                        <input value={this.state.registerModel.confirmPassword} onChange={e => this.setState({ registerModel: { ...this.state.registerModel, confirmPassword: e.target.value } })} className="form-control" id="confirm-password-input" type="password" />
+                        <input value={this.state.registerModel.confirmPassword} onChange={e => this.setState({registerModel: {...this.state.registerModel, confirmPassword: e.target.value}})} className="form-control" id="confirm-password-input" type="password" />
                     </div>
-                    <br />
-                     <div className="registerBtnDiv">
-                        <button type="submit" className="submitButton btn">Register</button>
-                    </div>
+                    <button type="submit" className="btn btn-primary">Register</button>
                 </form>
             </div>
         )
     }
 }
+

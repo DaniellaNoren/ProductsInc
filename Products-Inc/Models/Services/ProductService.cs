@@ -12,16 +12,23 @@ namespace Products_Inc.Models.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepo _productRepo;
+        private readonly IImageService _imageService;
 
-        public ProductService(IProductRepo iProductRepo)
+        public ProductService(IProductRepo iProductRepo, IImageService imageService)
         {
             _productRepo = iProductRepo;
+            _imageService = imageService;
         }
 
 
         
         public ProductViewModel Create(CreateProductViewModel createProductViewModel)
         {
+            if (!string.IsNullOrEmpty(createProductViewModel.ImgData))
+            {
+               createProductViewModel.ImgPath = _imageService.SaveImage(createProductViewModel.ImgData);
+            }
+
             Product createdProduct = _productRepo.Create(createProductViewModel);
             return GetModel(createdProduct);
         }

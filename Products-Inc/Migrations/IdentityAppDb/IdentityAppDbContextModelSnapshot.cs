@@ -49,14 +49,14 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "caccaaa3-5621-4955-8c3d-266d9c7b9cc2",
+                            ConcurrencyStamp = "d74be9e3-6be7-4255-aabb-117fbc986c0a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "79476493-ac8c-49f4-8907-5feba9bef914",
+                            ConcurrencyStamp = "b2ac8b23-3348-411c-8464-614d443d3f95",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -142,13 +142,13 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         {
                             Id = "0001",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "278b2055-69a9-4221-9cf6-776996fde2f8",
+                            ConcurrencyStamp = "c6b8afea-3f61-4859-8694-9d95dc09ffbb",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIIxdyztdJV9K8NSv+N+es8b1ca9PmoEFUij97caWGj+Xw1LiArDSyKWYQa4TqfqSA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKr8GEh+ldYNgdz8VGmKLHIZOoDlzolc5Y1mfCwbFL/aN2URrPV+C9iDDXjQqc75ZA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "004c7696-7586-43b7-9cec-c1f15ed180db",
+                            SecurityStamp = "d6ee4f4e-093d-4f45-965c-6ee500eb9240",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -156,13 +156,13 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         {
                             Id = "0010",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e9fdba6d-3917-46a0-9915-f75815ca5074",
+                            ConcurrencyStamp = "439f7668-8e88-46a7-af07-fc30a4e10819",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMJVOuQbB8iNjDftvpOzNTMWEKQMbTAokaTYiBg1bmxQOngVIhkN5ZdfCJVbBKMNbA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGJMyaikli/GVBUmrXHIDpyrPR4e7KEs/OyUNHcQcbzIVP4VCPLaiVIDIWb0xdheMw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ca92cccf-b71b-4971-a7db-4039e3c85691",
+                            SecurityStamp = "677bceaf-76d7-473d-bcbf-b3b490c90aa8",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -170,13 +170,13 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         {
                             Id = "0020",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9ec34d80-5ea2-48c4-9279-dc2ec39ca4fe",
+                            ConcurrencyStamp = "121d7751-ea39-42bb-852d-2c5b920bedc7",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEtOeYT19TH/SzdYLhmWt+4Xd2gI3TB/jccylKHF3xQBdisAMz5I607TGcNX/uV0Jg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE2lCFCAlA/xWK/MvhYCqM/4eodb/ojbOgKdQfB9WCwbzBrA29hk7SUo/OBBnSZ2/A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3d3499ec-978a-4bc9-a4d9-62f3f609e34b",
+                            SecurityStamp = "ccfd6bf6-902c-4ba2-b58c-038fdc920204",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
@@ -184,13 +184,13 @@ namespace Products_Inc.Migrations.IdentityAppDb
                         {
                             Id = "0030",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a4e6e3b3-686b-470c-85df-c0137fa83bd2",
+                            ConcurrencyStamp = "be10732e-7596-4bbd-ab1d-d9e6184b36d8",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER3",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGg59X2Nv3S45eXTRuYpQepAFy9fSE2x1hJOVp3+XdRumvhYkNXJ1LXkgVaYqk66nw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBRxz/lTUIYBswsTUTvWEoGgXeezsNLAPQEd2X3/j3WCr1IB7h/IeLukIZaJZHU98w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d3e8f494-1601-4d2e-9d7b-01a46d21d148",
+                            SecurityStamp = "31b5abe5-1517-4355-911c-dac78b7c02c2",
                             TwoFactorEnabled = false,
                             UserName = "customer3"
                         });

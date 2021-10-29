@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products_Inc.Models;
 using Products_Inc.Models.Interfaces;
@@ -21,7 +22,7 @@ namespace Products_Inc.Controllers
             this._userService = userService;
         }
 
-        [HttpPost]
+        [HttpPost("[controller]/login")]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             if (ModelState.IsValid)
@@ -62,6 +63,39 @@ namespace Products_Inc.Controllers
                 return new BadRequestObjectResult(new { errorMsg = "Incorrect model" });
             }
         }
+
+        [HttpPost("[controller]/logout")]
+        public IActionResult Logout()
+        {
+            _userService.Logout();
+            return new OkResult();
+
+        }
+
+        [HttpPut("[controller]/{userId}")]
+        public async Task<IActionResult> EditUser(string userId, [FromBody] RegisterModel updateModel)
+        {
+            UserViewModel user = await _userService.Update(userId, updateModel);
+           
+            
+            return new OkObjectResult(user);
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet("[controller]/me")]
+        public async Task<IActionResult> GetLoggedInUserInfo()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                UserViewModel user = await _userService.FindBy(User.Identity.Name);
+                return new OkObjectResult(user);
+            }
+            else
+            {
+                return new UnauthorizedResult();
+            }
+        }
+
 
     }
 }
