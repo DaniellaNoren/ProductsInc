@@ -5,35 +5,47 @@ using System.Threading.Tasks;
 using Products_Inc.Models;
 using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Interfaces;
-
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc.Models.Services
 {
     public class ProductService : IProductService
     {
         private readonly IProductRepo _productRepo;
+        private readonly IImageService _imageService;
 
-        public ProductService(IProductRepo iProductRepo)
+        public ProductService(IProductRepo iProductRepo, IImageService imageService)
         {
             _productRepo = iProductRepo;
+            _imageService = imageService;
         }
 
 
         
         public ProductViewModel Create(CreateProductViewModel createProductViewModel)
         {
+            if (!string.IsNullOrEmpty(createProductViewModel.ImgData))
+            {
+               createProductViewModel.ImgPath = _imageService.SaveImage(createProductViewModel.ImgData);
+            }
+
             Product createdProduct = _productRepo.Create(createProductViewModel);
             return GetModel(createdProduct);
         }
 
-
-
-        public List<Product> ReadAll()
+        public List<ProductViewModel> ReadAll()
         {
-            List<Product> productList = _productRepo.Read();
-            Console.WriteLine(productList);
-            return productList;
+            return _productRepo.Read().Select(p =>
+            GetModel(p)).ToList();
         }
+
+        //public List<Product> ReadAll()
+        //{
+
+        //    List<Product> productList = _productRepo.Read();
+        //    Console.WriteLine(productList);
+        //    return productList;
+        //}
 
         public ProductViewModel Update(int id, Product product)
         {
@@ -78,7 +90,7 @@ namespace Products_Inc.Models.Services
             if (foundProduct != null)
                 return GetModel(foundProduct);
             else
-                throw new Exception("Entity not found"); //todo: create unique exception
+                throw new EntityNotFoundException("Product not found"); 
         }
 
         public bool Delete(int id)
@@ -88,11 +100,14 @@ namespace Products_Inc.Models.Services
             if(productToDelete != null)
             {
                 bool success = _productRepo.Delete(productToDelete);
-
                 return success;
             }
+            else
+            {
+                throw new EntityNotFoundException("Product not found");
+            }
 
-            return false;
+ 
         }
 
         public ProductViewModel GetModel(Product product)
