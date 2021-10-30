@@ -14,8 +14,10 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
+
 
     public class UserController : Controller
     {
@@ -23,18 +25,20 @@ namespace Products_Inc.Controllers
         private readonly IUserService _userService;
         //private RoleManager<IdentityRole> roleManager;
         //private UserManager<User> userManager;
+        SignInManager<User> _signInManager;
 
 
-        public UserController(IUserService userService) // , RoleManager<IdentityRole> roleMgr, UserManager<User> userMrg) // removed logging /ER  ILogger<UserController> logger,
+        public UserController(IUserService userService, SignInManager<User> signInManager) // , RoleManager<IdentityRole> roleMgr, UserManager<User> userMrg) // removed logging /ER  ILogger<UserController> logger,
         {
             //_logger = logger;
             _userService = userService;
+            _signInManager = signInManager;
             //roleManager = roleMgr;
             //userManager = userMrg;
         }
 
 
-        [HttpPost("[controller]/login")]
+        [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             if (ModelState.IsValid)
@@ -57,7 +61,7 @@ namespace Products_Inc.Controllers
 
 
 
-        [HttpPost("[controller]/register")]
+        [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
             if (ModelState.IsValid)
@@ -81,17 +85,24 @@ namespace Products_Inc.Controllers
 
 
 
-        [HttpPost("[controller]/logout")]
-        public async Task<ActionResult> Logout([FromBody] RegisterModel registerModel)
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout(string returnUrl = null)
         {
-            _userService.Logout();
-            return new OkResult();
+            await _signInManager.SignOutAsync();
 
+            if (returnUrl != null)
+            {
+                return new OkObjectResult(new { msg = "Logged Out. Can redirect to page is needed" });
+            }
+            else
+            {
+                return new OkObjectResult(new { msg = "Logged Out" });
+            }
         }
 
 
 
-        [HttpPut("[controller]/{userId}")]
+        [HttpPut("edituser/{userId}")]
         public async Task<IActionResult> EditUser(string userId, [FromBody] RegisterModel updateModel)
         {
             UserViewModel user = await _userService.Update(userId, updateModel);
@@ -100,20 +111,20 @@ namespace Products_Inc.Controllers
             return new OkObjectResult(user);
         }
 
-        //[Authorize(Roles = "User")]
-        //[HttpGet("[controller]/me")]
-        //public async Task<IActionResult> GetLoggedInUserInfo()
-        //{
-        //    if (User.Identity.IsAuthenticated)
-        //    {
-        //        UserViewModel user = await _userService.FindBy(User.Identity.Name);
-        //        return new OkObjectResult(user);
-        //    }
-        //    else
-        //    {
-        //        return new UnauthorizedResult();
-        //    }
-        //}
+        [Authorize(Roles = "User")]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetLoggedInUserInfo()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                UserViewModel user = await _userService.FindBy(User.Identity.Name);
+                return new OkObjectResult(user);
+            }
+            else
+            {
+                return new UnauthorizedResult();
+            }
+        }
 
 
 
@@ -133,13 +144,30 @@ namespace Products_Inc.Controllers
         }
 
 
-        [HttpGet("[controller]/accessdenied")]
-        public async Task<IActionResult> AccessDenied()
+        [HttpGet("accessdenied")]
+        public IActionResult AccessDenied()
         {
             return new BadRequestObjectResult(new { errorMsg = "Access Denied." });
         }
 
 
+        [HttpGet("testapi")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult testapi()
+        {
+            //List<UserViewModel> user = _userService.All();
+            var hejsan = "bööööös";
+
+            return Json(hejsan);
+        }
+
+        public IActionResult IsUserLoggedIn()
+        {
+            //List<UserViewModel> user = _userService.All();
+            var hejsan = "bööööös";
+
+            return Json(hejsan);
+        }
 
         //private void Errors(IdentityResult result)
         //{

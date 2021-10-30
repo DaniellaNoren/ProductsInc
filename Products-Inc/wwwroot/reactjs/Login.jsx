@@ -25,41 +25,41 @@ export default class Login extends Component {
         let t = this;
 
         $.ajax({
-            url: "/api/user/loginmenow",
+            url: "/api/user/login",
             method: "POST",
             data: JSON.stringify(this.state.loginModel),
             //accepts: { json: "application/json" },
-            //contentType: "application/json",
+            contentType: "application/json",
             dataType: "json",
             success: function (res) {
 
-                //let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"));
-                //if (shoppingCart) {
+                let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"));
+                if (shoppingCart) {
 
-                //    if (!shoppingCart.shoppingCartId || !shoppingCart.UserId) {
-                //        $.ajax({
-                //            url: "/api/shoppingcart",
-                //            method: "POST",
-                //            data: JSON.stringify(shoppingCart),
-                //            //accepts: {json: "application/json" },
-                //            //contentType: "application/json",
-                //            dataType: "json",
-                //            success: function (res) {
-                //                console.log(res)
-                //            },
-                //            error: function (res) {
-                //                console.log(res);
-                //            }
-                //        })
-                //    }
+                    if (!shoppingCart.shoppingCartId || !shoppingCart.UserId) {
+                        $.ajax({
+                            url: "/api/shoppingcart",
+                            method: "POST",
+                            data: JSON.stringify(shoppingCart),
+                            //accepts: {json: "application/json" },
+                            //contentType: "application/json",
+                            dataType: "json",
+                            success: function (res) {
+                                console.log(res)
+                            },
+                            error: function (res) {
+                                console.log(res);
+                            }
+                        })
+                    }
 
 
-                //} else {
-                //    $.get("/api/shoppingcart/users", function (r) { console.log(r); console.log("yay") })
-                //        .done(r => console.log(r)).fail(e => console.log(e));
-                //}
+                } else {
+                    $.get("/api/shoppingcart/users", function (r) { console.log(r); console.log("yay") })
+                        .done(r => console.log(r)).fail(e => console.log(e));
+                }
 
-                //t.props.location.loggedInCallback(res);
+                t.props.location.loggedInCallback(res);
                 t.setState({ redirect: true })
             },
             error: function (jqXHR, textStatus, errorThrown) {

@@ -154,10 +154,11 @@ namespace Products_Inc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    "default", "{path?}", new { controller = "Home", action = "Index" });
 
-                //endpoints.MapFallbackToController("Index", "Home");
+
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}");
 
                 endpoints.MapRazorPages();
 

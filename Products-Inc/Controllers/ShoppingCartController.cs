@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class ShoppingCartController : Controller
     {
         private readonly IShoppingCartService _service;
@@ -22,8 +23,8 @@ namespace Products_Inc.Controllers
             _userService = userService;
             this._productService = _productService;
         }
-     
-   
+
+
         [Authorize(Roles = "User")]
         [HttpPost("buy")]
         public async Task<IActionResult> GetOrder(ShoppingCartViewModel shoppingCart)
@@ -38,12 +39,12 @@ namespace Products_Inc.Controllers
             }
 
             OrderViewModel order = _service.CreateOrder(shoppingCart);
-            
+
             if (this.Request.Cookies["shopping-cart"] != null)
             {
                 this.Response.Cookies.Delete("shopping-cart");
             }
-            
+
             return new OkObjectResult(order);
         }
 
@@ -136,7 +137,7 @@ namespace Products_Inc.Controllers
 
                     if (User.Identity.IsAuthenticated)
                     {
-                        
+
                         shoppingCart = _service.Create(await GetCreateShoppingCartModel(product));
                     }
                     else

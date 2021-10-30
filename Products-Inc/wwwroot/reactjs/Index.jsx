@@ -41,7 +41,7 @@ export default class Index extends Component {
     }
     componentDidMount(){
         console.log(this.props.userIsAuthenticated)
-        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){
             $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
             .done(r => console.log(r)).fail(e => console.log(e));
         }
@@ -97,8 +97,8 @@ export default class Index extends Component {
                 </div>
 
                 <FooterPartial />  {/*Footer component*/}
-            </div> 
-                        
+            </div>
+
         );
 
 
@@ -118,14 +118,14 @@ export default class Index extends Component {
             </BrowserRouter>
         )
 
-        
+
     }
 }
 
 
 
 class OrderPage extends Component {
-    //get the orders by calling the partialview with user orders. render the html 
+    //get the orders by calling the partialview with user orders. render the html
     // getOrders = () => {
     //     $.get("url")
     //     .done(r => $(".orders").html = r.data)
@@ -182,3 +182,7 @@ function SideMenu({ viewOrders, location, context }) {
         </ul>
     )
 }
+
+
+
+

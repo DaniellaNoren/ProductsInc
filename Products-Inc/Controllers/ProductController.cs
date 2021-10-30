@@ -10,8 +10,9 @@ using System.IO;
 
 namespace Products_Inc.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -54,7 +55,7 @@ namespace Products_Inc.Controllers
             {
                 return new BadRequestObjectResult(new { msg = "Invalid body" });
             }
-          
+
         }
 
         [Authorize(Roles = "Admin")]
@@ -76,5 +77,5 @@ namespace Products_Inc.Controllers
 
     }
 
-   
+
 }
