@@ -19,26 +19,23 @@ namespace Products_Inc.Controllers
 
     public class UserController : Controller
     {
-        private readonly ILogger<UserController> _logger;
+        //private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
-
-
-        public UserController(IUserService userService, ILogger<UserController> logger)
-        {
-            _logger = logger;
-            this._userService = userService;
-        }
-
         //private RoleManager<IdentityRole> roleManager;
         //private UserManager<User> userManager;
-        //public UserController(RoleManager<IdentityRole> roleMgr, UserManager<User> userMrg)
-        //{
-        //    roleManager = roleMgr;
-        //    userManager = userMrg;
-        //}
+
+
+        public UserController(IUserService userService) // , RoleManager<IdentityRole> roleMgr, UserManager<User> userMrg) // removed logging /ER  ILogger<UserController> logger,
+        {
+            //_logger = logger;
+            _userService = userService;
+            //roleManager = roleMgr;
+            //userManager = userMrg;
+        }
+
 
         [HttpPost("[controller]/login")]
-        public async Task<ActionResult> Login([FromBody] LoginModelCustom loginModel)
+        public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             if (ModelState.IsValid)
             {
@@ -53,12 +50,15 @@ namespace Products_Inc.Controllers
             }
             else
             {
+                Console.WriteLine("Incorrect model");
                 return new BadRequestObjectResult(new { errorMsg = "Incorrect model" });
             }
         }
 
+
+
         [HttpPost("[controller]/register")]
-        public async Task<ActionResult> Register([FromBody] RegisterModelCustom registerModel)
+        public async Task<ActionResult> Register([FromBody] RegisterModel registerModel)
         {
             if (ModelState.IsValid)
             {
@@ -79,47 +79,43 @@ namespace Products_Inc.Controllers
             }
         }
 
+
+
         [HttpPost("[controller]/logout")]
-        public async Task<ActionResult> Logout([FromBody] RegisterModelCustom registerModel)
+        public async Task<ActionResult> Logout([FromBody] RegisterModel registerModel)
         {
             _userService.Logout();
             return new OkResult();
 
         }
 
+
+
         [HttpPut("[controller]/{userId}")]
         public async Task<IActionResult> EditUser(string userId, [FromBody] RegisterModel updateModel)
         {
             UserViewModel user = await _userService.Update(userId, updateModel);
-           
-            
+
+
             return new OkObjectResult(user);
         }
 
-        [Authorize(Roles = "User")]
-        [HttpGet("[controller]/me")]
-        public async Task<IActionResult> GetLoggedInUserInfo()
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                UserViewModel user = await _userService.FindBy(User.Identity.Name);
-                return new OkObjectResult(user);
-            }
-            else
-            {
-                return new UnauthorizedResult();
-            }
-        }
+        //[Authorize(Roles = "User")]
+        //[HttpGet("[controller]/me")]
+        //public async Task<IActionResult> GetLoggedInUserInfo()
+        //{
+        //    if (User.Identity.IsAuthenticated)
+        //    {
+        //        UserViewModel user = await _userService.FindBy(User.Identity.Name);
+        //        return new OkObjectResult(user);
+        //    }
+        //    else
+        //    {
+        //        return new UnauthorizedResult();
+        //    }
+        //}
 
-            public IActionResult Index()
-        {
-            return View();
-        }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
 
         public async Task<IActionResult> GetUserById(int id)
@@ -136,6 +132,12 @@ namespace Products_Inc.Controllers
             }
         }
 
+
+        [HttpGet("[controller]/accessdenied")]
+        public async Task<IActionResult> AccessDenied()
+        {
+            return new BadRequestObjectResult(new { errorMsg = "Access Denied." });
+        }
 
 
 
@@ -236,60 +238,5 @@ namespace Products_Inc.Controllers
         //}
 
 
-
-
-
-
-
-
-
-
-
-        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ProductsViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }*/
     }
 }
-
-
-/*
- 
- 
-  [HttpPOST]
-C - Create new user 
-return view with the created product
-
-
-R -  GET user info
-
-
-U - get 1 user to view and edit. 
-When pressing save /submit button goto PUT/PAtch.
-
- 
-U - PUT/Patch
-Edit user find by ID
-return partial view, viewmodel 
-
-
-
-D - 
-
-
-
-
-
-
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- */

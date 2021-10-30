@@ -131,7 +131,7 @@ function Receipt({ propOrder, propMsg, user, location }) {
             {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
             <h4>Ordernr: {order.orderId}</h4>
             <ul>
-                {order.products.map(p => <li key={p.product.productId}>{p.product.productName}, {p.product.productPrice}kr</li>)}
+                    {order.products.map((p, index) => <li key={index+10}>{p.product.productName}, {p.product.productPrice}kr</li>)}
             </ul>
             {/*<h3>{order.Price}kr</h3>*/}
 
@@ -173,7 +173,7 @@ function ProductList({products, removeProductMethod}){
                 </tr>
             </thead>     
             <tbody>
-                { products.map(p => <Product product={p.Product} key={p.ProductId} removeMe={removeProductMethod}/>) }
+                {products.map((p, index) => <Product product={p.Product} key={index + 50} removeMe={removeProductMethod}/>) }
             </tbody>
         </table>
     )
