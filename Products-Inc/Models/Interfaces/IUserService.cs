@@ -11,7 +11,7 @@ namespace Products_Inc.Models.Interfaces
     {
        Task<UserViewModel> Add(RegisterModel registerModel);
 
-        List<UserViewModel> All();
+     
 
         Task<UserViewModel> FindBy(string userName);
 
@@ -21,7 +21,7 @@ namespace Products_Inc.Models.Interfaces
         Task<UserViewModel> Login(LoginModel loginModel);
 
         void Logout();
-        Task<UserViewModel> Update(string userId, RegisterModel updateModel);
+        Task<UserViewModel> Update(string userId, UpdateUserViewModel updateModel);
         List<UserViewModel> GetAllUsers();
     }
 }

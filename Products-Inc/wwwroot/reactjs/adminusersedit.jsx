@@ -1,37 +1,22 @@
-﻿import { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import {
     Link
 } from 'react-router-dom';
 
-class UserPageUserDetails extends Component{
-    state = {
-        user: {}
-    }
-    loadDataFromServer = () => {
-        let t = this;
-        $.get("api/user/me", function(r){ t.setState({user: r})})
-    }
-    componentDidMount = () => {
-        this.loadDataFromServer();
-    }
-render(){
-    <div>
-    <Link className="btn btn-primary" to="/userpage">Back</Link>
-    <UserDetails user={this.state.user}/>
-    </div>
-}
-}
 
-class UserDetails extends Component{
+export default class EditUserDetails extends Component{
     state = {
         user: { userName: "", id: "", email: ""},
         updateUserDetailsModel: { userName: "", email: "", password: "", confirmPassword: "" },
         msgIsError: false,
         msg: ""
     }
-    componentDidMount(){
-        this.setState({user: this.props.user ? this.props.user : this.props.location.user});
-            this.setState({updateUserDetailsModel: {userName: this.state.user.userName, email: this.state.user.email, ...this.state.updateUserDetailsModel}})
+    loadDataFromServer = () => {
+        let t = this;
+        $.get("api/user/me", function(r){ t.setState({user: r, updateUserDetailsModel: {userName: r.userName, email: r.email, ...t.state.updateUserDetailsModel}})})
+    }
+    componentDidMount = () => {
+        this.loadDataFromServer();
     }
     changeUserDetails = () => { 
         
@@ -65,7 +50,7 @@ class UserDetails extends Component{
             return (
                 <div>
                     <h4><b>UserDetails:</b></h4>
-                    
+                    <Link className="btn btn-primary" to="/userpage">Back</Link>
                    {this.state.msgIsError ? <p className="text-danger">{this.state.msg}</p> : <p className="text-success">{this.state.msg}</p> }
                    <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/> 
                 </div>
@@ -73,7 +58,7 @@ class UserDetails extends Component{
         }
     }
 
-function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
+function EditUserForm({user, updateUserModel, stateMethod, updateUserMethod}){
     return (
         <form className="form" onSubmit={e => {e.preventDefault(); updateUserMethod()}}>
               <div className="form-group">
@@ -96,5 +81,3 @@ function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
         </form>
     )
 }    
-
-export {UserPageUserDetails, UserDetails};

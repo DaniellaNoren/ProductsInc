@@ -105,12 +105,6 @@ namespace Products_Inc.Data
             //List<Product> listB_OfProductsInOrder[] { satsumas, tomatos, banana, tomatos, tomatos}.ToList;
 
 
-            modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, UserId = "0030" },
-                new Order { OrderId = 2, UserId = "0010" },
-                new Order { OrderId = 3, UserId = "0020" },
-                new Order { OrderId = 4, UserId = "0020" }
-            );
 
 
             modelBuilder.Entity<OrderProduct>().HasData(
@@ -154,69 +148,76 @@ namespace Products_Inc.Data
             //hash the password before storing in db
             var hashit = new PasswordHasher<User>();
 
+            User adminUser = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "Admin",
+                NormalizedUserName = "ADMIN",
+                PasswordHash = hashit.HashPassword(null, "Admin")
+            };
+            User customer1 = new User
+            {
+                Id = Guid.NewGuid().ToString(), // primary key
+                UserName = "customer1",
+                NormalizedUserName = "CUSTOMER1",
+                PasswordHash = hashit.HashPassword(null, "customer1")
+            };
+            User customer2 = new User
+            {
+                Id = Guid.NewGuid().ToString(), // primary key
+                UserName = "customer2",
+                NormalizedUserName = "CUSTOMER2",
+                PasswordHash = hashit.HashPassword(null, "customer2")
+            };
+            User customer3 = new User
+            {
+                Id = Guid.NewGuid().ToString(),// primary key
+                UserName = "customer3",
+                NormalizedUserName = "CUSTOMER3",
+                PasswordHash = hashit.HashPassword(null, "customer3")
+            };
             modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = "0001", // primary key
-                    UserName = "Admin",
-                    NormalizedUserName = "ADMIN",
-                    PasswordHash = hashit.HashPassword(null, "Admin")
-                },
-                new User
-                {
-                    Id = "0010", // primary key
-                    UserName = "customer1",
-                    NormalizedUserName = "CUSTOMER1",
-                    PasswordHash = hashit.HashPassword(null, "customer1")
-                },
-                new User
-                {
-                    Id = "0020", // primary key
-                    UserName = "customer2",
-                    NormalizedUserName = "CUSTOMER2",
-                    PasswordHash = hashit.HashPassword(null, "customer2")
-                },
-                new User
-                {
-                    Id = "0030", // primary key
-                    UserName = "customer3",
-                    NormalizedUserName = "CUSTOMER3",
-                    PasswordHash = hashit.HashPassword(null, "customer3")
-                }
+                adminUser, customer1, customer2, customer3
             );
 
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
                new IdentityUserRole<string>
                {
                    RoleId = roleAdmin.Id,
-                   UserId = "0001"
+                   UserId = adminUser.Id
                }
            ,
                new IdentityUserRole<string>
                {
                    RoleId = roleUser.Id,
-                   UserId = "0001"
+                   UserId = adminUser.Id
                },
                new IdentityUserRole<string>
                {
                    RoleId = roleUser.Id,
-                   UserId = "0010"
+                   UserId = customer1.Id
                }
            ,
                new IdentityUserRole<string>
                {
                    RoleId = roleUser.Id,
-                   UserId = "0020"
+                   UserId = customer2.Id
                }
 
            ,
                new IdentityUserRole<string>
                {
                    RoleId = roleUser.Id,
-                   UserId = "0030"
+                   UserId = customer3.Id
                }
            );
 
+            modelBuilder.Entity<Order>().HasData(
+                new Order { OrderId = 1, UserId = customer3.Id },
+                new Order { OrderId = 2, UserId = customer1.Id },
+                new Order { OrderId = 3, UserId = customer2.Id },
+                new Order { OrderId = 4, UserId = customer2.Id }
+            );
             // ---------------------------------------
 
         }

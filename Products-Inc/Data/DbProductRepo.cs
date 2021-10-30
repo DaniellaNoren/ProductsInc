@@ -33,12 +33,6 @@ namespace Products_Inc.Data
             return createProduct;
         }
 
-
-
-  
-        
-
-
         public List<Product> Read()
         {
             List<Product> pList = _productListContext.Products.ToList();

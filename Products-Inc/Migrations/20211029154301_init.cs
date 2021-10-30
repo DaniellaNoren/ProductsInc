@@ -281,8 +281,8 @@ namespace Products_Inc.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "c047ce55-a2c0-4611-9708-adbce3086535", "Admin", "ADMIN" },
-                    { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "b8543155-3520-475b-b5ff-b96bffe5bbb8", "User", "USER" }
+                    { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "cb7cf26a-42bf-4bf2-a337-6ec321d1592e", "Admin", "ADMIN" },
+                    { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "7d9b6e33-344a-436d-80f1-bf64ca26e911", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -290,10 +290,10 @@ namespace Products_Inc.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "0010", 0, "3344c1d2-94ee-4556-bcc8-d2e1dc331803", null, false, false, null, null, "CUSTOMER1", "AQAAAAEAACcQAAAAEH2TP46w3R5hpog2DyiKWR1QhwqH6ZUJFSupG0tFtmApyYvZILBsJmbh6OB6Gfe2Ug==", null, false, "2cffcb50-6b63-4ce4-8211-ca2406f1c9a0", false, "customer1" },
-                    { "0001", 0, "cecb1189-198d-410e-b2d0-a04abcb5d503", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAENCGS5wMtAsiBD+8gkMARe0skD2Z0xPOw5HL+miMBcMOGiuO+HYYhih7tlGAWqtSbg==", null, false, "6e991e82-6ffb-4e7a-b318-9cc757b2a8f6", false, "Admin" },
-                    { "0020", 0, "4e731ee0-065f-4de7-be78-e7ead2a3a336", null, false, false, null, null, "CUSTOMER2", "AQAAAAEAACcQAAAAEBzJBK+kESvwU/sbiUHs8hviqTHfk31ayYr8fkpUhSVub2+erMlqmlOIoEmFXK4XfA==", null, false, "4c62bd3c-084e-4734-bba4-1e9488fb4901", false, "customer2" },
-                    { "0030", 0, "e0758bba-a0de-46bf-90ea-d4405c3796b2", null, false, false, null, null, "CUSTOMER3", "AQAAAAEAACcQAAAAEPV0YjHz6DMaDkTPxPfwKkEdV87QFAxXrQwOrtDroSI3Z4iN2ZKBOvAo59PFxoBq3g==", null, false, "ed6555a8-90f9-42c2-a3cf-3ebc98032fec", false, "customer3" }
+                    { "d471338a-e596-4641-9baa-f853cc83534c", 0, "df1fdd50-fd96-428f-bab3-4bc95d1f0841", null, false, false, null, null, "CUSTOMER1", "AQAAAAEAACcQAAAAECXoDhRigPt6TZnK2lKz32/zCDJdy5M+WfGZXa+OhWOxiLKoRHXrl1nqRAS1kkb8jQ==", null, false, "27f9b4d4-ec3a-4a92-b351-851b680ddbc0", false, "customer1" },
+                    { "be1f76a6-3be4-4ddd-9eb8-4230386d7363", 0, "4c34ea9c-9b9e-461a-b67f-aaf0374148de", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEHopuh40tPrUf9x5IvdPzOdnC/uHpKKvzyhVvO6qb/PzTeArSX8+NV3UbWNpHw6+Fw==", null, false, "431c98e0-b924-48db-bcad-43058c7ab393", false, "Admin" },
+                    { "11f38633-c161-4044-9266-63c49b5e10ae", 0, "05870ce6-f717-4f6f-af34-450cf759892a", null, false, false, null, null, "CUSTOMER2", "AQAAAAEAACcQAAAAEDykitsw7jBir5p3zFl/fyYq6QPBXnkfrc8xpBid0g/LpL0R5NpVR562+hFeMEh7fQ==", null, false, "c5976614-2862-429a-92ff-c9fa35b1ce74", false, "customer2" },
+                    { "4e13f48a-b63c-426f-856d-eea1496fcd3b", 0, "2db7aac5-fbf1-47e7-bf20-f3f1450879d8", null, false, false, null, null, "CUSTOMER3", "AQAAAAEAACcQAAAAEIzntsB5b7VTKMwyWax7a7DUAsyNngjlrTMpxlvn4I0uC4UvUWCv+9bIVtVWRwj2jQ==", null, false, "8b719c7f-f55c-406c-b39f-158b385b682a", false, "customer3" }
                 });
 
             migrationBuilder.InsertData(
@@ -320,11 +320,11 @@ namespace Products_Inc.Migrations
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { "0001", "438db5c8-0513-43a0-a84c-cd416c4e3a54" },
-                    { "0001", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "0010", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "0020", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "0030", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" }
+                    { "be1f76a6-3be4-4ddd-9eb8-4230386d7363", "438db5c8-0513-43a0-a84c-cd416c4e3a54" },
+                    { "be1f76a6-3be4-4ddd-9eb8-4230386d7363", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "d471338a-e596-4641-9baa-f853cc83534c", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "11f38633-c161-4044-9266-63c49b5e10ae", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "4e13f48a-b63c-426f-856d-eea1496fcd3b", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" }
                 });
 
             migrationBuilder.InsertData(
@@ -332,10 +332,10 @@ namespace Products_Inc.Migrations
                 columns: new[] { "OrderId", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { 2, "0010", null },
-                    { 3, "0020", null },
-                    { 4, "0020", null },
-                    { 1, "0030", null }
+                    { 2, "d471338a-e596-4641-9baa-f853cc83534c", null },
+                    { 3, "11f38633-c161-4044-9266-63c49b5e10ae", null },
+                    { 4, "11f38633-c161-4044-9266-63c49b5e10ae", null },
+                    { 1, "4e13f48a-b63c-426f-856d-eea1496fcd3b", null }
                 });
 
             migrationBuilder.InsertData(

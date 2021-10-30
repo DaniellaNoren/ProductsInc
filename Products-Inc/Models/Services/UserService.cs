@@ -15,10 +15,8 @@ namespace Products_Inc.Models.Services
         private static UserManager<User> _userManager;
         private static SignInManager<User> _signInManager;
         private static RoleManager<IdentityRole> _roleManager;
-        private static IUserRepo _userRepo;
-        public UserService(IUserRepo repo, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+        public UserService(SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
-            _userRepo = repo;
             _signInManager = signInManager;
             _userManager = userManager;
             _roleManager = roleManager;
@@ -38,12 +36,23 @@ namespace Products_Inc.Models.Services
             {
                 throw new Exception();
             }
-
+            
             IdentityResult result = _userManager.CreateAsync(createdUser, registerModel.Password).Result;
 
             if (result.Succeeded)
             {
                 await AddRole(registerModel.UserName, "User");
+
+                if(registerModel.Roles != null)
+                {
+                    registerModel.Roles.ForEach(async r =>
+                    {
+                        if (!r.Equals("User", StringComparison.OrdinalIgnoreCase))
+                        {
+                            await AddRole(registerModel.UserName, r.ToUpper());
+                        }
+                    });
+                }
             }
             else
             {
@@ -82,11 +91,6 @@ namespace Products_Inc.Models.Services
             }
 
             return true;
-        }
-
-        public List<UserViewModel> All()
-        {
-            return _userManager.Users.Select(u => new UserViewModel()).ToList();
         }
 
 
@@ -132,7 +136,7 @@ namespace Products_Inc.Models.Services
             throw new NotImplementedException();
         }
 
-        public async Task<UserViewModel> Update(string userId, RegisterModel updateModel)
+        public async Task<UserViewModel> Update(string userId, UpdateUserViewModel updateModel)
         {
             User user = await _userManager.FindByIdAsync(Guid.Parse(userId).ToString());
             if (!string.IsNullOrEmpty(updateModel.Password) && !string.IsNullOrEmpty(updateModel.ConfirmPassword))
@@ -184,16 +188,10 @@ namespace Products_Inc.Models.Services
        
         public List<UserViewModel> GetAllUsers()
         {
-            return _userRepo.GetAllUsers().Select(async u =>
-           {
-              return new { roles = await _userManager.GetRolesAsync(u), user = u };
-
-           }).Select(ur => GetUserViewModel(ur.Result.user, ur.Result.roles)).ToList();
+            return _userManager.Users.ToList().Select(async u => new { roles = await _userManager.GetRolesAsync(u), user = u })
+            .Select(ur => GetUserViewModel(ur.Result.user, ur.Result.roles)).ToList();
         }
 
-        private object GetUserViewModel(object user, object roles)
-        {
-            throw new NotImplementedException();
-        }
+    
     }
 }

@@ -29,7 +29,7 @@ namespace Products_Inc.Controllers
         }
 
         //[Authorize(Roles ="Admin")]
-        public async Task<ActionResult> GetAllUsers()
+        public ActionResult GetAllUsers()
         {
             return new OkObjectResult(_userService.GetAllUsers());
         }
@@ -80,7 +80,7 @@ namespace Products_Inc.Controllers
         }
 
         [HttpPut("{userId}")]
-        public async Task<IActionResult> EditUser(string userId, [FromBody] RegisterModel updateModel)
+        public async Task<IActionResult> EditUser(string userId, [FromBody] UpdateUserViewModel updateModel)
         {
             UserViewModel user = await _userService.Update(userId, updateModel);
            

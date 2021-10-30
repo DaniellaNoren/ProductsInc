@@ -14,9 +14,11 @@ import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminEditOrder from './AdminEditOrder.jsx';
 import AdminProducts from './AdminProducts.jsx';
+import AdminEditUser from './Adminusersedit.jsx';
+import AdminCreateUser from './Adminuserscreate.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
-import UserDetails from './UserDetails.jsx';
+import { UserPageUserDetails, UserDetails } from './UserDetails.jsx';
 
 import {
     Link,
@@ -89,7 +91,7 @@ export default class Index extends Component {
 
                         <Route path="/userpage"><UserPage /></Route>
                         <Route path="/userorders"><UserOrders /></Route>
-                        <Route path="/userdetails"><UserDetails /></Route>
+                        <Route path="/userdetails"><UserPageUserDetails /></Route>
                         <Route path="/checkout"><Checkout /></Route>
                         <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
@@ -97,7 +99,8 @@ export default class Index extends Component {
                         <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>
                         <Route path="/adminusers"><AdminUsers /></Route>
                         <Route path="/adminproducts"><AdminProducts /></Route>
-
+                        <Route path="/adminedituser" render={(props) => <UserDetails {...props}/>}/>
+                        <Route path="/admincreateuser" render={(props) => <AdminCreateUser {...props}/>}/>
                     </Switch>
 
 

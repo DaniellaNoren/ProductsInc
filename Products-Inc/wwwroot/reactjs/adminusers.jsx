@@ -9,46 +9,62 @@ import {
 } from 'react-router-dom';
 
 export default class AdminUsers extends Component{
-    
+    state = {
+        users: []
+    }
+    componentDidMount(){
+        let t = this;
+        $.get("/api/user", function(res){ t.setState({users: res})})
+        .done(r => console.log(r))
+        .fail(e => console.log(e));
+    }
     render(){
         return (
             <div>
-                <h4><b>AdminUsers:</b></h4>
-                <br />
-                <div> {/*this div is sidemenu-tab*/}
-
-                    <div className="nav-item">
-                        <button className="nav-link text-dark">ALL Users</button>
-                    </div>
+                <h4>Users</h4>
+            
+                <div> 
                     <div>
-                        <button className="nav-link text-dark">CREATE User(redirect to register to reuse)</button>
+                        <Link className="btn btn-primary" to={{pathname:"/admincreateuser"}}></Link>
                     </div>
 
                 </div>
-                <div> {/*this div is content of the selected tab*/}
-                    <ul>
-                        <li>
-                            A list of all users will be here, that will be clickable to edit them.
-                        </li>
-                        <li>
-                            A list of all users will be here, that will be clickable to edit them.
-                        </li>
-                        <li>
-                            A list of all users will be here, that will be clickable to edit them.
-                        </li>
-                        <li>
-                            A list of all users will be here, that will be clickable to edit them.
-                        </li>
-                        <li>
-                            A list of all users will be here, that will be clickable to edit them.
-                        </li>
-                        <li>
-                            A list of all users will be here, that will be clickable to edit them.
-                        </li>
-                    </ul>
+                <div> 
+                    <UserTable users={this.state.users}/>
                 </div>
 
             </div>
         )
     }
 }
+
+function UserTable({users}){
+    return (
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role/s</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {users.map(u => <UserInfo key={u.id} user={u}/>)}
+            </tbody>
+        </table>
+    )
+}
+
+function UserInfo({user}){
+    return (
+            <tr>
+                <td>{user.id}</td>
+                <td>{user.userName}</td>
+                <td>{user.email}</td>
+                        { user.roles.map(r => <p>{r}</p>)}
+                         
+                <td><Link className="btn btn-primary" to={{pathname:"/adminedituser", user}}>Edit user</Link></td>
+            </tr>
+    )}
