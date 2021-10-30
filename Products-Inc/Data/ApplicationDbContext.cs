@@ -187,7 +187,11 @@ namespace Products_Inc.Data
             new Product() { ProductId = 54, ProductName = "Salt", ProductDescription = "Nice to make food", ProductPrice = 9, ImgPath = "./img/img9.jpg" },
             new Product() { ProductId = 55, ProductName = "Avocado", ProductDescription = "Good for health", ProductPrice = 18, ImgPath = "./img/img12.jpg" },
             new Product() { ProductId = 56, ProductName = "Eggo", ProductDescription = "Nice to eat", ProductPrice = 30, ImgPath = "./img/img14.jpg" },
-            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.png" }
+            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.png" },
+            new Product() { ProductId = 58, ProductName = "Banana", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34, ImgPath = "/img/img1.png" },
+            new Product() { ProductId = 59, ProductName = "Pomegranate", ProductDescription = "Nice for your health.", ProductPrice = 6, ImgPath = "/img/img2.jpg" },
+            new Product() { ProductId = 60, ProductName = "Tomatos", ProductDescription = "Fresh sweet tomatos.", ProductPrice = 3, ImgPath = "/img/img11.jpg" },
+            new Product() { ProductId = 61, ProductName = "Tooth Cleaner", ProductDescription = "Nice for your teeth", ProductPrice = 54, ImgPath = "/img/img3.jpg" }
             );
 
 
