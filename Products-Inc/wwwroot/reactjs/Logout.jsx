@@ -9,7 +9,7 @@ export default class Logout extends Component {
     let t = this;
     $.ajax({
         url: "/user/logout",
-        type: "POST",
+        method: "POST",
         contentType: "application/json",
         success: function (res) {
             /*this.props.history.push('/') change back to -/ when successfully logged in*/
@@ -22,13 +22,13 @@ export default class Logout extends Component {
         }
     })
 
-        
+
     }
 
 
     render() {
         return (
-                <button onClick={this.runlogout}>Logout</button>               
+                <button onClick={this.runlogout}>Logout</button>
         )
     }
 }

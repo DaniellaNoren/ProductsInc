@@ -12,8 +12,6 @@ import {
 
 export default class AdminEditOrder extends Component {
 
-
-
     constructor(props) {
         super(props)
         this.state = {
@@ -21,9 +19,7 @@ export default class AdminEditOrder extends Component {
             products: {
                 productId: 0,
                 amount: 0
-            },
-
-
+            }
         }
     }
 
@@ -45,8 +41,9 @@ export default class AdminEditOrder extends Component {
     }, 0) * 100) / 100;
 
 
-    saveeditedorder = () => {
-        orderobject
+    saveEditedOrder = () => {
+
+        /*orderobject*/
     }
         /*delete o ändra amount setState....sedan vid onclick save so post till backend*/
 
@@ -55,8 +52,8 @@ export default class AdminEditOrder extends Component {
 //        this.totalPrice();
 //    }
 //    totalPrice = function(){ return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
-   
-     
+
+
 //    }
 
 
@@ -112,7 +109,7 @@ export default class AdminEditOrder extends Component {
                         </tbody>
                     </table>
                     <br/>
-                    <div><button onClick={() => this.saveeditedorder} className="optionBtnGreen">SAVE</button></div>
+                    <div><button onClick={() => this.saveEditedOrder} className="optionBtnGreen">SAVE</button></div>
                     <br/>
                     <div><button className="optionBtnGray"><Link to={{ pathname: "/adminorders"}}>BACK</Link></button></div>
                 </div>

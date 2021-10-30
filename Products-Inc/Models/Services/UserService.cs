@@ -23,7 +23,7 @@ namespace Products_Inc.Models.Services
         }
 
 
-        public async Task<UserViewModel> Add(RegisterModelCustom registerModel)
+        public async Task<UserViewModel> Add(RegisterModel registerModel)
         {
             User createdUser;
 
@@ -115,7 +115,7 @@ namespace Products_Inc.Models.Services
             return new UserViewModel() { FoundUser = false };
         }
 
-        public async Task<bool> Login(LoginModelCustom login)
+        public async Task<bool> Login(LoginModel login)
         {
             User user = await _userManager.FindByNameAsync(login.UserName);
 

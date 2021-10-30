@@ -99,38 +99,81 @@ namespace Products_Inc.Data
             // ---------  Seeding Users  ----------
 
             //hash the password before storing in db
-            var hashit = new PasswordHasher<IdentityUser>();
+            var hashit = new PasswordHasher<User>();
+
+            User adminUser = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "Admin",
+                NormalizedUserName = "ADMIN",
+                PasswordHash = hashit.HashPassword(null, "Admin")
+            };
+            User customer1 = new User
+            {
+                Id = Guid.NewGuid().ToString(), // primary key
+                UserName = "customer1",
+                NormalizedUserName = "CUSTOMER1",
+                PasswordHash = hashit.HashPassword(null, "customer1")
+            };
+            User customer2 = new User
+            {
+                Id = Guid.NewGuid().ToString(), // primary key
+                UserName = "customer2",
+                NormalizedUserName = "CUSTOMER2",
+                PasswordHash = hashit.HashPassword(null, "customer2")
+            };
+            User customer3 = new User
+            {
+                Id = Guid.NewGuid().ToString(),// primary key
+                UserName = "customer3",
+                NormalizedUserName = "CUSTOMER3",
+                PasswordHash = hashit.HashPassword(null, "customer3")
+            };
 
             modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id = "1", // primary key
-                    UserName = "Admin",
-                    NormalizedUserName = "ADMIN",
-                    PasswordHash = hashit.HashPassword(null, "Admin")
-                },
-                new User
-                {
-                    Id = "10", // primary key
-                    UserName = "customer1",
-                    NormalizedUserName = "CUSTOMER1",
-                    PasswordHash = hashit.HashPassword(null, "customer1")
-                },
-                new User
-                {
-                    Id = "20", // primary key
-                    UserName = "customer2",
-                    NormalizedUserName = "CUSTOMER2",
-                    PasswordHash = hashit.HashPassword(null, "customer2")
-                },
-                new User
-                {
-                    Id = "30", // primary key
-                    UserName = "customer3",
-                    NormalizedUserName = "CUSTOMER3",
-                    PasswordHash = hashit.HashPassword(null, "customer3")
-                }
+                adminUser, customer1, customer2, customer3
             );
+
+            //   ----------- Setting roles to users ---------------
+
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleAdmin.Id,
+                   UserId = adminUser.Id
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = adminUser.Id
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = customer1.Id
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = customer2.Id
+               }
+
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = customer3.Id
+               }
+           );
+
+           
+            // ---------------------------------------
+
+
 
 
             // ----------- Seeding db with start products --------------
@@ -153,14 +196,14 @@ namespace Products_Inc.Data
 
 
 
-            // --- Seeding with orders
+            // --- Seeding with orders with user linked to orders
 
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, UserId = "30" },
-                new Order { OrderId = 2, UserId = "10" },
-                new Order { OrderId = 3, UserId = "20" },
-                new Order { OrderId = 4, UserId = "20" }
+                new Order { OrderId = 1, UserId = customer3.Id },
+                new Order { OrderId = 2, UserId = customer1.Id },
+                new Order { OrderId = 3, UserId = customer2.Id },
+                new Order { OrderId = 4, UserId = customer2.Id }
             );
 
 
