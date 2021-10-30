@@ -9,7 +9,7 @@ namespace Products_Inc.Models.ViewModels
     public class CreateOrderViewModel
     {
    
-        public string Id { get; set; } 
+        public string UserId { get; set; } 
 
         public List<OrderProductViewModel> Products { get; set; }
 

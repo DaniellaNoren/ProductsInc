@@ -15,7 +15,7 @@ export default class Products extends Component {
         xhr.open('get', "api/product", true)
         xhr.onload = () => {
             const productlist = JSON.parse(xhr.responseText)
-            console.log(productlist)
+            //console.log(productlist)
             this.setState({ products: productlist })
            
         }
@@ -41,7 +41,7 @@ export default class Products extends Component {
             contentType: "application/json", 
             dataType: "json",
             success: function(res) {
-                console.log(res);
+                //console.log(res);
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -74,7 +74,6 @@ export default class Products extends Component {
                                     <button className="btn btn-success" onClick={() => this.addProduct(p)}>ADD</button>
                                 </div>
                             </div>
-                            {/*<Product product={p} addProductEvent={this.addProduct} />*/}
                         </div>
                     ))}
                 </div>
@@ -83,9 +82,7 @@ export default class Products extends Component {
         )
     }
 }
-            // <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
-            //     {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
-            // </div>
+
         
     
 
@@ -111,22 +108,3 @@ function Product({ product, addProductEvent }) {
     ) 
 }         
 
-
-//function Product(product, addProductEvent) {
-//    console.log(product.productName)
-//    return (
-//        <div>
-//            <br/>
-//            <br/>
-//            <img src="./img/toothpaste.jpg" className="text-center product-img" alt="Product image"></img>
-//            <p>{/*{product.productId.toString()}*/}</p>
-//            <h4>{product.productName}namn</h4>
-//            <p>{product.productPrice}kr</p>
-//            <p>{product.productDescription}desc</p>
-
-//            <div className="d-flex align-items-end justify-content-end">
-//                <button className="btn btn-success" onClick={() => addProductEvent(product)}>ADD</button>
-//            </div>
-//        </div>
-//    )
-//}

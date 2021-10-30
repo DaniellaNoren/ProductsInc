@@ -13,7 +13,7 @@ import UserPage from './UserPage.jsx';
 import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminEditOrder from './AdminEditOrder.jsx';
-import AdminProducts from './AdminProducts.jsx';
+import AdminProducts from './Adminproducts.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
 import UserDetails from './UserDetails.jsx';
@@ -93,14 +93,6 @@ export default class Index extends Component {
                     </Switch>
 
 
-                    {/*<h1>{this.props.test}</h1>*/}
-                    {/*<SideMenu viewOrders={() => {*/}
-                    {/*    this.setState({ viewOrders: !this.state.viewOrders });*/}
-                    {/*}} />*/}
-
-                    {/*<div>*/}
-                    {/*    {this.state.viewOrders ? <OrderPage /> : null}*/}
-                    {/*</div>*/}
 
                 </div>
 

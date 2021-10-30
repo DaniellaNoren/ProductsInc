@@ -24,8 +24,8 @@ namespace Products_Inc.Data
         public Order Create(CreateOrderViewModel createOrderViewModel)
         {
             Order newOrder = new Order() {
-            Id = createOrderViewModel.UserId,
-            Products = createOrderViewModel.Products.Select(op => new OrderProduct() { ProductId =  op.Product.ProductId, Amount = op.Amount}).ToList() };
+            UserId = createOrderViewModel.UserId,
+            OrderProducts = createOrderViewModel.Products.Select(op => new OrderProduct() { ProductId =  op.Product.ProductId, Amount = op.Amount}).ToList() };
 
              _orderListContext.Orders.Add(newOrder);
             _orderListContext.SaveChanges();
@@ -38,7 +38,7 @@ namespace Products_Inc.Data
         {
             List<Order> pList = _orderListContext.Orders
                 .Include(f => f.OrderProducts).ThenInclude(g => g.Product)
-                .Include(h => h.Id)
+                .Include(h => h.User)
                 .ToList();
 
             return pList;
@@ -56,7 +56,7 @@ namespace Products_Inc.Data
 
         public List<Order> ReadByUser(string userId)
         {
-            return _orderListContext.Orders.Include(o => o.OrderProducts).ThenInclude(op => op.Product).Where(o => o.Id.Equals(userId)).ToList();
+            return _orderListContext.Orders.Include(o => o.OrderProducts).ThenInclude(op => op.Product).Where(o => o.UserId.Equals(userId)).ToList();
         }
 
         public Order Update(Order order)

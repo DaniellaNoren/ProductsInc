@@ -42,7 +42,7 @@ namespace Products_Inc.Data
             modelBuilder.Entity<Order>()
                  .HasOne<User>(mb => mb.User)
                  .WithMany(m => m.Orders)
-                 .HasForeignKey(mb => mb.Id);
+                 .HasForeignKey(mb => mb.UserId);
 
 
             modelBuilder.Entity<OrderProduct>()
@@ -157,10 +157,10 @@ namespace Products_Inc.Data
 
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, Id = "30" },
-                new Order { OrderId = 2, Id = "10" },
-                new Order { OrderId = 3, Id = "20" },
-                new Order { OrderId = 4, Id = "20" }
+                new Order { OrderId = 1, UserId = "30" },
+                new Order { OrderId = 2, UserId = "10" },
+                new Order { OrderId = 3, UserId = "20" },
+                new Order { OrderId = 4, UserId = "20" }
             );
 
 

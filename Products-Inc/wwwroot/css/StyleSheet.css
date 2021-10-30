@@ -33,6 +33,7 @@
     bottom: 0px;
     width: 1024px;
     white-space: nowrap;
+    background-color: #dc3545;
     line-height: 60px; /* Vertically center the text there */
 }
 

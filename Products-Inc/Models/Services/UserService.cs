@@ -100,8 +100,9 @@ namespace Products_Inc.Models.Services
                 throw new EntityNotFoundException("User with username " + userName + " not found.");
 
             return GetUserViewModel(user);
+        }
 
-            public async Task<UserViewModel> FindById(int id)
+        public async Task<UserViewModel> FindById(int id)
         {
             User user = await _userManager.FindByIdAsync(Convert.ToString(id));
 

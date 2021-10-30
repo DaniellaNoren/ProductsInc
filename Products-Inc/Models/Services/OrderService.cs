@@ -75,7 +75,7 @@ namespace Products_Inc.Models.Services
 
         public OrderViewModel GetModel(Order order)
         {
-            User user = _userManager.Users.FirstOrDefault(u => u.Id == order.Id);
+            User user = _userManager.Users.FirstOrDefault(u => u.Id == order.UserId);
             UserViewModel userViewModel = new UserViewModel() { Id = user.Id, UserName= user.UserName };
 
 
@@ -84,7 +84,7 @@ namespace Products_Inc.Models.Services
                 
 
                 OrderId = order.OrderId,
-                Id = order.Id,
+                UserId = order.UserId,
                 User = userViewModel,
                 OrderProducts = order.OrderProducts.Select(p =>
                     new OrderProductViewModel()

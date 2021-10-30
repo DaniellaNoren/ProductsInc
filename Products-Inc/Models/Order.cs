@@ -11,18 +11,18 @@ namespace Products_Inc.Models
         public Order() { }
         public Order(string userId)
         {
-            Id = userId; 
+            UserId = userId; 
         }
         public Order(string userId, List<OrderProduct> orderProducts)
         {
-            Id = userId;
+            UserId = userId;
             OrderProducts = orderProducts;
         }
 
 
         public int OrderId { get; set; }
 
-        public string Id { get; set; } // This is Identity UserID named Id as a string in identity table
+        public string UserId { get; set; } // This is Identity UserID named Id as a string in identity table
 
 
         

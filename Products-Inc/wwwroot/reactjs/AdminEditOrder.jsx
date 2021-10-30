@@ -56,7 +56,7 @@ export default class AdminEditOrder extends Component {
 //    }
 //    totalPrice = function(){ return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
    
-    
+      
 //    }
 
 
