@@ -26,7 +26,6 @@ export default class AdminOrders extends Component {
 //}
 
 
-
         loadDataFromServer = e => {
             const xhr = new XMLHttpRequest();
             xhr.open('get', "api/order", true)

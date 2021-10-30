@@ -11,7 +11,7 @@ import {
 
 export default class AdminProducts extends Component{
     state = {
-        showCreateProduct: false 
+        showCreateProduct: false
     }
     render(){
         return (
