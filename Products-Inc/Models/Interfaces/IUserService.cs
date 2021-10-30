@@ -9,18 +9,20 @@ namespace Products_Inc.Models.Interfaces
 {
     public interface IUserService
     {
-       Task<UserViewModel> Add(RegisterModel registerModel);
+       Task<UserViewModel> Add(RegisterModelCustom registerModel);
 
         List<UserViewModel> All();
 
+        Task<UserViewModel> FindById(int id);
+
         Task<UserViewModel> FindBy(string userName);
 
-        Task<UserViewModel> Edit(string id, User user);
+        Task<UserViewModel> Edit(int id, User user);
 
         bool Remove(int id);
 
         Task<bool> AddRole(string userName, string role);
-        Task<bool> Login(LoginModel loginModel);
+        Task<bool> Login(LoginModelCustom loginModel);
 
         void Logout();
         Task<UserViewModel> Update(string userId, RegisterModel updateModel);

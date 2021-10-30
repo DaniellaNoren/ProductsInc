@@ -5,5 +5,8 @@
         public string Id { get; set; }
         public string Email { get; internal set; }
         public string UserName { get; internal set; }
+
+
+        public bool FoundUser { get; set; }
     }
 }

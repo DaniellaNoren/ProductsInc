@@ -23,13 +23,14 @@ namespace Products_Inc.Models.Services
         }
 
 
-        public async Task<UserViewModel> Add(RegisterModel registerModel)
+        public async Task<UserViewModel> Add(RegisterModelCustom registerModel)
         {
             User createdUser;
 
             if (registerModel.Password.Equals(registerModel.ConfirmPassword))
             {
-                createdUser = new User() { Email = registerModel.Email, NormalizedEmail = registerModel.Email.ToUpper(), UserName = registerModel.UserName, NormalizedUserName = registerModel.UserName.ToUpper() };
+                createdUser = new User() { Email = registerModel.Email, NormalizedEmail = registerModel.Email.ToUpper(),
+                UserName = registerModel.UserName, NormalizedUserName = registerModel.UserName.ToUpper() };
 
             }
             else
@@ -87,7 +88,7 @@ namespace Products_Inc.Models.Services
             return _userManager.Users.Select(u => new UserViewModel()).ToList();
         }
 
-        public Task<UserViewModel> Edit(string id, User person)
+        public Task<UserViewModel> Edit(int id, User person)
         {
             throw new NotImplementedException();
         }
@@ -95,14 +96,26 @@ namespace Products_Inc.Models.Services
         public async Task<UserViewModel> FindBy(string userName)
         {
             User user = await _userManager.FindByNameAsync(userName);
-
             if (user == null)
                 throw new EntityNotFoundException("User with username " + userName + " not found.");
 
             return GetUserViewModel(user);
         }
 
-        public async Task<bool> Login(LoginModel login)
+        public async Task<UserViewModel> FindById(int id)
+        {
+            User user = await _userManager.FindByIdAsync(Convert.ToString(id));
+
+            if (user != null)
+            {
+
+                return new UserViewModel() { Id = user.Id, UserName = user.UserName, FoundUser = true };
+            }
+
+            return new UserViewModel() { FoundUser = false };
+        }
+
+        public async Task<bool> Login(LoginModelCustom login)
         {
             User user = await _userManager.FindByNameAsync(login.UserName);
 

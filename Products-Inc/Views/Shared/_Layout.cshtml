@@ -1,4 +1,4 @@
-﻿@*@using React.AspNet*@
+﻿@using React.AspNet
 
 
 <!DOCTYPE html>
@@ -7,101 +7,31 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products_Inc</title>
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/StyleSheet.css" />
     <link href="~/css/productsStyle.css" rel="stylesheet" type="text/css" />
-
-    @*@RenderSection("Styles", false)*@
+   
 </head>
 <body>
-    <!--<header class="head">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-danger border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/logo.png" alt="Company Logo" width="100" /></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">-->
-    <!-- <partial name="_LoginPartihandleal" /> -->
-    <!--<ul class="navbar-nav flex-grow-1">
-        <li class="nav-item">
-            <a class="nav-link text-dark" onclick="window.history.pushState('/products')">My page</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" onclick="window.location.href = '/orders'"><img src="~/img/cart.jpg" width="30" height="30" /></a>
-        </li>-->
-    <!-- <partial name="_RolesPartial" /> -->
-    <!--</ul>
-                </div>
-            </div>
-        </nav>
-    </header>-->
-    <div class="identitybox">
-        <partial name="_LoginPartial" />
-    </div>
 
-    <!--<div>
-        <ul>
-            <li class="nav-item">
-                <input type="button" class="btn btn-primary" onclick="indexpartial()" value="Fetch all products" />
-                <input type="button" class="btn btn-primary" onclick="getAllProductsNow()" value="Fetch all products" />
-                <br /><br />-->
-    @*<a class="nav-link" asp-controller="React" asp-action="Index">Go to React Index page</a>
-        <a class="nav-link" asp-controller="React" asp-action="AllProducts">ASP REact UI</a>*@
-    <!--</li>
-        </ul>
-    </div>-->
+    <div class="identitybox">
+            <partial name="_LoginPartial" />
+        </div>
+
+
 
     @RenderBody()
-
-
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2021 - Products_Inc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
-
-
-
-    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
-
-
-
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>*@
 
 
     <script src="~/js/jquery-3.6.0.min.js"></script>
     <script src="~/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
 
     @*<script src="~/js/ajaxactions.js"></script>*@
-    @*<script>
-        </script>*@
 
-    <script src="~/js/react.development.js"></script>
-    <script src="~/js/react-dom.development.js"></script>
-
-
-    @*<script src="@Url.Content("~/reactjs/Checkout.jsx")"></script>
-        <script src="@Url.Content("~/reactjs/Login.jsx")"></script>
-        <script src="@Url.Content("~/reactjs/Orders.jsx")"></script>
-        <script src="@Url.Content("~/reactjs/Register.jsx")"></script>
-        <script src="@Url.Content("~/reactjs/UserPage.jsx")"></script>*@
-
-    @*<script src="~/reactjs/Productspartialview.jsx"></script>
-        <script src="~/reactjs/CreatePerson.jsx"></script>*@
-
-
-    @*<div id="content"></div>*@
 
     <script src="~/reactjs/dist/runtime.js"></script>
     <script src="~/reactjs/dist/vendor.js"></script>
     <script src="~/reactjs/dist/main.js"></script>
-
-    @*<script type="text/jsx" src="@Url.Content("~/reactjs/Router.jsx")"></script>*@
-    @*<script>function testhandleClick(t) { handleClick(t); } </script>*@
 
 
     @Html.ReactInitJavaScript()

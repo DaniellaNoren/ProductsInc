@@ -6,19 +6,61 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    background-color:white;
-  
 }
+
+
+
+.item-header {
+    grid-area: headerarea;
+    position: fixed;
+    height: 95px;
+    width: 1024px;
+    background-color: #dc3545;
+    /*border: 1px solid black;*/
+    z-index: 900;
+}
+
+
+.item-reactcontent {
+    grid-area: content;
+    color: #000
+    /*    border: 1px solid black;*/
+}
+
+.item-footer {
+    grid-area: footerarea;
+    position: fixed;
+    bottom: 0px;
+    width: 1024px;
+    white-space: nowrap;
+    background-color: #dc3545;
+    line-height: 60px; /* Vertically center the text there */
+}
+
+
+.pagewrapper {
+    height: 4000px;
+    /*    color: black;*/
+    background-color: #87898A;
+    display: grid;
+    grid-template-columns: 200px 800px;
+    grid-template-rows: 95px 1000px 60px;
+    grid-template-areas:
+        'headerarea headerarea'
+        'content content'
+        'footerarea footerarea';
+}
+
 #navmenubox {
     height: 120px;
 }
-
 
 #menulogo {
     height: 95px;
     margin-right: auto;
     padding: 0px;
 }
+
 
     #menulogo img {
         width: 120px;
@@ -37,53 +79,15 @@
     color: white;
 }
 
-.navbar-nav .nav-item {
-    border: none;
-}
+    .navbar-nav .nav-item {
+        border: none;
+    }
 
-.navbar-nav .nav-link {
-    border: none;
-    color: white;
-}
+    .navbar-nav .nav-link {
+        border: none;
+        color: white;
+    }
 
-.form-group {
-}
-.container {
-    padding: 0px;
-    margin-top: -17px;
-}
-.footer {
-    background-color: #dc3545;
-    opacity: .7;
-    max-width: 1024px;
-    text-align: center;
-    display: block;
-    text-align: center;
-    height: 60px;
-}
-.top-container {
-    text-align: center;
-    max-width: 1024px;
-    border: 1px solid black;
-}
-
-header a:hover {
-    background-color: #dc3545;
-}
-.content {
-    padding: 16px;
-}
-
-.carouselImage{
-    height:300px;
-}
-.quotes{
-    font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-}
-button.accept-policy {
-    font-size: 1rem;
-    line-height: inherit;
-}
 
 .identitybox {
     position: fixed;
@@ -95,6 +99,8 @@ button.accept-policy {
     color: white;*/
     z-index: 990;
 }
+
+
 
 .identityloginout {
     position: fixed;
@@ -111,162 +117,63 @@ button.accept-policy {
     width: 400px;
     z-index: 990;
 }
-.item-header {
-    grid-area: headerarea;
-    position: fixed;
-    height: 95px;
-    width: 1024px;
-    background-color: #dc3545;
-    /*border: 1px solid black;*/
-    z-index: 900;
+
+#adminorderslist {
+    border: 1px solid #D8D8D8;
+    width: 90%;
+    padding: 10px;
+    margin: auto;
 }
 
-.item-reactcontent {
-    grid-area: content;
-    color: #000
-    /*    border: 1px solid black;*/
-}
-
-
-.item-footer {
-    grid-area: footerarea;
-    position: fixed;
-    bottom: 0px;
-    width: 1024px;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
-    background-color: #dc3545;
-    opacity: .7;
-    text-align: center;
-}
-
-.pagewrapper {
-    height: 4000px;
-    /*    color: black;*/
-    background-color: #87898A;
-    display: grid;
-    grid-template-columns: 200px 800px;
-    grid-template-rows: 95px 1000px 60px;
-    grid-template-areas:
-        'headerarea headerarea'
-        'content content'
-        'footerarea footerarea';
-}
-
-
-
-/*
- //Ramya CSs code*/
-.btn {
-    background-color: #dc3545;
-    float: right;
-    color: white;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-    border: none;
-    cursor: pointer;
-    outline: none;
-}
-.submitButton {
-    float: left;
-    background-color: #dc3545;
-}
-.registerBtnDiv{
-    padding-left: 180px;
-}
-.logInBtnDiv {
-    padding-left: 210px;
-}
-.savePasswordButtonDiv {
-    padding-left: 180px;
-}
-.saveDetailsBtnDiv {
-    padding-left: 210px;
-}
-.form-group {
-    margin-bottom: 20px;
-    width: 400px;
-    padding-left: 100px;
-}
-.form-check {
-    padding-left: 120px;
-}
-.carouselImage {
-    width: 100%;
-}
-.carouselImage {
-    height: 300px;
-}
-
-.quotes {
-    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-}
-.content {
-    margin: -55px -40px 0px -15px;
-}
-.wrapper {
-    display: grid;
-    grid-template-columns: 150px 100px;
-}
-.contactUsContents {
-    padding-left: 100px;
-    color:white;
-}
-
-/*dropdown menu styling*/
-.dropbtn {
-    background-color: #dc3545;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
+/*#clickabletablerow {  // this was for clickable table rows.. but that action dident work out
     cursor: pointer;
 }
+*/
 
-.dropdown {
-    position: relative;
-    display: inline-block;
+/*.container {
+    padding: 0px;
+    margin-top: -17px;
+}*/
+
+
+.carouselImage{
+    height:300px;
+}
+.quotes{
+    font-family:Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #dc3545;
-    opacity:.8;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+.optionBtnGreen {
+    background-color: #2CD32C;
+    color: black !important;
+    border: 3px solid #000
 }
 
-.dropdown-content a {
-    color:white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-.dropdown-content a:hover {
-    background-color: #dc3545
+.optionBtnBlue {
+    background-color: blue;
+    border: 3px solid #000
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
+.optionBtnRed {
+    background-color: red;
+    border: 3px solid #000
 }
 
-.dropdown:hover .dropbtn {
-    background-color: #dc3545;
+.optionBtnGray {
+    background-color: dimgray;
+    border: 3px solid #000;
+    color: black !important;
 }
 
-
-
-
-.headerButtons {
-    background-color: #dc3545;
-    border:none;
-    color:white;
-}
-.headerRightSideMenu{
-    margin-left:100px;
+.optionBtnGray a {
+    color: black !important;
 }
 
+.productamount {
+    width: 60px;
+}
 
+.admineditorder_img {
+    height: 80px;
+}
 

@@ -10,7 +10,7 @@ namespace Products_Inc.Models.ViewModels
     public class CreateShoppingCartViewModel
     {
    
-        public string UserId { get; set; }
+        public string UserId { get; set; } 
 
         [DefaultValue(true)]
         public bool Active { get; set; }
