@@ -1,4 +1,5 @@
-﻿import { Component, Fragment } from 'react';
+﻿
+import { Component, Fragment} from 'react';
 
 import UserPage from './UserPage.jsx';
 import Products from './Products.jsx';
@@ -21,22 +22,22 @@ function handleClick(whatever) {
 
 
 export default class RouterNav extends Component {
-
+  
     render() {
         const app = (
             <div>
                 <h1>{this.props.someProp}</h1>
                 <Switch>
-                    <Route path="/products"><Products name={this.props.name} /></Route>
+                    <Route path="/products"><Products name={this.props.name}/></Route>
                     <Route
                         path="/mypage">
                         <UserPage />
                     </Route>
-
+                  
                 </Switch>
 
 
-
+       
             </div>
         );
 
@@ -55,3 +56,4 @@ export default class RouterNav extends Component {
 
     }
 }
+

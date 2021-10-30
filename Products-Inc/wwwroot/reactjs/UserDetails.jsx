@@ -75,8 +75,10 @@ function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
                 <div className="form-group">
                     <label htmlFor="confirm-password-input">Confirm new password:</label>
                     <input className="form-control"  value={updateUserModel.confirmPassword} type="password" id="confirm-password-input" onChange={e => stateMethod({ confirmPassword: e.target.value})}/>
-                </div>
-                <button className="btn btn-primary" type="submit">Edit</button>
+            </div>
+            <div className="savePasswordButtonDiv">
+                <button className="btn submitButton" type="submit">Edit</button>
+             </div>
         </form>
     )
 }    

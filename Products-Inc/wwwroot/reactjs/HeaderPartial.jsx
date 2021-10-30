@@ -38,10 +38,10 @@ export default class Headerpart extends Component {
                         <div className="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a className="nav-link dropdown-toggle dropbtn" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Mainmenu
                                     </a>
-                                    <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <ul className="dropdown-menu dropdown-content" aria-labelledby="navbarDarkDropdownMenuLink">
                                         <li><Link to="/products">Products</Link></li>
                                         <li><Link to="/contactus">Contact Us</Link></li>
                                     </ul>
@@ -49,10 +49,10 @@ export default class Headerpart extends Component {
 
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a className="nav-link dropdown-toggle dropbtn" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Admin Menu
                                         </a>
-                                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        <ul className="dropdown-menu dropdown-content" aria-labelledby="navbarDarkDropdownMenuLink">
                                             <li><Link to="/adminproducts">Products</Link></li>
                                             <li><Link to="/adminusers">Users</Link></li>
                                             <li><Link to="/adminorders">Orders</Link></li>
@@ -62,10 +62,10 @@ export default class Headerpart extends Component {
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
                                         
-                                        <Link className="nav-link" to="/userpage" id="navbarDarkDropdownMenuLink" role="button" >
+                                        <a className="nav-link dropdown-toggle dropbtn" to="/userpage" id="navbarDarkDropdownMenuLink" role="button" >
                                             My Page
-                                        </Link>
-                                         <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        </a>
+                                        <ul className="dropdown-menu dropdown-content" aria-labelledby="navbarDarkDropdownMenuLink">
                                             {/* <li><Link to="/userorders">My Order History</Link></li>
                                             <li><Link to="/userdetails">Edit My Details</Link></li>
                                             <li><Link to="/userpage">UserPage</Link></li> */}

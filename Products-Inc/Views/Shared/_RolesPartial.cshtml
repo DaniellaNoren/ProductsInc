@@ -6,13 +6,13 @@
     @if (this.User.IsInRole("Admin"))
     {
         <li class="nav-item">
-            <button type="submit" class="nav-link text-dark" asp-area="Identity" asp-action="Admin">ADMIN</button>
+            <button type="submit" class="nav-link text-dark" asp-area="Identity"  asp-action="Admin">ADMIN</button>
         </li>
     }
     else
     {
         <li class="nav-item">
-            <button type="submit" class="nav-link text-dark" asp-area="Identity" asp-action="User">MY PAGE</button>
+            <button type="submit" class="nav-link text-dark" asp-area="Identity"  asp-action="User">MY PAGE</button>
         </li>
     }
 </ul>
