@@ -28,10 +28,24 @@ namespace Products_Inc.Controllers
             this._userService = userService;
         }
 
-        //[Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin")]
         public ActionResult GetAllUsers()
         {
             return new OkObjectResult(_userService.GetAllUsers());
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("roles")]
+        public ActionResult GetAllRoles()
+        {
+            return new OkObjectResult(_userService.GetAllRoles());
+        }
+
+      //  [Authorize(Roles = "Admin")]
+        [HttpGet("{userName}/roles")]
+        public ActionResult GetAllUserRoles(string userName)
+        {
+            return new OkObjectResult(_userService.GetAllUserRoles(userName));
         }
 
         [HttpPost("login")]
@@ -103,7 +117,21 @@ namespace Products_Inc.Controllers
             }
         }
 
+        [HttpPut("/{id}/roles/{role}")]
+        public async Task<IActionResult> AddRoleToUser(string id, string role)
+        {
+            await _userService.AddRole(id, role);
+            return new OkObjectResult("ok");
+            
+        }
 
+        [HttpPut("/{userName}/roles")]
+        public async Task<IActionResult> AddRoleToUser(string userName, [FromBody] List<string> roles)
+        {
+            await _userService.ReplaceRoles(userName, roles);
+            return new OkObjectResult("ok");
+
+        }
 
 
 

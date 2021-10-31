@@ -74,6 +74,20 @@ namespace Products_Inc.Models.Services
 
             if (user != null)
             {
+                await AddRole(user, role);
+            }
+            else
+            {
+                throw new Exception("User not found");
+            }
+
+            return true;
+        }
+
+        public async Task<bool> AddRole(User user, string role)
+        {
+            if (user != null)
+            {
                 if (!_roleManager.RoleExistsAsync(role).Result)
                 {
                     await _roleManager.CreateAsync(new IdentityRole(role));
@@ -174,12 +188,12 @@ namespace Products_Inc.Models.Services
             return GetUserViewModel(user);
         }
 
-        public UserViewModel GetUserViewModel(User user)
+        static public UserViewModel GetUserViewModel(User user)
         {
             return new UserViewModel() { Id = user.Id, UserName = user.UserName, Email = user.Email };
         }
 
-        public UserViewModel GetUserViewModel(User user, IList<string> roles)
+        static public UserViewModel GetUserViewModel(User user, IList<string> roles)
         {
             return new UserViewModel() { Roles = roles, Id = user.Id, UserName = user.UserName, Email = user.Email };
         }
@@ -188,10 +202,29 @@ namespace Products_Inc.Models.Services
        
         public List<UserViewModel> GetAllUsers()
         {
-            return _userManager.Users.ToList().Select(async u => new { roles = await _userManager.GetRolesAsync(u), user = u })
-            .Select(ur => GetUserViewModel(ur.Result.user, ur.Result.roles)).ToList();
+            return _userManager.Users.Select(u => GetUserViewModel(u)).ToList();
         }
 
-    
+        public List<string> GetAllRoles()
+        {
+            return _roleManager.Roles.Select(r => r.NormalizedName).ToList();
+        }
+        public async Task<IList<string>> GetAllUserRoles(string userName)
+        {
+            User user = await _userManager.FindByNameAsync(userName);
+            return await _userManager.GetRolesAsync(user);
+        }
+
+
+        public async Task<UserViewModel> ReplaceRoles(string userName, List<string> roles)
+        {
+            User user = await _userManager.FindByNameAsync(userName);
+            IList<string> currentUserRoles = await _userManager.GetRolesAsync(user);
+
+            await _userManager.RemoveFromRolesAsync(user, currentUserRoles);
+            await _userManager.AddToRolesAsync(user, roles);
+
+            return GetUserViewModel(user, roles);
+        }
     }
 }

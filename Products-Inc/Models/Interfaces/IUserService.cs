@@ -23,5 +23,8 @@ namespace Products_Inc.Models.Interfaces
         void Logout();
         Task<UserViewModel> Update(string userId, UpdateUserViewModel updateModel);
         List<UserViewModel> GetAllUsers();
+        List<string> GetAllRoles();
+        Task<UserViewModel> ReplaceRoles(string userName, List<string> roles);
+        Task<IList<string>> GetAllUserRoles(string userName);
     }
 }

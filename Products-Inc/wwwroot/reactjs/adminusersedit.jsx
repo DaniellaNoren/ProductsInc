@@ -4,6 +4,7 @@ import {
 } from 'react-router-dom';
 
 
+
 export default class EditUserDetails extends Component{
     state = {
         user: { userName: "", id: "", email: ""},
@@ -50,6 +51,7 @@ export default class EditUserDetails extends Component{
             return (
                 <div>
                     <h4><b>UserDetails:</b></h4>
+                    <AddRoles user={this.state.user} roles={["Admin", "User"]}/>
                     <Link className="btn btn-primary" to="/userpage">Back</Link>
                    {this.state.msgIsError ? <p className="text-danger">{this.state.msg}</p> : <p className="text-success">{this.state.msg}</p> }
                    <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/> 

@@ -8,14 +8,15 @@ import {
     Redirect
 } from 'react-router-dom';
 
+
+
 export default class CreateUser extends Component{
     state = {
         user: {
             userName: "",
             email: "",
             password: "",
-            confirmPassword: "",
-            roles: []
+            confirmPassword: ""
         }
     }
     componentDidMount(){
@@ -67,12 +68,6 @@ function CreateUserForm({user, stateMethod, createUserMethod}){
                 <div className="form-group">
                     <label htmlFor="confirm-password-input">Confirm new password:</label>
                     <input className="form-control"  value={user.confirmPassword} type="password" id="confirm-password-input" onChange={e => stateMethod({ confirmPassword: e.target.value})}/>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="roles-input">Roles:</label>
-                    <select>
-                        
-                    </select>
                 </div>
                 <button className="btn btn-primary" type="submit">Edit</button>
         </form>

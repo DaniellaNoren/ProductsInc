@@ -14,7 +14,7 @@ export default class AdminUsers extends Component{
     }
     componentDidMount(){
         let t = this;
-        $.get("/api/user", function(res){ t.setState({users: res})})
+        $.get("/api/user", function(res){ console.log(res); t.setState({users: res})})
         .done(r => console.log(r))
         .fail(e => console.log(e));
     }
@@ -46,7 +46,7 @@ function UserTable({users}){
                     <th>Id</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Role/s</th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -63,8 +63,8 @@ function UserInfo({user}){
                 <td>{user.id}</td>
                 <td>{user.userName}</td>
                 <td>{user.email}</td>
-                        { user.roles.map(r => <p>{r}</p>)}
                          
                 <td><Link className="btn btn-primary" to={{pathname:"/adminedituser", user}}>Edit user</Link></td>
+                <td><Link className="btn btn-primary" to={{pathname:"/adminedituserroles", user}}>Edit roles</Link></td>
             </tr>
     )}
