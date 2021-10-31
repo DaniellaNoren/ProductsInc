@@ -86,6 +86,7 @@ namespace Products_Inc.Models.Services
                 OrderProducts = order.OrderProducts.Select(p =>
                     new OrderProductViewModel()
                     {
+                        OrderProductId = p.OrderProductId,
                         ProductId = p.ProductId,
                         OrderId = p.OrderId,
                         Amount = p.Amount,
@@ -100,7 +101,10 @@ namespace Products_Inc.Models.Services
             };
         }
 
-
+        public bool DeleteProduct(int productId)
+        {
+            return _orderRepo.DeleteProduct(productId);
+        }
     }
 
 }

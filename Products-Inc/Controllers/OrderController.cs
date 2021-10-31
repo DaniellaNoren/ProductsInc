@@ -54,6 +54,15 @@ namespace Products_Inc.Controllers
             return new OkObjectResult(_orderService.FindAllBy(userid));
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("products/{productId}")]
+        public IActionResult DeleteProduct(int productId)
+        {
+            _orderService.DeleteProduct(productId);
+
+            return new OkResult();
+        }
+
         [Authorize(Roles = "User")]
         [HttpGet("users")]
         public async Task<IActionResult> GetLoggedInUserOrders()

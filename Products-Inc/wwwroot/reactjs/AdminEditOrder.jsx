@@ -20,25 +20,32 @@ export default class AdminEditOrder extends Component {
             products: {
                 productId: 0,
                 amount: 0
-            }
+            },
+            msg: "",
+            errorMsg: false
         }
     }
-
-    //totalPrice = () => Math.round(this.state.products.reduce((prevPr, nextPr) => {
-    //    return prevPr + nextPr.ProductPrice
-    //}, 0) * 100) / 100;  // this need some rewrite /ER
-
-
-
     removeProduct = (id) => {
+        let t = this;
+        t.setState({errorMsg: false, msg: ""})
 
-        this.setState(oldState => ({
-            products: {
-                ...this.state.products,
-                orderproducts: oldState.orderproducts.filter(p => p.productId !== id)  //this line in not quite right /ER
+        $.ajax({
+            url: `/api/order/products/${id}`,
+            type: 'DELETE',
+            success: function(response) {
+                t.setState(oldState => ({
+                    orderproducts: 
+                        oldState.orderproducts.filter(p => p.orderProductId !== id)        
+            }));
+            t.setState({errorMsg: false, msg: "Product successfully deleted."})
+            },
+            error: function(err){
+                t.setState({errorMsg: true, msg: "Product failed to be deleted."})
             }
-        }))
-        this.totalPrice();
+         });
+ 
+   
+        
     }
 
 
@@ -66,6 +73,7 @@ export default class AdminEditOrder extends Component {
             <div>
                 <h4><b>AdminEditOrder & Details:</b></h4>
                 <br />
+                <p className={this.state.errorMsg ? 'text-danger' : 'text-success'}>{msg}</p>
                 <div> {/*this div is sidemenu-tab*/}
                     <div className="nav-item">
                         <button className="nav-link text-dark">ALL Orders</button>
@@ -107,7 +115,7 @@ export default class AdminEditOrder extends Component {
                                 /></td>
 
                                 <td>{ap.product.productPrice}</td>
-                                <td><button className="optionBtnRed" onClick={() => removeMe(ap.product.ProductId)}>Delete</button></td>
+                                <td><button className="optionBtnRed" onClick={() => this.removeProduct(ap.orderProductId)}>Delete</button></td>
                             </tr>
                         ))}
                         </tbody>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Products_Inc.Models;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc.Data
 {
@@ -85,5 +86,17 @@ namespace Products_Inc.Data
 
         }
 
+        public bool DeleteProduct(int productId)
+        {
+            OrderProduct orderProduct = _orderListContext.OrderProducts.Where(op => op.OrderProductId == productId).FirstOrDefault();
+            if (orderProduct != null)
+            {
+                _orderListContext.OrderProducts.Remove(orderProduct);
+                _orderListContext.SaveChanges();
+                return true;
+            }
+            else
+                throw new EntityNotFoundException("Orderproduct with id " + productId + " not found.");
+        }
     }
 }

@@ -12,5 +12,7 @@ namespace Products_Inc.Models.ViewModels
 
         public int ProductId { get; set; }
         public int Amount { get; set; }
+
+        public int OrderProductId { get; set; }
     }
 }

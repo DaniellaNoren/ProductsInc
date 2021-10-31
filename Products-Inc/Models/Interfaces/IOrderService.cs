@@ -23,6 +23,6 @@ namespace Products_Inc.Models.Interfaces
         OrderViewModel Update(int id, Order order);
 
         bool Delete(int id);
-
+        bool DeleteProduct(int productId);
     }
 }
