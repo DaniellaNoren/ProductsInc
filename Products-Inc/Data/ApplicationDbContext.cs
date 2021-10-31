@@ -107,21 +107,7 @@ namespace Products_Inc.Data
 
 
 
-            modelBuilder.Entity<OrderProduct>().HasData(
-                new OrderProduct { OrderProductId = 1, OrderId = 1, ProductId = 10 },
-                new OrderProduct { OrderProductId = 2, OrderId = 1, ProductId = 10 },
-                new OrderProduct { OrderProductId = 3, OrderId = 1, ProductId = 30 },
-                new OrderProduct { OrderProductId = 4, OrderId = 1, ProductId = 40 },
-                new OrderProduct { OrderProductId = 5, OrderId = 1, ProductId = 30 },
-                new OrderProduct { OrderProductId = 6, OrderId = 1, ProductId = 20 },
-
-                new OrderProduct { OrderProductId = 7, OrderId = 3, ProductId = 20 },
-                new OrderProduct { OrderProductId = 8, OrderId = 3, ProductId = 30 },
-                new OrderProduct { OrderProductId = 9, OrderId = 3, ProductId = 10 },
-                new OrderProduct { OrderProductId = 10, OrderId = 3, ProductId = 10 },
-                new OrderProduct { OrderProductId = 11, OrderId = 3, ProductId = 20 },
-                new OrderProduct { OrderProductId = 12, OrderId = 3, ProductId = 30 }
-            );
+          
 
 
 
@@ -262,7 +248,7 @@ namespace Products_Inc.Data
                 new Order { OrderId = 1, UserId = customer3.Id },
                 new Order { OrderId = 2, UserId = customer1.Id },
                 new Order { OrderId = 3, UserId = customer2.Id },
-                new Order { OrderId = 4, UserId = customer2.Id }
+                new Order { OrderId = 4, UserId = customer2.Id },
                 new Order { OrderId = 1, UserId = customer3.Id },
                 new Order { OrderId = 2, UserId = customer1.Id },
                 new Order { OrderId = 3, UserId = customer2.Id },

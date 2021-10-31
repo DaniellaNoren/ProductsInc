@@ -13,7 +13,7 @@ namespace Products_Inc.Models
         {
             UserId = userId; 
         }
-        public Order(string userId, List<OrderProduct> products)
+        public Order(string userId, List<OrderProduct> orderProducts)
         {
             UserId = userId;
             OrderProducts = orderProducts;

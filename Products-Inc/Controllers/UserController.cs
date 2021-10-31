@@ -21,16 +21,11 @@ namespace Products_Inc.Controllers
 
     public class UserController : Controller
     {
-        //private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
-        //private RoleManager<IdentityRole> roleManager;
-        //private UserManager<User> userManager;
-        SignInManager<User> _signInManager;
+        
 
-
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        public UserController(IUserService userService)
         {
-            _logger = logger;
             this._userService = userService;
         }
 
@@ -59,7 +54,7 @@ namespace Products_Inc.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserViewModel user = await _userService.Login(loginModel);
+                bool user = await _userService.Login(loginModel);
 
                 return new OkObjectResult(user);
             }
@@ -90,11 +85,10 @@ namespace Products_Inc.Controllers
                 return new BadRequestObjectResult(new { errorMsg = "Incorrect model" });
             }
         }
-
         [HttpPost("logout")]
-        public async Task<ActionResult> Logout()
+        public async Task<IActionResult> Logout(string returnUrl = null)
         {
-            await _signInManager.SignOutAsync();
+            _userService.Logout();
 
             if (returnUrl != null)
             {
@@ -109,7 +103,7 @@ namespace Products_Inc.Controllers
 
 
         [HttpPut("edituser/{userId}")]
-        public async Task<IActionResult> EditUser(string userId, [FromBody] RegisterModel updateModel)
+        public async Task<IActionResult> EditUser(string userId, [FromBody] UpdateUserViewModel updateModel)
         {
             UserViewModel user = await _userService.Update(userId, updateModel);
 
@@ -145,15 +139,6 @@ namespace Products_Inc.Controllers
         {
             await _userService.ReplaceRoles(userName, roles);
             return new OkObjectResult("ok");
-
-            if (user.Result.FoundUser)
-            {
-                return new OkObjectResult(user.Result);
-            }
-            else
-            {
-                return new BadRequestObjectResult(new { errorMsg = "UserId not found." });
-            }
         }
 
 

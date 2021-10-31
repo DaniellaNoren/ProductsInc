@@ -118,9 +118,6 @@ namespace Products_Inc.Models.Services
             return GetUserViewModel(user);
         }
 
-            return new UserViewModel() { FoundUser = false };
-        }
-
         public async Task<bool> Login(LoginModel login)
         {
             User user = await _userManager.FindByNameAsync(login.UserName);
@@ -132,7 +129,7 @@ namespace Products_Inc.Models.Services
                 if (signInResult.Result.Succeeded)
                 {
                     IList<string> roles = await _userManager.GetRolesAsync(user);
-                    return GetUserViewModel(user, roles);
+                    return true;
                 }
                 else
                 {
