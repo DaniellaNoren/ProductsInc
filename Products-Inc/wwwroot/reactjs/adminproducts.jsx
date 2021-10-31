@@ -13,8 +13,7 @@ export default class AdminProducts extends Component{
     state = {
         showCreateProduct: false
     }
-    render() {
-        $(window).scrollTop(0)
+    render(){
         return (
             <div>
                 <h4><b>AdminProducts:</b></h4>

@@ -5,38 +5,37 @@ import {
     Link
 } from 'react-router-dom';
 
-function UserOrderTable({ orders }) {
-    return (
-        <div>
-            {orders.map(o => <UserOrder key={o.orderId} order={o} />)}
-        </div>
-    )
+function UserOrderTable({orders}){
+ return (
+    <div>
+        { orders.map(o => <UserOrder key={o.orderId} order={o}/>) }
+    </div>
+ )
 }
 
-function UserOrder({ order }) {
+function UserOrder({order}){
     return (<div className="row text-primary">
-        <Link className="text-primary" to={{ pathname: "/orderdetails", order, msg: "Receipt" }} >Ordernr: {order.orderId} </Link>
+       <Link className="text-primary" to={{pathname: "/orderdetails", order, msg: "Receipt"}} >Ordernr: {order.orderId} </Link>
     </div>
     )
 }
-export default class UserOrders extends Component {
+export default class UserOrders extends Component{
     state = {
         orders: []
     }
-    componentDidMount() {
+    componentDidMount(){
         let t = this;
 
-        $.get("/api/order/users", function () { })
-            .done(res => t.setState({ orders: res }))
-            .fail(e => console.log(e));
+        $.get("/api/order/users", function(){})
+        .done(res => t.setState({orders: res}))
+        .fail(e => console.log(e));
     }
-    render() {
-        $(window).scrollTop(0)
+    render(){
         return (
             <div>
                 <h4>UserOrders:</h4>
                 <Link className="btn btn-primary" to="/userpage">Back</Link>
-                <UserOrderTable orders={this.state.orders} />
+                <UserOrderTable orders={this.state.orders}/>
             </div>
         )
     }

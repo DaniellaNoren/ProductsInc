@@ -12,56 +12,31 @@ import {
 
 export default class AdminEditOrder extends Component {
 
+
+
     constructor(props) {
         super(props)
-        this.state = {
-            orderproducts: this.props.location.ao.orderProducts,
-            orderId: 0,
-            products: {
-                productId: 0,
-                amount: 0
-            }
-        }
+        //this.state = {
+        //    dtprops: ""
+        //}
     }
 
-    //totalPrice = () => Math.round(this.state.products.reduce((prevPr, nextPr) => {
-    //    return prevPr + nextPr.ProductPrice
-    //}, 0) * 100) / 100;  // this need some rewrite /ER
-
-
-
-    removeProduct = (id) => {
-
+    removeProduct = id => {
         this.setState(oldState => ({
-            products: {
-                ...this.state.products,
-                orderproducts: oldState.orderproducts.filter(p => p.productId !== id)  //this line in not quite right /ER
+            shoppingCart: {
+                ...this.state.shoppingCart,
+                Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id)
             }
         }))
         this.totalPrice();
     }
-
-
-
-
-    saveEditedOrder = (id) => {
-
-        /*unfinished function /ER */
-
-
-
-    /*    this.setState(oldState => ({ products: { ...this.state.products, productId: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))*/
-//        this.totalPrice();
-
-        /*orderobject*/
-    }
-
-
+    totalPrice = () => Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => {
+        return prevPr + nextPr.ProductPrice
+    }, 0) * 100) / 100;
 
 
     render() {
-        $(window).scrollTop(0)
-
+        //console.log(this.props.location.ao)
         return (
             <div>
                 <h4><b>AdminEditOrder & Details:</b></h4>
@@ -94,26 +69,21 @@ export default class AdminEditOrder extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.orderproducts.map((ap, index) => (
+                        {this.props.location.ao.orderProducts.map((ap, index) => (
                             <tr key={index + 300} className="admineditorder">
                                 <td><img src={ap.product.imgPath} className="admineditorder_img" alt="logo"  /></td>
                                 <td>{ap.productId}</td>
                                 <td>{ap.product.productName}</td>
                                 <td>{ap.product.productDescription}</td>
-
-                                <td><input className="productamount" type="number" name="inputproductamount" value={ap.amount}
-                                        onChange={e => this.setState({ orderproducts: { ...this.state.orderproducts, amount: e.target.value } })}
-                                // dont know right now how to change the amount on 1 specific product in the array of orderproducts  /ER
-                                /></td>
-
+                                <td><input className="productamount" type="number" name="inputproductamount" value={ap.amount}/></td>
                                 <td>{ap.product.productPrice}</td>
-                                <td><button className="optionBtnRed" onClick={() => removeMe(ap.product.ProductId)}>Delete</button></td>
+                                <td><button className="optionBtnRed">Delete</button></td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
                     <br/>
-                    <div><button onClick={() => this.saveEditedOrder} className="optionBtnGreen">SAVE</button></div>
+                    <div><button className="optionBtnGreen">SAVE</button></div>
                     <br/>
                     <div><button className="optionBtnGray"><Link to={{ pathname: "/adminorders"}}>BACK</Link></button></div>
                 </div>

@@ -1,30 +1,31 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
+using Products_Inc.Models;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-
+    [ApiController]
     public class ShoppingCartController : Controller
     {
         private readonly IShoppingCartService _service;
         private readonly IUserService _userService;
-        private readonly IProductService _productService;
 
-        public ShoppingCartController(IProductService _productService, IShoppingCartService service, IUserService userService)
+        public ShoppingCartController(IShoppingCartService service, IUserService userService)
         {
             _service = service;
             _userService = userService;
-            this._productService = _productService;
         }
-
-
+     
+   
         [Authorize(Roles = "User")]
         [HttpPost("buy")]
         public async Task<IActionResult> GetOrder(ShoppingCartViewModel shoppingCart)
@@ -39,12 +40,12 @@ namespace Products_Inc.Controllers
             }
 
             OrderViewModel order = _service.CreateOrder(shoppingCart);
-
+            
             if (this.Request.Cookies["shopping-cart"] != null)
             {
                 this.Response.Cookies.Delete("shopping-cart");
             }
-
+            
             return new OkObjectResult(order);
         }
 
@@ -129,64 +130,48 @@ namespace Products_Inc.Controllers
 
             ShoppingCartViewModel shoppingCart;
 
-            if (ModelState.IsValid)
+            if (this.Request.Cookies["shopping-cart"] == null || string.IsNullOrEmpty(this.Request.Cookies["shopping-cart"]))
             {
 
-                if (this.Request.Cookies["shopping-cart"] == null || string.IsNullOrEmpty(this.Request.Cookies["shopping-cart"]))
+            if (User.Identity.IsAuthenticated)
                 {
-
-                    if (User.Identity.IsAuthenticated)
-                    {
-
-                        shoppingCart = _service.Create(await GetCreateShoppingCartModel(product));
-                    }
-                    else
-                    {
-                        _productService.FindBy(product.ProductId);
-                        shoppingCart = new ShoppingCartViewModel() { Products = new List<ShoppingCartProductViewModel>() { product } };
-                    }
-
-                    TryAppendCookie(shoppingCart);
+                    CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
+                    createShoppingCart.AddProduct(product);
+                    UserViewModel user = await _userService.FindBy(User.Identity.Name);
+                    createShoppingCart.UserId = user.Id;
+                    shoppingCart = _service.Create(createShoppingCart);
+                    this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
                 }
                 else
                 {
-                    shoppingCart = JsonConvert.DeserializeObject<ShoppingCartViewModel>(this.Request.Cookies["shopping-cart"], new JsonSerializerSettings
-                    {
-                        NullValueHandling = NullValueHandling.Ignore
-                    });
+                    shoppingCart = new ShoppingCartViewModel() { Products = new List<ShoppingCartProductViewModel>() { product } };
+                    this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
+                }
+            }
+            else
+            {
+                shoppingCart = JsonConvert.DeserializeObject<ShoppingCartViewModel>(this.Request.Cookies["shopping-cart"], new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
 
-                    if (this.User.Identity.IsAuthenticated)
-                    {
-                        if (string.IsNullOrEmpty(shoppingCart.ShoppingCartId))
-                        {
-                            CreateShoppingCartViewModel createShoppingCart = await GetCreateShoppingCartModel(product);
-                            foreach (ShoppingCartProductViewModel pr in shoppingCart.Products)
-                            {
-                                createShoppingCart.AddProduct(pr);
-                            }
-                            shoppingCart = _service.Create(createShoppingCart);
-                        }
-                        else
-                        {
-                            shoppingCart = _service.AddProduct(product.ProductId, shoppingCart.ShoppingCartId);
-                        }
-
-                    }
-                    else
-                    {
-                        _productService.FindBy(product.ProductId);
-                        shoppingCart.AddProduct(product);
-                    }
-
-                    TryAppendCookie(shoppingCart);
+                if (this.User.Identity.IsAuthenticated)
+                {
+                   
+                   shoppingCart = _service.AddProduct(product.Product.ProductId, shoppingCart.ShoppingCartId);
+                }
+                else
+                {
+                   shoppingCart.Products.Add(product);
                 }
 
+                this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(shoppingCart));
 
-                return new OkObjectResult(shoppingCart);
             }
-            return new BadRequestObjectResult(new { msg = "Invalid body, product-id missing." });
-        }
 
+
+            return new OkObjectResult(shoppingCart);
+        }
 
     }
 }
