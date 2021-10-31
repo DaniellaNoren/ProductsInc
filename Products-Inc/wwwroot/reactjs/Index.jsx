@@ -14,7 +14,6 @@ import UserPage from './UserPage.jsx';
 import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminEditOrder from './AdminEditOrder.jsx';
-// import AdminEditUser from './Adminusersedit.jsx';
 
 import AddRoles from './admineditroles.jsx';
 import AdminCreateUser from './Adminuserscreate.jsx';
@@ -61,10 +60,10 @@ export default class Index extends Component {
 
 
     render() {
-        $(window).scrollTop(0)
+        /*$.(window).scrollTop(0)*/
 
         const app = (
-
+            
             <div className="pagewrapper">
                 <HeaderPartial setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
 

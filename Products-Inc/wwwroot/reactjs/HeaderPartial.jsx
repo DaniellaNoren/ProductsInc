@@ -77,7 +77,7 @@ export default class Headerpart extends Component {
                                 }
                                 { !this.props.userIsAuthenticated ?
                                 <li className="nav-item">
-                                    <Link className="btn btn-primary" to={{pathname: "/login", test: "sdkjsd", loggedInCallback: this.props.setLoggedIn}} className="nav-link" >Login</Link>
+                                    <Link className="btn btn-primary" to={{pathname: "/login", loggedInCallback: this.props.setLoggedIn}} className="nav-link" >Login</Link>
                                 </li> : null
                                 }
                                 { this.props.userIsAuthenticated ?                                 

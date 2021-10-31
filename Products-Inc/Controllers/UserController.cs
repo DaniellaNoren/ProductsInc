@@ -22,14 +22,14 @@ namespace Products_Inc.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
-        
+
 
         public UserController(IUserService userService)
         {
             this._userService = userService;
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult GetAllUsers()
         {
             return new OkObjectResult(_userService.GetAllUsers());
@@ -42,7 +42,7 @@ namespace Products_Inc.Controllers
             return new OkObjectResult(_userService.GetAllRoles());
         }
 
-      //  [Authorize(Roles = "Admin")]
+        //  [Authorize(Roles = "Admin")]
         [HttpGet("roles/{userName}")]
         public async Task<ActionResult> GetAllUserRoles(string userName)
         {
@@ -106,12 +106,12 @@ namespace Products_Inc.Controllers
             bool login = User.Identity.Name.Equals(userName);
 
             UserViewModel user = await _userService.Update(updateModel.UserId, updateModel, login);
-           
-            
+
+
             return new OkObjectResult(user);
         }
 
-       
+
         [Authorize(Roles = "User")]
         [HttpGet("me")]
         public async Task<IActionResult> GetLoggedInUserInfo()
@@ -132,7 +132,7 @@ namespace Products_Inc.Controllers
         //{
         //    await _userService.AddRole(id, role);
         //    return new OkObjectResult("ok");
-            
+
         //}
 
         [HttpPut("roles/{userName}")]
@@ -148,6 +148,8 @@ namespace Products_Inc.Controllers
         {
             return new BadRequestObjectResult(new { errorMsg = "Access Denied." });
         }
+    }
+}
 
 
 /*

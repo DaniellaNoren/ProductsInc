@@ -1,26 +1,17 @@
-﻿// @ts-check
-
-import { Component, Fragment } from 'react';
-import React from 'React'
+﻿import { Component, Fragment } from 'react';
 import {
     Redirect
 } from 'react-router-dom';
 import Cookies from 'js-cookies';
 
 export default class Login extends Component {
-
-
-        state = {
+    state = {
             loginModel: { userName: "", password: "", rememberMe: false },
-            /*redirect: false*/
-        }
-
-
-    //componentDidMount() {
-    //    this.setState({ redirect: false })
-    //}
-
-
+            redirect: false
+    }
+    componentDidMount() {
+       this.setState({ redirect: false })
+    }
     tryToLogin = e => {
         e.preventDefault();
         
@@ -28,7 +19,7 @@ export default class Login extends Component {
 
         $.ajax({      
             url: "/api/user/login",
-            type: "POST",
+            method: "POST",
             data: JSON.stringify(this.state.loginModel),
             //accepts: { json: "application/json" },
             contentType: "application/json",
@@ -76,9 +67,9 @@ export default class Login extends Component {
     render() {
         $(window).scrollTop(0)
 
-        //if (this.state.redirect) {
-        //    return <Redirect to="/" />
-        //} else
+        if (this.state.redirect) {
+           return <Redirect to="/" />
+        } else
             return (
                 <div>
                     <form className="formlogin" onSubmit={this.tryToLogin}>
