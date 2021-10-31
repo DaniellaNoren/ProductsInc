@@ -203,40 +203,7 @@ namespace Products_Inc.Data
                }
            );
 
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
-               new IdentityUserRole<string>
-               {
-                   RoleId = roleAdmin.Id,
-                   UserId = adminUser.Id
-               }
-           ,
-               new IdentityUserRole<string>
-               {
-                   RoleId = roleUser.Id,
-                   UserId = adminUser.Id
-               },
-               new IdentityUserRole<string>
-               {
-                   RoleId = roleUser.Id,
-                   UserId = customer1.Id
-               }
-           ,
-               new IdentityUserRole<string>
-               {
-                   RoleId = roleUser.Id,
-                   UserId = customer2.Id
-               }
-
-           ,
-               new IdentityUserRole<string>
-               {
-                   RoleId = roleUser.Id,
-                   UserId = customer3.Id
-               }
-           );
-
-
-
+          
             // -----------------------------------------
 
 
@@ -245,10 +212,6 @@ namespace Products_Inc.Data
 
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = 1, UserId = customer3.Id },
-                new Order { OrderId = 2, UserId = customer1.Id },
-                new Order { OrderId = 3, UserId = customer2.Id },
-                new Order { OrderId = 4, UserId = customer2.Id },
                 new Order { OrderId = 1, UserId = customer3.Id },
                 new Order { OrderId = 2, UserId = customer1.Id },
                 new Order { OrderId = 3, UserId = customer2.Id },

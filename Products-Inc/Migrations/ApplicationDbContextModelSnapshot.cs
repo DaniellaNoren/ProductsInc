@@ -49,14 +49,14 @@ namespace Products_Inc.Migrations
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "cb7cf26a-42bf-4bf2-a337-6ec321d1592e",
+                            ConcurrencyStamp = "5c414c5c-8279-465c-8c4f-6f8ea7e5fe17",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "7d9b6e33-344a-436d-80f1-bf64ca26e911",
+                            ConcurrencyStamp = "1842d2f8-f1d9-4fe4-b2e6-dbae2e535640",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -149,27 +149,27 @@ namespace Products_Inc.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "be1f76a6-3be4-4ddd-9eb8-4230386d7363",
+                            UserId = "63338cc6-906f-46dd-bcb5-7617a355a3d8",
                             RoleId = "438db5c8-0513-43a0-a84c-cd416c4e3a54"
                         },
                         new
                         {
-                            UserId = "be1f76a6-3be4-4ddd-9eb8-4230386d7363",
+                            UserId = "63338cc6-906f-46dd-bcb5-7617a355a3d8",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         },
                         new
                         {
-                            UserId = "d471338a-e596-4641-9baa-f853cc83534c",
+                            UserId = "2be5823c-f93c-4829-9f99-b0466161186d",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         },
                         new
                         {
-                            UserId = "11f38633-c161-4044-9266-63c49b5e10ae",
+                            UserId = "bb639f31-726c-4104-8f1f-da0d6dc760c5",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         },
                         new
                         {
-                            UserId = "4e13f48a-b63c-426f-856d-eea1496fcd3b",
+                            UserId = "fb17b1f8-c46b-4a8e-b727-387816cc15bd",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         });
                 });
@@ -203,14 +203,9 @@ namespace Products_Inc.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("OrderId");
 
                     b.HasIndex("UserId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
 
@@ -218,22 +213,22 @@ namespace Products_Inc.Migrations
                         new
                         {
                             OrderId = 1,
-                            UserId = "4e13f48a-b63c-426f-856d-eea1496fcd3b"
+                            UserId = "fb17b1f8-c46b-4a8e-b727-387816cc15bd"
                         },
                         new
                         {
                             OrderId = 2,
-                            UserId = "d471338a-e596-4641-9baa-f853cc83534c"
+                            UserId = "2be5823c-f93c-4829-9f99-b0466161186d"
                         },
                         new
                         {
                             OrderId = 3,
-                            UserId = "11f38633-c161-4044-9266-63c49b5e10ae"
+                            UserId = "bb639f31-726c-4104-8f1f-da0d6dc760c5"
                         },
                         new
                         {
                             OrderId = 4,
-                            UserId = "11f38633-c161-4044-9266-63c49b5e10ae"
+                            UserId = "bb639f31-726c-4104-8f1f-da0d6dc760c5"
                         });
                 });
 
@@ -270,86 +265,86 @@ namespace Products_Inc.Migrations
                         new
                         {
                             OrderProductId = 1,
-                            Amount = 0,
+                            Amount = 4,
                             OrderId = 1,
-                            ProductId = 10
+                            ProductId = 50
                         },
                         new
                         {
                             OrderProductId = 2,
-                            Amount = 0,
+                            Amount = 2,
                             OrderId = 1,
-                            ProductId = 10
+                            ProductId = 52
                         },
                         new
                         {
                             OrderProductId = 3,
-                            Amount = 0,
+                            Amount = 1,
                             OrderId = 1,
-                            ProductId = 30
+                            ProductId = 57
                         },
                         new
                         {
                             OrderProductId = 4,
-                            Amount = 0,
-                            OrderId = 1,
-                            ProductId = 40
+                            Amount = 6,
+                            OrderId = 2,
+                            ProductId = 52
                         },
                         new
                         {
                             OrderProductId = 5,
-                            Amount = 0,
-                            OrderId = 1,
-                            ProductId = 30
+                            Amount = 1,
+                            OrderId = 2,
+                            ProductId = 54
                         },
                         new
                         {
                             OrderProductId = 6,
-                            Amount = 0,
-                            OrderId = 1,
-                            ProductId = 20
+                            Amount = 2,
+                            OrderId = 2,
+                            ProductId = 56
                         },
                         new
                         {
                             OrderProductId = 7,
-                            Amount = 0,
+                            Amount = 9,
                             OrderId = 3,
-                            ProductId = 20
+                            ProductId = 55
                         },
                         new
                         {
                             OrderProductId = 8,
-                            Amount = 0,
+                            Amount = 1,
                             OrderId = 3,
-                            ProductId = 30
+                            ProductId = 57
                         },
                         new
                         {
                             OrderProductId = 9,
-                            Amount = 0,
+                            Amount = 3,
                             OrderId = 3,
-                            ProductId = 10
+                            ProductId = 51
                         },
                         new
                         {
                             OrderProductId = 10,
-                            Amount = 0,
-                            OrderId = 3,
-                            ProductId = 10
+                            Amount = 5,
+                            OrderId = 4,
+                            ProductId = 52
                         },
                         new
                         {
                             OrderProductId = 11,
-                            Amount = 0,
-                            OrderId = 3,
-                            ProductId = 20
+                            Amount = 3,
+                            OrderId = 4,
+                            ProductId = 53
                         },
                         new
                         {
                             OrderProductId = 12,
-                            Amount = 0,
-                            OrderId = 3,
-                            ProductId = 30
+                            Amount = 1,
+                            OrderId = 4,
+                            ProductId = 55
                         });
                 });
 
@@ -586,57 +581,57 @@ namespace Products_Inc.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "be1f76a6-3be4-4ddd-9eb8-4230386d7363",
+                            Id = "63338cc6-906f-46dd-bcb5-7617a355a3d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c34ea9c-9b9e-461a-b67f-aaf0374148de",
+                            ConcurrencyStamp = "62ebb9ea-fe43-4151-9fd7-f26eb492d60f",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHopuh40tPrUf9x5IvdPzOdnC/uHpKKvzyhVvO6qb/PzTeArSX8+NV3UbWNpHw6+Fw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENwg3PT7XOsocfN3ygQ5uvkRuAgM1zzoR665ur43Uw0dzx+fp6R38LGYuxkUDrL2+A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "431c98e0-b924-48db-bcad-43058c7ab393",
+                            SecurityStamp = "6c0621b8-90aa-4a9f-a99c-37e5892b9ac6",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
                         new
                         {
-                            Id = "d471338a-e596-4641-9baa-f853cc83534c",
+                            Id = "2be5823c-f93c-4829-9f99-b0466161186d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df1fdd50-fd96-428f-bab3-4bc95d1f0841",
+                            ConcurrencyStamp = "260fb4fc-522d-4715-94a0-28324c7e5baf",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAECXoDhRigPt6TZnK2lKz32/zCDJdy5M+WfGZXa+OhWOxiLKoRHXrl1nqRAS1kkb8jQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIrj1dNAm+5VvWTcoBmvq4dNHakF9sSIuVYQcClgTmBupiHNL6K1Lxaz1ic/W5BDQw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "27f9b4d4-ec3a-4a92-b351-851b680ddbc0",
+                            SecurityStamp = "7411cb4c-8db2-48de-bc7b-c9ff3775e4d6",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
                         new
                         {
-                            Id = "11f38633-c161-4044-9266-63c49b5e10ae",
+                            Id = "bb639f31-726c-4104-8f1f-da0d6dc760c5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "05870ce6-f717-4f6f-af34-450cf759892a",
+                            ConcurrencyStamp = "6216f239-e9c7-412e-bd29-7776ae0f4d3b",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDykitsw7jBir5p3zFl/fyYq6QPBXnkfrc8xpBid0g/LpL0R5NpVR562+hFeMEh7fQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDO42jE/U2iGTRDy1wW/zBgCSgviW9Q+iAzLagWTPkAr8JhqKsshCrZHNGT4vCT/tg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c5976614-2862-429a-92ff-c9fa35b1ce74",
+                            SecurityStamp = "b8ca4d30-0d30-4799-bfe3-ce6d2f5a45d2",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
                         new
                         {
-                            Id = "4e13f48a-b63c-426f-856d-eea1496fcd3b",
+                            Id = "fb17b1f8-c46b-4a8e-b727-387816cc15bd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2db7aac5-fbf1-47e7-bf20-f3f1450879d8",
+                            ConcurrencyStamp = "9900c8e8-04c6-43a1-9263-5b1710000c7e",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "CUSTOMER3",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIzntsB5b7VTKMwyWax7a7DUAsyNngjlrTMpxlvn4I0uC4UvUWCv+9bIVtVWRwj2jQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMGseG+ve5DcnO4izzY3EC5tbZ2vsPmrDHGgl5RZMW4fN/QysU3W3flm27dA8FmKqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8b719c7f-f55c-406c-b39f-158b385b682a",
+                            SecurityStamp = "30adb4c8-2faf-4d74-8f8e-dddbf8159a9a",
                             TwoFactorEnabled = false,
                             UserName = "customer3"
                         });
@@ -696,12 +691,8 @@ namespace Products_Inc.Migrations
             modelBuilder.Entity("Products_Inc.Models.Order", b =>
                 {
                     b.HasOne("Products_Inc.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("Products_Inc.Models.User", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Products_Inc.Models.OrderProduct", b =>

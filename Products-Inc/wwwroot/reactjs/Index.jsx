@@ -14,7 +14,6 @@ import UserPage from './UserPage.jsx';
 import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminEditOrder from './AdminEditOrder.jsx';
-import AdminProducts from './AdminProducts.jsx';
 // import AdminEditUser from './Adminusersedit.jsx';
 
 import AddRoles from './admineditroles.jsx';
