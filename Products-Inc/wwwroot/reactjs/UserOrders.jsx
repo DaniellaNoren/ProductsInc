@@ -25,9 +25,9 @@ export default class UserOrders extends Component{
     }
     componentDidMount(){
         let t = this;
-
+            console.log("sdasdj")
         $.get("/api/order/users", function(){})
-        .done(res => t.setState({orders: res}))
+        .done(res =>{ console.log(res); t.setState({orders: res})})
         .fail(e => console.log(e));
     }
     render(){

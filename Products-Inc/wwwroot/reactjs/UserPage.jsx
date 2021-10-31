@@ -10,14 +10,18 @@ import {
 
 export default class UserPage extends Component {
     state = {
-       
+       user: {}
+    }
+    componentDidMount(){
+        let t = this;
+        $.get("api/user/me", function(r){ t.setState({user: r})})
     }
     render() {
         return (
             <div>
                 <h4>Userpage now</h4>
                 <div className="row">
-                <Link className="btn btn-primary" to="/userdetails">My details</Link>
+                <td><Link className="btn btn-primary" to={{pathname:"/userdetails", user: this.state.user, back: "/userpage"}}>My details</Link></td>
                 <Link className="btn btn-primary" to="/userorders">My orders</Link>
                 </div>
             </div>

@@ -64,7 +64,7 @@ function UserInfo({user}){
                 <td>{user.userName}</td>
                 <td>{user.email}</td>
                          
-                <td><Link className="btn btn-primary" to={{pathname:"/adminedituser", user}}>Edit user</Link></td>
+                <td><Link className="btn btn-primary" to={{pathname:"/adminedituser", user, back: "/adminusers"}}>Edit user</Link></td>
                 <td><Link className="btn btn-primary" to={{pathname:"/adminedituserroles", user}}>Edit roles</Link></td>
             </tr>
     )}

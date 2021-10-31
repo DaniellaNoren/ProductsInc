@@ -42,7 +42,7 @@ namespace Products_Inc.Controllers
         }
 
       //  [Authorize(Roles = "Admin")]
-        [HttpGet("{userName}/roles")]
+        [HttpGet("roles/{userName}")]
         public ActionResult GetAllUserRoles(string userName)
         {
             return new OkObjectResult(_userService.GetAllUserRoles(userName));

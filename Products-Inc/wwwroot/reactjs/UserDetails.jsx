@@ -15,11 +15,11 @@ class UserPageUserDetails extends Component{
         this.loadDataFromServer();
     }
 render(){
-    <div>
+    return ( <div>
     <Link className="btn btn-primary" to="/userpage">Back</Link>
     <UserDetails user={this.state.user}/>
     </div>
-}
+    )}
 }
 
 class UserDetails extends Component{
@@ -31,7 +31,7 @@ class UserDetails extends Component{
     }
     componentDidMount(){
         this.setState({user: this.props.user ? this.props.user : this.props.location.user});
-            this.setState({updateUserDetailsModel: {userName: this.state.user.userName, email: this.state.user.email, ...this.state.updateUserDetailsModel}})
+        this.setState({updateUserDetailsModel: {userName: this.state.user.userName, email: this.state.user.email, ...this.state.updateUserDetailsModel}})
     }
     changeUserDetails = () => { 
         
@@ -64,7 +64,8 @@ class UserDetails extends Component{
      render() {
             return (
                 <div>
-                    <h4><b>UserDetails:</b></h4>
+                    <h4><b>Details:</b></h4>
+                    <Link className="btn btn-primary" to={this.props.back ? this.props.back : this.props.location.back}>Back</Link>
                     
                    {this.state.msgIsError ? <p className="text-danger">{this.state.msg}</p> : <p className="text-success">{this.state.msg}</p> }
                    <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/> 
