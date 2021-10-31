@@ -19,6 +19,7 @@ namespace Products_Inc.Models.ViewModels
 
         public List<string> Roles { get; set; }
 
+        public string UserId { get; set; }
 
         public UpdateUserViewModel()
         {

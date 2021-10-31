@@ -36,14 +36,14 @@ namespace Products_Inc.Models.Services
             {
                 throw new Exception();
             }
-            
+
             IdentityResult result = _userManager.CreateAsync(createdUser, registerModel.Password).Result;
 
             if (result.Succeeded)
             {
                 await AddRole(registerModel.UserName, "User");
 
-                if(registerModel.Roles != null)
+                if (registerModel.Roles != null)
                 {
                     registerModel.Roles.ForEach(async r =>
                     {
@@ -121,14 +121,15 @@ namespace Products_Inc.Models.Services
         public async Task<UserViewModel> Login(LoginModel login)
         {
             User user = await _userManager.FindByNameAsync(login.UserName);
-            
+
             if (user != null)
             {
                 var signInResult = _signInManager.PasswordSignInAsync(user, login.Password, login.RememberMe, false);
 
                 if (signInResult.Result.Succeeded)
                 {
-                    IList<string> roles = await _userManager.GetRolesAsync(user);
+                    var rolesRes = await _userManager.GetRolesAsync(user);
+                    var roles = rolesRes.ToList();
                     return GetUserViewModel(user, roles);
                 }
                 else
@@ -150,7 +151,7 @@ namespace Products_Inc.Models.Services
             throw new NotImplementedException();
         }
 
-        public async Task<UserViewModel> Update(string userId, UpdateUserViewModel updateModel)
+        public async Task<UserViewModel> Update(string userId, UpdateUserViewModel updateModel, bool login)
         {
             User user = await _userManager.FindByIdAsync(Guid.Parse(userId).ToString());
             if (!string.IsNullOrEmpty(updateModel.Password) && !string.IsNullOrEmpty(updateModel.ConfirmPassword))
@@ -172,7 +173,7 @@ namespace Products_Inc.Models.Services
             }
             if (!string.IsNullOrEmpty(updateModel.UserName))
             {
-                if(await _userManager.FindByNameAsync(updateModel.UserName) == null)
+                if (await _userManager.FindByNameAsync(updateModel.UserName) == null)
                 {
                     user.UserName = updateModel.UserName;
                     user.NormalizedUserName = updateModel.UserName.ToUpper();
@@ -183,9 +184,19 @@ namespace Products_Inc.Models.Services
                 }
             }
 
-            await _userManager.UpdateAsync(user);
-            await _signInManager.SignInAsync(user, true);
-            return GetUserViewModel(user);
+            IdentityResult res = await _userManager.UpdateAsync(user);
+            if (res.Succeeded)
+            {
+                if (login)
+                    await _signInManager.SignInAsync(user, true);
+                return GetUserViewModel(user);
+
+            }
+            else
+            {
+                throw new Exception("wrong");
+            }
+
         }
 
         static public UserViewModel GetUserViewModel(User user)
@@ -193,13 +204,13 @@ namespace Products_Inc.Models.Services
             return new UserViewModel() { Id = user.Id, UserName = user.UserName, Email = user.Email };
         }
 
-        static public UserViewModel GetUserViewModel(User user, IList<string> roles)
+        static public UserViewModel GetUserViewModel(User user, List<string> roles)
         {
             return new UserViewModel() { Roles = roles, Id = user.Id, UserName = user.UserName, Email = user.Email };
         }
 
 
-       
+
         public List<UserViewModel> GetAllUsers()
         {
             return _userManager.Users.Select(u => GetUserViewModel(u)).ToList();
@@ -209,10 +220,12 @@ namespace Products_Inc.Models.Services
         {
             return _roleManager.Roles.Select(r => r.NormalizedName).ToList();
         }
-        public async Task<IList<string>> GetAllUserRoles(string userName)
+        public async Task<List<string>> GetAllUserRoles(string userName)
         {
             User user = await _userManager.FindByNameAsync(userName);
-            return await _userManager.GetRolesAsync(user);
+            var result = await _userManager.GetRolesAsync(user);
+            List<string> roles = result.Select(r => r.ToUpper()).ToList();
+            return roles;
         }
 
 

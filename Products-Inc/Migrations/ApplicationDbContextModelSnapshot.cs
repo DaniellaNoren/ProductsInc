@@ -49,14 +49,14 @@ namespace Products_Inc.Migrations
                         new
                         {
                             Id = "438db5c8-0513-43a0-a84c-cd416c4e3a54",
-                            ConcurrencyStamp = "f368a68d-decb-4e96-98c6-bc04625c99d8",
+                            ConcurrencyStamp = "e0013b04-e48b-44db-887f-dea6a684e303",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a",
-                            ConcurrencyStamp = "5e57aff2-9163-48db-bbf6-4a900cd85c65",
+                            ConcurrencyStamp = "15f20c68-cf52-433e-8f16-d6c6fb26edd7",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -149,27 +149,27 @@ namespace Products_Inc.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "139216f4-e939-48ee-b39a-ae3c2d86a716",
+                            UserId = "bcdcf3a1-3ae4-4f0f-bc70-6b816886e114",
                             RoleId = "438db5c8-0513-43a0-a84c-cd416c4e3a54"
                         },
                         new
                         {
-                            UserId = "139216f4-e939-48ee-b39a-ae3c2d86a716",
+                            UserId = "bcdcf3a1-3ae4-4f0f-bc70-6b816886e114",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         },
                         new
                         {
-                            UserId = "98978e94-1ed7-4852-bc11-0a0dea7cac5e",
+                            UserId = "257654dc-5d9e-4d4b-8b73-14f243ab3111",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         },
                         new
                         {
-                            UserId = "e3111afa-dc21-4ea1-a994-0aa1e36cb74e",
+                            UserId = "fdebfbd2-9834-4cb8-b4a7-d67a65592506",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         },
                         new
                         {
-                            UserId = "512bf11d-1464-4679-a2fe-83c3b11010cd",
+                            UserId = "f7fcfe5b-aee9-4cdc-a9df-47a316bb9df8",
                             RoleId = "0948bea6-fb82-49c9-8cd8-fec213fe8e8a"
                         });
                 });
@@ -218,22 +218,22 @@ namespace Products_Inc.Migrations
                         new
                         {
                             OrderId = 1,
-                            UserId = "512bf11d-1464-4679-a2fe-83c3b11010cd"
+                            UserId = "f7fcfe5b-aee9-4cdc-a9df-47a316bb9df8"
                         },
                         new
                         {
                             OrderId = 2,
-                            UserId = "98978e94-1ed7-4852-bc11-0a0dea7cac5e"
+                            UserId = "257654dc-5d9e-4d4b-8b73-14f243ab3111"
                         },
                         new
                         {
                             OrderId = 3,
-                            UserId = "e3111afa-dc21-4ea1-a994-0aa1e36cb74e"
+                            UserId = "fdebfbd2-9834-4cb8-b4a7-d67a65592506"
                         },
                         new
                         {
                             OrderId = 4,
-                            UserId = "e3111afa-dc21-4ea1-a994-0aa1e36cb74e"
+                            UserId = "fdebfbd2-9834-4cb8-b4a7-d67a65592506"
                         });
                 });
 
@@ -586,57 +586,65 @@ namespace Products_Inc.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "139216f4-e939-48ee-b39a-ae3c2d86a716",
+                            Id = "bcdcf3a1-3ae4-4f0f-bc70-6b816886e114",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0ce6a04b-1d66-4ff9-a34d-02044f0731a2",
+                            ConcurrencyStamp = "97bf1797-f1d0-4960-be08-48cbe74add8e",
+                            Email = "customer1@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "CUSTOMER1@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOcn7wY+OYOKJQvR4ZP8nwVpil7BpKMyRCl4IVS+1CHcwJrfcjW6eP0T0/93z/J5Pw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENNiQC67Ifa5cJfYwtulDLT/AMC8EZRUT7NTYKXUEkdOStWTfJa2CuE+O6pPaP19tw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8a907de2-55e4-4b7d-bae0-3bf5c413b74d",
+                            SecurityStamp = "fe93e968-9090-450f-8866-49106b1740bf",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
                         new
                         {
-                            Id = "98978e94-1ed7-4852-bc11-0a0dea7cac5e",
+                            Id = "257654dc-5d9e-4d4b-8b73-14f243ab3111",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3f356171-4d9e-4385-ae1c-9a308d36d3c3",
+                            ConcurrencyStamp = "d76f6058-8906-4cb7-8694-e352e7d5fe1f",
+                            Email = "customer1@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "CUSTOMER1@EMAIL.COM",
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI2nwLIcFFtQ4rlBPq8Qo7LRmqwBpkBqkTsLpjC/RuiSezPWm+dp4DmTHOwas7NjWg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDnr34g+wRNM+Qqc/B3a6KSA1VBh3mqxlYjbApegE6b5GHD4U9bsNmukNGGhR7Zr+A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1199f679-62dc-4789-aab8-f9821d16b501",
+                            SecurityStamp = "80461d21-3b20-4f90-a539-1c401469fcac",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
                         new
                         {
-                            Id = "e3111afa-dc21-4ea1-a994-0aa1e36cb74e",
+                            Id = "fdebfbd2-9834-4cb8-b4a7-d67a65592506",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1816de0c-71c8-481d-8142-b176687fe808",
+                            ConcurrencyStamp = "cb98164e-0497-4daf-8646-a0657642aa80",
+                            Email = "customer2@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "CUSTOMER2@EMAIL.COM",
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHoRKoFINL5cgK/hXzG0gb9ffhUxXNUM7hVqmon+SlCGpTCDrwiO7mBxfJGtN8npaQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIMCublOOt3VVIxjUmuOLcoYbqSXbUvghGhJfXMiX77kGa39TiB76DRvN+h62AaP2A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "994e4598-82e3-48d3-a403-26c67de94453",
+                            SecurityStamp = "a2b35eef-d5f2-47c1-867a-1c0227e5c560",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         },
                         new
                         {
-                            Id = "512bf11d-1464-4679-a2fe-83c3b11010cd",
+                            Id = "f7fcfe5b-aee9-4cdc-a9df-47a316bb9df8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6d20945-4093-4f26-82a2-3345ea93cdf2",
+                            ConcurrencyStamp = "0d7fe79d-5fad-4542-af42-4afe4d926ab2",
+                            Email = "customer3@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "CUSTOMER3@EMAIL.COM",
                             NormalizedUserName = "CUSTOMER3",
-                            PasswordHash = "AQAAAAEAACcQAAAAECAz6gr9qpJs19C5JsMVHvHt4reGEPMzs216rgBd6xHeVd04fVGDRlBfxG+gzMGTEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP5HqBwFQ0Fla4lCX2xPtnvl2rQdB2L0h3gEq/k4iZhhly7Rca7E+S9F+2/cW9nvuw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "52f7b13a-e08c-4662-9265-911465d2a24c",
+                            SecurityStamp = "f757494d-7b42-45d5-81d7-c6ebfc5ae23d",
                             TwoFactorEnabled = false,
                             UserName = "customer3"
                         });

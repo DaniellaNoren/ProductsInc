@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Products_Inc.Migrations
 {
-    public partial class init : Migration
+    public partial class addemailtouser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -281,8 +281,8 @@ namespace Products_Inc.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "f368a68d-decb-4e96-98c6-bc04625c99d8", "Admin", "ADMIN" },
-                    { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "5e57aff2-9163-48db-bbf6-4a900cd85c65", "User", "USER" }
+                    { "438db5c8-0513-43a0-a84c-cd416c4e3a54", "e0013b04-e48b-44db-887f-dea6a684e303", "Admin", "ADMIN" },
+                    { "0948bea6-fb82-49c9-8cd8-fec213fe8e8a", "15f20c68-cf52-433e-8f16-d6c6fb26edd7", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -290,10 +290,10 @@ namespace Products_Inc.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "98978e94-1ed7-4852-bc11-0a0dea7cac5e", 0, "3f356171-4d9e-4385-ae1c-9a308d36d3c3", null, false, false, null, null, "CUSTOMER1", "AQAAAAEAACcQAAAAEI2nwLIcFFtQ4rlBPq8Qo7LRmqwBpkBqkTsLpjC/RuiSezPWm+dp4DmTHOwas7NjWg==", null, false, "1199f679-62dc-4789-aab8-f9821d16b501", false, "customer1" },
-                    { "139216f4-e939-48ee-b39a-ae3c2d86a716", 0, "0ce6a04b-1d66-4ff9-a34d-02044f0731a2", null, false, false, null, null, "ADMIN", "AQAAAAEAACcQAAAAEOcn7wY+OYOKJQvR4ZP8nwVpil7BpKMyRCl4IVS+1CHcwJrfcjW6eP0T0/93z/J5Pw==", null, false, "8a907de2-55e4-4b7d-bae0-3bf5c413b74d", false, "Admin" },
-                    { "e3111afa-dc21-4ea1-a994-0aa1e36cb74e", 0, "1816de0c-71c8-481d-8142-b176687fe808", null, false, false, null, null, "CUSTOMER2", "AQAAAAEAACcQAAAAEHoRKoFINL5cgK/hXzG0gb9ffhUxXNUM7hVqmon+SlCGpTCDrwiO7mBxfJGtN8npaQ==", null, false, "994e4598-82e3-48d3-a403-26c67de94453", false, "customer2" },
-                    { "512bf11d-1464-4679-a2fe-83c3b11010cd", 0, "c6d20945-4093-4f26-82a2-3345ea93cdf2", null, false, false, null, null, "CUSTOMER3", "AQAAAAEAACcQAAAAECAz6gr9qpJs19C5JsMVHvHt4reGEPMzs216rgBd6xHeVd04fVGDRlBfxG+gzMGTEQ==", null, false, "52f7b13a-e08c-4662-9265-911465d2a24c", false, "customer3" }
+                    { "257654dc-5d9e-4d4b-8b73-14f243ab3111", 0, "d76f6058-8906-4cb7-8694-e352e7d5fe1f", "customer1@email.com", false, false, null, "CUSTOMER1@EMAIL.COM", "CUSTOMER1", "AQAAAAEAACcQAAAAEDnr34g+wRNM+Qqc/B3a6KSA1VBh3mqxlYjbApegE6b5GHD4U9bsNmukNGGhR7Zr+A==", null, false, "80461d21-3b20-4f90-a539-1c401469fcac", false, "customer1" },
+                    { "bcdcf3a1-3ae4-4f0f-bc70-6b816886e114", 0, "97bf1797-f1d0-4960-be08-48cbe74add8e", "customer1@email.com", false, false, null, "CUSTOMER1@EMAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAENNiQC67Ifa5cJfYwtulDLT/AMC8EZRUT7NTYKXUEkdOStWTfJa2CuE+O6pPaP19tw==", null, false, "fe93e968-9090-450f-8866-49106b1740bf", false, "Admin" },
+                    { "fdebfbd2-9834-4cb8-b4a7-d67a65592506", 0, "cb98164e-0497-4daf-8646-a0657642aa80", "customer2@email.com", false, false, null, "CUSTOMER2@EMAIL.COM", "CUSTOMER2", "AQAAAAEAACcQAAAAEIMCublOOt3VVIxjUmuOLcoYbqSXbUvghGhJfXMiX77kGa39TiB76DRvN+h62AaP2A==", null, false, "a2b35eef-d5f2-47c1-867a-1c0227e5c560", false, "customer2" },
+                    { "f7fcfe5b-aee9-4cdc-a9df-47a316bb9df8", 0, "0d7fe79d-5fad-4542-af42-4afe4d926ab2", "customer3@email.com", false, false, null, "CUSTOMER3@EMAIL.COM", "CUSTOMER3", "AQAAAAEAACcQAAAAEP5HqBwFQ0Fla4lCX2xPtnvl2rQdB2L0h3gEq/k4iZhhly7Rca7E+S9F+2/cW9nvuw==", null, false, "f757494d-7b42-45d5-81d7-c6ebfc5ae23d", false, "customer3" }
                 });
 
             migrationBuilder.InsertData(
@@ -320,11 +320,11 @@ namespace Products_Inc.Migrations
                 columns: new[] { "UserId", "RoleId" },
                 values: new object[,]
                 {
-                    { "139216f4-e939-48ee-b39a-ae3c2d86a716", "438db5c8-0513-43a0-a84c-cd416c4e3a54" },
-                    { "139216f4-e939-48ee-b39a-ae3c2d86a716", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "98978e94-1ed7-4852-bc11-0a0dea7cac5e", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "e3111afa-dc21-4ea1-a994-0aa1e36cb74e", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
-                    { "512bf11d-1464-4679-a2fe-83c3b11010cd", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" }
+                    { "bcdcf3a1-3ae4-4f0f-bc70-6b816886e114", "438db5c8-0513-43a0-a84c-cd416c4e3a54" },
+                    { "bcdcf3a1-3ae4-4f0f-bc70-6b816886e114", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "257654dc-5d9e-4d4b-8b73-14f243ab3111", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "fdebfbd2-9834-4cb8-b4a7-d67a65592506", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" },
+                    { "f7fcfe5b-aee9-4cdc-a9df-47a316bb9df8", "0948bea6-fb82-49c9-8cd8-fec213fe8e8a" }
                 });
 
             migrationBuilder.InsertData(
@@ -332,10 +332,10 @@ namespace Products_Inc.Migrations
                 columns: new[] { "OrderId", "UserId", "UserId1" },
                 values: new object[,]
                 {
-                    { 2, "98978e94-1ed7-4852-bc11-0a0dea7cac5e", null },
-                    { 3, "e3111afa-dc21-4ea1-a994-0aa1e36cb74e", null },
-                    { 4, "e3111afa-dc21-4ea1-a994-0aa1e36cb74e", null },
-                    { 1, "512bf11d-1464-4679-a2fe-83c3b11010cd", null }
+                    { 2, "257654dc-5d9e-4d4b-8b73-14f243ab3111", null },
+                    { 3, "fdebfbd2-9834-4cb8-b4a7-d67a65592506", null },
+                    { 4, "fdebfbd2-9834-4cb8-b4a7-d67a65592506", null },
+                    { 1, "f7fcfe5b-aee9-4cdc-a9df-47a316bb9df8", null }
                 });
 
             migrationBuilder.InsertData(

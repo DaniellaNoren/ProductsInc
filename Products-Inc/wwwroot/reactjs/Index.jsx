@@ -19,7 +19,7 @@ import AddRoles from './admineditroles.jsx';
 import AdminCreateUser from './Adminuserscreate.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
-import { UserPageUserDetails, UserDetails } from './UserDetails.jsx';
+import UserDetails  from './UserDetails.jsx';
 
 import {
     Link,

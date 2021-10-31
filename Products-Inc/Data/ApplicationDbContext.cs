@@ -153,12 +153,16 @@ namespace Products_Inc.Data
                 Id = Guid.NewGuid().ToString(),
                 UserName = "Admin",
                 NormalizedUserName = "ADMIN",
+                Email = "customer1@email.com",
+                NormalizedEmail = "customer1@email.com".ToUpper(),
                 PasswordHash = hashit.HashPassword(null, "Admin")
             };
             User customer1 = new User
             {
                 Id = Guid.NewGuid().ToString(), // primary key
                 UserName = "customer1",
+                Email = "customer1@email.com",
+                NormalizedEmail = "customer1@email.com".ToUpper(),
                 NormalizedUserName = "CUSTOMER1",
                 PasswordHash = hashit.HashPassword(null, "customer1")
             };
@@ -167,12 +171,16 @@ namespace Products_Inc.Data
                 Id = Guid.NewGuid().ToString(), // primary key
                 UserName = "customer2",
                 NormalizedUserName = "CUSTOMER2",
+                Email = "customer2@email.com",
+                NormalizedEmail = "customer2@email.com".ToUpper(),
                 PasswordHash = hashit.HashPassword(null, "customer2")
             };
             User customer3 = new User
             {
                 Id = Guid.NewGuid().ToString(),// primary key
                 UserName = "customer3",
+                Email = "customer3@email.com",
+                NormalizedEmail = "customer3@email.com".ToUpper(),
                 NormalizedUserName = "CUSTOMER3",
                 PasswordHash = hashit.HashPassword(null, "customer3")
             };

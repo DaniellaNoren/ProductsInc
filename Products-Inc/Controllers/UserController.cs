@@ -43,9 +43,9 @@ namespace Products_Inc.Controllers
 
       //  [Authorize(Roles = "Admin")]
         [HttpGet("roles/{userName}")]
-        public ActionResult GetAllUserRoles(string userName)
+        public async Task<ActionResult> GetAllUserRoles(string userName)
         {
-            return new OkObjectResult(_userService.GetAllUserRoles(userName));
+            return new OkObjectResult(new UserViewModel { Roles = await _userService.GetAllUserRoles(userName) });
         }
 
         [HttpPost("login")]
@@ -93,15 +93,18 @@ namespace Products_Inc.Controllers
 
         }
 
-        [HttpPut("{userId}")]
-        public async Task<IActionResult> EditUser(string userId, [FromBody] UpdateUserViewModel updateModel)
+        [HttpPut("{userName}")]
+        public async Task<IActionResult> EditUser(string userName, [FromBody] UpdateUserViewModel updateModel)
         {
-            UserViewModel user = await _userService.Update(userId, updateModel);
+            bool login = User.Identity.Name.Equals(userName);
+
+            UserViewModel user = await _userService.Update(updateModel.UserId, updateModel, login);
            
             
             return new OkObjectResult(user);
         }
 
+       
         [Authorize(Roles = "User")]
         [HttpGet("me")]
         public async Task<IActionResult> GetLoggedInUserInfo()
@@ -117,15 +120,15 @@ namespace Products_Inc.Controllers
             }
         }
 
-        [HttpPut("/{id}/roles/{role}")]
-        public async Task<IActionResult> AddRoleToUser(string id, string role)
-        {
-            await _userService.AddRole(id, role);
-            return new OkObjectResult("ok");
+        //[HttpPut("/{id}/roles/{role}")]
+        //public async Task<IActionResult> AddRoleToUser(string id, string role)
+        //{
+        //    await _userService.AddRole(id, role);
+        //    return new OkObjectResult("ok");
             
-        }
+        //}
 
-        [HttpPut("/{userName}/roles")]
+        [HttpPut("roles/{userName}")]
         public async Task<IActionResult> AddRoleToUser(string userName, [FromBody] List<string> roles)
         {
             await _userService.ReplaceRoles(userName, roles);
