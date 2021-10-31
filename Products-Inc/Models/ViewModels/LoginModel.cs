@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,9 +12,12 @@ namespace Products_Inc.Models.ViewModels
 
         
         [Required]
+        [JsonProperty(PropertyName = "PropertyName")]
         public string UserName { get; set; }
         [Required]
+        [JsonProperty(PropertyName = "Password")]
         public string Password { get; set; }
+        [JsonProperty(PropertyName = "RememberMe")]
         public bool RememberMe { get; set; }
 
         public LoginModel()

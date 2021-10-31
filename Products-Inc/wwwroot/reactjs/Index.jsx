@@ -8,6 +8,7 @@ import FooterPartial from './FooterPartial.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
 import Logout from './Logout.jsx';
+import YouAreLoggedOut from './YouAreLoggedOut.jsx';
 import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
 import { Checkout, Receipt } from './Checkout.jsx';
@@ -18,6 +19,7 @@ import AdminProducts from './AdminProducts.jsx';
 
 import AddRoles from './admineditroles.jsx';
 import AdminCreateUser from './Adminuserscreate.jsx';
+import AdminProducts from './Adminproducts.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
 import { UserPageUserDetails, UserDetails } from './UserDetails.jsx';
@@ -60,6 +62,7 @@ export default class Index extends Component {
 
 
     render() {
+        $(window).scrollTop(0)
 
         const app = (
 
@@ -86,6 +89,8 @@ export default class Index extends Component {
                         <Route path="/login" render={(props) => <Login {...props } />}/>
                         <Route path="/register"><Register /></Route>
                         <Route path="/logout" render={(props) => <Logout {...props } />}/>
+                       
+                        <Route path="/youareloggedout"><YouAreLoggedOut /></Route>
 
                         <Route path="/products"><Products /></Route>
                         <Route path="/orders"><Orders /></Route>
@@ -107,20 +112,12 @@ export default class Index extends Component {
                     </Switch>
 
 
-                    {/*<h1>{this.props.test}</h1>*/}
-                    {/*<SideMenu viewOrders={() => {*/}
-                    {/*    this.setState({ viewOrders: !this.state.viewOrders });*/}
-                    {/*}} />*/}
-
-                    {/*<div>*/}
-                    {/*    {this.state.viewOrders ? <OrderPage /> : null}*/}
-                    {/*</div>*/}
 
                 </div>
 
                 <FooterPartial />  {/*Footer component*/}
-            </div> 
-                        
+            </div>
+
         );
 
 
@@ -140,14 +137,14 @@ export default class Index extends Component {
             </BrowserRouter>
         )
 
-        
+
     }
 }
 
 
 
 class OrderPage extends Component {
-    //get the orders by calling the partialview with user orders. render the html 
+    //get the orders by calling the partialview with user orders. render the html
     // getOrders = () => {
     //     $.get("url")
     //     .done(r => $(".orders").html = r.data)
@@ -204,3 +201,7 @@ function SideMenu({ viewOrders, location, context }) {
         </ul>
     )
 }
+
+
+
+

@@ -18,7 +18,7 @@ namespace Products_Inc.Models.Interfaces
         bool Remove(int id);
 
         Task<bool> AddRole(string userName, string role);
-        Task<UserViewModel> Login(LoginModel loginModel);
+        Task<bool> Login(LoginModel loginModel);
 
         void Logout();
         Task<UserViewModel> Update(string userId, UpdateUserViewModel updateModel);

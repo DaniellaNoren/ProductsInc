@@ -36,9 +36,9 @@ namespace Products_Inc.Data
             modelBuilder.Entity<Order>()
                 .HasKey(mb => mb.OrderId);
             modelBuilder.Entity<Order>()
-                .HasOne(o => o.User)
-                .WithMany()
-                .HasForeignKey(o => o.UserId);
+                 .HasOne<User>(mb => mb.User)
+                 .WithMany(m => m.Orders)
+                 .HasForeignKey(mb => mb.UserId);
 
             modelBuilder.Entity<OrderProduct>().HasKey(op => op.OrderProductId);
 
@@ -176,9 +176,46 @@ namespace Products_Inc.Data
                 NormalizedUserName = "CUSTOMER3",
                 PasswordHash = hashit.HashPassword(null, "customer3")
             };
+
             modelBuilder.Entity<User>().HasData(
                 adminUser, customer1, customer2, customer3
             );
+
+            //   ----------- Setting roles to users ---------------
+
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleAdmin.Id,
+                   UserId = adminUser.Id
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = adminUser.Id
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = customer1.Id
+               }
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = customer2.Id
+               }
+
+           ,
+               new IdentityUserRole<string>
+               {
+                   RoleId = roleUser.Id,
+                   UserId = customer3.Id
+               }
+           );
 
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(
                new IdentityUserRole<string>
@@ -212,11 +249,41 @@ namespace Products_Inc.Data
                }
            );
 
+
+
+            // -----------------------------------------
+
+
+
+            // --- Seeding with orders with user linked to orders
+
+
             modelBuilder.Entity<Order>().HasData(
                 new Order { OrderId = 1, UserId = customer3.Id },
                 new Order { OrderId = 2, UserId = customer1.Id },
                 new Order { OrderId = 3, UserId = customer2.Id },
                 new Order { OrderId = 4, UserId = customer2.Id }
+                new Order { OrderId = 1, UserId = customer3.Id },
+                new Order { OrderId = 2, UserId = customer1.Id },
+                new Order { OrderId = 3, UserId = customer2.Id },
+                new Order { OrderId = 4, UserId = customer2.Id }
+            );
+
+
+            modelBuilder.Entity<OrderProduct>().HasData(
+                new OrderProduct { OrderProductId = 1, OrderId = 1, ProductId = 50, Amount = 4 },
+                new OrderProduct { OrderProductId = 2, OrderId = 1, ProductId = 52, Amount = 2 },
+                new OrderProduct { OrderProductId = 3, OrderId = 1, ProductId = 57, Amount = 1 },
+                new OrderProduct { OrderProductId = 4, OrderId = 2, ProductId = 52, Amount = 6 },
+                new OrderProduct { OrderProductId = 5, OrderId = 2, ProductId = 54, Amount = 1 },
+                new OrderProduct { OrderProductId = 6, OrderId = 2, ProductId = 56, Amount = 2 },
+
+                new OrderProduct { OrderProductId = 7, OrderId = 3, ProductId = 55, Amount = 9 },
+                new OrderProduct { OrderProductId = 8, OrderId = 3, ProductId = 57, Amount = 1 },
+                new OrderProduct { OrderProductId = 9, OrderId = 3, ProductId = 51, Amount = 3 },
+                new OrderProduct { OrderProductId = 10, OrderId = 4, ProductId = 52, Amount = 5 },
+                new OrderProduct { OrderProductId = 11, OrderId = 4, ProductId = 53, Amount = 3 },
+                new OrderProduct { OrderProductId = 12, OrderId = 4, ProductId = 55, Amount = 1 }
             );
             // ---------------------------------------
 

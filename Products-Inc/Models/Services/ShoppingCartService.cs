@@ -24,7 +24,8 @@ namespace Products_Inc.Models.Services
                 Products = editedShoppingCart.Products.Select(p => new ShoppingCartProductViewModel()
                 { Product = new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription,
                 ProductId = p.ProductId, ProductName = p.Product.ProductName, ProductPrice = p.Product.ProductPrice },
-                Amount = p.Amount, ShoppingCartId = p.ShoppingCartId, ProductId = p.ProductId }).ToList(), UserId = editedShoppingCart.UserId };
+                Amount = p.Amount, ShoppingCartId = p.ShoppingCartId, ProductId = p.ProductId }).ToList(), UserId = editedShoppingCart.UserId
+            };
 
         }
 

@@ -7,14 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Content\**" />
-    <Compile Remove="Data\Migrations\**" />
-    <Content Remove="Content\**" />
-    <Content Remove="Data\Migrations\**" />
-    <EmbeddedResource Remove="Content\**" />
-    <EmbeddedResource Remove="Data\Migrations\**" />
-    <None Remove="Content\**" />
-    <None Remove="Data\Migrations\**" />
     <Compile Remove="wwwroot\reactjs\img\**" />
     <Content Remove="wwwroot\reactjs\img\**" />
     <EmbeddedResource Remove="wwwroot\reactjs\img\**" />

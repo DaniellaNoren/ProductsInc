@@ -48,7 +48,7 @@ class UserDetails extends Component{
             type: "PUT",
             data: JSON.stringify(updateUserModel),
             Accept: "application/json",
-            contentType: "application/json", 
+            contentType: "application/json",
             dataType: "json",
             success: function(res) {
                 t.setState({msgIsError: false, msg: "Details updated!"})
@@ -61,13 +61,14 @@ class UserDetails extends Component{
     stateMethod = (newDetail) => {
         this.setState({updateUserDetailsModel: {...this.state.updateUserDetailsModel, ...newDetail}})
     }
-     render() {
+    render() {
+        $(window).scrollTop(0)
             return (
                 <div>
                     <h4><b>UserDetails:</b></h4>
                     
                    {this.state.msgIsError ? <p className="text-danger">{this.state.msg}</p> : <p className="text-success">{this.state.msg}</p> }
-                   <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/> 
+                   <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/>
                 </div>
             )
         }
