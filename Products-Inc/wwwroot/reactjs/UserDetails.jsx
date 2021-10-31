@@ -17,8 +17,8 @@ export default class UserDetails extends Component{
     componentDidMount = () => {
         this.loadDataFromServer();
     }
-    changeUserDetails = () => { 
-        
+    changeUserDetails = () => {
+
         this.setState({msgIsError: false, msg: ""})
         let updateUserModel = this.state.updateUserDetailsModel;
         let t = this;
@@ -26,13 +26,13 @@ export default class UserDetails extends Component{
         if(updateUserModel.password && updateUserModel.password !== updateUserModel.confirmPassword){
             this.setState({msgIsError: true, msg: "Passwords do not match"})
         }
-    
-        $.ajax({      
+
+        $.ajax({
             url: `/user/${this.state.user.id}`,
             type: "PUT",
             data: JSON.stringify(updateUserModel),
             Accept: "application/json",
-            contentType: "application/json", 
+            contentType: "application/json",
             dataType: "json",
             success: function(res) {
                 t.setState({msgIsError: false, msg: "Details updated!"})
@@ -45,13 +45,14 @@ export default class UserDetails extends Component{
     stateMethod = (newDetail) => {
         this.setState({updateUserDetailsModel: {...this.state.updateUserDetailsModel, ...newDetail}})
     }
-     render() {
+    render() {
+        $(window).scrollTop(0)
             return (
                 <div>
                     <h4><b>UserDetails:</b></h4>
                     <Link className="btn btn-primary" to="/userpage">Back</Link>
                    {this.state.msgIsError ? <p className="text-danger">{this.state.msg}</p> : <p className="text-success">{this.state.msg}</p> }
-                   <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/> 
+                   <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/>
                 </div>
             )
         }
@@ -79,4 +80,4 @@ function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
                 <button className="btn btn-primary" type="submit">Edit</button>
         </form>
     )
-}    
+}

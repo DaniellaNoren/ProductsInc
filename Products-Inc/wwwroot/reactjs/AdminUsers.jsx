@@ -10,7 +10,8 @@ import {
 
 export default class AdminUsers extends Component{
     
-    render(){
+    render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <h4><b>AdminUsers:</b></h4>

@@ -8,6 +8,7 @@ import FooterPartial from './FooterPartial.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
 import Logout from './Logout.jsx';
+import YouAreLoggedOut from './YouAreLoggedOut.jsx';
 import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
 import { Checkout, Receipt } from './Checkout.jsx';
@@ -47,6 +48,7 @@ export default class Index extends Component {
         }
     }
     render() {
+        $(window).scrollTop(0)
 
         const app = (
 
@@ -74,6 +76,7 @@ export default class Index extends Component {
                         <Route path="/login"><Login /></Route>
                         <Route path="/register"><Register /></Route>
                         <Route path="/logout"><Logout /></Route>
+                        <Route path="/youareloggedout"><YouAreLoggedOut /></Route>
 
                         <Route path="/products"><Products /></Route>
                         <Route path="/orders"><Orders /></Route>

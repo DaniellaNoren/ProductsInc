@@ -8,14 +8,17 @@ import {
 import Cookies from 'js-cookies';
 
 export default class Login extends Component {
-    state = {
-        loginModel: { userName: "", password: "", rememberMe: false },
-        redirect: false
-    }
 
-    componentDidMount() {
-        this.setState({ redirect: false })
-    }
+
+        state = {
+            loginModel: { userName: "", password: "", rememberMe: false },
+            /*redirect: false*/
+        }
+
+
+    //componentDidMount() {
+    //    this.setState({ redirect: false })
+    //}
 
 
     tryToLogin = e => {
@@ -59,8 +62,9 @@ export default class Login extends Component {
                         .done(r => console.log(r)).fail(e => console.log(e));
                 }
 
-                t.props.location.loggedInCallback(res);
-                t.setState({ redirect: true })
+                //t.props.location.loggedInCallback(res)
+
+                /*t.setState({ redirect: true })*/
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 /*console.log(jqXHR);*/
@@ -73,9 +77,10 @@ export default class Login extends Component {
 
     render() {
         $(window).scrollTop(0)
-        if (this.state.redirect) {
-            return <Redirect to="/" />
-        } else
+
+        //if (this.state.redirect) {
+        //    return <Redirect to="/" />
+        //} else
             return (
                 <div>
                     <form className="formlogin" onSubmit={this.tryToLogin}>

@@ -13,6 +13,7 @@ export default class UserPage extends Component {
 
     }
     render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <h4>Userpage now</h4>

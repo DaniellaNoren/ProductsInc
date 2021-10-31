@@ -17,7 +17,7 @@ export default class Products extends Component {
             const productlist = JSON.parse(xhr.responseText)
             //console.log(productlist)
             this.setState({ products: productlist })
-           
+
         }
         xhr.send()
 
@@ -33,24 +33,25 @@ export default class Products extends Component {
         let shoppingCartProduct = {
             product, amount: 1, productId: product.productId
         };
-        $.ajax({      
+        $.ajax({
             url: "/api/shoppingcart/products",
             type: "POST",
             data: JSON.stringify(shoppingCartProduct),
             Accept: "application/json",
-            contentType: "application/json", 
+            contentType: "application/json",
             dataType: "json",
             success: function(res) {
                 //console.log(res);
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                
+
             }
         });
-    } 
+    }
 
     render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <h4><b>All Products:</b></h4>
@@ -58,7 +59,7 @@ export default class Products extends Component {
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 
                     { this.state.products.map(p => (
-                       
+
                         <div key={p.productId.toString()} className="product w-2 m-2">
                             <div>
                                 <br />
@@ -83,8 +84,8 @@ export default class Products extends Component {
     }
 }
 
-        
-    
+
+
 
 
 function Product({ product, addProductEvent }) {
@@ -103,8 +104,8 @@ function Product({ product, addProductEvent }) {
                     <button className="btn" onClick={() => addProductEvent(product)}>ADD</button>
                 </div>
             </div>
-  
+
         </div>
-    ) 
-}         
+    )
+}
 
