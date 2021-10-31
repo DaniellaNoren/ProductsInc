@@ -25,7 +25,7 @@ export default class AdminUsers extends Component{
             
                 <div> 
                     <div>
-                        <Link className="btn btn-primary" to={{pathname:"/admincreateuser"}}></Link>
+                        <Link className="btn btn-primary" to={{pathname:"/register", redirectUrl:"/adminusers"}}>Register new user</Link>
                     </div>
 
                 </div>

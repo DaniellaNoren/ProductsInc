@@ -83,8 +83,8 @@ export default class Index extends Component {
                         <Route exact path="/"><Redirect to="/products" /></Route>
 
                         <Route path="/login" render={(props) => <Login {...props } />}/>
-                        <Route path="/register"><Register /></Route>
                         <Route path="/logout" render={(props) => <Logout {...props } />}/>
+                        <Route path="/register" render={(props) => <Register {...props } />}/>
 
                         <Route path="/products"><Products /></Route>
                         <Route path="/orders"><Orders /></Route>

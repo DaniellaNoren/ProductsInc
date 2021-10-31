@@ -25,6 +25,7 @@ export default class Register extends Component {
             dataType: "json",
             success: function(response, textStatus, jqXHR) {
                 console.log("succeeded");
+                console.log(t)
                 t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -39,7 +40,7 @@ export default class Register extends Component {
     }
     render() {
         if(this.state.redirect){
-            return <Redirect to="/login"/>
+            return <Redirect to={this.props.location.redirectUrl}/>
         }else
         return (
             <div>
