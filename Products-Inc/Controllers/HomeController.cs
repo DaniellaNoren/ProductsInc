@@ -43,65 +43,65 @@ namespace Products_Inc.Controllers
         //}
 
 
-        //[HttpGet]
-        //public IActionResult AllPeopleList()
-        //{
-        //    /*PeopleViewModel peopleViewModel = new PeopleViewModel()
-        //    {
-        //        PeopleListView = _peopleService.All().PeopleListView,
-        //        CityListView = _cityService.All().CityListView,
-        //    };*/
+        [HttpGet]
+        public IActionResult AllPeopleList()
+        {
+            /*PeopleViewModel peopleViewModel = new PeopleViewModel()
+            {
+                PeopleListView = _peopleService.All().PeopleListView,
+                CityListView = _cityService.All().CityListView,
+            };*/
 
-        //    return PartialView("_PeopleListPartial");
-        //}
+            return PartialView("_PeopleListPartial");
+        }
 
-        //[HttpGet]
-        //public IActionResult AllProducts()
-        //{
-        //    /*PeopleViewModel peopleViewModel = new PeopleViewModel()
-        //    {
-        //        PeopleListView = _peopleService.All().PeopleListView,
-        //        CityListView = _cityService.All().CityListView,
-        //    };*/
+        [HttpGet]
+        public IActionResult AllProducts()
+        {
+            /*PeopleViewModel peopleViewModel = new PeopleViewModel()
+            {
+                PeopleListView = _peopleService.All().PeopleListView,
+                CityListView = _cityService.All().CityListView,
+            };*/
 
-        //    return PartialView("ProductViewPartial");
-        //}
+            return PartialView("ProductViewPartial");
+        }
 
 
-        //[HttpPost]
-        //public IActionResult FindPersonById(int id)
-        //{
-        //    /*PeopleViewModel peopleViewModel = new PeopleViewModel()
-        //    {
-        //        CityListView = _cityService.All().CityListView,
-        //    };
+        [HttpPost]
+        public IActionResult FindPersonById(int id)
+        {
+            /*PeopleViewModel peopleViewModel = new PeopleViewModel()
+            {
+                CityListView = _cityService.All().CityListView,
+            };
 
-        //    Person person = _peopleService.FindBy(id);
+            Person person = _peopleService.FindBy(id);
 
-        //    if (person != null)
-        //    {
-        //        peopleViewModel.PeopleListView.Add(person);
+            if (person != null)
+            {
+                peopleViewModel.PeopleListView.Add(person);
 
-        //        return PartialView("_PeopleListPartial", peopleViewModel);
-        //    }
-        //    */
-        //    return StatusCode(404);
+                return PartialView("_PeopleListPartial", peopleViewModel);
+            }
+            */
+            return StatusCode(404);
 
-        //}
+        }
 
-        //[HttpPost]
-        //public IActionResult DeletePersonById(int id)
-        //{
-        //    /*bool success = _peopleService.Remove(id);
+        [HttpPost]
+        public IActionResult DeletePersonById(int id)
+        {
+            /*bool success = _peopleService.Remove(id);
 
-        //    if (success)
-        //    {
-        //        return StatusCode(200);
-        //    }
-        //    */
-        //    return StatusCode(404);
+            if (success)
+            {
+                return StatusCode(200);
+            }
+            */
+            return StatusCode(404);
 
-        //}
+        }
 
 
 

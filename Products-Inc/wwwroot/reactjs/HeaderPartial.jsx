@@ -72,7 +72,7 @@ export default class Headerpart extends Component {
                                 </li>
                                 { !this.props.userIsAuthenticated ? 
                                 <li className="nav-item">
-                                    <Link to="/register" className="nav-link"><button>Register</button></Link>
+                                    <Link className="btn btn-primary" to={{pathname: "/register", redirectUrl: "/login"}} className="nav-link">Register</Link>
                                 </li> : null 
                                 }
                                 { !this.props.userIsAuthenticated ?

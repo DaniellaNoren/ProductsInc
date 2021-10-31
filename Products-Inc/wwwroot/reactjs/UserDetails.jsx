@@ -3,40 +3,45 @@ import {
     Link
 } from 'react-router-dom';
 
-class UserPageUserDetails extends Component{
-    state = {
-        user: {}
-    }
-    loadDataFromServer = () => {
-        let t = this;
-        $.get("api/user/me", function(r){ t.setState({user: r})})
-    }
-    componentDidMount = () => {
-        this.loadDataFromServer();
-    }
-render(){
-    <div>
-    <Link className="btn btn-primary" to="/userpage">Back</Link>
-    <UserDetails user={this.state.user}/>
-    </div>
-}
-}
+// class UserPageUserDetails extends Component{
+//     state = {
+//         user: {}
+//     }
+//     loadDataFromServer = () => {
+//         let t = this;
+//         $.get("api/user/me", function(r){ t.setState({user: r})})
+//     }
+//     componentDidMount = () => {
+//         this.loadDataFromServer();
+//     }
+// render(){
+//     return ( <div>
+//     <Link className="btn btn-primary" to="/userpage">Back</Link>
+//     <UserDetails user={this.state.user}/>
+//     </div>
+//     )}
+// }
 
 class UserDetails extends Component{
     state = {
         user: { userName: "", id: "", email: ""},
-        updateUserDetailsModel: { userName: "", email: "", password: "", confirmPassword: "" },
+        updateUserDetailsModel: { userId: "", userName: "", email: "", password: "", confirmPassword: "" },
         msgIsError: false,
         msg: ""
     }
     componentDidMount(){
         this.setState({user: this.props.user ? this.props.user : this.props.location.user});
-            this.setState({updateUserDetailsModel: {userName: this.state.user.userName, email: this.state.user.email, ...this.state.updateUserDetailsModel}})
+
+        console.log(this.state.user)
+        this.setState({updateUserDetailsModel: {userId: this.state.user.id, userName: this.state.user.userName, email: this.state.user.email, ...this.state.updateUserDetailsModel}})
     }
     changeUserDetails = () => { 
         
         this.setState({msgIsError: false, msg: ""})
+        console.log(this.state.user.id)
+        
         let updateUserModel = this.state.updateUserDetailsModel;
+        updateUserModel.userId = this.state.user.id;
         let t = this;
 
         if(updateUserModel.password && updateUserModel.password !== updateUserModel.confirmPassword){
@@ -44,11 +49,11 @@ class UserDetails extends Component{
         }
     
         $.ajax({      
-            url: `api/user/${this.state.user.id}`,
+            url: `api/user/${this.state.user.userName}`,
             type: "PUT",
             data: JSON.stringify(updateUserModel),
             Accept: "application/json",
-            contentType: "application/json",
+            contentType: "application/json", 
             dataType: "json",
             success: function(res) {
                 t.setState({msgIsError: false, msg: "Details updated!"})
@@ -61,14 +66,14 @@ class UserDetails extends Component{
     stateMethod = (newDetail) => {
         this.setState({updateUserDetailsModel: {...this.state.updateUserDetailsModel, ...newDetail}})
     }
-    render() {
-        $(window).scrollTop(0)
+     render() {
             return (
                 <div>
-                    <h4><b>UserDetails:</b></h4>
+                    <h4><b>Details:</b></h4>
+                    <Link className="btn btn-primary" to={this.props.back ? this.props.back : this.props.location.back}>Back</Link>
                     
                    {this.state.msgIsError ? <p className="text-danger">{this.state.msg}</p> : <p className="text-success">{this.state.msg}</p> }
-                   <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/>
+                   <UserForm user={this.state.user} updateUserModel={this.state.updateUserDetailsModel} stateMethod={this.stateMethod} updateUserMethod={this.changeUserDetails}/> 
                 </div>
             )
         }
@@ -98,4 +103,4 @@ function UserForm({user, updateUserModel, stateMethod, updateUserMethod}){
     )
 }    
 
-export {UserPageUserDetails, UserDetails};
+export default UserDetails;

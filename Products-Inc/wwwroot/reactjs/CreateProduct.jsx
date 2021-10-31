@@ -69,7 +69,6 @@ export default class CreateProduct extends Component {
         reader.readAsArrayBuffer(file); 
     }
     render() {
-        $(window).scrollTop(0)
         return (
              <div>
                  <p className="text-danger">{this.state.errorMsg}</p>

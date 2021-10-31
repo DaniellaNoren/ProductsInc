@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Models.ViewModels
 {
-    public class LoginModel
+    public class LoginModelCustom
     {
 
         
@@ -16,7 +16,7 @@ namespace Products_Inc.Models.ViewModels
         public string Password { get; set; }
         public bool RememberMe { get; set; }
 
-        public LoginModel()
+        public LoginModelCustom()
         {
 
         }

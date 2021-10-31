@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products_Inc.Models;
@@ -14,18 +13,18 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-
-
+    [ApiController]
 
     public class UserController : Controller
     {
+        private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
-        
 
-        public UserController(IUserService userService)
+
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
+            _logger = logger;
             this._userService = userService;
         }
 
@@ -43,10 +42,10 @@ namespace Products_Inc.Controllers
         }
 
       //  [Authorize(Roles = "Admin")]
-        [HttpGet("{userName}/roles")]
-        public ActionResult GetAllUserRoles(string userName)
+        [HttpGet("roles/{userName}")]
+        public async Task<ActionResult> GetAllUserRoles(string userName)
         {
-            return new OkObjectResult(_userService.GetAllUserRoles(userName));
+            return new OkObjectResult(new UserViewModel { Roles = await _userService.GetAllUserRoles(userName) });
         }
 
         [HttpPost("login")]
@@ -54,7 +53,7 @@ namespace Products_Inc.Controllers
         {
             if (ModelState.IsValid)
             {
-                bool user = await _userService.Login(loginModel);
+                UserViewModel user = await _userService.Login(loginModel);
 
                 return new OkObjectResult(user);
             }
@@ -85,32 +84,27 @@ namespace Products_Inc.Controllers
                 return new BadRequestObjectResult(new { errorMsg = "Incorrect model" });
             }
         }
+
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout(string returnUrl = null)
+        public async Task<ActionResult> Logout()
         {
             _userService.Logout();
+            return new OkResult();
 
-            if (returnUrl != null)
-            {
-                return new OkObjectResult(new { msg = "Logged Out. Can redirect to page is needed" });
-            }
-            else
-            {
-                return new OkObjectResult(new { msg = "Logged Out" });
-            }
         }
 
-
-
-        [HttpPut("edituser/{userId}")]
-        public async Task<IActionResult> EditUser(string userId, [FromBody] UpdateUserViewModel updateModel)
+        [HttpPut("{userName}")]
+        public async Task<IActionResult> EditUser(string userName, [FromBody] UpdateUserViewModel updateModel)
         {
-            UserViewModel user = await _userService.Update(userId, updateModel);
+            bool login = User.Identity.Name.Equals(userName);
 
-
+            UserViewModel user = await _userService.Update(updateModel.UserId, updateModel, login);
+           
+            
             return new OkObjectResult(user);
         }
 
+       
         [Authorize(Roles = "User")]
         [HttpGet("me")]
         public async Task<IActionResult> GetLoggedInUserInfo()
@@ -126,143 +120,70 @@ namespace Products_Inc.Controllers
             }
         }
 
-        [HttpPut("/{id}/roles/{role}")]
-        public async Task<IActionResult> AddRoleToUser(string id, string role)
-        {
-            await _userService.AddRole(id, role);
-            return new OkObjectResult("ok");
+        //[HttpPut("/{id}/roles/{role}")]
+        //public async Task<IActionResult> AddRoleToUser(string id, string role)
+        //{
+        //    await _userService.AddRole(id, role);
+        //    return new OkObjectResult("ok");
             
-        }
+        //}
 
-        [HttpPut("/{userName}/roles")]
+        [HttpPut("roles/{userName}")]
         public async Task<IActionResult> AddRoleToUser(string userName, [FromBody] List<string> roles)
         {
             await _userService.ReplaceRoles(userName, roles);
             return new OkObjectResult("ok");
+
         }
 
 
-        [HttpGet("accessdenied")]
-        public IActionResult AccessDenied()
+
+
+        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
         {
-            return new BadRequestObjectResult(new { errorMsg = "Access Denied." });
-        }
-
-
-        [HttpGet("testapi")]
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult testapi()
-        {
-            //List<UserViewModel> user = _userService.All();
-            var hejsan = "bööööös";
-
-            return Json(hejsan);
-        }
-
-        public IActionResult IsUserLoggedIn()
-        {
-            //List<UserViewModel> user = _userService.All();
-            var hejsan = "bööööös";
-
-            return Json(hejsan);
-        }
-
-        //private void Errors(IdentityResult result)
-        //{
-        //    foreach (IdentityError error in result.Errors)
-        //        ModelState.AddModelError("", error.Description);
-        //}
-
-
-        //public IActionResult Create() => View("CreateRole");
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Create([Required] string name)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        IdentityResult result = await roleManager.CreateAsync(new IdentityRole(name));
-        //        if (result.Succeeded)
-        //            return RedirectToAction("Index");
-        //        else
-        //            Errors(result);
-        //    }
-        //    return View(name);
-        //}
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(string id)
-        //{
-        //    IdentityRole role = await roleManager.FindByIdAsync(id);
-        //    if (role != null)
-        //    {
-        //        IdentityResult result = await roleManager.DeleteAsync(role);
-        //        if (result.Succeeded)
-        //            return RedirectToAction("Index");
-        //        else
-        //            Errors(result);
-        //    }
-        //    else
-        //        ModelState.AddModelError("", "No role found");
-        //    return View("Index", roleManager.Roles);
-        //}
-
-
-        //public async Task<IActionResult> Update(string id)
-        //{
-        //    IdentityRole role = await roleManager.FindByIdAsync(id);
-        //    List<User> members = new List<User>();
-        //    List<User> nonMembers = new List<User>();
-        //    foreach (User user in userManager.Users)
-        //    {
-        //        var list = await userManager.IsInRoleAsync(user, role.Name) ? members : nonMembers;
-        //        list.Add(user);
-        //    }
-        //    return View("UpdateRole", new IdentityRoleEdit
-        //    {
-        //        Role = role,
-        //        Members = members,
-        //        NonMembers = nonMembers
-        //    });
-        //}
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Update(IdentityRoleModification model)
-        //{
-        //    IdentityResult result;
-        //    if (ModelState.IsValid)
-        //    {
-        //        foreach (string userId in model.AddIds ?? new string[] { })
-        //        {
-        //            User user = await userManager.FindByIdAsync(userId);
-        //            if (user != null)
-        //            {
-        //                result = await userManager.AddToRoleAsync(user, model.RoleName);
-        //                if (!result.Succeeded)
-        //                    Errors(result);
-        //            }
-        //        }
-        //        foreach (string userId in model.DeleteIds ?? new string[] { })
-        //        {
-        //            User user = await userManager.FindByIdAsync(userId);
-        //            if (user != null)
-        //            {
-        //                result = await userManager.RemoveFromRoleAsync(user, model.RoleName);
-        //                if (!result.Succeeded)
-        //                    Errors(result);
-        //            }
-        //        }
-        //    }
-
-        //    if (ModelState.IsValid)
-        //        return RedirectToAction(nameof(Index));
-        //    else
-        //        return await Update(model.RoleId);
-        //}
-
-
+            return View(new ProductsViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }*/
     }
 }
+
+
+/*
+ 
+ 
+  [HttpPOST]
+C - Create new user 
+return view with the created product
+
+
+R -  GET user info
+
+
+U - get 1 user to view and edit. 
+When pressing save /submit button goto PUT/PAtch.
+
+ 
+U - PUT/Patch
+Edit user find by ID
+return partial view, viewmodel 
+
+
+
+D - 
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ */

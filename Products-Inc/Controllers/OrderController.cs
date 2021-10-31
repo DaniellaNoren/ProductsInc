@@ -13,12 +13,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Products_Inc.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-
+    [ApiController]
     public class OrderController : Controller
     {
-
+      
         private readonly IOrderService _orderService;
         private readonly IUserService _userService;
 
@@ -52,8 +51,8 @@ namespace Products_Inc.Controllers
         public IActionResult GetUserOrders(string userid)
         {
             return new OkObjectResult(_orderService.FindAllBy(userid));
-        }
-
+        } 
+        
         [Authorize(Roles = "User")]
         [HttpGet("users")]
         public async Task<IActionResult> GetLoggedInUserOrders()
@@ -71,8 +70,9 @@ namespace Products_Inc.Controllers
         }
 
 
-
+       
     }
 }
 
-
+ 
+ 

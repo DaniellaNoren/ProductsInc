@@ -13,16 +13,16 @@ namespace Products_Inc.Models
         {
             UserId = userId; 
         }
-        public Order(string userId, List<OrderProduct> orderProducts)
+        public Order(string userId, List<OrderProduct> products)
         {
             UserId = userId;
-            OrderProducts = orderProducts;
+            OrderProducts = products;
         }
 
 
         public int OrderId { get; set; }
 
-        public string UserId { get; set; } // This is Identity UserID named Id as a string in identity table
+        public string UserId { get; set; } // This is Identity userID named Id only in database
 
 
         public User User { get; set; }
