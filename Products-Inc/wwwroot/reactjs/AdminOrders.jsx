@@ -26,7 +26,6 @@ export default class AdminOrders extends Component {
 //}
 
 
-
         loadDataFromServer = e => {
             const xhr = new XMLHttpRequest();
             xhr.open('get', "api/order", true)
@@ -37,16 +36,6 @@ export default class AdminOrders extends Component {
 
             }
             xhr.send()
-
-            //const xhruser = new XMLHttpRequest();
-            //xhruser.open('get', "api/user", true)
-            //xhruser.onload = () => {
-            //    const userdata = JSON.parse(xhruser.responseText)
-            //    //console.log(allorderslist)
-            //    this.setState({ user: userdata })
-            //}
-            //xhruser.send()
-
         }
 
     componentDidMount = () => {

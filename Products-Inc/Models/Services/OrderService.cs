@@ -72,11 +72,17 @@ namespace Products_Inc.Models.Services
 
         public OrderViewModel GetModel(Order order)
         {
+            //User user = _userManager.Users.FirstOrDefault(u => u.Id == order.UserId);
+            //UserViewModel userViewModel = new UserViewModel() { Id = user.Id, UserName= user.UserName };
+
+
             return new OrderViewModel()
             {
                 OrderId = order.OrderId,
-                UserId = order.UserId.ToString(),
+               
                 User = new UserViewModel() { Email = order.User.Email, UserName = order.User.UserName, Id = order.User.Id },
+                UserId = order.UserId,
+                
                 OrderProducts = order.OrderProducts.Select(p =>
                     new OrderProductViewModel()
                     {

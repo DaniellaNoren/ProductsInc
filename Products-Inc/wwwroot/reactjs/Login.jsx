@@ -1,4 +1,6 @@
-﻿import { Component, Fragment } from 'react';
+﻿// @ts-check
+
+import { Component, Fragment } from 'react';
 import React from 'React'
 import {
     Redirect
@@ -6,13 +8,19 @@ import {
 import Cookies from 'js-cookies';
 
 export default class Login extends Component {
-    state = {
-        loginModel: {userName: "", password: "", rememberMe: false},
-        redirect: false
-    }
-    componentDidMount(){
-        this.setState({redirect: false})
-    }
+
+
+        state = {
+            loginModel: { userName: "", password: "", rememberMe: false },
+            /*redirect: false*/
+        }
+
+
+    //componentDidMount() {
+    //    this.setState({ redirect: false })
+    //}
+
+
     tryToLogin = e => {
         e.preventDefault();
         
@@ -22,27 +30,27 @@ export default class Login extends Component {
             url: "/api/user/login",
             type: "POST",
             data: JSON.stringify(this.state.loginModel),
-            Accept : "application/json",
-            contentType: "application/json", 
+            //accepts: { json: "application/json" },
+            contentType: "application/json",
             dataType: "json",
             success: function(res) {
                
                 let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"));
-                if(shoppingCart){
+                if (shoppingCart) {
 
-                    if(!shoppingCart.shoppingCartId || !shoppingCart.UserId){
-                        $.ajax({      
+                    if (!shoppingCart.shoppingCartId || !shoppingCart.UserId) {
+                        $.ajax({
                             url: "/api/shoppingcart",
-                            type: "POST",
+                            method: "POST",
                             data: JSON.stringify(shoppingCart),
-                            Accept : "application/json",
-                            contentType: "application/json", 
+                            //accepts: {json: "application/json" },
+                            //contentType: "application/json",
                             dataType: "json",
-                            success: function(res) {
+                            success: function (res) {
                                 console.log(res)
                             },
-                            error: function(res) {
-                                    console.log(res);
+                            error: function (res) {
+                                console.log(res);
                             }
                         })
                     }
@@ -57,37 +65,45 @@ export default class Login extends Component {
                 t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                  console.log(textStatus);
-                  console.log(errorThrown);
+                /*console.log(jqXHR);*/
+                console.log(textStatus);
+                console.log(errorThrown);
             }
-          });
-
+        })
     }
+
+
     render() {
         $(window).scrollTop(0)
-        if(this.state.redirect){
-                return <Redirect to="/"/>
-            }else
-                return (
-            <div>
-                <form className="formlogin" onSubmit={this.tryToLogin}>
-                    <div className="form-group">
-                        <label for="username-input">Username</label>
-                        <input value={this.state.loginModel.userName} onChange={e => this.setState({loginModel: {...this.state.loginModel, userName: e.target.value}})} className="form-control" id="username-input" type="text" />
-                    </div>
-                    <div className="form-group">
-                        <label for="password-input">Password</label>
-                        <input value={this.state.loginModel.password} onChange={e => this.setState({loginModel: {...this.state.loginModel, password: e.target.value}})} className="form-control" id="password-input" type="password" />
-                    </div>
-                    <div className="form-check">
-                        <label className="form-check-label" for="remember-me-check">Remember me</label>
-                        <input value={this.state.loginModel.rememberMe} onChange={e => this.setState({loginModel: {...this.state.loginModel, rememberMe: e.target.value}})} id="remember-me-check" className="form-check-input" type="checkbox" />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Login</button>
-                </form>
-            </div>
-        )
+
+        //if (this.state.redirect) {
+        //    return <Redirect to="/" />
+        //} else
+            return (
+                <div>
+                    <form className="formlogin" onSubmit={this.tryToLogin}>
+                        <div className="form-group">
+                            <label htmlFor ="username-input">Username</label>
+                            <input value={this.state.loginModel.userName} onChange={ e =>
+                                this.setState({ loginModel: { ...this.state.loginModel, userName: e.target.value }
+                                })} className="form-control" id="username-input" type="text" />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor ="password-input">Password</label>
+                            <input value={this.state.loginModel.password} onChange={ e =>
+                            this.setState({ loginModel: { ...this.state.loginModel, password: e.target.value }
+                            })} className="form-control" id="password-input" type="password" />
+                        </div>
+                        <div className="form-check">
+                            <label className="form-check-label" htmlFor="remember-me-check">Remember me</label>
+                            <input defaultChecked={this.state.loginModel.rememberMe} onChange={ e =>
+                            this.setState({ loginModel: { ...this.state.loginModel, rememberMe: !this.state.loginModel.rememberMe }
+                            })}
+                            id="remember-me-check" className="form-check-input" type="checkbox" />
+                        </div>
+                        <button type="submit" className="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            )
     }
 }
-

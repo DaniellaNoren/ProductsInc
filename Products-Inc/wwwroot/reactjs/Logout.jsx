@@ -19,7 +19,6 @@ export default function Logout({test, logoutCallback}) {
         }
     })
 
-        
     }
 
         return (

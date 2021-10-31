@@ -7,7 +7,6 @@ export default class Products extends Component {
         this.state = {
             products: []
             /*pollInterval: 2000*/
-           
         }
     }
 
@@ -34,22 +33,22 @@ export default class Products extends Component {
         let shoppingCartProduct = {
             product, amount: 1, productId: product.productId
         };
-        $.ajax({      
+        $.ajax({
             url: "/api/shoppingcart/products",
             type: "POST",
             data: JSON.stringify(shoppingCartProduct),
             Accept: "application/json",
-            contentType: "application/json", 
+            contentType: "application/json",
             dataType: "json",
             success: function(res) {
-                console.log(res);
+                //console.log(res);
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                
+
             }
         });
-    } 
+    }
 
     render() {
         $(window).scrollTop(0)
@@ -60,11 +59,14 @@ export default class Products extends Component {
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 
                     { this.state.products.map(p => (
+
                         <div key={p.productId.toString()} className="product w-2 m-2">
                             <div>
                                 <br />
                                 <br />
+
                                 <img src={p.imgPath} className="text-center product-img" alt="Product image"></img>
+
                                 <h4>{p.productName}</h4>
                                 <p>{p.productPrice} kr</p>
                                 <p>{p.productDescription}</p>
@@ -73,7 +75,6 @@ export default class Products extends Component {
                                     <button className="btn btn-success" onClick={() => this.addProduct(p)}>ADD</button>
                                 </div>
                             </div>
-                            {/*<Product product={p} addProductEvent={this.addProduct} />*/}
                         </div>
                     ))}
                 </div>
@@ -82,11 +83,9 @@ export default class Products extends Component {
         )
     }
 }
-            // <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
-            //     {this.state.products.map(p => <Product product={p} key={p.Id} addProductEvent={this.addProduct}/> )}
-            // </div>
-        
-    
+
+
+
 
 
 function Product({ product, addProductEvent }) {
@@ -105,7 +104,8 @@ function Product({ product, addProductEvent }) {
                     <button className="btn" onClick={() => addProductEvent(product)}>ADD</button>
                 </div>
             </div>
-  
+
         </div>
-    ) 
-}         
+    )
+}
+

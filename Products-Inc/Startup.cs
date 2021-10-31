@@ -87,8 +87,8 @@ namespace Products_Inc
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/user/login";
-                options.LogoutPath = $"/user/Logout";
-                options.AccessDeniedPath = $"/test/Account/AccessDenied";
+                options.LogoutPath = $"/user/logout";
+                options.AccessDeniedPath = $"/user/accessdenied";
             });
 
             
@@ -164,7 +164,10 @@ namespace Products_Inc
 
                 endpoints.MapControllerRoute("default", "{path?}", new { controller = "Home", action = "Index" });
 
-              
+
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}");
 
                 endpoints.MapRazorPages();
 

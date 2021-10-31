@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Products_Inc.Models;
@@ -13,18 +14,18 @@ using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
+
 
     public class UserController : Controller
     {
-        private readonly ILogger<UserController> _logger;
         private readonly IUserService _userService;
+        
 
-
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        public UserController(IUserService userService)
         {
-            _logger = logger;
             this._userService = userService;
         }
 
@@ -84,13 +85,19 @@ namespace Products_Inc.Controllers
                 return new BadRequestObjectResult(new { errorMsg = "Incorrect model" });
             }
         }
-
         [HttpPost("logout")]
-        public async Task<ActionResult> Logout()
+        public async Task<IActionResult> Logout(string returnUrl = null)
         {
             _userService.Logout();
-            return new OkResult();
 
+            if (returnUrl != null)
+            {
+                return new OkObjectResult(new { msg = "Logged Out. Can redirect to page is needed" });
+            }
+            else
+            {
+                return new OkObjectResult(new { msg = "Logged Out" });
+            }
         }
 
         [HttpPut("{userName}")]
@@ -133,19 +140,14 @@ namespace Products_Inc.Controllers
         {
             await _userService.ReplaceRoles(userName, roles);
             return new OkObjectResult("ok");
-
         }
 
 
-
-
-        /*[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet("accessdenied")]
+        public IActionResult AccessDenied()
         {
-            return View(new ProductsViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }*/
-    }
-}
+            return new BadRequestObjectResult(new { errorMsg = "Access Denied." });
+        }
 
 
 /*

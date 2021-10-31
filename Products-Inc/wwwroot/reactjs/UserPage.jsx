@@ -17,6 +17,7 @@ export default class UserPage extends Component {
         $.get("api/user/me", function(r){ t.setState({user: r})})
     }
     render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <h4>Userpage now</h4>
