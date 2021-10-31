@@ -110,7 +110,7 @@ namespace Products_Inc.Models.Services
  
         }
 
-        public ProductViewModel GetModel(Product product)
+        public static ProductViewModel GetModel(Product product)
         {
             return new ProductViewModel() { 
                 ImgPath = product.ImgPath, 

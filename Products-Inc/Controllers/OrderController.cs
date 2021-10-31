@@ -63,6 +63,14 @@ namespace Products_Inc.Controllers
             return new OkResult();
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPut("products/{productId}")]
+        public IActionResult UpdateProduct(int productId, OrderProductViewModel orderProduct)
+        {
+           OrderProductViewModel newOrderProduct = _orderService.UpdateProduct(productId, orderProduct);
+           return new OkObjectResult(newOrderProduct);
+        }
+
         [Authorize(Roles = "User")]
         [HttpGet("users")]
         public async Task<IActionResult> GetLoggedInUserOrders()

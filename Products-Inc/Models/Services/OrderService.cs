@@ -105,6 +105,19 @@ namespace Products_Inc.Models.Services
         {
             return _orderRepo.DeleteProduct(productId);
         }
+
+        public OrderProductViewModel UpdateProduct(int productId, OrderProductViewModel orderProduct)
+        {
+            if(orderProduct.Amount > 0)
+            {
+                OrderProduct o = _orderRepo.UpdateOrderProduct(productId, new OrderProduct() { Amount = orderProduct.Amount });
+                return new OrderProductViewModel() { Amount = o.Amount, OrderId = o.OrderId, OrderProductId = o.OrderProductId, Product = ProductService.GetModel(o.Product), ProductId = o.Product.ProductId };
+            }
+            else 
+            {
+                throw new Exception("Amount cannot be less than 0");
+            }
+        }
     }
 
 }

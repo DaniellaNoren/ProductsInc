@@ -88,15 +88,35 @@ namespace Products_Inc.Data
 
         public bool DeleteProduct(int productId)
         {
-            OrderProduct orderProduct = _orderListContext.OrderProducts.Where(op => op.OrderProductId == productId).FirstOrDefault();
+            OrderProduct orderProduct = ReadOrderProduct(productId);
+           
+            _orderListContext.OrderProducts.Remove(orderProduct);
+            _orderListContext.SaveChanges();
+            return true;
+    
+        }
+
+        public OrderProduct ReadOrderProduct(int productId)
+        {
+            OrderProduct orderProduct = _orderListContext.OrderProducts.Include(op => op.Product).Where(op => op.OrderProductId == productId).FirstOrDefault();
             if (orderProduct != null)
             {
-                _orderListContext.OrderProducts.Remove(orderProduct);
-                _orderListContext.SaveChanges();
-                return true;
+                return orderProduct;
             }
             else
                 throw new EntityNotFoundException("Orderproduct with id " + productId + " not found.");
+        }
+
+        public OrderProduct UpdateOrderProduct(int productId, OrderProduct orderProduct)
+        {
+            OrderProduct originalOrderProduct = ReadOrderProduct(productId);
+
+            originalOrderProduct.Amount = orderProduct.Amount;
+
+            _orderListContext.OrderProducts.Update(originalOrderProduct);
+            _orderListContext.SaveChanges();
+
+            return ReadOrderProduct(productId);
         }
     }
 }
