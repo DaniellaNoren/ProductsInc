@@ -17,9 +17,10 @@ namespace Products_Inc.Models.Services
             this._repo = repo;
             this._orderService = orderService;
         }
-        public ShoppingCartViewModel AddProduct(int productId, string shoppingCartId)
+        public ShoppingCartViewModel AddProduct(int productId, string shoppingCartId, int amount)
         {
-            ShoppingCart editedShoppingCart = _repo.AddProduct(productId, Int32.Parse(shoppingCartId));
+            ShoppingCart editedShoppingCart = _repo.AddProduct(productId, Int32.Parse(shoppingCartId), amount);
+            
             return new ShoppingCartViewModel() { ShoppingCartId = editedShoppingCart.ShoppingCartId.ToString(),
                 Products = editedShoppingCart.Products.Select(p => new ShoppingCartProductViewModel()
                 { Product = new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription,

@@ -19,7 +19,7 @@ namespace Products_Inc.Models.Interfaces
 
         ShoppingCartViewModel FindBy(int id);
 
-        ShoppingCartViewModel AddProduct(int productId, string shoppingCartId);
+        ShoppingCartViewModel AddProduct(int productId, string shoppingCartId, int amount);
         ShoppingCartViewModel Update(int id, ShoppingCart shoppingCart);
 
         bool Delete(int id);

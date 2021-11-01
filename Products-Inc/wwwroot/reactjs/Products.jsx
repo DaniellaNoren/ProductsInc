@@ -29,10 +29,10 @@ export default class Products extends Component {
     }
 
 
-    addProduct = product => {
+    addProduct = (product, amount) => {
         let t = this;
         let shoppingCartProduct = {
-            product, amount: 1, productId: product.productId
+            product, amount, productId: product.productId
         };
         $.ajax({
             url: "/api/shoppingcart/products",
@@ -44,9 +44,9 @@ export default class Products extends Component {
             success: function(res) {
               
                 if(t.props.location.setNrOfProducts)
-                    t.props.location.setNrOfProducts(1)
+                    t.props.location.setNrOfProducts(amount)
                 else{
-                    t.props.setNrOfProducts(1);
+                    t.props.setNrOfProducts(amount);
                 }    
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -107,22 +107,8 @@ export default class Products extends Component {
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 
                     { this.state.products.map(p => (
-
-                        <div key={p.productId.toString()} className="product w-2 m-2">
-                            <div>
-                                <img src={p.imgPath} className="text-center product-img" alt="Product image"></img>
-                                <div className="wrapper">
-                                    <div>
-                                        <h4>{p.productName}</h4>
-                                        <p>{p.productPrice} kr</p>
-                                         <p>{p.productDescription}</p>
-                                    </div>
-                                    <div className="d-flex align-items-end justify-content-end">
-                                         <button className="btn" onClick={() => this.addProduct(p)}>ADD</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <Product product={p} addProductEvent={this.addProduct}/>
+                        
                     ))}
                 </div>
             </div>
@@ -136,23 +122,26 @@ export default class Products extends Component {
 
 
 function Product({ product, addProductEvent }) {
+    const [amount, setAmount] = React.useState(1);
     return (
-        <div className="product w-2 m-2">
-            <div classNmae="img-hover-zoom">
-                <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
-            </div>
-            <div className="box">
-                <div className="contents">
-                    <h4>{product.ProductName}</h4>
-                    <p>{product.Price}kr</p>
-                    <p>{product.Description}</p>
-                </div>
-                <div className="addButton d-flex align-items-end justify-content-end">
-                    <button className="btn" onClick={() => addProductEvent(product)}>ADD</button>
-                </div>
-            </div>
-
-        </div>
+        <div key={product.productId.toString()} className="product w-2 m-2">
+                            <div>
+                                <img src={product.imgPath} className="text-center product-img" alt="Product image"></img>
+                                <div className="wrapper">
+                                    <div>
+                                        <h4>{product.productName}</h4>
+                                        <p>{product.productPrice} kr</p>
+                                         <p>{product.productDescription}</p>
+                                    </div>
+                                    <div>
+                                        <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))}/>
+                                    </div>
+                                    <div className="d-flex align-items-end justify-content-end">
+                                         <button className="btn" onClick={e => { e.preventDefault(); addProductEvent(product, amount);}}>ADD</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
     )
 }
 
