@@ -67,7 +67,7 @@ export default class Index extends Component {
         this.setState(oldState => ({nrOfProducts: 0}))
     }
     loggedIn = (user) => {
-        this.setState({ isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), isUserName: this.props.userNameIs})
+        this.setState({ isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), isUserName: user.userName})
     }
     loggedOut= () => {
         this.setState({ isUserAuthenticated: false, isUserAdmin: false, isUserName: "" })
@@ -78,7 +78,7 @@ export default class Index extends Component {
         const app = (
 
             <div className="pagewrapper">
-                <HeaderPartial setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
+                <HeaderPartial nrOfProducts={this.state.nrOfProducts} resetNrOfProducts={this.resetNrOfProducts} setNrOfProducts={this.setNrOfProducts} setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
 
 
                 <div className="item-reactcontent">

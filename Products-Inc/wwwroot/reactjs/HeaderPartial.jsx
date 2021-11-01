@@ -21,7 +21,6 @@ export default class Headerpart extends Component {
     }
 
     render() {
-        console.log(this.props.userNameIs)
         return (
             <header className="item-header">
                 <LoginPartial userIsAuthenticated={this.props.userIsAuthenticated} userNameIs={this.props.userNameIs}

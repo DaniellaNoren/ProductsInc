@@ -102,8 +102,6 @@ export default class Products extends Component {
                 </div>
 
 
-                <h4><b>All Productss:</b></h4>
-
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 
                     { this.state.products.map(p => (
@@ -128,16 +126,15 @@ function Product({ product, addProductEvent }) {
                             <div>
                                 <img src={product.imgPath} className="text-center product-img" alt="Product image"></img>
                                 <div className="wrapper">
-                                    <div>
+                                    <div className="product-info">
                                         <h4>{product.productName}</h4>
                                         <p>{product.productPrice} kr</p>
                                          <p>{product.productDescription}</p>
                                     </div>
-                                    <div>
+                                 
+                                    <div className="product-input d-flex align-items-end justify-content-end">
                                         <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))}/>
-                                    </div>
-                                    <div className="d-flex align-items-end justify-content-end">
-                                         <button className="btn" onClick={e => { e.preventDefault(); addProductEvent(product, amount);}}>ADD</button>
+                                        <button className="btn" onClick={e => { e.preventDefault(); addProductEvent(product, amount);}}>ADD</button>
                                     </div>
                                 </div>
                             </div>

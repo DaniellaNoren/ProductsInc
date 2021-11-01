@@ -52,7 +52,6 @@
 
   <ItemGroup>
     <Folder Include="Content\components\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
