@@ -40,9 +40,11 @@ namespace Products_Inc.Data
                  .WithMany(m => m.Orders)
                  .HasForeignKey(mb => mb.UserId);
 
+            // Setting up the join-table for the mutual many-to-many bind/relationship
+
             modelBuilder.Entity<OrderProduct>().HasKey(op => op.OrderProductId);
 
-            modelBuilder.Entity<OrderProduct>()
+            modelBuilder.Entity<OrderProduct>()   // First One to Many
                 .HasOne<Product>(op => op.Product)
                 .WithMany()
                 .HasForeignKey(op => op.ProductId);
@@ -51,6 +53,7 @@ namespace Products_Inc.Data
                 .HasOne<Order>(op => op.Order)
                 .WithMany(o => o.OrderProducts)
                 .HasForeignKey(op => op.OrderId);
+
 
 
             modelBuilder.Entity<ShoppingCartProduct>().HasKey(scp => scp.ShoppingCartProductId);
@@ -78,10 +81,7 @@ namespace Products_Inc.Data
             // Seeding db with start products
 
             modelBuilder.Entity<Product>().HasData(
-            new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 },
-            new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 },
-            new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 },
-            new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 },
+
 
             new Product() { ProductId = 50, ProductName = "Orange", ProductDescription = "Nice for your health", ProductPrice = 30, ImgPath = "./img/img4.jpg" },
             new Product() { ProductId = 51, ProductName = "Coca Cola", ProductDescription = "Good to drink", ProductPrice = 16, ImgPath = "./img/img6.jpg" },
@@ -90,7 +90,7 @@ namespace Products_Inc.Data
             new Product() { ProductId = 54, ProductName = "Salt", ProductDescription = "Nice to make food", ProductPrice = 9, ImgPath = "./img/img9.jpg" },
             new Product() { ProductId = 55, ProductName = "Avocado", ProductDescription = "Good for health", ProductPrice = 18, ImgPath = "./img/img12.jpg" },
             new Product() { ProductId = 56, ProductName = "Eggo", ProductDescription = "Nice to eat", ProductPrice = 30, ImgPath = "./img/img14.jpg" },
-            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.jpg" }
+            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.png" }
             );
 
 
@@ -101,13 +101,6 @@ namespace Products_Inc.Data
 
             // --- Seeding with orders
 
-            //List<Product> listA_OfProductsInOrder[] { satsumas, banana, banana, banana, sunflowerbutter}.ToList();
-            //List<Product> listB_OfProductsInOrder[] { satsumas, tomatos, banana, tomatos, tomatos}.ToList;
-
-
-
-
-          
 
 
 
@@ -211,7 +204,7 @@ namespace Products_Inc.Data
                }
            );
 
-          
+
             // -----------------------------------------
 
 

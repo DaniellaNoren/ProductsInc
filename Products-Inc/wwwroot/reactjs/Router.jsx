@@ -14,15 +14,15 @@ import {
     browserHistory
 } from 'react-router-dom';
 
-function handleClick(whatever) {
-    console.log(whatever)
-    browserHistory.push(whatever)
-}
+//function handleClick(whatever) {
+//    console.log(whatever)
+//    browserHistory.push(whatever)
+//}
 
 
 
 export default class RouterNav extends Component {
-  
+
     render() {
         const app = (
             <div>
@@ -33,11 +33,11 @@ export default class RouterNav extends Component {
                         path="/mypage">
                         <UserPage />
                     </Route>
-                  
+
                 </Switch>
 
 
-       
+
             </div>
         );
 

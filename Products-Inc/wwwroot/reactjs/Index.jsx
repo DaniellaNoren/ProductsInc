@@ -8,6 +8,7 @@ import FooterPartial from './FooterPartial.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
 import Logout from './Logout.jsx';
+import LoginPartial from './LoginPartial.jsx';
 import YouAreLoggedOut from './YouAreLoggedOut.jsx';
 import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
@@ -38,54 +39,47 @@ import React, { useEffect } from 'react';
 
 
 export default class Index extends Component {
-   state = {
-       viewOrders: false,
-       isUserAuthenticated: false,
-       isUserAdmin: false
-    }
+
+        state = {
+            viewOrders: false,
+            isUserAuthenticated: false,
+            isUserAdmin: false,
+            isUserName: ""
+        }
+
+
+
     componentDidMount(){
-        this.setState({isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin})
-        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+        this.setState({ isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin, isUserName: this.props.userNameIs})
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){
             $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
             .done(r => console.log(r)).fail(e => console.log(e));
         }
     }
     loggedIn = (user) => {
-        this.setState({isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin")})
+        this.setState({ isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), isUserName: this.props.userNameIs})
     }
     loggedOut= () => {
-        this.setState({isUserAuthenticated: false, isUserAdmin: false})
+        this.setState({ isUserAuthenticated: false, isUserAdmin: false, isUserName: "" })
     }
 
 
     render() {
-        /*$.(window).scrollTop(0)*/
-
         const app = (
-            
+
             <div className="pagewrapper">
-                <HeaderPartial setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
+                <HeaderPartial setLoggedIn={this.loggedIn.bind(this)} setLoggedOut={this.loggedOut.bind(this)} userIsAdmin={this.state.isUserAdmin}
+                    userIsAuthenticated={this.state.isUserAuthenticated} userNameIs={this.props.userNameIs}/>  {/*Header component*/}
 
 
                 <div className="item-reactcontent">
-                    <p>
-                        {/*{(() => {    this is for later .. when checking userlogged in role and hide show buttons and elements /ER */}
-                        {/*    switch (this.state.isUserAuthenticated) {*/}
-                        {/*        case false: return "No user is logged in";*/}
-                        {/*        case true: return "Yes user is logged in";*/}
-                        {/*        default: return "this is default not true of fale if logged in";*/}
-                        {/*    }*/}
-                        {/*})()}*/}
-                    </p>
-
-
 
                     <Switch>
                         <Route exact path="/"><Redirect to="/products" /></Route>
 
                         <Route path="/login" render={(props) => <Login {...props } />}/>
                         <Route path="/logout" render={(props) => <Logout {...props } />}/>
-                       
+                        {/*<Route path="/loginpartial" render={(props) => <LoginPartial {...props } />}/>*/}
                         <Route path="/youareloggedout"><YouAreLoggedOut /></Route>
 
                         <Route path="/register" render={(props) => <Register {...props } />}/>
@@ -103,10 +97,10 @@ export default class Index extends Component {
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>
                         <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>
                         <Route path="/adminusers"><AdminUsers /></Route>
-                      
+
                         <Route path="/adminproducts" render={(props) => <AdminProducts {...props}/>}/>
                         <Route path="/adminedituser" render={(props) => <UserDetails {...props}/>}/>
-                
+
 
                         <Route path="/admincreateuser" render={(props) => <AdminCreateUser {...props}/>}/>
                         <Route path="/adminedituserroles" render={(props) => <AddRoles {...props}/>}/>
@@ -119,7 +113,7 @@ export default class Index extends Component {
                 <FooterPartial />  {/*Footer component*/}
             </div>
 
-        );
+        )
 
 
 
@@ -142,66 +136,6 @@ export default class Index extends Component {
     }
 }
 
-
-
-class OrderPage extends Component {
-    //get the orders by calling the partialview with user orders. render the html
-    // getOrders = () => {
-    //     $.get("url")
-    //     .done(r => $(".orders").html = r.data)
-    // }
-
-
-    render() {
-        return (
-            <div>
-                <Orders />
-            </div>
-        )
-    }
-}
-
-function SideMenu({ viewOrders, location, context }) {
-    const logOut = () => {
-        $.ajax({
-            url: "api/user/logout",
-            type: "POST",
-            success: function (res) {
-                console.log("succeeded");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
-    }
-    const showOrders = () => {
-        let id = "";
-
-        $.ajax({
-            url: `api/user/${id}/orders`,
-            type: "GET",
-            success: function (res) {
-                console.log("succeeded");
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
-    }
-    return (
-        <ul className="nav flex-column">
-
-            <li className="nav-item">
-
-
-            </li>
-        </ul>
-    )
-}
 
 
 

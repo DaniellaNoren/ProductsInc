@@ -15,7 +15,7 @@ export default class Products extends Component {
         xhr.open('get', "api/product", true)
         xhr.onload = () => {
             const productlist = JSON.parse(xhr.responseText)
-            
+
             this.setState({ products: productlist })
 
         }
@@ -35,9 +35,9 @@ export default class Products extends Component {
         };
         $.ajax({
             url: "/api/shoppingcart/products",
-            type: "POST",
+            method: "POST",
             data: JSON.stringify(shoppingCartProduct),
-            Accept: "application/json",
+            //accepts: "application/json",
             contentType: "application/json",
             dataType: "json",
             success: function(res) {
@@ -91,7 +91,7 @@ export default class Products extends Component {
 function Product({ product, addProductEvent }) {
     return (
         <div className="product w-2 m-2">
-            <div classNmae="img-hover-zoom">
+            <div className="img-hover-zoom">
                 <img src={product.ImgPath} className="text-center product-img" alt="Product image"></img>
             </div>
             <div className="box">
