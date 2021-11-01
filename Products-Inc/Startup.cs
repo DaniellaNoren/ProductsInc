@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Products_Inc.Controllers;
 using Products_Inc.Models;
 using Products_Inc.Data;
 using Products_Inc.Models.Interfaces;
@@ -20,16 +19,14 @@ using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
 using Microsoft.AspNetCore.Http;
-
-
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc
 {
     public class Startup
     {
-        public IWebHostEnvironment Environment { get; }
+        public IWebHostEnvironment Environment { get;  }
         public IConfiguration Configuration { get; }
-
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
@@ -47,13 +44,8 @@ namespace Products_Inc
                 options.UseSqlServer(
                     Configuration.GetConnectionString("ProductIncConnection")));
 
-            //services.AddDbContext<IdentityAppDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("ProductIncConnection")));
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddScoped<IUserService, UserService>();
-
             services.AddReact();
 
             services.AddJsEngineSwitcher(options =>
@@ -62,6 +54,12 @@ namespace Products_Inc
                 options.EngineFactories.AddV8();
             }
             );
+
+
+
+
+            // ------ Identity part start ------------
+       
 
 
             services.AddIdentity<User, IdentityRole>(o =>
@@ -93,21 +91,29 @@ namespace Products_Inc
                 options.AccessDeniedPath = $"/user/accessdenied";
             });
 
-            services.AddControllersWithViews();
+            
 
-            services.AddScoped<IUserService, UserService>(); // identity
+
+            // -- Database
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("ProductIncConnection")));
+
+
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IShoppingCartService, ShoppingCartService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IImageService, ImageService>();
             services.AddSingleton<ImageServiceOptions>(new ImageServiceOptions(Environment.WebRootPath, "img", "jpg"));
-            services.AddScoped<IShoppingCartRepo, DbShoppingCartRepo>();
-            services.AddScoped<IOrderRepo, DbOrderRepo>();
+            services.AddScoped<IShoppingCartRepo, DbShoppingCartRepo>(); 
+            services.AddScoped<IOrderRepo, DbOrderRepo>(); 
             services.AddScoped<IProductRepo, DbProductRepo>();
 
-            //services.AddTransient<UserController>();
-
             services.AddRazorPages();
+
+            services.AddControllers(options =>
+    options.Filters.Add(new HttpResponseExceptionFilter()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -115,36 +121,37 @@ namespace Products_Inc
         {
             if (env.IsDevelopment())
             {
+
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseHttpsRedirection();
 
+
+            // Initialise ReactJS.NET. Must be before static files.
             app.UseReact(config =>
             {
                 config
                     .SetReuseJavaScriptEngines(true)
                     .SetLoadBabel(false)
                     .SetLoadReact(false)
-                    .DisableServerSideRendering()
                     .SetReactAppBuildPath("~/reactjs/dist")
-                    //.AddScriptWithoutTransform("~/js/ajaxactions.js")
                     .AddScriptWithoutTransform("~/reactjs/dist/runtime.js")
-                    .AddScriptWithoutTransform("~/reactjs/dist/vendor.js")
-                    .AddScriptWithoutTransform("~/reactjs/dist/main.js");
+  .AddScriptWithoutTransform("~/reactjs/dist/vendor.js")
+  .AddScriptWithoutTransform("~/reactjs/dist/main.js");
+
 
 
             });
-
-
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
+
 
 
             app.UseRouting();
@@ -154,10 +161,13 @@ namespace Products_Inc
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    "default", "{path?}", new { controller = "Home", action = "Index" });
 
-                //endpoints.MapFallbackToController("Index", "Home");
+                endpoints.MapControllerRoute("default", "{path?}", new { controller = "Home", action = "Index" });
+
+
+                endpoints.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}");
 
                 endpoints.MapRazorPages();
 

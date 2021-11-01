@@ -17,6 +17,8 @@ namespace Products_Inc.Models.ViewModels
         [Required]
         public string ConfirmPassword { get; set; }
 
+        public List<string> Roles { get; set; }
+
         public RegisterModel()
         {
 

@@ -6,20 +6,17 @@ using Products_Inc.Models;
 using Products_Inc.Models.ViewModels;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.Exceptions;
-using Microsoft.AspNetCore.Identity;
 
 namespace Products_Inc.Models.Services
 {
     public class OrderService : IOrderService
     {
         private readonly IOrderRepo _orderRepo;
-        private static UserManager<User> _userManager;
 
 
-        public OrderService(IOrderRepo iOrderRepo, UserManager<User> userManager)
+        public OrderService(IOrderRepo iOrderRepo)
         {
             _orderRepo = iOrderRepo;
-            _userManager = userManager;
         }
 
 
@@ -68,42 +65,59 @@ namespace Products_Inc.Models.Services
 
         }
 
-        public List<OrderViewModel> FindAllBy(string userId)
+        public List<OrderViewModel> FindAllBy(string userid)
         {
-            return _orderRepo.ReadByUser(userId).Select(o => GetModel(o)).ToList();
+            return _orderRepo.ReadByUser(userid).Select(o => GetModel(o)).ToList();
         }
 
         public OrderViewModel GetModel(Order order)
         {
-            User user = _userManager.Users.FirstOrDefault(u => u.Id == order.UserId);
-            UserViewModel userViewModel = new UserViewModel() { Id = user.Id, UserName= user.UserName };
+            //User user = _userManager.Users.FirstOrDefault(u => u.Id == order.UserId);
+            //UserViewModel userViewModel = new UserViewModel() { Id = user.Id, UserName= user.UserName };
 
 
             return new OrderViewModel()
             {
-                
-
                 OrderId = order.OrderId,
+               
+                User = new UserViewModel() { Email = order.User.Email, UserName = order.User.UserName, Id = order.User.Id },
                 UserId = order.UserId,
-                User = userViewModel,
+                
                 OrderProducts = order.OrderProducts.Select(p =>
                     new OrderProductViewModel()
                     {
+                        OrderProductId = p.OrderProductId,
                         ProductId = p.ProductId,
                         OrderId = p.OrderId,
                         Amount = p.Amount,
                         Product = new ProductViewModel()
                         {
-                            ProductName = p.Product.ProductName,
                             ProductDescription = p.Product.ProductDescription,
-                            ProductPrice = p.Product.ProductPrice,
-                            ImgPath = p.Product.ImgPath
+                            ImgPath = p.Product.ImgPath,
+                            ProductName = p.Product.ProductName,
+                            ProductPrice = p.Product.ProductPrice
                         }
                     }).ToList()
             };
         }
 
+        public bool DeleteProduct(int productId)
+        {
+            return _orderRepo.DeleteProduct(productId);
+        }
 
+        public OrderProductViewModel UpdateProduct(int productId, OrderProductViewModel orderProduct)
+        {
+            if(orderProduct.Amount > 0)
+            {
+                OrderProduct o = _orderRepo.UpdateOrderProduct(productId, new OrderProduct() { Amount = orderProduct.Amount });
+                return new OrderProductViewModel() { Amount = o.Amount, OrderId = o.OrderId, OrderProductId = o.OrderProductId, Product = ProductService.GetModel(o.Product), ProductId = o.Product.ProductId };
+            }
+            else 
+            {
+                throw new Exception("Amount cannot be less than 0");
+            }
+        }
     }
 
 }

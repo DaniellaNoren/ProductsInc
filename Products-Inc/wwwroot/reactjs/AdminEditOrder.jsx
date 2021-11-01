@@ -1,12 +1,6 @@
 import { Component, Fragment } from 'react';
 import {
-    Link,
-    BrowserRouter,
-    Route,
-    Switch,
-    StaticRouter,
-    Redirect,
-    useLocation
+    Link
 } from 'react-router-dom';
 
 
@@ -15,54 +9,88 @@ export default class AdminEditOrder extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            orderproducts: this.props.location.ao.orderProducts,
             orderId: 0,
             products: {
                 productId: 0,
                 amount: 0
-            }
+            },
+            msg: "",
+            errorMsg: false
         }
     }
+    removeProduct = (id) => {
+        let t = this;
+        t.setState({errorMsg: false, msg: ""})
 
-
-    removeProduct = id => {
-
-        this.setState(oldState => ({
-            products: {
-                ...this.state.products,
-                products: oldState.products.filter(p => p.productId !== id)
+        $.ajax({
+            url: `/api/order/products/${id}`,
+            type: 'DELETE',
+            success: function(response) {
+                t.setState(oldState => ({
+                    orderproducts: 
+                        oldState.orderproducts.filter(p => p.orderProductId !== id)        
+            }));
+            t.setState({errorMsg: false, msg: "Product successfully deleted."})
+            },
+            error: function(err){
+                t.setState({errorMsg: true, msg: "Product failed to be deleted."})
             }
-        }))
-        this.totalPrice();
+         });
+ 
+   
+        
     }
 
+    editProduct = (id, newAmount) => {
+       
+        this.setState(oldState => ({ orderproducts: oldState.orderproducts.map(op => {
+            if(op.orderProductId === id){
+                op.amount = Number(newAmount);
+            }
+                return op; }
+        )})) 
 
-    totalPrice = () => Math.round(this.state.shoppingCart.products.reduce((prevPr, nextPr) => {
-        return prevPr + nextPr.ProductPrice
-    }, 0) * 100) / 100;
-
-
-    saveEditedOrder = () => {
-
-        /*orderobject*/
     }
-        /*delete o ändra amount setState....sedan vid onclick save so post till backend*/
-
-//removeProduct = id => {
-//        this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
-//        this.totalPrice();
-//    }
-//    totalPrice = function(){ return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
-
-
-//    }
+    updateProductAmount = (id, op) => {
+        let t = this;
+            
+        if(op.amount > 0){
+        $.ajax({
+            url: `/api/order/products/${id}`,
+            type: 'PUT',
+            data: JSON.stringify(op),
+            Accept: "application/json",
+            contentType: "application/json", 
+            dataType: "json",
+            success: function(response) {
+                console.log(response);
+                t.setState(oldState => ({ orderproducts: oldState.orderproducts.map(op => {
+                            if(op.orderProductId === id){
+                                return response;
+                            }
+                                return op; }
+                        )}))        
+            
+            t.setState({errorMsg: false, msg: "Product successfully updated."})
+            },
+            error: function(err){
+                t.setState({errorMsg: true, msg: "Product failed to be updated."})
+            }
+         });}else{
+             this.removeProduct(id);
+         }
+    }
 
 
     render() {
-        console.log(this.props.location.ao)
+        $(window).scrollTop(0)
+
         return (
             <div>
                 <h4><b>AdminEditOrder & Details:</b></h4>
                 <br />
+                <p className={this.state.errorMsg ? 'text-danger' : 'text-success'}>{this.state.msg}</p>
                 <div> {/*this div is sidemenu-tab*/}
                     <div className="nav-item">
                         <button className="nav-link text-dark">ALL Orders</button>
@@ -87,11 +115,12 @@ export default class AdminEditOrder extends Component {
                                 <th scope="col">Description</th>
                                 <th className="productamount" scope="col">Amount</th>
                                 <th scope="col">Price</th>
-                                <th>Options</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                        {this.props.location.ao.orderProducts.map((ap, index) => (
+                            {this.state.orderproducts.map((ap, index) => (
                             <tr key={index + 300} className="admineditorder">
                                 <td><img src={ap.product.imgPath} className="admineditorder_img" alt="logo"  /></td>
                                 <td>{ap.productId}</td>
@@ -99,11 +128,14 @@ export default class AdminEditOrder extends Component {
                                 <td>{ap.product.productDescription}</td>
 
                                 <td><input className="productamount" type="number" name="inputproductamount" value={ap.amount}
-                                    onChange={e => this.setState({ orderobject: { ...this.state.orderobject, password: e.target.value } })}
+                                        onChange={e => this.editProduct(ap.orderProductId, e.target.value)}
+                                // dont know right now how to change the amount on 1 specific product in the array of orderproducts  /ER
                                 /></td>
 
                                 <td>{ap.product.productPrice}</td>
-                                <td><button className="optionBtnRed">Delete</button></td>
+                                <td><button className="optionBtnRed" onClick={() => this.removeProduct(ap.orderProductId)}>Delete</button></td>
+                                <td><button className="btn btn-primary" onClick={() => this.updateProductAmount(ap.orderProductId, ap)}>Update</button></td>
+                            
                             </tr>
                         ))}
                         </tbody>

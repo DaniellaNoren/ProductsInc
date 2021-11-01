@@ -31,6 +31,7 @@ export default class UserOrders extends Component {
             .fail(e => console.log(e));
     }
     render() {
+        $(window).scrollTop(0)
         return (
             <div>
                 <h4>UserOrders:</h4>

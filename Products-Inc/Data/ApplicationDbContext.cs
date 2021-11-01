@@ -13,7 +13,7 @@ namespace Products_Inc.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
-       
+
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -27,9 +27,6 @@ namespace Products_Inc.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<User>() // to specify that column UserId is Primary key instead
-            //    .HasKey(mb => mb.UserId);
-
 
             // Setting Primarykeys, instead of [Key] in code. One place to handle all of it /ER
             modelBuilder.Entity<Product>()
@@ -38,19 +35,16 @@ namespace Products_Inc.Data
 
             modelBuilder.Entity<Order>()
                 .HasKey(mb => mb.OrderId);
-
             modelBuilder.Entity<Order>()
                  .HasOne<User>(mb => mb.User)
                  .WithMany(m => m.Orders)
                  .HasForeignKey(mb => mb.UserId);
 
-
-            modelBuilder.Entity<OrderProduct>()
-                .HasKey(op => op.OrderProductId);
+            modelBuilder.Entity<OrderProduct>().HasKey(op => op.OrderProductId);
 
             modelBuilder.Entity<OrderProduct>()
                 .HasOne<Product>(op => op.Product)
-                .WithMany(o => o.OrderProducts)
+                .WithMany()
                 .HasForeignKey(op => op.ProductId);
 
             modelBuilder.Entity<OrderProduct>()
@@ -60,7 +54,8 @@ namespace Products_Inc.Data
 
 
             modelBuilder.Entity<ShoppingCartProduct>().HasKey(scp => scp.ShoppingCartProductId);
-
+            modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
+            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithMany().HasForeignKey(sc => sc.UserId);
             modelBuilder.Entity<ShoppingCartProduct>()
                 .HasOne<ShoppingCart>(sp => sp.ShoppingCart)
                 .WithMany(sc => sc.Products)
@@ -73,9 +68,48 @@ namespace Products_Inc.Data
              .HasForeignKey(scp => scp.ProductId);
 
 
+
+
             // ____________ SEEDING SECTION ____________
 
-            // ------------ Seeding Roles -------------
+
+
+
+            // Seeding db with start products
+
+            modelBuilder.Entity<Product>().HasData(
+            new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 },
+            new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 },
+            new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 },
+            new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 },
+
+            new Product() { ProductId = 50, ProductName = "Orange", ProductDescription = "Nice for your health", ProductPrice = 30, ImgPath = "./img/img4.jpg" },
+            new Product() { ProductId = 51, ProductName = "Coca Cola", ProductDescription = "Good to drink", ProductPrice = 16, ImgPath = "./img/img6.jpg" },
+            new Product() { ProductId = 52, ProductName = "Oreo", ProductDescription = "Good for health", ProductPrice = 10, ImgPath = "./img/img7.jpg" },
+            new Product() { ProductId = 53, ProductName = "Corn Flakes", ProductDescription = "Healthy breakfast", ProductPrice = 25, ImgPath = "./img/img8.jpg" },
+            new Product() { ProductId = 54, ProductName = "Salt", ProductDescription = "Nice to make food", ProductPrice = 9, ImgPath = "./img/img9.jpg" },
+            new Product() { ProductId = 55, ProductName = "Avocado", ProductDescription = "Good for health", ProductPrice = 18, ImgPath = "./img/img12.jpg" },
+            new Product() { ProductId = 56, ProductName = "Eggo", ProductDescription = "Nice to eat", ProductPrice = 30, ImgPath = "./img/img14.jpg" },
+            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.jpg" }
+            );
+
+
+
+            // -----------------------------------------
+
+
+
+            // --- Seeding with orders
+
+            //List<Product> listA_OfProductsInOrder[] { satsumas, banana, banana, banana, sunflowerbutter}.ToList();
+            //List<Product> listB_OfProductsInOrder[] { satsumas, tomatos, banana, tomatos, tomatos}.ToList;
+
+
+
+
+          
+
+
 
             IdentityRole roleAdmin = new IdentityRole()
             {
@@ -95,7 +129,6 @@ namespace Products_Inc.Data
 
 
 
-
             // ---------  Seeding Users  ----------
 
             //hash the password before storing in db
@@ -106,12 +139,16 @@ namespace Products_Inc.Data
                 Id = Guid.NewGuid().ToString(),
                 UserName = "Admin",
                 NormalizedUserName = "ADMIN",
+                Email = "customer1@email.com",
+                NormalizedEmail = "customer1@email.com".ToUpper(),
                 PasswordHash = hashit.HashPassword(null, "Admin")
             };
             User customer1 = new User
             {
                 Id = Guid.NewGuid().ToString(), // primary key
                 UserName = "customer1",
+                Email = "customer1@email.com",
+                NormalizedEmail = "customer1@email.com".ToUpper(),
                 NormalizedUserName = "CUSTOMER1",
                 PasswordHash = hashit.HashPassword(null, "customer1")
             };
@@ -120,12 +157,16 @@ namespace Products_Inc.Data
                 Id = Guid.NewGuid().ToString(), // primary key
                 UserName = "customer2",
                 NormalizedUserName = "CUSTOMER2",
+                Email = "customer2@email.com",
+                NormalizedEmail = "customer2@email.com".ToUpper(),
                 PasswordHash = hashit.HashPassword(null, "customer2")
             };
             User customer3 = new User
             {
                 Id = Guid.NewGuid().ToString(),// primary key
                 UserName = "customer3",
+                Email = "customer3@email.com",
+                NormalizedEmail = "customer3@email.com".ToUpper(),
                 NormalizedUserName = "CUSTOMER3",
                 PasswordHash = hashit.HashPassword(null, "customer3")
             };
@@ -170,32 +211,7 @@ namespace Products_Inc.Data
                }
            );
 
-           
-            // ---------------------------------------
-
-
-
-
-            // ----------- Seeding db with start products --------------
-
-            modelBuilder.Entity<Product>().HasData(
-
-            new Product() { ProductId = 50, ProductName = "Orange", ProductDescription = "Nice for your health", ProductPrice = 30, ImgPath = "./img/img4.jpg" },
-            new Product() { ProductId = 51, ProductName = "Coca Cola", ProductDescription = "Good to drink", ProductPrice = 16, ImgPath = "./img/img6.jpg" },
-            new Product() { ProductId = 52, ProductName = "Oreo", ProductDescription = "Good for health", ProductPrice = 10, ImgPath = "./img/img7.jpg" },
-            new Product() { ProductId = 53, ProductName = "Corn Flakes", ProductDescription = "Healthy breakfast", ProductPrice = 25, ImgPath = "./img/img8.jpg" },
-            new Product() { ProductId = 54, ProductName = "Salt", ProductDescription = "Nice to make food", ProductPrice = 9, ImgPath = "./img/img9.jpg" },
-            new Product() { ProductId = 55, ProductName = "Avocado", ProductDescription = "Good for health", ProductPrice = 18, ImgPath = "./img/img12.jpg" },
-            new Product() { ProductId = 56, ProductName = "Eggo", ProductDescription = "Nice to eat", ProductPrice = 30, ImgPath = "./img/img14.jpg" },
-            new Product() { ProductId = 57, ProductName = "SunButter", ProductDescription = "Creamy sun butter", ProductPrice = 35, ImgPath = "./img/img16.png" },
-            new Product() { ProductId = 58, ProductName = "Banana", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34, ImgPath = "/img/img1.png" },
-            new Product() { ProductId = 59, ProductName = "Pomegranate", ProductDescription = "Nice for your health.", ProductPrice = 6, ImgPath = "/img/img2.jpg" },
-            new Product() { ProductId = 60, ProductName = "Tomatos", ProductDescription = "Fresh sweet tomatos.", ProductPrice = 3, ImgPath = "/img/img11.jpg" },
-            new Product() { ProductId = 61, ProductName = "Tooth Cleaner", ProductDescription = "Nice for your teeth", ProductPrice = 54, ImgPath = "/img/img3.jpg" }
-            );
-
-
-
+          
             // -----------------------------------------
 
 
@@ -226,11 +242,6 @@ namespace Products_Inc.Data
                 new OrderProduct { OrderProductId = 11, OrderId = 4, ProductId = 53, Amount = 3 },
                 new OrderProduct { OrderProductId = 12, OrderId = 4, ProductId = 55, Amount = 1 }
             );
-
-
-
-
-
             // ---------------------------------------
 
         }

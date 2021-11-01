@@ -20,7 +20,7 @@ namespace Products_Inc.Models.Interfaces
         Product Read(int id);
 
 
-        Product Update(Product product);
+        Product Update(int productId, Product product);
 
 
         bool Delete(Product product);

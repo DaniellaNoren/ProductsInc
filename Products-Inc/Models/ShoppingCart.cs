@@ -13,6 +13,7 @@ namespace Products_Inc.Models
         [Key]
         public int ShoppingCartId { get; set; }
         public string UserId { get; set; }
+        public User User { get; set; }
 
         public List<ShoppingCartProduct> Products { get; set; }
 

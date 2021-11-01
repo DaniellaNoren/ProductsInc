@@ -8,15 +8,18 @@ import FooterPartial from './FooterPartial.jsx';
 import Login from './Login.jsx';
 import Register from './Register.jsx';
 import Logout from './Logout.jsx';
+import YouAreLoggedOut from './YouAreLoggedOut.jsx';
 import ContactUs from './ContactUs.jsx';
 import UserPage from './UserPage.jsx';
 import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminEditOrder from './AdminEditOrder.jsx';
-import AdminProducts from './Adminproducts.jsx';
+import AddRoles from './admineditroles.jsx';
+import AdminCreateUser from './Adminuserscreate.jsx';
+import AdminProducts  from './AdminProducts.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
-import UserDetails from './UserDetails.jsx';
+import UserDetails  from './UserDetails.jsx';
 
 import {
     Link,
@@ -37,21 +40,31 @@ import React, { useEffect } from 'react';
 export default class Index extends Component {
    state = {
        viewOrders: false,
-       isUserAuthenticated: false
+       isUserAuthenticated: false,
+       isUserAdmin: false
     }
     componentDidMount(){
-        console.log(this.props.userIsAuthenticated)
+        this.setState({isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin})
         if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
             $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
             .done(r => console.log(r)).fail(e => console.log(e));
         }
     }
+    loggedIn = (user) => {
+        this.setState({isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin")})
+    }
+    loggedOut= () => {
+        this.setState({isUserAuthenticated: false, isUserAdmin: false})
+    }
+
+
     render() {
+        /*$.(window).scrollTop(0)*/
 
         const app = (
-
+            
             <div className="pagewrapper">
-                <HeaderPartial />  {/*Header component*/}
+                <HeaderPartial setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
 
 
                 <div className="item-reactcontent">
@@ -70,10 +83,12 @@ export default class Index extends Component {
                     <Switch>
                         <Route exact path="/"><Redirect to="/products" /></Route>
 
+                        <Route path="/login" render={(props) => <Login {...props } />}/>
+                        <Route path="/logout" render={(props) => <Logout {...props } />}/>
+                       
+                        <Route path="/youareloggedout"><YouAreLoggedOut /></Route>
 
-                        <Route path="/login"><Login /></Route>
-                        <Route path="/register"><Register /></Route>
-                        <Route path="/logout"><Logout /></Route>
+                        <Route path="/register" render={(props) => <Register {...props } />}/>
 
                         <Route path="/products"><Products /></Route>
                         <Route path="/orders"><Orders /></Route>
@@ -81,15 +96,20 @@ export default class Index extends Component {
 
                         <Route path="/userpage"><UserPage /></Route>
                         <Route path="/userorders"><UserOrders /></Route>
-                        <Route path="/userdetails"><UserDetails /></Route>
+                        <Route path="/userdetails" render={(props) => <UserDetails {...props}/>}/>
                         <Route path="/checkout"><Checkout /></Route>
                         <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>
                         <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>
                         <Route path="/adminusers"><AdminUsers /></Route>
-                        <Route path="/adminproducts"><AdminProducts /></Route>
+                      
+                        <Route path="/adminproducts" render={(props) => <AdminProducts {...props}/>}/>
+                        <Route path="/adminedituser" render={(props) => <UserDetails {...props}/>}/>
+                
 
+                        <Route path="/admincreateuser" render={(props) => <AdminCreateUser {...props}/>}/>
+                        <Route path="/adminedituserroles" render={(props) => <AddRoles {...props}/>}/>
                     </Switch>
 
 
@@ -97,8 +117,8 @@ export default class Index extends Component {
                 </div>
 
                 <FooterPartial />  {/*Footer component*/}
-            </div> 
-                        
+            </div>
+
         );
 
 
@@ -118,14 +138,14 @@ export default class Index extends Component {
             </BrowserRouter>
         )
 
-        
+
     }
 }
 
 
 
 class OrderPage extends Component {
-    //get the orders by calling the partialview with user orders. render the html 
+    //get the orders by calling the partialview with user orders. render the html
     // getOrders = () => {
     //     $.get("url")
     //     .done(r => $(".orders").html = r.data)
@@ -144,7 +164,7 @@ class OrderPage extends Component {
 function SideMenu({ viewOrders, location, context }) {
     const logOut = () => {
         $.ajax({
-            url: "/user/logout",
+            url: "api/user/logout",
             type: "POST",
             success: function (res) {
                 console.log("succeeded");
@@ -160,7 +180,7 @@ function SideMenu({ viewOrders, location, context }) {
         let id = "";
 
         $.ajax({
-            url: `/user/${id}/orders`,
+            url: `api/user/${id}/orders`,
             type: "GET",
             success: function (res) {
                 console.log("succeeded");
@@ -182,3 +202,7 @@ function SideMenu({ viewOrders, location, context }) {
         </ul>
     )
 }
+
+
+
+

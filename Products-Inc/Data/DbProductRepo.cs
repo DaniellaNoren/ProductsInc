@@ -33,12 +33,6 @@ namespace Products_Inc.Data
             return createProduct;
         }
 
-
-
-  
-        
-
-
         public List<Product> Read()
         {
             List<Product> pList = _productListContext.Products.ToList();
@@ -55,12 +49,30 @@ namespace Products_Inc.Data
             return person;
         }
 
-        public Product Update(Product person)
+        public Product Update(int productId, Product product)
         {
-            _productListContext.Products.Update(person);
+            Product original = Read(productId);
+
+            if (!string.IsNullOrEmpty(product.ProductDescription))
+            {
+                original.ProductDescription = product.ProductDescription;
+            }
+            if (!string.IsNullOrEmpty(product.ProductName))
+            {
+                original.ProductName = product.ProductName;
+            }
+            if (product.ProductPrice > 0)
+            {
+                original.ProductPrice = product.ProductPrice;
+            }
+            if (!string.IsNullOrEmpty(product.ImgPath)){
+                original.ImgPath = product.ImgPath;
+            }
+            
+            _productListContext.Products.Update(original);
             _productListContext.SaveChanges();
 
-            return person;
+            return Read(productId);
         }
 
         public bool Delete(Product person)

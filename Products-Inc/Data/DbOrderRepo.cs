@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Products_Inc.Models;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
+using Products_Inc.Models.Exceptions;
 
 namespace Products_Inc.Data
 {
@@ -38,7 +39,7 @@ namespace Products_Inc.Data
         {
             List<Order> pList = _orderListContext.Orders
                 .Include(f => f.OrderProducts).ThenInclude(g => g.Product)
-                .Include(h => h.User)
+                .Include(o => o.User)
                 .ToList();
 
             return pList;
@@ -49,6 +50,7 @@ namespace Products_Inc.Data
             Order order = _orderListContext.Orders
                 .Where(c => c.OrderId == id)
                 .Include(f => f.OrderProducts).ThenInclude(g => g.Product)
+                .Include(o => o.User)
                 .FirstOrDefault();
 
             return order;
@@ -84,5 +86,37 @@ namespace Products_Inc.Data
 
         }
 
+        public bool DeleteProduct(int productId)
+        {
+            OrderProduct orderProduct = ReadOrderProduct(productId);
+           
+            _orderListContext.OrderProducts.Remove(orderProduct);
+            _orderListContext.SaveChanges();
+            return true;
+    
+        }
+
+        public OrderProduct ReadOrderProduct(int productId)
+        {
+            OrderProduct orderProduct = _orderListContext.OrderProducts.Include(op => op.Product).Where(op => op.OrderProductId == productId).FirstOrDefault();
+            if (orderProduct != null)
+            {
+                return orderProduct;
+            }
+            else
+                throw new EntityNotFoundException("Orderproduct with id " + productId + " not found.");
+        }
+
+        public OrderProduct UpdateOrderProduct(int productId, OrderProduct orderProduct)
+        {
+            OrderProduct originalOrderProduct = ReadOrderProduct(productId);
+
+            originalOrderProduct.Amount = orderProduct.Amount;
+
+            _orderListContext.OrderProducts.Update(originalOrderProduct);
+            _orderListContext.SaveChanges();
+
+            return ReadOrderProduct(productId);
+        }
     }
 }

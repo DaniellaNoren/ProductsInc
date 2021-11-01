@@ -26,5 +26,9 @@ namespace Products_Inc.Models.Interfaces
 
 
         bool Delete(Order person);
+        bool DeleteProduct(int productId);
+        OrderProduct ReadOrderProduct(int productId);
+
+        OrderProduct UpdateOrderProduct(int productId, OrderProduct order);
     }
 }

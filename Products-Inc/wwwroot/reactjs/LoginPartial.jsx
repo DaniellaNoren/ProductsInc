@@ -1,5 +1,5 @@
-﻿import { Component, Fragment } from 'react';
-import React from 'React'
+﻿// import { Component, Fragment } from 'react';
+// import React from 'React'
 
 export default class LoginPartial extends Component {
     state = {

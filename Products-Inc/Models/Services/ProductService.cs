@@ -47,9 +47,15 @@ namespace Products_Inc.Models.Services
         //    return productList;
         //}
 
-        public ProductViewModel Update(int id, Product product)
+        public ProductViewModel Update(int id, CreateProductViewModel product)
         {
-            throw new NotImplementedException();
+            if (!string.IsNullOrEmpty(product.ImgData))
+            {
+                product.ImgPath = _imageService.SaveImage(product.ImgData);
+            }
+
+            Product p = _productRepo.Update(id, GetProduct(product));
+            return GetModel(p);
         }
 
 
@@ -110,7 +116,7 @@ namespace Products_Inc.Models.Services
  
         }
 
-        public ProductViewModel GetModel(Product product)
+        public static ProductViewModel GetModel(Product product)
         {
             return new ProductViewModel() { 
                 ImgPath = product.ImgPath, 
@@ -118,6 +124,18 @@ namespace Products_Inc.Models.Services
                 ProductDescription = product.ProductDescription, 
                 ProductId = product.ProductId, 
                 ProductName = product.ProductName 
+            };
+
+        }
+
+        public static Product GetProduct(CreateProductViewModel product)
+        {
+            return new Product()
+            {
+                ImgPath = product.ImgPath,
+                ProductPrice = product.ProductPrice,
+                ProductDescription = product.ProductDescription,
+                ProductName = product.ProductName
             };
 
         }

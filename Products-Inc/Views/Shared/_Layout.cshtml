@@ -8,16 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products_Inc</title>
     <link rel="stylesheet" href="~/css/bootstrap-5.0.2-dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" type="text/css"/>
     <link href="~/css/productsStyle.css" rel="stylesheet" type="text/css" />
-   
+
 </head>
 <body>
-
-    <div class="identitybox">
-            <partial name="_LoginPartial" />
-        </div>
-
 
 
     @RenderBody()
@@ -25,6 +20,8 @@
 
     <script src="~/js/jquery-3.6.0.min.js"></script>
     <script src="~/css/bootstrap-5.0.2-dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/updateidentitypartial.js"></script>
+
 
     @*<script src="~/js/ajaxactions.js"></script>*@
 
@@ -41,6 +38,11 @@
     {
         RenderSection("scripts");
     }
+
+    <div class="identitybox">
+        <partial name="_LoginPartial" />
+    </div>
+
 
 </body>
 </html>

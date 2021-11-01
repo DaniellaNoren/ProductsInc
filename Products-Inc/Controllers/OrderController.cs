@@ -13,11 +13,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Products_Inc.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class OrderController : Controller
     {
-      
+
         private readonly IOrderService _orderService;
         private readonly IUserService _userService;
 
@@ -51,8 +52,25 @@ namespace Products_Inc.Controllers
         public IActionResult GetUserOrders(string userid)
         {
             return new OkObjectResult(_orderService.FindAllBy(userid));
-        } 
-        
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("products/{productId}")]
+        public IActionResult DeleteProduct(int productId)
+        {
+            _orderService.DeleteProduct(productId);
+
+            return new OkResult();
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("products/{productId}")]
+        public IActionResult UpdateProduct(int productId, OrderProductViewModel orderProduct)
+        {
+           OrderProductViewModel newOrderProduct = _orderService.UpdateProduct(productId, orderProduct);
+           return new OkObjectResult(newOrderProduct);
+        }
+
         [Authorize(Roles = "User")]
         [HttpGet("users")]
         public async Task<IActionResult> GetLoggedInUserOrders()
@@ -70,9 +88,8 @@ namespace Products_Inc.Controllers
         }
 
 
-       
+
     }
 }
 
- 
- 
+

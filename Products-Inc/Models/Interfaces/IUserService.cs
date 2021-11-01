@@ -11,20 +11,20 @@ namespace Products_Inc.Models.Interfaces
     {
        Task<UserViewModel> Add(RegisterModel registerModel);
 
-        List<UserViewModel> All();
-
-        Task<UserViewModel> FindById(int id);
+     
 
         Task<UserViewModel> FindBy(string userName);
-
-        Task<UserViewModel> Edit(int id, User user);
 
         bool Remove(int id);
 
         Task<bool> AddRole(string userName, string role);
-        Task<bool> Login(LoginModel loginModel);
+        Task<UserViewModel> Login(LoginModel loginModel);
 
         void Logout();
-        Task<UserViewModel> Update(string userId, RegisterModel updateModel);
+        Task<UserViewModel> Update(string userId, UpdateUserViewModel updateModel, bool login);
+        List<UserViewModel> GetAllUsers();
+        List<string> GetAllRoles();
+        Task<UserViewModel> ReplaceRoles(string userName, List<string> roles);
+        Task<List<string>> GetAllUserRoles(string userName);
     }
 }

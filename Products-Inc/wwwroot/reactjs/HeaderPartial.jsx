@@ -2,12 +2,7 @@
 import React from 'React'
 import Logout from './Logout.jsx';
 import {
-    Link,
-    BrowserRouter,
-    Route,
-    Switch,
-    StaticRouter,
-    Redirect
+    Link
 } from 'react-router-dom';
 
 
@@ -46,7 +41,8 @@ export default class Headerpart extends Component {
                                         <li><Link to="/contactus">Contact Us</Link></li>
                                     </ul>
                                 </li>
-
+                                {this.props.userIsAuthenticated ? 
+                                this.props.userIsAdmin ?
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle dropbtn" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -59,32 +55,35 @@ export default class Headerpart extends Component {
                                         </ul>
                                     </div>
                                 </li>
+                                : 
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
                                         
-                                        <a className="nav-link dropdown-toggle dropbtn" to="/userpage" id="navbarDarkDropdownMenuLink" role="button" >
+                                        <Link className="btn btn-primary" to="/userpage" id="navbarDarkDropdownMenuLink" role="button" >
                                             My Page
-                                        </a>
-                                        <ul className="dropdown-menu dropdown-content" aria-labelledby="navbarDarkDropdownMenuLink">
-                                            {/* <li><Link to="/userorders">My Order History</Link></li>
-                                            <li><Link to="/userdetails">Edit My Details</Link></li>
-                                            <li><Link to="/userpage">UserPage</Link></li> */}
-
-                                        </ul> 
+                                        </Link>
                                     </div>
                                 </li>
+                                : null }
                                 <li className="nav-item">
                                     <Link to="/checkout" className="nav-link text-dark"><img src="./img/cart.jpg" width="30" height="30" /></Link>
                                 </li>
+                                { !this.props.userIsAuthenticated ? 
                                 <li className="nav-item">
-                                    <Link to="/register" className="nav-link"><button>Register</button></Link>
-                                </li>
+                                    <Link className="btn btn-primary" to={{pathname: "/register", redirectUrl: "/login"}} className="nav-link">Register</Link>
+                                </li> : null 
+                                }
+                                { !this.props.userIsAuthenticated ?
                                 <li className="nav-item">
-                                    <Link to="/login" className="nav-link" ><button>Login</button></Link>
-                                </li>
+                                    <Link className="btn btn-primary" to={{pathname: "/login", loggedInCallback: this.props.setLoggedIn}} className="nav-link" >Login</Link>
+                                </li> : null
+                                }
+                                { this.props.userIsAuthenticated ?                                 
                                 <li className="nav-item">
-                                    <a className="nav-link"><Logout /></a>
-                                </li>
+                                   <Logout logoutCallback={this.props.setLoggedOut}/>
+                                </li> : null
+                                }
+                                
                             </ul>  {/*problem li after li,,,, and atag after atag (atag and link)*/}
                     </div>
 

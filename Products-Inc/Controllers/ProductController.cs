@@ -10,8 +10,9 @@ using System.IO;
 
 namespace Products_Inc.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
+
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -54,7 +55,19 @@ namespace Products_Inc.Controllers
             {
                 return new BadRequestObjectResult(new { msg = "Invalid body" });
             }
-          
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{productId}")]
+        public IActionResult DeleteProduct(int productId, [FromBody] CreateProductViewModel product)
+        {
+           
+           ProductViewModel editedProduct = _productService.Update(productId, product);
+
+            return new OkObjectResult(editedProduct);
+
+
         }
 
         [Authorize(Roles = "Admin")]
@@ -76,5 +89,5 @@ namespace Products_Inc.Controllers
 
     }
 
-   
+
 }

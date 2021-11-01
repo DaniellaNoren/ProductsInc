@@ -17,7 +17,7 @@ export default class Register extends Component {
         e.preventDefault();
 
         $.ajax({
-            url: "/user/register",
+            url: "api/user/register",
             method: "POST",
             data: JSON.stringify(this.state.registerModel),
             accepts: { json: "application/json" },
@@ -25,6 +25,7 @@ export default class Register extends Component {
             dataType: "json",
             success: function(response, textStatus, jqXHR) {
                 console.log("succeeded");
+                console.log(t)
                 t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -38,8 +39,10 @@ export default class Register extends Component {
 
     }
     render() {
+        $(window).scrollTop(0)
+
         if(this.state.redirect){
-            return <Redirect to="/login"/>
+            return <Redirect to={this.props.location.redirectUrl}/>
         }else
         return (
             <div>

@@ -25,13 +25,9 @@ namespace Products_Inc.Models
         public string UserId { get; set; } // This is Identity UserID named Id as a string in identity table
 
 
+        public User User { get; set; }
         
 
         public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
-
-        public List<User> Users { get; set; } // get objectlist of users. So that in repo,
-                                       // we can match userobject with an order that has userId by include theninclude
-        public User User { get; set; }
-        //public List<Order> Orders { get; set; }
     }
 }
