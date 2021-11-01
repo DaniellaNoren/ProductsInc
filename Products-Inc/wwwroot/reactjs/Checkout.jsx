@@ -1,10 +1,9 @@
-﻿// @ts-check
-
+﻿
 import { Component, Fragment } from 'react';
 import Cookies from 'js-cookies'
 import {
     Redirect
-  } from "react-router-dom";
+} from "react-router-dom";
 
 class Checkout extends Component {
     state = {
@@ -23,12 +22,12 @@ class Checkout extends Component {
         redirect: false,
         redirectUrl: "/products"
     }
-    componentDidMount(){
-        this.setState({redirect: false})
+    componentDidMount() {
+        this.setState({ redirect: false })
 
         let cookie = Cookies.getItem('shopping-cart');
-        if(cookie){
-            this.setState({shoppingCart: JSON.parse(cookie)})
+        if (cookie) {
+            this.setState({ shoppingCart: JSON.parse(cookie) })
         }
     }
     cancelOrder = () => {
@@ -43,7 +42,7 @@ class Checkout extends Component {
             }
         })
 
-        this.setState({redirectUrl: "/products", redirect: true})
+        this.setState({ redirectUrl: "/products", redirect: true })
 
     }
     checkoutOrder = () => {
@@ -57,11 +56,13 @@ class Checkout extends Component {
             contentType: "application/json",
             dataType: "json",
             success: function(res) {
+                
+                t.props.resetNrOfProducts()
                 t.setState(oldState => ({ viewReceipt: !oldState.viewReceipt, order: res }))
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
-                t.setState({redirectUrl: "/login", redirect: true})
+                t.setState({ redirectUrl: "/login", redirect: true })
 
             }
         });
@@ -71,38 +72,38 @@ class Checkout extends Component {
         this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
         this.totalPrice();
     }
-    totalPrice = function(){ return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
+    totalPrice = function () { return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + nextPr.Product.ProductPrice }, 0) * 100) / 100 };
 
     render() {
         $(window).scrollTop(0)
 
-        if(this.state.redirect)
+        if (this.state.redirect)
             return (
                 <div>
-                    <RedirectTo url={this.state.redirectUrl}/>
+                    <RedirectTo url={this.state.redirectUrl} />
                 </div>
             )
         else
             return (
                 <div>
                     {
-                    !this.state.viewReceipt ?
-                        <div>
-                            <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
-                            <div className="d-flex align-items-end justify-content-end">
-                                <h3 className="border border-dark m-3 p-2" >Total Price: {this.totalPrice()}kr</h3>
+                        !this.state.viewReceipt ?
+                            <div>
+                                <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
+                                <div className="d-flex align-items-end justify-content-end totalPriceCheckoutDiv">
+                                    <h3 className="border border-white m-3 p-2" >Total Price: {this.totalPrice()}kr</h3>
+                                </div>
+                                <button onClick={this.checkoutOrder} className="p-2 m-3 btn">BUY</button>
+                                <button onClick={this.cancelOrder} className="p-2 m-3 btn">CANCEL</button>
                             </div>
-                            <button onClick={this.checkoutOrder} className="p-2 m-3 btn btn-primary">BUY</button>
-                            <button onClick={this.cancelOrder} className="p-2 m-3 btn btn-secondary">CANCEL</button>
-                        </div>
-                    :
-                        <div>
-                            <Receipt propMsg={"Your order has been placed!"} propOrder={this.state.order} />
-                        </div>
+                            :
+                            <div>
+                                <Receipt propMsg={"Your order has been placed!"} propOrder={this.state.order} />
+                            </div>
                     }
 
                 </div>
-         )
+            )
     }
 }
 
@@ -128,19 +129,19 @@ function Receipt({ propOrder, propMsg, user, location }) {
     return (
         <div id="receipt" className="d-flex align-items-center justify-content-center">
             <div>
-            <h2>{msg}</h2>
+                <h2>{msg}</h2>
 
-            {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
+       
             <h4>Ordernr: {order.orderId}</h4>
             <ul>
-                    {order.products.map((p, index) => <li key={index+10}>{p.product.productName}, {p.product.productPrice}kr</li>)}
+                    {order.orderProducts.map((p, index) => <li key={index+10}>{p.product.productName}, {p.product.productPrice}kr</li>)}
             </ul>
-            {/*<h3>{order.Price}kr</h3>*/}
+           
 
-            <h4>Thank you for ordering!</h4>
+                <h4>Thank you for ordering!</h4>
 
-            <div className="d-flex align-items-end justify-content-end">
-                <button className="p-2 m-2 btn btn-success" onClick={printReceipt}>PRINT RECEIPT</button>
+                <div className="d-flex align-items-end justify-content-end">
+                    <button className="p-2 m-2 btn btn-success" onClick={printReceipt}>PRINT RECEIPT</button>
                 </div>
 
 
@@ -149,36 +150,36 @@ function Receipt({ propOrder, propMsg, user, location }) {
     )
 }
 
-function RedirectTo ({url})  {
-
-    return <Redirect to={url}></Redirect>
+function RedirectTo({ url,  redirectUrl }) {
+    
+    return <Redirect to={{pathname: url, redirectUrl}}></Redirect>
 }
 
 
-function Product({product, removeMe}){
+function Product({ product, removeMe }) {
     return (
         <tr>
-           <td colSpan={5}>{product.ProductName}</td>
-           <td colSpan={4}>{product.ProductPrice}</td>
-           <td colSpan={1}><button className="btn btn-danger" onClick={() => removeMe(product.ProductId)}>-</button></td>
+            <td colSpan={5}>{product.ProductName}</td>
+            <td colSpan={4}>{product.ProductPrice}</td>
+            <td colSpan={1}><button className="btn btn-danger" onClick={() => removeMe(product.ProductId)}>-</button></td>
         </tr>
     )
 }
 
-function ProductList({products, removeProductMethod}){
+function ProductList({ products, removeProductMethod }) {
     return (
         <table className="table">
-           <thead>
+            <thead>
                 <tr>
                     <th colSpan={5}>Product</th>
                     <th colSpan={5}>Price</th>
                 </tr>
             </thead>
             <tbody>
-                {products.map((p, index) => <Product product={p.Product} key={index + 50} removeMe={removeProductMethod}/>) }
+                {products.map((p, index) => <Product product={p.Product} key={index + 50} removeMe={removeProductMethod} />)}
             </tbody>
         </table>
     )
 }
 
-export {Checkout, Receipt}
+export { Checkout, Receipt }

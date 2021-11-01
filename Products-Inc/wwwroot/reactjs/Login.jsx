@@ -40,8 +40,6 @@ export default class Login extends Component {
                             url: "/api/shoppingcart",
                             method: "POST",
                             data: JSON.stringify(shoppingCart),
-                            //accepts: {json: "application/json" },
-                            //contentType: "application/json",
                             dataType: "json",
                             success: function (res) {
                                 console.log(res)
@@ -54,15 +52,14 @@ export default class Login extends Component {
 
 
                 }else{
-                    $.get(`/api/shoppingcart/users`, function (r) {
-                        //console.log("yay")
-                    })
-                    .done(/*r => console.log(r)).fail(e => console.log(e)*/);
+                    $.get(`/api/shoppingcart/users`, function(r){ console.log(r); })
+                   .fail(e => console.log(e));
                 }
-
-                t.props.location.loggedInCallback(res);
-                t.setState({ redirect: true})
-
+                if(t.props.location.loggedInCallback){
+                    t.props.location.loggedInCallback(res);
+                }
+                
+                t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 /*console.log(jqXHR);*/
@@ -78,11 +75,7 @@ export default class Login extends Component {
         $(window).scrollTop(0)
 
         if (this.state.redirect) {
-            /*<Index userNameIs={this.state.loginModel.userName} />*/
-            return (
-                <Redirect to="/" />
-                /*<Redirect to={{ pathname: "/", isUserNameFromLogin: this.state.loginModel.userName }} />*/
-            )
+           return <Redirect to={this.props.location.redirectUrl ? this.props.location.redirectUrl : "/"} />
         } else
             return (
                 <div>
@@ -111,7 +104,10 @@ export default class Login extends Component {
                             })}
                             id="remember-me-check" className="form-check-input" type="checkbox" />
                         </div>
-                        <button type="submit" className="btn btn-primary">Login</button>
+                        <br/>
+                        <div className="logInBtnDiv">
+                            <button type="submit" className="btn submitButton">Login</button>
+                        </div>
                     </form>
                 </div>
             )

@@ -1,7 +1,8 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
 import {
-    Redirect
+    Redirect,
+    Link
 } from 'react-router-dom';
 
 export default class Register extends Component {
@@ -42,7 +43,7 @@ export default class Register extends Component {
         $(window).scrollTop(0)
 
         if(this.state.redirect){
-            return <Redirect to={this.props.location.redirectUrl}/>
+            return <Redirect to={this.props.redirectUrl ? this.props.redirectUrl : this.props.location.redirectUrl}/>
         }else
         return (
             <div>
@@ -63,7 +64,9 @@ export default class Register extends Component {
                         <label htmlFor ="confirm-password-input">Repeat Password</label>
                         <input value={this.state.registerModel.confirmPassword} onChange={e => this.setState({registerModel: {...this.state.registerModel, confirmPassword: e.target.value}})} className="form-control" id="confirm-password-input" type="password" />
                     </div>
-                    <button type="submit" className="btn btn-primary">Register</button>
+                    <div className="registerBtnDiv">
+                        <button type="submit" className="btn">Register</button>
+                    </div>
                 </form>
             </div>
         )

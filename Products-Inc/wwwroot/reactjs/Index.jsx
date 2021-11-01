@@ -18,6 +18,7 @@ import AdminEditOrder from './AdminEditOrder.jsx';
 import AddRoles from './admineditroles.jsx';
 import AdminCreateUser from './Adminuserscreate.jsx';
 import AdminProducts  from './AdminProducts.jsx';
+import AdminRegister from './AdminRegister.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
 import UserDetails  from './UserDetails.jsx';
@@ -39,24 +40,31 @@ import React, { useEffect } from 'react';
 
 
 export default class Index extends Component {
+   state = {
+       viewOrders: false,
+       isUserAuthenticated: false,
+       isUserAdmin: false,
+       isUserName: "",
+       nrOfProducts: 0
+    }
+    componentDidMount(){
+        let t = this;
 
-        state = {
-            viewOrders: false,
-            isUserAuthenticated: false,
-            isUserAdmin: false,
-            isUserName: ""
+        this.setState({ isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin, isUserName: this.props.userNameIs})
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+            $.get(`/api/shoppingcart/users`, function(r){ if(r.products) t.setState({nrOfProducts: r.products.length})})
+                .fail(e => console.log(e));
+        }else if(Cookies.hasItem("shopping-cart")){
+            let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"))
+          
+            t.setState({nrOfProducts: shoppingCart.Products ? shoppingCart.Products.length : 0})
         }
-
-
-
-    componentDidMount() {
-        this.setState({ isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin, isUserName: this.props.userNameIs })
-        /*this.setState({ isUserName: this.props.location.isUserNameFromLogin })*/
-        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){
-            $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
-            .done(r => console.log(r)).fail(e => console.log(e));
-        }
-        //console.log(this.props.userNameIs)
+    }
+    setNrOfProducts = (nr) => {
+        this.setState(oldState => ({nrOfProducts: oldState.nrOfProducts + nr}))
+    }
+    resetNrOfProducts = () => {
+        this.setState(oldState => ({nrOfProducts: 0}))
     }
     loggedIn = (user) => {
         this.setState({ isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), isUserName: this.props.userNameIs})
@@ -70,16 +78,14 @@ export default class Index extends Component {
         const app = (
 
             <div className="pagewrapper">
-                <HeaderPartial setLoggedIn={this.loggedIn.bind(this)} setLoggedOut={this.loggedOut.bind(this)} userIsAdmin={this.state.isUserAdmin}
-                    userIsAuthenticated={this.state.isUserAuthenticated} userNameIs={this.props.userNameIs}/>  {/*Header component*/}
+                <HeaderPartial setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
 
 
                 <div className="item-reactcontent">
 
                     <Switch>
-                        <Route exact path="/"> <Redirect to="/products" /></Route>
-
-
+                        <Route exact path="/" render={(props) => <Redirect to={{pathname: "/products", ...props, setNrOfProducts: this.setNrOfProducts}} />}/>
+                       {/* // <Route exact path="/"></Route> */}
                         <Route path="/login" render={(props) => <Login {...props } />}/>
                         <Route path="/logout" render={(props) => <Logout {...props } />}/>
                         <Route path="/loginpartial" render={(props) => <LoginPartial {...props } />}/>
@@ -87,18 +93,20 @@ export default class Index extends Component {
 
                         <Route path="/register" render={(props) => <Register {...props } />}/>
 
-                        <Route path="/products"><Products /></Route>
+                        
+                        <Route path="/products" render={(props) => <Products { ...props } setNrOfProducts={this.setNrOfProducts}/>}/>
                         <Route path="/orders"><Orders /></Route>
                         <Route path="/contactus"><ContactUs /></Route>
 
                         <Route path="/userpage"><UserPage /></Route>
                         <Route path="/userorders"><UserOrders /></Route>
                         <Route path="/userdetails" render={(props) => <UserDetails {...props}/>}/>
-                        <Route path="/checkout"><Checkout /></Route>
+                        <Route path="/checkout"><Checkout resetNrOfProducts={this.resetNrOfProducts} /></Route>
                         <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>
                         <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>
+                        <Route path="/adminregister" render={(props) => <AdminRegister {...props}/>}/>
                         <Route path="/adminusers"><AdminUsers /></Route>
 
                         <Route path="/adminproducts" render={(props) => <AdminProducts {...props}/>}/>

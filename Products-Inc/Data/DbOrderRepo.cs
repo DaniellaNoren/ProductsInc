@@ -26,7 +26,10 @@ namespace Products_Inc.Data
         {
             Order newOrder = new Order() {
             UserId = createOrderViewModel.UserId,
-            OrderProducts = createOrderViewModel.Products.Select(op => new OrderProduct() { ProductId =  op.Product.ProductId, Amount = op.Amount}).ToList() };
+            OrderProducts = createOrderViewModel.Products.Select(op => 
+            new OrderProduct() { ProductId =  op.Product.ProductId, 
+                Amount = op.Amount}).ToList() 
+            };
 
              _orderListContext.Orders.Add(newOrder);
             _orderListContext.SaveChanges();

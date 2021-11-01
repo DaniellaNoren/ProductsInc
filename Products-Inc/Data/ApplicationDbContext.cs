@@ -35,6 +35,7 @@ namespace Products_Inc.Data
 
             modelBuilder.Entity<Order>()
                 .HasKey(mb => mb.OrderId);
+
             modelBuilder.Entity<Order>()
                  .HasOne<User>(mb => mb.User)
                  .WithMany(m => m.Orders)
@@ -58,7 +59,8 @@ namespace Products_Inc.Data
 
             modelBuilder.Entity<ShoppingCartProduct>().HasKey(scp => scp.ShoppingCartProductId);
             modelBuilder.Entity<ShoppingCart>().HasKey(sc => sc.ShoppingCartId);
-            modelBuilder.Entity<ShoppingCart>().HasOne(sc => sc.User).WithMany().HasForeignKey(sc => sc.UserId);
+            modelBuilder.Entity<ShoppingCart>()
+                .HasOne(sc => sc.User).WithMany().HasForeignKey(sc => sc.UserId);
             modelBuilder.Entity<ShoppingCartProduct>()
                 .HasOne<ShoppingCart>(sp => sp.ShoppingCart)
                 .WithMany(sc => sc.Products)

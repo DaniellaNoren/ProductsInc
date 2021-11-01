@@ -23,12 +23,16 @@ export default class AdminEditProduct extends Component {
         $.ajax({
             url: `/api/product/${this.props.product.productId}`,
             method: 'PUT',
+            Accept: "application/json",
+            contentType: "application/json", 
+            dataType: "json",
             data: JSON.stringify(t.state.editedProduct),
             success: function(response) {
-                console.log(response);
+            
+                t.setState({errorMsg: false, msg: "Product successfully updated."})
                 t.props.editCallback(response);
                      
-            t.setState({errorMsg: false, msg: "Product successfully updated."})
+           
             },
             error: function(err){
                 t.setState({errorMsg: true, msg: "Product failed to be updated."})
@@ -80,15 +84,25 @@ export default class AdminEditProduct extends Component {
                     <input className="form-control" type="number" id="price-input" placeholder={this.props.product.productPrice} value={this.state.editedProduct.ProductPrice} onChange={e => this.setState({editedProduct: { ...this.state.editedProduct, ProductPrice: Number(e.target.value)}})}/>
                 </div>
                 <div className="form-group">
-                    <img src={this.props.product.imgPath} className="img w-10" alt={"logo"}/>
+                        <img src={this.props.product.imgPath} className="editProductImg img" alt={"logo"} />
+                        <br />
+                        <br/>
                     <label for="IMG-input">IMG</label>
                     <input className="form-control" type="file" id="IMG-input" onChange={e => { this.setFile(e.target.files[0]); }}/>
-                </div>
-                <button type="submit" className="btn btn-primary">Update</button>
-            </form>
-       
-        <button className="btn btn-warning" onClick={() => this.deleteProduct(this.props.product.productId)}>DELETE</button>
-        <button className="btn btn-primary" onClick={() => this.props.return(true)}>BACK</button>
+                    </div>
+                    <div className="ButtonsEditProducts">
+                        
+                            <button type="submit" className="btn submitBtnDiv">Update</button> 
+                            <button className="btn deleteBtn btn-warning" onClick={() => this.deleteProduct(this.props.product.productId)}>DELETE</button>
+                            <button className="btn backBtn" onClick={() => this.props.return(false)}>BACK</button>
+                        
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                </form>
+                
+
     </div>
     )
     }

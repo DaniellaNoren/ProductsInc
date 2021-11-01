@@ -89,8 +89,10 @@ export default class CreateProduct extends Component {
                 <div className="form-group">
                     <label for="IMG-input">IMG</label>
                     <input className="form-control" type="file" id="IMG-input" onChange={e => { this.setFile(e.target.files[0]); }}/>
-                </div>
-                <button type="submit" className="btn btn-primary">Create</button>
+                    </div>
+                    <div className="createBtnDiv">
+                        <button type="submit" className="btn">Create</button>
+                    </div>
             </form>
         </div>
         )

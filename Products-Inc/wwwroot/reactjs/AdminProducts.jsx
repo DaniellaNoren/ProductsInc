@@ -19,19 +19,26 @@ export default class AdminProducts extends Component{
         msg: ""
     }
     componentDidMount(){
-        console.log("asda")
+        
         let t = this;
         
         $.get("/api/product", function(){})
         .done(res => { t.setState({products: res}); console.log(res)})
         .fail(e => console.log(e))
     }
-    editCallback(product){
-        this.setState(oldState => ({products: oldState.map(p => { if(product.productId === p.productId){ 
-            return product}
-            else{return p}
+    editCallback = (product) => {
+               
+        this.setState(oldState => ({products: oldState.products.map(p => 
+            { if(product.productId === p.productId){ 
+                    return product
+            }
+            else{
+                return p
+            }
         })
-    }))
+
+      }))
+      
     }
     render() {
         $(window).scrollTop(0)
@@ -39,17 +46,19 @@ export default class AdminProducts extends Component{
            
             <div>
                 <div>
-                <h4><b>AdminProducts:</b></h4>
-               
-               
-
-                    <div className="nav-item">
-                        <button className="nav-link text-dark">ALL Products</button>
+                    { this.state.showCreateProduct ?   <div className="nav-item createProductBtn">
+                        <button className="nav-link btn" onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}}>All Products</button>
+                    </div> : 
+                    <div className="nav-item createProductBtn">
+                        <button onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}} className="nav-link btn">Create new Product</button>
                     </div>
-                    <div className="nav-item">
-                        <button onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}} className="nav-link text-dark">CREATE Product</button>
-                    </div>
-
+                    }
+                  
+                    
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                  </div>
             <div> 
                 {
@@ -91,7 +100,7 @@ function AdminProduct({product, editCallback}){
     const [showEditProduct, setShowEditProduct] = React.useState(false);
 
     
-     if(showEditProduct) return ( <AdminEditProduct editCallback={() => editCallback} product={product} return={setShowEditProduct}/> )
+     if(showEditProduct) return (  <AdminEditProduct editCallback={editCallback} product={product} return={setShowEditProduct}/> )
      else 
         return (
     <tr>
@@ -100,7 +109,9 @@ function AdminProduct({product, editCallback}){
     <td scope="row">{product.productName}</td>
     <td scope="row">{product.productPrice}</td>
     <td>
-        <button className="optionBtnGreen" onClick={() => setShowEditProduct(!showEditProduct)}>SHOW / EDIT</button>
+        <div className="showEditDiv">
+            <button className="showEditButton" onClick={() => setShowEditProduct(!showEditProduct)}>SHOW / EDIT</button>
+        </div>
     </td>
    
     </tr> 
