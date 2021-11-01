@@ -84,7 +84,7 @@ export default class AdminEditProduct extends Component {
                     <input className="form-control" type="number" id="price-input" placeholder={this.props.product.productPrice} value={this.state.editedProduct.ProductPrice} onChange={e => this.setState({editedProduct: { ...this.state.editedProduct, ProductPrice: Number(e.target.value)}})}/>
                 </div>
                 <div className="form-group">
-                        <img src={this.props.product.imgPath} className="editProductImg img " alt={"logo"} />
+                        <img src={this.props.product.imgPath} className="editProductImg img" alt={"logo"} />
                         <br />
                         <br/>
                     <label for="IMG-input">IMG</label>

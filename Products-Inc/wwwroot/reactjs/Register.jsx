@@ -1,7 +1,8 @@
 ﻿import { Component, Fragment } from 'react';
 import React from 'React'
 import {
-    Redirect
+    Redirect,
+    Link
 } from 'react-router-dom';
 
 export default class Register extends Component {
@@ -42,7 +43,7 @@ export default class Register extends Component {
         $(window).scrollTop(0)
 
         if(this.state.redirect){
-            return <Redirect to={this.props.location.redirectUrl}/>
+            return <Redirect to={this.props.redirectUrl ? this.props.redirectUrl : this.props.location.redirectUrl}/>
         }else
         return (
             <div>

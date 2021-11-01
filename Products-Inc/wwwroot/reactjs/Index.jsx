@@ -17,6 +17,7 @@ import AdminEditOrder from './AdminEditOrder.jsx';
 import AddRoles from './admineditroles.jsx';
 import AdminCreateUser from './Adminuserscreate.jsx';
 import AdminProducts  from './AdminProducts.jsx';
+import AdminRegister from './AdminRegister.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
 import UserDetails  from './UserDetails.jsx';
@@ -102,6 +103,7 @@ export default class Index extends Component {
 
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>
                         <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>
+                        <Route path="/adminregister" render={(props) => <AdminRegister {...props}/>}/>
                         <Route path="/adminusers"><AdminUsers /></Route>
                       
                         <Route path="/adminproducts" render={(props) => <AdminProducts {...props}/>}/>

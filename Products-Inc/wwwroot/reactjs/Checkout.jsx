@@ -1,4 +1,5 @@
-﻿import { Component, Fragment } from 'react';
+﻿
+import { Component, Fragment } from 'react';
 import Cookies from 'js-cookies'
 import {
     Redirect
@@ -54,8 +55,8 @@ class Checkout extends Component {
             accepts: { json: "application/json" },
             contentType: "application/json",
             dataType: "json",
-            success: function (res) {
-
+            success: function(res) {
+                
                 t.setState(oldState => ({ viewReceipt: !oldState.viewReceipt, order: res }))
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -129,12 +130,12 @@ function Receipt({ propOrder, propMsg, user, location }) {
             <div>
                 <h2>{msg}</h2>
 
-                {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
-                <h4>Ordernr: {order.orderId}</h4>
-                <ul>
-                    {order.orderProducts.map((p, index) => <li key={index + 10}>{p.product.productName}, {p.product.productPrice}kr</li>)}
-                </ul>
-                {/*<h3>{order.Price}kr</h3>*/}
+       
+            <h4>Ordernr: {order.orderId}</h4>
+            <ul>
+                    {order.orderProducts.map((p, index) => <li key={index+10}>{p.product.productName}, {p.product.productPrice}kr</li>)}
+            </ul>
+           
 
                 <h4>Thank you for ordering!</h4>
 
@@ -148,9 +149,9 @@ function Receipt({ propOrder, propMsg, user, location }) {
     )
 }
 
-function RedirectTo({ url }) {
-
-    return <Redirect to={url}></Redirect>
+function RedirectTo({ url,  redirectUrl }) {
+    
+    return <Redirect to={{pathname: url, redirectUrl}}></Redirect>
 }
 
 

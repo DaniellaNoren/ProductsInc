@@ -138,8 +138,8 @@ namespace Products_Inc.Controllers
         [HttpPut("roles/{userName}")]
         public async Task<IActionResult> AddRoleToUser(string userName, [FromBody] List<string> roles)
         {
-            await _userService.ReplaceRoles(userName, roles);
-            return new OkObjectResult("ok");
+            UserViewModel user = await _userService.ReplaceRoles(userName, roles);
+            return new OkObjectResult(user);
         }
 
 

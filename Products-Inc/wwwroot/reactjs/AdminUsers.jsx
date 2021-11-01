@@ -14,7 +14,7 @@ export default class AdminUsers extends Component{
     }
     componentDidMount(){
         let t = this;
-        $.get("/api/user", function(res){ console.log(res); t.setState({users: res})})
+        $.get("/api/user", function(res){  t.setState({users: res})})
         .done(r => console.log(r))
         .fail(e => console.log(e));
     }
@@ -24,10 +24,7 @@ export default class AdminUsers extends Component{
                 <h4>Users</h4>
             
                 <div> 
-                    <div>
-                        <Link className="btn btn-primary" to={{pathname:"/register", redirectUrl:"/adminusers"}}>Register new user</Link>
-                    </div>
-
+                    <Link className="btn btn-primary" to={{pathname:"/adminregister", redirectUrl:"/adminusers"}}>Register new user</Link>
                 </div>
                 <div> 
                     <UserTable users={this.state.users}/>
@@ -40,14 +37,14 @@ export default class AdminUsers extends Component{
 
 function UserTable({users}){
     return (
-        <table>
+        <table className="table table-dark">
             <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th></th>
-                    <th></th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -59,7 +56,7 @@ function UserTable({users}){
 
 function UserInfo({user}){
     return (
-            <tr>
+            <tr scope="col">
                 <td>{user.id}</td>
                 <td>{user.userName}</td>
                 <td>{user.email}</td>

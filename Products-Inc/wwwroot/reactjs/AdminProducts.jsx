@@ -19,7 +19,7 @@ export default class AdminProducts extends Component{
         msg: ""
     }
     componentDidMount(){
-        console.log("asda")
+        
         let t = this;
         
         $.get("/api/product", function(){})
@@ -46,12 +46,15 @@ export default class AdminProducts extends Component{
            
             <div>
                 <div>
-                    <div className="nav-item allProductBtn">
-                        <button className="nav-link btn">ALL Products</button>
-                    </div>
+                    { this.state.showCreateProduct ?   <div className="nav-item createProductBtn">
+                        <button className="nav-link btn" onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}}>All Products</button>
+                    </div> : 
                     <div className="nav-item createProductBtn">
-                        <button onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}} className="nav-link btn">CREATE Product</button>
+                        <button onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}} className="nav-link btn">Create new Product</button>
                     </div>
+                    }
+                  
+                    
                     <br />
                     <br />
                     <br />
@@ -97,7 +100,7 @@ function AdminProduct({product, editCallback}){
     const [showEditProduct, setShowEditProduct] = React.useState(false);
 
     
-     if(showEditProduct) return ( <AdminEditProduct editCallback={editCallback} product={product} return={setShowEditProduct}/> )
+     if(showEditProduct) return (  <AdminEditProduct editCallback={editCallback} product={product} return={setShowEditProduct}/> )
      else 
         return (
     <tr>
