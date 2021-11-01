@@ -14,10 +14,9 @@ import UserPage from './UserPage.jsx';
 import { Checkout, Receipt } from './Checkout.jsx';
 import AdminOrders from './AdminOrders.jsx';
 import AdminEditOrder from './AdminEditOrder.jsx';
-
 import AddRoles from './admineditroles.jsx';
 import AdminCreateUser from './Adminuserscreate.jsx';
-import AdminProducts from './Adminproducts.jsx';
+import AdminProducts  from './AdminProducts.jsx';
 import AdminUsers from './AdminUsers.jsx';
 import UserOrders from './UserOrders.jsx';
 import UserDetails  from './UserDetails.jsx';
@@ -104,8 +103,11 @@ export default class Index extends Component {
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>
                         <Route path="/admineditorder" render={(props) => <AdminEditOrder {...props}/>}/>
                         <Route path="/adminusers"><AdminUsers /></Route>
-                        <Route path="/adminproducts"><AdminProducts /></Route>
+                      
+                        <Route path="/adminproducts" render={(props) => <AdminProducts {...props}/>}/>
                         <Route path="/adminedituser" render={(props) => <UserDetails {...props}/>}/>
+                
+
                         <Route path="/admincreateuser" render={(props) => <AdminCreateUser {...props}/>}/>
                         <Route path="/adminedituserroles" render={(props) => <AddRoles {...props}/>}/>
                     </Switch>

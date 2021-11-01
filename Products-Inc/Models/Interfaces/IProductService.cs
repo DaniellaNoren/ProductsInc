@@ -18,9 +18,7 @@ namespace Products_Inc.Models.Interfaces
 
         ProductViewModel FindBy(int id);
 
-        ProductViewModel Update(int id, Product product);
-
         bool Delete(int id);
-
+        ProductViewModel Update(int productId, CreateProductViewModel product);
     }
 }

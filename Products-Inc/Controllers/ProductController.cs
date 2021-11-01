@@ -59,6 +59,18 @@ namespace Products_Inc.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        [HttpPut("{productId}")]
+        public IActionResult DeleteProduct(int productId, [FromBody] CreateProductViewModel product)
+        {
+           
+           ProductViewModel editedProduct = _productService.Update(productId, product);
+
+            return new OkObjectResult(editedProduct);
+
+
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public IActionResult DeleteProduct(int id)
         {
