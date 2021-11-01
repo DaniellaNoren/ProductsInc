@@ -46,17 +46,16 @@ export default class AdminProducts extends Component{
            
             <div>
                 <div>
-                <h4><b>AdminProducts:</b></h4>
-               
-               
-
-                    <div className="nav-item">
-                        <button className="nav-link text-dark">ALL Products</button>
+                    <div className="nav-item allProductBtn">
+                        <button className="nav-link btn">ALL Products</button>
                     </div>
-                    <div className="nav-item">
-                        <button onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}} className="nav-link text-dark">CREATE Product</button>
+                    <div className="nav-item createProductBtn">
+                        <button onClick={e => { e.preventDefault(); this.setState({showCreateProduct: !this.state.showCreateProduct })}} className="nav-link btn">CREATE Product</button>
                     </div>
-
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                  </div>
             <div> 
                 {
@@ -107,7 +106,9 @@ function AdminProduct({product, editCallback}){
     <td scope="row">{product.productName}</td>
     <td scope="row">{product.productPrice}</td>
     <td>
-        <button className="optionBtnGreen" onClick={() => setShowEditProduct(!showEditProduct)}>SHOW / EDIT</button>
+        <div className="showEditDiv">
+            <button className="showEditButton" onClick={() => setShowEditProduct(!showEditProduct)}>SHOW / EDIT</button>
+        </div>
     </td>
    
     </tr> 

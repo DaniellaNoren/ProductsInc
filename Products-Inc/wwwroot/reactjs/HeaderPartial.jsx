@@ -59,7 +59,7 @@ export default class Headerpart extends Component {
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
                                         
-                                        <Link className="btn btn-primary" to="/userpage" id="navbarDarkDropdownMenuLink" role="button" >
+                                        <Link className="btn" to="/userpage" id="navbarDarkDropdownMenuLink" role="button" >
                                             My Page
                                         </Link>
                                     </div>

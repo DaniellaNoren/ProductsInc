@@ -35,7 +35,7 @@ export default class UserOrders extends Component {
         return (
             <div>
                 <h4>UserOrders:</h4>
-                <Link className="btn btn-primary" to="/userpage">Back</Link>
+                <Link className="btn" to="/userpage">Back</Link>
                 <UserOrderTable orders={this.state.orders} />
             </div>
         )

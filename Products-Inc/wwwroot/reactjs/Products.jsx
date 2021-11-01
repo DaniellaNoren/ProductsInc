@@ -94,23 +94,18 @@ export default class Products extends Component {
                         </button>
                     </div>
 
-                </div>
+                </div> {/*end of Carocel*/}
 
-
-
-
-
-
-
-                <h4><b>All Productss:</b></h4>
-
+               
                 <div className="products-holder d-flex p-2 justify-content-center flex-wrap overflow-auto">
 
                     { this.state.products.map(p => (
 
                         <div key={p.productId.toString()} className="product w-2 m-2">
                             <div>
-                                <img src={p.imgPath} className="text-center product-img" alt="Product image"></img>
+                                
+                                    <img src={p.imgPath} className="text-center product-img" alt="Product image"></img>
+                              
                                 <div className="wrapper">
                                     <div>
                                         <h4>{p.productName}</h4>
