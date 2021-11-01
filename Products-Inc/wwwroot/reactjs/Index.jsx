@@ -42,14 +42,27 @@ export default class Index extends Component {
    state = {
        viewOrders: false,
        isUserAuthenticated: false,
-       isUserAdmin: false
+       isUserAdmin: false,
+       nrOfProducts: 0
     }
     componentDidMount(){
+        let t = this;
+
         this.setState({isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin})
         if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
-            $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
-            .done(r => console.log(r)).fail(e => console.log(e));
+            $.get(`/api/shoppingcart/users`, function(r){ if(r.products) t.setState({nrOfProducts: r.products.length})})
+                .fail(e => console.log(e));
+        }else if(Cookies.hasItem("shopping-cart")){
+            let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"))
+          
+            t.setState({nrOfProducts: shoppingCart.Products ? shoppingCart.Products.length : 0})
         }
+    }
+    setNrOfProducts = (nr) => {
+        this.setState(oldState => ({nrOfProducts: oldState.nrOfProducts + nr}))
+    }
+    resetNrOfProducts = () => {
+        this.setState(oldState => ({nrOfProducts: 0}))
     }
     loggedIn = (user) => {
         this.setState({isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin")})
@@ -65,7 +78,7 @@ export default class Index extends Component {
         const app = (
             
             <div className="pagewrapper">
-                <HeaderPartial setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
+                <HeaderPartial setNrOfProducts={this.setNrOfProducts} nrOfProducts={this.state.nrOfProducts} setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
 
 
                 <div className="item-reactcontent">
@@ -82,8 +95,8 @@ export default class Index extends Component {
 
 
                     <Switch>
-                        <Route exact path="/"><Redirect to="/products" /></Route>
-
+                        <Route exact path="/" render={(props) => <Redirect to={{pathname: "/products", ...props, setNrOfProducts: this.setNrOfProducts}} />}/>
+                       {/* // <Route exact path="/"></Route> */}
                         <Route path="/login" render={(props) => <Login {...props } />}/>
                         <Route path="/logout" render={(props) => <Logout {...props } />}/>
                        
@@ -91,14 +104,15 @@ export default class Index extends Component {
 
                         <Route path="/register" render={(props) => <Register {...props } />}/>
 
-                        <Route path="/products"><Products /></Route>
+                        
+                        <Route path="/products" render={(props) => <Products { ...props } setNrOfProducts={this.setNrOfProducts}/>}/>
                         <Route path="/orders"><Orders /></Route>
                         <Route path="/contactus"><ContactUs /></Route>
 
                         <Route path="/userpage"><UserPage /></Route>
                         <Route path="/userorders"><UserOrders /></Route>
                         <Route path="/userdetails" render={(props) => <UserDetails {...props}/>}/>
-                        <Route path="/checkout"><Checkout /></Route>
+                        <Route path="/checkout"><Checkout resetNrOfProducts={this.resetNrOfProducts} /></Route>
                         <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>

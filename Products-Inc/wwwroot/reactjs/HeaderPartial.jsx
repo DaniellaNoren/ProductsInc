@@ -11,7 +11,9 @@ export default class Headerpart extends Component {
     constructor(props) {
         super(props)
     }
-
+    state = {
+        nrOfProducts: 0
+    }
     changeViewMenu = (viewpage) => {
         //console.log(viewpage)
         this.props.setViewPage({ viewpagestate: viewpage })
@@ -24,7 +26,7 @@ export default class Headerpart extends Component {
                 <nav className="navbar navbar-expand-lg navbar-dark">
                     <div className="container-fluid">
                         <div className="navbar-brand text-info" id="menulogo" alt="Company Logo">
-                            <Link to="/"><img alt="logo" src="./img/logo.png" /></Link>
+                            <Link to={{pathname: "/", setNrOfProducts: this.props.setNrOfProducts} }><img alt="logo" src="./img/logo.png" /></Link>
                             
                         </div>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -37,7 +39,7 @@ export default class Headerpart extends Component {
                                         Mainmenu
                                     </a>
                                     <ul className="dropdown-menu dropdown-content" aria-labelledby="navbarDarkDropdownMenuLink">
-                                        <li><Link to="/products">Products</Link></li>
+                                        <li><Link to={{pathname: "/products", setNrOfProducts: this.props.setNrOfProducts}}>Products</Link></li>
                                         <li><Link to="/contactus">Contact Us</Link></li>
                                     </ul>
                                 </li>
@@ -66,7 +68,7 @@ export default class Headerpart extends Component {
                                 </li>
                                 : null }
                                 <li className="nav-item">
-                                    <Link to="/checkout" className="nav-link text-dark"><img src="./img/cart.jpg" width="30" height="30" /></Link>
+                                    <Link to="/checkout"  className="nav-link text-dark"><div><img src="./img/cart.jpg" width="30" height="30" /><div className="bg-success rounded-circle text-center" style={{position:'absolute',top:'3em',paddingLeft:'5px',paddingRight:'5px'}}><h3 className="h-30">{this.props.nrOfProducts}</h3></div></div></Link>
                                 </li>
                                 { !this.props.userIsAuthenticated ? 
                                 <li className="nav-item">

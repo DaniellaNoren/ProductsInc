@@ -57,6 +57,7 @@ class Checkout extends Component {
             dataType: "json",
             success: function(res) {
                 
+                t.props.resetNrOfProducts()
                 t.setState(oldState => ({ viewReceipt: !oldState.viewReceipt, order: res }))
             },
             error: function (jqXHR, textStatus, errorThrown) {
