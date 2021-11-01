@@ -53,7 +53,7 @@ namespace Products_Inc.Models
         }
 
 
-        public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
+        //public List<OrderProduct> OrderProducts { get; set; } // dotnet core 3.1 many-to-many link
     }
 
 
