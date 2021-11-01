@@ -20,10 +20,11 @@ export default class UserPage extends Component {
         $(window).scrollTop(0)
         return (
             <div>
-                <h4>Userpage now</h4>
-                <div className="row">
-                <td><Link className="btn btn-primary" to={{pathname:"/userdetails", user: this.state.user, back: "/userpage"}}>My details</Link></td>
-                <Link className="btn btn-primary" to="/userorders">My orders</Link>
+                <div className="row userDetailsRow">
+                    <div className="myDetailsBtn">
+                    <td><Link className="btn" to={{ pathname: "/userdetails", user: this.state.user, back: "/userpage" }}>My details</Link></td>
+                    </div>
+                    <Link className="btn btn-primary" to="/userorders">My orders</Link>
                 </div>
             </div>
         )

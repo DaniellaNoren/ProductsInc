@@ -166,9 +166,6 @@
     width: 60px;
 }
 
-.admineditorder_img {
-    height: 80px;
-}
 
 
 /*
@@ -326,4 +323,52 @@
     padding-left:100px;
 }
 
+/*Css To AdminProducts*/
+.admineditorder_img {
+    width: 70px;
+    height: 70px;
+}
+.showEditButton {
+    background-color: #dc3545;
+    color:white;
+}
+.table{
+    margin-left:12px;
+}
+.allProductBtn{
+    float:left;
+    margin-left:100px;
+}
+.createProductBtn {
+    float: left;
+    margin-left: 130px;
+}
+.createBtnDiv {
+    float: left;
+    margin-left: 210px;
+}
+.editProductImg{
+    width:300px;
+    height:200px;
+}
+.ButtonsEditProducts {
+    margin-right: 118px;
+}
+.backBtn{
+    margin-right: 16px;
+}
+.deleteBtn {
+    margin-right: 16px;
+}
 
+/*Adding CSs to User Details Pages*/
+.myDetailsBtn{
+    margin-bottom:30px;
+    margin-right:100px;
+}
+.userDetailsRow{
+    padding-left:22px;
+}
+.totalPriceCheckoutDiv h3{
+    color:white;
+}
