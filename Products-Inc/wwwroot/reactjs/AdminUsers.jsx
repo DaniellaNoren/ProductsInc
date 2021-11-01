@@ -21,11 +21,14 @@ export default class AdminUsers extends Component{
     render(){
         return (
             <div>
-                <h4>Users</h4>
             
-                <div> 
-                    <Link className="btn btn-primary" to={{pathname:"/adminregister", redirectUrl:"/adminusers"}}>Register new user</Link>
+                <div className="registerNewUserBtnDiv"> 
+                    <Link className="btn" to={{pathname:"/adminregister", redirectUrl:"/adminusers"}}>Register new user</Link>
                 </div>
+                <br />
+                <br />
+                <br />
+                <br/>
                 <div> 
                     <UserTable users={this.state.users}/>
                 </div>
@@ -61,7 +64,7 @@ function UserInfo({user}){
                 <td>{user.userName}</td>
                 <td>{user.email}</td>
                          
-                <td><Link className="btn btn-primary" to={{pathname:"/adminedituser", user, back: "/adminusers"}}>Edit user</Link></td>
-                <td><Link className="btn btn-primary" to={{pathname:"/adminedituserroles", user}}>Edit roles</Link></td>
+                <td><Link className="btn" to={{pathname:"/adminedituser", user, back: "/adminusers"}}>Edit user</Link></td>
+                <td><Link className="btn" to={{pathname:"/adminedituserroles", user}}>Edit roles</Link></td>
             </tr>
     )}
