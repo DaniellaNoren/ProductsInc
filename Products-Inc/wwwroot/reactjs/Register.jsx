@@ -63,7 +63,9 @@ export default class Register extends Component {
                         <label htmlFor ="confirm-password-input">Repeat Password</label>
                         <input value={this.state.registerModel.confirmPassword} onChange={e => this.setState({registerModel: {...this.state.registerModel, confirmPassword: e.target.value}})} className="form-control" id="confirm-password-input" type="password" />
                     </div>
-                    <button type="submit" className="btn btn-primary">Register</button>
+                    <div className="registerBtnDiv">
+                        <button type="submit" className="btn">Register</button>
+                    </div>
                 </form>
             </div>
         )

@@ -92,7 +92,10 @@ export default class Login extends Component {
                             })}
                             id="remember-me-check" className="form-check-input" type="checkbox" />
                         </div>
-                        <button type="submit" className="btn btn-primary">Login</button>
+                        <br/>
+                        <div className="logInBtnDiv">
+                            <button type="submit" className="btn submitButton">Login</button>
+                        </div>
                     </form>
                 </div>
             )

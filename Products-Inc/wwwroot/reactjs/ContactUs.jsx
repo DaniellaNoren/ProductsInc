@@ -13,7 +13,7 @@ export default class ContactUs extends Component{
     render() {
         $(window).scrollTop(0)
         return (
-            <div>
+            <div className="contact_us_contents">
                 <h4><b>Contact Us at:</b></h4>
                 <br/>
            <p>Products Inc</p>

@@ -21,8 +21,6 @@ export default class Headerpart extends Component {
     render() {
         return (
             <header className="item-header">
-                {this.props.userIsAuthenticated}
-                {this.props.userIsAdmin}
                 <nav className="navbar navbar-expand-lg navbar-dark">
                     <div className="container-fluid">
                         <div className="navbar-brand text-info" id="menulogo" alt="Company Logo">
@@ -35,10 +33,10 @@ export default class Headerpart extends Component {
                         <div className="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
                                 <li className="nav-item dropdown">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a className="nav-link dropdown-toggle dropbtn" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Mainmenu
                                     </a>
-                                    <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <ul className="dropdown-menu dropdown-content" aria-labelledby="navbarDarkDropdownMenuLink">
                                         <li><Link to="/products">Products</Link></li>
                                         <li><Link to="/contactus">Contact Us</Link></li>
                                     </ul>
@@ -47,10 +45,10 @@ export default class Headerpart extends Component {
                                 this.props.userIsAdmin ?
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <a className="nav-link dropdown-toggle dropbtn" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Admin Menu
                                         </a>
-                                        <ul className="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                                        <ul className="dropdown-menu dropdown-content" aria-labelledby="navbarDarkDropdownMenuLink">
                                             <li><Link to="/adminproducts">Products</Link></li>
                                             <li><Link to="/adminusers">Users</Link></li>
                                             <li><Link to="/adminorders">Orders</Link></li>
