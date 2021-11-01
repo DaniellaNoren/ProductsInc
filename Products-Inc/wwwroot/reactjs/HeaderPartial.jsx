@@ -4,6 +4,7 @@ import Logout from './Logout.jsx';
 import {
     Link
 } from 'react-router-dom';
+import LoginPartial from './LoginPartial.jsx';
 
 
 export default class Headerpart extends Component {
@@ -19,10 +20,14 @@ export default class Headerpart extends Component {
         this.props.setViewPage({ viewpagestate: viewpage })
     }
 
-
     render() {
+        console.log(this.props.userNameIs)
         return (
             <header className="item-header">
+                <LoginPartial userIsAuthenticated={this.props.userIsAuthenticated} userNameIs={this.props.userNameIs}
+                    isUserAdmin={this.props.userIsAdmin} />
+                {this.props.userIsAuthenticated}
+                {this.props.userIsAdmin}
                 <nav className="navbar navbar-expand-lg navbar-dark">
                     <div className="container-fluid">
                         <div className="navbar-brand text-info" id="menulogo" alt="Company Logo">
@@ -43,8 +48,8 @@ export default class Headerpart extends Component {
                                         <li><Link to="/contactus">Contact Us</Link></li>
                                     </ul>
                                 </li>
-                                {this.props.userIsAuthenticated ? 
-                                this.props.userIsAdmin ?
+                                {this.props.userIsAuthenticated ?
+                                    this.props.userIsAdmin ?
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
                                         <a className="nav-link dropdown-toggle dropbtn" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +62,7 @@ export default class Headerpart extends Component {
                                         </ul>
                                     </div>
                                 </li>
-                                : 
+                                :
                                 <li className="nav-item">
                                     <div className="nav-item dropdown">
                                         
@@ -70,23 +75,23 @@ export default class Headerpart extends Component {
                                 <li className="nav-item">
                                     <Link to="/checkout"  className="nav-link text-dark"><div><img src="./img/cart.jpg" width="30" height="30" /><div className="bg-success rounded-circle text-center" style={{position:'absolute',top:'3em',paddingLeft:'5px',paddingRight:'5px'}}><h3 className="h-30">{this.props.nrOfProducts}</h3></div></div></Link>
                                 </li>
-                                { !this.props.userIsAuthenticated ? 
+                                {!this.props.userIsAuthenticated ?
                                 <li className="nav-item">
                                     <Link className="btn btn-primary" to={{pathname: "/register", redirectUrl: "/login"}} className="nav-link">Register</Link>
-                                </li> : null 
+                                </li> : null
                                 }
-                                { !this.props.userIsAuthenticated ?
+                                {!this.props.userIsAuthenticated ?
                                 <li className="nav-item">
                                     <Link className="btn btn-primary" to={{pathname: "/login", loggedInCallback: this.props.setLoggedIn}} className="nav-link" >Login</Link>
                                 </li> : null
                                 }
-                                { this.props.userIsAuthenticated ?                                 
+                                {this.props.userIsAuthenticated ?
                                 <li className="nav-item">
                                    <Logout logoutCallback={this.props.setLoggedOut}/>
                                 </li> : null
                                 }
-                                
-                            </ul>  {/*problem li after li,,,, and atag after atag (atag and link)*/}
+
+                            </ul>
                     </div>
 
                     </div>
@@ -98,20 +103,5 @@ export default class Headerpart extends Component {
     }
 
 
-} // class end tag   
+} // class end tag
 
-function index() {
-    $.get("/Home/Index", function (data) {
-        //console.log("reacts index!")
-        /*$("#peopleviewlist").html(data);*/
-    });
-    //document.getElementById("jsmessage").textContent = "List of All People fetched.";
-}
-
-function getAllProductsView() {
-    $.get("/Home/AllProducts", function (data) {
-        //console.log("products view !")
-        $("#peopleviewlist").html(data);
-    });
-    //document.getElementById("jsmessage").textContent = "List of All People fetched.";
-}

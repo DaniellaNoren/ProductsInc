@@ -1,23 +1,29 @@
 ﻿import { Component, Fragment } from 'react';
-import {
-    Redirect
-} from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import Cookies from 'js-cookies';
+import Index from './Index.jsx';
 
 export default class Login extends Component {
+
     state = {
             loginModel: { userName: "", password: "", rememberMe: false },
-            redirect: false
+            redirect: false,
+            wronglogin: false
     }
+
+
     componentDidMount() {
        this.setState({ redirect: false })
+
     }
+
+
     tryToLogin = e => {
         e.preventDefault();
-        
+
         let t = this;
 
-        $.ajax({      
+        $.ajax({
             url: "/api/user/login",
             method: "POST",
             data: JSON.stringify(this.state.loginModel),
@@ -25,7 +31,7 @@ export default class Login extends Component {
             contentType: "application/json",
             dataType: "json",
             success: function(res) {
-               
+
                 let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"));
                 if (shoppingCart) {
 
@@ -43,8 +49,8 @@ export default class Login extends Component {
                             }
                         })
                     }
-                   
-                  
+
+
                 }else{
                     $.get(`/api/shoppingcart/users`, function(r){ console.log(r); })
                    .fail(e => console.log(e));
@@ -59,6 +65,7 @@ export default class Login extends Component {
                 /*console.log(jqXHR);*/
                 console.log(textStatus);
                 console.log(errorThrown);
+                t.setState({ wronglogin: true })
             }
         })
     }
@@ -72,6 +79,11 @@ export default class Login extends Component {
         } else
             return (
                 <div>
+                    {this.state.wronglogin ?
+                        <div>WRONG USER OR PASSWORD</div>
+                        :
+                        null
+                    }
                     <form className="formlogin" onSubmit={this.tryToLogin}>
                         <div className="form-group">
                             <label htmlFor ="username-input">Username</label>

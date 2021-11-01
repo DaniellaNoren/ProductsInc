@@ -15,7 +15,7 @@ export default class Products extends Component {
         xhr.open('get', "api/product", true)
         xhr.onload = () => {
             const productlist = JSON.parse(xhr.responseText)
-            
+
             this.setState({ products: productlist })
 
         }
@@ -36,9 +36,9 @@ export default class Products extends Component {
         };
         $.ajax({
             url: "/api/shoppingcart/products",
-            type: "POST",
+            method: "POST",
             data: JSON.stringify(shoppingCartProduct),
-            Accept: "application/json",
+            //accepts: "application/json",
             contentType: "application/json",
             dataType: "json",
             success: function(res) {
