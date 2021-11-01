@@ -23,12 +23,16 @@ export default class AdminEditProduct extends Component {
         $.ajax({
             url: `/api/product/${this.props.product.productId}`,
             method: 'PUT',
+            Accept: "application/json",
+            contentType: "application/json", 
+            dataType: "json",
             data: JSON.stringify(t.state.editedProduct),
             success: function(response) {
-                console.log(response);
+            
+                t.setState({errorMsg: false, msg: "Product successfully updated."})
                 t.props.editCallback(response);
                      
-            t.setState({errorMsg: false, msg: "Product successfully updated."})
+           
             },
             error: function(err){
                 t.setState({errorMsg: true, msg: "Product failed to be updated."})
@@ -88,7 +92,7 @@ export default class AdminEditProduct extends Component {
             </form>
        
         <button className="btn btn-warning" onClick={() => this.deleteProduct(this.props.product.productId)}>DELETE</button>
-        <button className="btn btn-primary" onClick={() => this.props.return(true)}>BACK</button>
+        <button className="btn btn-primary" onClick={() => this.props.return(false)}>BACK</button>
     </div>
     )
     }

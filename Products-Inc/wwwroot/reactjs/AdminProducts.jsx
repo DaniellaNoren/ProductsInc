@@ -26,12 +26,19 @@ export default class AdminProducts extends Component{
         .done(res => { t.setState({products: res}); console.log(res)})
         .fail(e => console.log(e))
     }
-    editCallback(product){
-        this.setState(oldState => ({products: oldState.map(p => { if(product.productId === p.productId){ 
-            return product}
-            else{return p}
+    editCallback = (product) => {
+               
+        this.setState(oldState => ({products: oldState.products.map(p => 
+            { if(product.productId === p.productId){ 
+                    return product
+            }
+            else{
+                return p
+            }
         })
-    }))
+
+      }))
+      
     }
     render() {
         $(window).scrollTop(0)
@@ -91,7 +98,7 @@ function AdminProduct({product, editCallback}){
     const [showEditProduct, setShowEditProduct] = React.useState(false);
 
     
-     if(showEditProduct) return ( <AdminEditProduct editCallback={() => editCallback} product={product} return={setShowEditProduct}/> )
+     if(showEditProduct) return ( <AdminEditProduct editCallback={editCallback} product={product} return={setShowEditProduct}/> )
      else 
         return (
     <tr>
