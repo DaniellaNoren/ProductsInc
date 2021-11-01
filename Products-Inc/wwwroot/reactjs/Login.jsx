@@ -34,8 +34,6 @@ export default class Login extends Component {
                             url: "/api/shoppingcart",
                             method: "POST",
                             data: JSON.stringify(shoppingCart),
-                            //accepts: {json: "application/json" },
-                            //contentType: "application/json",
                             dataType: "json",
                             success: function (res) {
                                 console.log(res)
@@ -48,11 +46,13 @@ export default class Login extends Component {
                    
                   
                 }else{
-                    $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
-                    .done(r => console.log(r)).fail(e => console.log(e));
+                    $.get(`/api/shoppingcart/users`, function(r){ console.log(r); })
+                   .fail(e => console.log(e));
                 }
-             
-                t.props.location.loggedInCallback(res);
+                if(t.props.location.loggedInCallback){
+                    t.props.location.loggedInCallback(res);
+                }
+                
                 t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -68,7 +68,7 @@ export default class Login extends Component {
         $(window).scrollTop(0)
 
         if (this.state.redirect) {
-           return <Redirect to="/" />
+           return <Redirect to={this.props.location.redirectUrl ? this.props.location.redirectUrl : "/"} />
         } else
             return (
                 <div>
