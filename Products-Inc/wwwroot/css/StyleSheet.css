@@ -372,3 +372,10 @@
 .totalPriceCheckoutDiv h3{
     color:white;
 }
+Link{
+    text-decoration:none;
+}
+.editUserPageRoles{
+    color:white;
+    padding-left:100px;
+}

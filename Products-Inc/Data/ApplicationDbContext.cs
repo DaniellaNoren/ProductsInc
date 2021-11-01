@@ -80,10 +80,10 @@ namespace Products_Inc.Data
             // Seeding db with start products
 
             modelBuilder.Entity<Product>().HasData(
-            new Product() { ProductId = 10, ProductName = "Pack of bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 },
-            new Product() { ProductId = 20, ProductName = "Satsumas", ProductDescription = "Clementine fruit.", ProductPrice = 6 },
-            new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 },
-            new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54 },
+            new Product() { ProductId = 10, ProductName = "Bananas", ProductDescription = "A nice eko quality bananas from peru.", ProductPrice = 34 , ImgPath = "./img/img1.png" },
+            new Product() { ProductId = 20, ProductName = "Pomegranete", ProductDescription = "A good fruit.", ProductPrice = 6 , ImgPath = "./img/img2.jpg" },
+            new Product() { ProductId = 30, ProductName = "Tomatos A-Class", ProductDescription = "Sweet tomatos.", ProductPrice = 3 , ImgPath = "./img/img11.jpg" },
+            new Product() { ProductId = 40, ProductName = "Sunflower Butter", ProductDescription = "Butter made of sunflower seeds.", ProductPrice = 54, ImgPath = "./img/img16.png" },
 
             new Product() { ProductId = 50, ProductName = "Orange", ProductDescription = "Nice for your health", ProductPrice = 30, ImgPath = "./img/img4.jpg" },
             new Product() { ProductId = 51, ProductName = "Coca Cola", ProductDescription = "Good to drink", ProductPrice = 16, ImgPath = "./img/img6.jpg" },
