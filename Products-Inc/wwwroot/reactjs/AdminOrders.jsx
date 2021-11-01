@@ -49,17 +49,20 @@ export default class AdminOrders extends Component {
     render() {
        $(window).scrollTop(0)
             return (
-                <div>
-                    <h4><b>AdminOrders:</b></h4>
+                <div>                  
                     <br />
                     <div> {/*this div is sidemenu-tab*/}
                         <div className="nav-item">
-                            <button className="nav-link text-dark">ALL Orders</button>
+                            <button className="nav-link btn createProductBtn">ALL Orders</button>
                         </div>
                         <div>
-                            <button className="nav-link text-dark">Users Orders</button>
+                            <button className="nav-link btn createProductBtn">Users Orders</button>
                             {/*<p>isuserlogged: {this.props.propstest}</p>*/}
                         </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
 
                     </div>
                     <div> {/*this div is content of the selected tab*/}
@@ -80,7 +83,7 @@ export default class AdminOrders extends Component {
                                                 <td scope="row">{ao.orderId}</td>
                                                 <td scope="row">{ao.user.id}</td>
                                                 <td scope="row">{ao.user.userName}</td>
-                                                <td><button className="optionBtnGreen">
+                                                <td><button className="showEditButton">
                                                     <Link to={{ pathname: "/admineditorder", ao }}>SHOW / EDIT</Link>
                                                 </button></td>
 

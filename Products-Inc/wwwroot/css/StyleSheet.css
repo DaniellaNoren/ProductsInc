@@ -372,3 +372,6 @@
 .totalPriceCheckoutDiv h3{
     color:white;
 }
+Link{
+    text-decoration:none;
+}
