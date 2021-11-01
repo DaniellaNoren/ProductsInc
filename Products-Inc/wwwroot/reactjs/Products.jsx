@@ -15,7 +15,7 @@ export default class Products extends Component {
         xhr.open('get', "api/product", true)
         xhr.onload = () => {
             const productlist = JSON.parse(xhr.responseText)
-            //console.log(productlist)
+           
             this.setState({ products: productlist })
            
         }
