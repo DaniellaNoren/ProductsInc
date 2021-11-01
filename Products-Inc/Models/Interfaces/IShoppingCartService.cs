@@ -13,7 +13,7 @@ namespace Products_Inc.Models.Interfaces
         ShoppingCartViewModel Create(CreateShoppingCartViewModel createShoppingCartViewModel);
 
         OrderViewModel CreateOrder(ShoppingCartViewModel shoppingViewModel);
-
+        ShoppingCartViewModel Read(string id);
         List<ShoppingCartViewModel> ReadAll();
         ShoppingCartViewModel FindActiveBy(string userid);
 
@@ -21,6 +21,7 @@ namespace Products_Inc.Models.Interfaces
 
         ShoppingCartViewModel AddProduct(int productId, string shoppingCartId, int amount);
         ShoppingCartViewModel Update(int id, ShoppingCart shoppingCart);
+        ShoppingCartViewModel UpdateProduct(ShoppingCartProductViewModel product, ShoppingCartViewModel shoppingCart);
 
         bool Delete(int id);
 

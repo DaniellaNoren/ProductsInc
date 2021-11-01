@@ -9,8 +9,8 @@ class Checkout extends Component {
     state = {
         viewReceipt: false,
         shoppingCart: {
-            Products: [],
-            ShoppingCartId: ''
+            products: [],
+            shoppingCartId: ''
         },
         order: {
             Price: 0.0,
@@ -25,9 +25,11 @@ class Checkout extends Component {
     componentDidMount() {
         this.setState({ redirect: false })
 
-        let cookie = Cookies.getItem('shopping-cart');
-        if (cookie) {
-            this.setState({ shoppingCart: JSON.parse(cookie) })
+        if (Cookies.hasItem("shopping-cart")) {
+            let sc = JSON.parse(Cookies.getItem("shopping-cart"))
+            let newSc = { shoppingCartId: sc.ShoppingCartId, products: sc.Products.map(p => { return {amount: p.Amount, productId: p.ProductId, product: {productName: p.Product.ProductName, productPrice: p.Product.ProductPrice, productId: p.Product.ProductId}}})}
+            console.log(newSc)
+            this.setState({ shoppingCart: newSc })
         }
     }
     cancelOrder = () => {
@@ -69,11 +71,33 @@ class Checkout extends Component {
         });
 
     }
-    removeProduct = id => {
-        this.setState(oldState => ({ shoppingCart: { ...this.state.shoppingCart, Products: oldState.shoppingCart.Products.filter(p => p.ProductId !== id) } }))
-        this.totalPrice();
+    
+    updateMe = (product, amount) => {
+        let t = this;
+        let productAmount = product.amount
+        let nr = amount > productAmount ? Number(amount - productAmount) : amount > 0 ? Number((productAmount - amount) * -1) : Number( productAmount * -1)
+        let updatedProduct = {...product, amount}
+        $.ajax({
+            url: "/api/shoppingcart/products",
+            method: "PUT",
+            data: JSON.stringify(updatedProduct),
+            accepts: { json: "application/json" },
+            contentType: "application/json",
+            dataType: "json",
+            success: function(res) {
+                
+                t.props.setNrOfProducts(nr)
+                t.setState({ shoppingCart: {...t.state.shoppingCart, products: res.products}} )
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+               
+
+            }
+        });
+
     }
-    totalPrice = function () { return Math.round(this.state.shoppingCart.Products.reduce((prevPr, nextPr) => { return prevPr + (nextPr.Amount * nextPr.Product.ProductPrice) }, 0) * 100) / 100 };
+    totalPrice = () => Math.round(this.state.shoppingCart.products.reduce((prevPr, nextPr) => { return prevPr + ((nextPr.amount) * (nextPr.product.productPrice)) }, 0) * 100) / 100 ;
 
     render() {
         $(window).scrollTop(0)
@@ -90,7 +114,7 @@ class Checkout extends Component {
                     {
                         !this.state.viewReceipt ?
                             <div>
-                                <ProductList products={this.state.shoppingCart.Products} removeProductMethod={this.removeProduct} />
+                                <ProductList products={this.state.shoppingCart.products} updateProductMethod={this.updateMe} />
                                 <div className="d-flex align-items-end justify-content-end totalPriceCheckoutDiv">
                                     <h3 className="border border-white m-3 p-2" >Total Price: {this.totalPrice()}kr</h3>
                                 </div>
@@ -158,18 +182,20 @@ function RedirectTo({ url,  redirectUrl }) {
 }
 
 
-function Product({ product, removeMe }) {
+function Product({ product, updateMe }) {
+    
     return (
         <tr>
-            <td colSpan={5}>{product.Product.ProductName}</td>
-            <td colSpan={2}>{product.Amount}</td>
-            <td colSpan={5}>{Number(product.Product.ProductPrice * product.Amount)}</td>
-            <td colSpan={1}><button className="btn btn-danger" onClick={() => removeMe(product.ProductId)}>-</button></td>
+            {console.log(product)}
+            <td colSpan={5}>{product.product.productName}</td>
+            <td colSpan={2}><input type="number" value={product.amount} onChange={e => updateMe(product, Number(e.target.value))}/></td>
+            <td colSpan={5}>{Number(product.product.productPrice * product.amount)}</td>
+            <td colSpan={1}><button className="btn btn-danger" onClick={() => updateMe(product, 0)}>-</button></td>
         </tr>
     )
 }
 
-function ProductList({ products, removeProductMethod }) {
+function ProductList({ products, updateProductMethod }) {
     return (
         <table className="table">
             <thead>
@@ -181,7 +207,7 @@ function ProductList({ products, removeProductMethod }) {
                 </tr>
             </thead>
             <tbody>
-                {products.map((p, index) => <Product product={p} key={index + 50} removeMe={removeProductMethod} />)}
+                {products.map((p, index) => <Product product={p} key={index + 50} updateMe={updateProductMethod} />)}
             </tbody>
         </table>
     )

@@ -55,7 +55,7 @@ export default class Index extends Component {
         }else if(Cookies.hasItem("shopping-cart")){
             let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"))
           
-            t.setState({nrOfProducts: shoppingCart.Products ? shoppingCart.Products.length : 0})
+            t.setState({nrOfProducts: shoppingCart.Products ? shoppingCart.Products.reduce((prevPr, nextPr) => {return prevPr + nextPr.Amount}, 0) : 0})
         }
     }
     setNrOfProducts = (nr) => {
@@ -112,7 +112,7 @@ export default class Index extends Component {
                         <Route path="/userpage"><UserPage /></Route>
                         <Route path="/userorders"><UserOrders /></Route>
                         <Route path="/userdetails" render={(props) => <UserDetails {...props}/>}/>
-                        <Route path="/checkout"><Checkout resetNrOfProducts={this.resetNrOfProducts} /></Route>
+                        <Route path="/checkout"><Checkout setNrOfProducts={this.setNrOfProducts} resetNrOfProducts={this.resetNrOfProducts} /></Route>
                         <Route path="/orderdetails" render={(props) => <Receipt {...props}/>}/>
 
                         <Route path="/adminorders"><AdminOrders history={useHistory} location={useLocation}/></Route>

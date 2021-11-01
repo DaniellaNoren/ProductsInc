@@ -130,5 +130,34 @@ namespace Products_Inc.Models.Services
                 UserId = shoppingCart.UserId
             };
         }
+
+        public ShoppingCartViewModel Read(string id)
+        {
+            return GetModel(_repo.Read(Int32.Parse(id)));
+        }
+
+        public ShoppingCartViewModel UpdateProduct(ShoppingCartProductViewModel product, ShoppingCartViewModel shoppingCart)
+        {
+            ShoppingCart cart = _repo.Read(Int32.Parse(shoppingCart.ShoppingCartId));
+            ShoppingCartProduct scp = cart.Products.First(p => p.ProductId == product.ProductId);
+            if (scp != null)
+            {
+                if (product.Amount > 0)
+                {
+                    scp.Amount = product.Amount;
+                }
+                else
+                {
+                    cart.Products.Remove(scp);
+                }
+
+               return GetModel(_repo.Update(cart));
+            }
+            else
+            {
+                return shoppingCart;
+            }
+            
+        }
     }
 }

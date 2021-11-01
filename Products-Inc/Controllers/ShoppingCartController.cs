@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
@@ -126,7 +127,7 @@ namespace Products_Inc.Controllers
 
             foreach (ShoppingCartProductViewModel pr in cart.Products)
             {
-                if(pr.ProductId == product.ProductId)
+                if (pr.ProductId == product.ProductId)
                 {
                     pr.Amount += product.Amount;
                     createShoppingCart.AddProduct(pr);
@@ -140,6 +141,50 @@ namespace Products_Inc.Controllers
             UserViewModel user = await _userService.FindBy(User.Identity.Name);
             createShoppingCart.UserId = user.Id;
             return createShoppingCart;
+        }
+
+        [HttpPut("products")]
+        public IActionResult UpdateProduct([FromBody] ShoppingCartProductViewModel product)
+        {
+
+            if (this.Request.Cookies["shopping-cart"] == null || string.IsNullOrEmpty(this.Request.Cookies["shopping-cart"]))
+            {
+                return new BadRequestResult();
+            }
+            else
+            {
+                ShoppingCartViewModel shoppingCart = JsonConvert.DeserializeObject<ShoppingCartViewModel>(this.Request.Cookies["shopping-cart"], new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+                if (this.User.Identity.IsAuthenticated)
+                {
+                   shoppingCart = _service.UpdateProduct(product, shoppingCart);
+                }
+                else
+                {
+
+                    if(product.Amount == 0)
+                    {
+                        shoppingCart.RemoveProduct(product);
+                    }
+                    else
+                    {
+                        ShoppingCartProductViewModel scp = shoppingCart.Products.First(p => p.ProductId == product.ProductId);
+                        if(scp != null)
+                        {
+                            scp.Amount = product.Amount;
+                        }
+                    }
+
+                }
+
+                TryAppendCookie(shoppingCart);
+                return new OkObjectResult(shoppingCart);
+            }
+
+
         }
 
         [HttpPost("products")]
