@@ -1,5 +1,4 @@
-﻿// @ts-check
-
+﻿
 import { Component, Fragment } from 'react';
 import Cookies from 'js-cookies'
 import {
@@ -57,6 +56,7 @@ class Checkout extends Component {
             contentType: "application/json",
             dataType: "json",
             success: function(res) {
+                
                 t.setState(oldState => ({ viewReceipt: !oldState.viewReceipt, order: res }))
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -133,7 +133,7 @@ function Receipt({ propOrder, propMsg, user, location }) {
             {/*<h3>OrderNr: #{order.OrderNr}</h3>*/}
             <h4>Ordernr: {order.orderId}</h4>
             <ul>
-                    {order.products.map((p, index) => <li key={index+10}>{p.product.productName}, {p.product.productPrice}kr</li>)}
+                    {order.orderProducts.map((p, index) => <li key={index+10}>{p.product.productName}, {p.product.productPrice}kr</li>)}
             </ul>
             {/*<h3>{order.Price}kr</h3>*/}
 
