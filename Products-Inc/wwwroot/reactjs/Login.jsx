@@ -14,7 +14,7 @@ export default class Login extends Component {
 
     componentDidMount() {
        this.setState({ redirect: false })
-       this.setState({ wronglogin: false })
+
     }
 
 
@@ -57,17 +57,18 @@ export default class Login extends Component {
                     $.get(`/api/shoppingcart/users`, function (r) {
                         //console.log("yay")
                     })
-                    .done(r => console.log(r)).fail(e => console.log(e));
+                    .done(/*r => console.log(r)).fail(e => console.log(e)*/);
                 }
 
                 t.props.location.loggedInCallback(res);
-                t.setState({ redirect: true })
-                t.setState({ wronglogin: true })
+                t.setState({ redirect: true})
+
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 /*console.log(jqXHR);*/
                 console.log(textStatus);
                 console.log(errorThrown);
+                t.setState({ wronglogin: true })
             }
         })
     }
@@ -77,14 +78,18 @@ export default class Login extends Component {
         $(window).scrollTop(0)
 
         if (this.state.redirect) {
-            <Index userNameIs={this.state.loginModel.userName} />
-            return (<Redirect to="/" />)
+            /*<Index userNameIs={this.state.loginModel.userName} />*/
+            return (
+                <Redirect to="/" />
+                /*<Redirect to={{ pathname: "/", isUserNameFromLogin: this.state.loginModel.userName }} />*/
+            )
         } else
             return (
                 <div>
                     {this.state.wronglogin ?
                         <div>WRONG USER OR PASSWORD</div>
-                        : null
+                        :
+                        null
                     }
                     <form className="formlogin" onSubmit={this.tryToLogin}>
                         <div className="form-group">

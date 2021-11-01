@@ -3,9 +3,17 @@
 
 export default class LoginPartial extends Component {
 
+    state = {
+        loginModel: { userName: "", password: "", rememberMe: false }
+    }
+
+    //componentDidMount() {
+    //    this.setState({ loginModel: { ...this.state.loginModel, userName: this.props.isUserAdmin } })
+    //}
 
     render() {
-        console.log(this.props.isUserAdmin)
+
+        //console.log(this.props.isUserAdmin)
          return (
              <div className="identitybox">
                  <ul className="navbar-nav">

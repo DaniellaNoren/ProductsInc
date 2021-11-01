@@ -49,12 +49,14 @@ export default class Index extends Component {
 
 
 
-    componentDidMount(){
-        this.setState({ isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin, isUserName: this.props.userNameIs})
+    componentDidMount() {
+        this.setState({ isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin, isUserName: this.props.userNameIs })
+        /*this.setState({ isUserName: this.props.location.isUserNameFromLogin })*/
         if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){
             $.get(`/api/shoppingcart/users`, function(r){ console.log(r); console.log("yay")})
             .done(r => console.log(r)).fail(e => console.log(e));
         }
+        //console.log(this.props.userNameIs)
     }
     loggedIn = (user) => {
         this.setState({ isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), isUserName: this.props.userNameIs})
@@ -75,11 +77,12 @@ export default class Index extends Component {
                 <div className="item-reactcontent">
 
                     <Switch>
-                        <Route exact path="/"><Redirect to="/products" /></Route>
+                        <Route exact path="/"> <Redirect to="/products" /></Route>
+
 
                         <Route path="/login" render={(props) => <Login {...props } />}/>
                         <Route path="/logout" render={(props) => <Logout {...props } />}/>
-                        {/*<Route path="/loginpartial" render={(props) => <LoginPartial {...props } />}/>*/}
+                        <Route path="/loginpartial" render={(props) => <LoginPartial {...props } />}/>
                         <Route path="/youareloggedout"><YouAreLoggedOut /></Route>
 
                         <Route path="/register" render={(props) => <Register {...props } />}/>
