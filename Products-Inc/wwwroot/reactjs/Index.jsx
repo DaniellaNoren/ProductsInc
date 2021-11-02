@@ -51,12 +51,12 @@ export default class Index extends Component {
         let t = this;
 
         this.setState({ isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin, isUserName: this.props.userNameIs})
-        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){
             $.get(`/api/shoppingcart/users`, function(r){ if(r.products) t.setState({nrOfProducts: r.products.length})})
                 .fail(e => console.log(e));
         }else if(Cookies.hasItem("shopping-cart")){
             let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"))
-          
+
             t.setState({nrOfProducts: shoppingCart.Products ? shoppingCart.Products.length : 0})
         }
     }
@@ -93,7 +93,7 @@ export default class Index extends Component {
 
                         <Route path="/register" render={(props) => <Register {...props } />}/>
 
-                        
+
                         <Route path="/products" render={(props) => <Products { ...props } setNrOfProducts={this.setNrOfProducts}/>}/>
                         <Route path="/orders"><Orders /></Route>
                         <Route path="/contactus"><ContactUs /></Route>
