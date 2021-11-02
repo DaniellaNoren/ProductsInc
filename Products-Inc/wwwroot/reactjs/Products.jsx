@@ -42,12 +42,12 @@ export default class Products extends Component {
             contentType: "application/json",
             dataType: "json",
             success: function(res) {
-              
+
                 if(t.props.location.setNrOfProducts)
                     t.props.location.setNrOfProducts(amount)
                 else{
                     t.props.setNrOfProducts(amount);
-                }    
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
 
@@ -56,7 +56,7 @@ export default class Products extends Component {
     }
 
     render() {
-        $(window).scrollTop(0)
+        /*$(window).scrollTop(0)*/
         return (
             <div>
 
@@ -106,7 +106,7 @@ export default class Products extends Component {
 
                     { this.state.products.map(p => (
                             <Product product={p} addProductEvent={this.addProduct}/>
-                        
+
                     ))}
                 </div>
             </div>
@@ -131,7 +131,7 @@ function Product({ product, addProductEvent }) {
                                         <p>{product.productPrice} kr</p>
                                          <p>{product.productDescription}</p>
                                     </div>
-                                 
+
                                     <div className="product-input d-flex align-items-end justify-content-end">
                                         <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))}/>
                                         <button className="btn" onClick={e => { e.preventDefault(); addProductEvent(product, amount);}}>ADD</button>
