@@ -51,8 +51,12 @@ export default class Index extends Component {
         let t = this;
 
         this.setState({ isUserAuthenticated: this.props.userIsAuthenticated, isUserAdmin: this.props.userIsAdmin, isUserName: this.props.userNameIs})
-        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){
-            $.get(`/api/shoppingcart/users`, function(r){ if(r.products) t.setState({nrOfProducts: r.products.length})})
+        if(!Cookies.hasItem("shopping-cart") && this.props.userIsAuthenticated){   
+            $.get(`/api/shoppingcart/users`, function(r){ if(r.products){
+                t.setState({nrOfProducts: r.products.length}
+             
+                    )}})
+                
                 .fail(e => console.log(e));
         }else if(Cookies.hasItem("shopping-cart")){
             let shoppingCart = JSON.parse(Cookies.getItem("shopping-cart"))
@@ -67,7 +71,17 @@ export default class Index extends Component {
         this.setState(oldState => ({nrOfProducts: 0}))
     }
     loggedIn = (user) => {
-        this.setState({ isUserAuthenticated: true, isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), isUserName: user.userName})
+
+        let t = this;
+        if(!Cookies.hasItem("shopping-cart")){   
+            $.get(`/api/shoppingcart/users`, function(r){ if(r.products){
+                t.setState({nrOfProducts: r.products.length}
+                )}}).fail(e => console.log(e)); 
+        }
+
+        this.setState({ isUserAuthenticated: true, 
+            isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), 
+            isUserName: user.userName})
     }
     loggedOut= () => {
         this.setState({ isUserAuthenticated: false, isUserAdmin: false, isUserName: "" })
@@ -93,7 +107,7 @@ export default class Index extends Component {
 
                         <Route path="/register" render={(props) => <Register {...props } />}/>
 
-
+                        
                         <Route path="/products" render={(props) => <Products { ...props } setNrOfProducts={this.setNrOfProducts}/>}/>
                         <Route path="/orders"><Orders /></Route>
                         <Route path="/contactus"><ContactUs /></Route>
