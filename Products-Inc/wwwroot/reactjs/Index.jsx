@@ -71,14 +71,14 @@ export default class Index extends Component {
         this.setState(oldState => ({nrOfProducts: 0}))
     }
     loggedIn = (user) => {
-
+           
         let t = this;
         if(!Cookies.hasItem("shopping-cart")){   
             $.get(`/api/shoppingcart/users`, function(r){ if(r.products){
                 t.setState({nrOfProducts: r.products.length}
                 )}}).fail(e => console.log(e)); 
         }
-
+            
         this.setState({ isUserAuthenticated: true, 
             isUserAdmin: user.roles.includes("Admin") || user.roles.includes("ADMIN") || user.roles.includes("admin"), 
             isUserName: user.userName})
@@ -92,7 +92,7 @@ export default class Index extends Component {
         const app = (
 
             <div className="pagewrapper">
-                <HeaderPartial nrOfProducts={this.state.nrOfProducts} resetNrOfProducts={this.resetNrOfProducts} setNrOfProducts={this.setNrOfProducts} setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
+                <HeaderPartial userName={this.state.isUserName} nrOfProducts={this.state.nrOfProducts} resetNrOfProducts={this.resetNrOfProducts} setNrOfProducts={this.setNrOfProducts} setLoggedIn={this.loggedIn} setLoggedOut={this.loggedOut} userIsAdmin={this.state.isUserAdmin} userIsAuthenticated={this.state.isUserAuthenticated}/>  {/*Header component*/}
 
 
                 <div className="item-reactcontent">

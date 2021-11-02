@@ -23,7 +23,7 @@ export default class Headerpart extends Component {
     render() {
         return (
             <header className="item-header">
-                <LoginPartial userIsAuthenticated={this.props.userIsAuthenticated} userNameIs={this.props.userNameIs}
+                <LoginPartial userIsAuthenticated={this.props.userIsAuthenticated} userNameIs={this.props.userName}
                     isUserAdmin={this.props.userIsAdmin} />
                 {this.props.userIsAuthenticated}
                 {this.props.userIsAdmin}
