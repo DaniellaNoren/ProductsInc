@@ -26,6 +26,9 @@ export default class AdminProducts extends Component{
         .done(res => { t.setState({products: res}); console.log(res)})
         .fail(e => console.log(e))
     }
+    addProduct = p => {
+        this.setState(oldState => ({showCreateProduct: false, products: [...oldState.products, p]}))
+    }
     editCallback = (product) => {
                
         this.setState(oldState => ({products: oldState.products.map(p => 
@@ -63,7 +66,7 @@ export default class AdminProducts extends Component{
             <div> 
                 {
                 this.state.showCreateProduct ? 
-                <CreateProduct/> : 
+                <CreateProduct goBack={this.addProduct}/> : 
                 <div>
                 <table className="table" id="adminproductlist">
                     <thead>
