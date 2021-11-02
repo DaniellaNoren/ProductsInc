@@ -58,14 +58,15 @@ export default class Login extends Component {
                 if(t.props.location.loggedInCallback){
                     t.props.location.loggedInCallback(res);
                 }
-                
+
                 t.setState({redirect: true})
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 /*console.log(jqXHR);*/
-                console.log(textStatus);
-                console.log(errorThrown);
-                t.setState({ wronglogin: true })
+                //console.log(textStatus);
+                //console.log(errorThrown);
+                //t.setState({ wronglogin: true })
+                t.setState({ redirect: true })
             }
         })
     }
