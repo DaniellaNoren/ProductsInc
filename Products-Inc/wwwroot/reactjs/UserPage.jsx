@@ -24,7 +24,9 @@ export default class UserPage extends Component {
                     <div className="myDetailsBtn">
                     <td><Link className="btn" to={{ pathname: "/userdetails", user: this.state.user, back: "/userpage" }}>My details</Link></td>
                     </div>
-                    <Link className="btn btn-primary" to="/userorders">My orders</Link>
+                    <div className="myOrdersBtn">
+                        <Link className="btn" to="/userorders">My orders</Link>
+                    </div>
                 </div>
             </div>
         )

@@ -504,3 +504,16 @@ Link{
     color:white;
     padding-left:100px;
 }
+.myOrdersBtn{
+    width:130px;
+}
+.orderSucessPage{
+    color:white;
+    text-align:center;
+}
+.orderSucessPage ul{
+    list-style-type:none;
+}
+.printReciptBtn {
+    margin-right: 130px;
+}

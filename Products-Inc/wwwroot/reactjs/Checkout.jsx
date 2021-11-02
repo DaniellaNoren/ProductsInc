@@ -153,7 +153,7 @@ function Receipt({ propOrder, propMsg, user, location }) {
 
     const totalPrice = Math.round(order.orderProducts.reduce((prevPr, nextPr) => { return prevPr + (nextPr.amount * nextPr.product.productPrice) }, 0) * 100) / 100;
     return (
-        <div id="receipt" className="d-flex align-items-center justify-content-center">
+        <div id="receipt" className="d-flex align-items-center justify-content-center orderSucessPage">
             <div>
                 <h2>{msg}</h2>
 
@@ -166,8 +166,8 @@ function Receipt({ propOrder, propMsg, user, location }) {
                 <h2>Total price: {totalPrice}kr</h2>
                 <h4>Thank you for ordering!</h4>
 
-                <div className="d-flex align-items-end justify-content-end">
-                    <button className="p-2 m-2 btn btn-success" onClick={printReceipt}>PRINT RECEIPT</button>
+                <div className="d-flex align-items-end justify-content-end printReciptBtn">
+                    <button className="p-2 m-2 btn " onClick={printReceipt}>PRINT RECEIPT</button>
                 </div>
 
 
