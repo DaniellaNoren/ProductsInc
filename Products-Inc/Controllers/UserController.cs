@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Products_Inc.Controllers
 {
@@ -22,11 +23,13 @@ namespace Products_Inc.Controllers
     public class UserController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IShoppingCartService _shoppingCartService;
 
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, IShoppingCartService shoppingCartService)
         {
             this._userService = userService;
+            this._shoppingCartService = shoppingCartService;
         }
 
         [Authorize(Roles = "Admin")]
@@ -49,12 +52,26 @@ namespace Products_Inc.Controllers
             return new OkObjectResult(new UserViewModel { Roles = await _userService.GetAllUserRoles(userName) });
         }
 
+        private CreateShoppingCartViewModel GetCreateShoppingCartModel(string userId, ShoppingCartViewModel shoppingCart)
+        {
+            CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
+            shoppingCart.Products.ForEach(p => createShoppingCart.AddProduct(p));
+            createShoppingCart.UserId = userId;
+            return createShoppingCart;
+        }
+
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginModel loginModel)
         {
             if (ModelState.IsValid)
             {
                 UserViewModel user = await _userService.Login(loginModel);
+                
+                if(this.Request.Cookies["shopping-cart"] != null && !string.IsNullOrEmpty(this.Request.Cookies["shopping-cart"]))
+                {
+                    CreateShoppingCartViewModel shoppingCart = GetCreateShoppingCartModel(user.Id, JsonConvert.DeserializeObject<ShoppingCartViewModel>(this.Request.Cookies["shopping-cart"]));
+                    this.Response.Cookies.Append("shopping-cart", JsonConvert.SerializeObject(_shoppingCartService.Create(shoppingCart)));
+                }
 
                 return new OkObjectResult(user);
             }

@@ -55,10 +55,9 @@ export default class AddRoles extends Component{
     }
     checked = r => this.state.user.roles.includes(r);
     render() { return (
-        <div>
+        <div className="editUserPageRoles">
             <p className={this.state.errorMsg ? 'text-danger' : 'text-success'}>{this.state.msg}</p>
-            <h1>Edit Roles</h1>
-            <Link className="btn btn-primary" to={{pathname: "/adminusers"}}>Back</Link>
+            <Link className="btn" to={{pathname: "/adminusers"}}>Back</Link>
             <h2>User: {this.props.location.user.userName}</h2>
             <Roles roles={this.state.roles} filterRoleMethod={this.filterRole} checked={this.checked} userroles={this.state.user.roles} submitMethod={this.addRole}/>
         </div>
@@ -70,14 +69,14 @@ export default class AddRoles extends Component{
 function Roles({roles, filterRoleMethod, submitMethod, checked}){
     return (
         
-        <div>
+        <div className="editUserPageRoles">
             <form onSubmit={e => { e.preventDefault(); submitMethod(); }}>
             { roles.map(r => ( <div key={r}>
                 <label htmlFor="checkbox" >{r}</label>
                     <input type="checkbox" id="checkbox" value={r} checked={checked(r)} onChange={() => { filterRoleMethod(r) }} />
                 </div> ))
                 }
-            <button className="btn btn-primary" type="submit">Update roles</button>
+            <button className="btn" type="submit">Update roles</button>
             </form>
         </div>
     )

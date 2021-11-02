@@ -22,7 +22,7 @@ export default function Logout({test, logoutCallback}) {
     }
 
         return (
-                <button className="btn btn-primary" onClick={() => runlogout()}>Logout</button>               
+                <button className="btn" onClick={() => runlogout()}>Logout</button>               
         )
     
 }

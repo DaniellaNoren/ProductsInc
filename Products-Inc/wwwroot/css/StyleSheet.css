@@ -189,7 +189,17 @@
 .wrapper {
     display: grid;
     grid-template-columns: 150px 100px;
+    grid-template-rows: 5px auto auto 5px;
     color:white;
+}
+.wrapper .product-info{
+    grid-row: 2/3;
+}
+.wrapper .product-input{
+    grid-row: 3/4;
+}
+.wrapper input{
+    width: 60%;
 }
 .product {
     width: 20vw;
@@ -486,4 +496,11 @@ Ramya CSS code
 }
 .totalPriceCheckoutDiv h3{
     color:white;
+}
+Link{
+    text-decoration:none;
+}
+.editUserPageRoles{
+    color:white;
+    padding-left:100px;
 }

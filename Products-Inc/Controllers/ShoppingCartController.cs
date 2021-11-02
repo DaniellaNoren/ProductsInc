@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Products_Inc.Models.Interfaces;
 using Products_Inc.Models.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Products_Inc.Controllers
@@ -110,17 +111,80 @@ namespace Products_Inc.Controllers
             return createShoppingCart;
         }
 
-        private async Task<CreateShoppingCartViewModel> GetCreateShoppingCartModel(ShoppingCartViewModel cart)
+        private async Task<CreateShoppingCartViewModel> GetCreateShoppingCartModel(ShoppingCartViewModel shoppingCart)
         {
             CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
-            foreach(ShoppingCartProductViewModel product in cart.Products)
+            shoppingCart.Products.ForEach(p => createShoppingCart.AddProduct(p));
+            UserViewModel user = await _userService.FindBy(User.Identity.Name);
+            createShoppingCart.UserId = user.Id;
+            return createShoppingCart;
+        }
+
+        private async Task<CreateShoppingCartViewModel> GetCreateShoppingCartModel(ShoppingCartViewModel cart, ShoppingCartProductViewModel product)
+        {
+            CreateShoppingCartViewModel createShoppingCart = new CreateShoppingCartViewModel();
+            bool addProduct = true;
+
+            foreach (ShoppingCartProductViewModel pr in cart.Products)
             {
-                createShoppingCart.AddProduct(product);
+                if (pr.ProductId == product.ProductId)
+                {
+                    pr.Amount += product.Amount;
+                    createShoppingCart.AddProduct(pr);
+                    addProduct = false;
+                }
             }
+
+            if (addProduct)
+                createShoppingCart.AddProduct(product);
 
             UserViewModel user = await _userService.FindBy(User.Identity.Name);
             createShoppingCart.UserId = user.Id;
             return createShoppingCart;
+        }
+
+        [HttpPut("products")]
+        public IActionResult UpdateProduct([FromBody] ShoppingCartProductViewModel product)
+        {
+
+            if (this.Request.Cookies["shopping-cart"] == null || string.IsNullOrEmpty(this.Request.Cookies["shopping-cart"]))
+            {
+                return new BadRequestResult();
+            }
+            else
+            {
+                ShoppingCartViewModel shoppingCart = JsonConvert.DeserializeObject<ShoppingCartViewModel>(this.Request.Cookies["shopping-cart"], new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+                if (this.User.Identity.IsAuthenticated)
+                {
+                   shoppingCart = _service.UpdateProduct(product, shoppingCart);
+                }
+                else
+                {
+
+                    if(product.Amount == 0)
+                    {
+                        shoppingCart.RemoveProduct(product);
+                    }
+                    else
+                    {
+                        ShoppingCartProductViewModel scp = shoppingCart.Products.First(p => p.ProductId == product.ProductId);
+                        if(scp != null)
+                        {
+                            scp.Amount = product.Amount;
+                        }
+                    }
+
+                }
+
+                TryAppendCookie(shoppingCart);
+                return new OkObjectResult(shoppingCart);
+            }
+
+
         }
 
         [HttpPost("products")]
@@ -160,22 +224,31 @@ namespace Products_Inc.Controllers
                         if (string.IsNullOrEmpty(shoppingCart.ShoppingCartId))
                         {
                             CreateShoppingCartViewModel createShoppingCart = await GetCreateShoppingCartModel(product);
-                            foreach (ShoppingCartProductViewModel pr in shoppingCart.Products)
-                            {
-                                createShoppingCart.AddProduct(pr);
-                            }
+                           
                             shoppingCart = _service.Create(createShoppingCart);
                         }
                         else
                         {
-                            shoppingCart = _service.AddProduct(product.ProductId, shoppingCart.ShoppingCartId);
+                            shoppingCart = _service.AddProduct(product.ProductId, shoppingCart.ShoppingCartId, product.Amount);
                         }
 
                     }
                     else
                     {
                         _productService.FindBy(product.ProductId);
-                        shoppingCart.AddProduct(product);
+
+                        bool addProd = true;
+                        foreach (ShoppingCartProductViewModel pr in shoppingCart.Products)
+                        {
+                            if (pr.ProductId == product.ProductId)
+                            {
+                                pr.Amount += product.Amount;
+                                addProd = false;
+                            }
+                        }
+
+                        if(addProd)
+                            shoppingCart.AddProduct(product);
                     }
 
                     TryAppendCookie(shoppingCart);

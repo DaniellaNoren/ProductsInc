@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Products_Inc.Models;
 
@@ -27,7 +28,9 @@ namespace Products_Inc.Models.ViewModels
             if (Products == null)
                 return;
 
-            Products.Remove(product);
+            var foundPr = Products.First(p => p.ProductId == product.ProductId);
+            if(foundPr != null)
+                Products.Remove(foundPr);
         }
     }
 }

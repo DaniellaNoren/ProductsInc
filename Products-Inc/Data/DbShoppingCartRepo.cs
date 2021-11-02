@@ -19,19 +19,29 @@ namespace Products_Inc.Data
             this._context = context;
         }
 
-        public ShoppingCart AddProduct(int productId, int shoppingCartId)
+        public ShoppingCart AddProduct(int productId, int shoppingCartId, int amount)
         {
             ShoppingCart shoppingCart = Read(shoppingCartId);
 
             Product product = _context.Products.Find(productId);
-            
-            if(product != null)
-            {
-                shoppingCart.AddProduct(new ShoppingCartProduct() { Product = product, ProductId = productId, ShoppingCartId = shoppingCartId });
-                _context.Update(shoppingCart);
-                _context.SaveChanges();
 
-            }
+            if (product != null)
+            {
+                ShoppingCartProduct existingProduct = shoppingCart.Products.FirstOrDefault(p => p.ProductId == productId);
+                if (existingProduct != null)
+                    {
+                        existingProduct.Amount += amount;
+                        }
+                    else
+                    {
+
+                        shoppingCart.AddProduct(new ShoppingCartProduct() { Product = product, ProductId = productId, ShoppingCartId = shoppingCartId, Amount = amount });
+                    }
+
+                    _context.Update(shoppingCart);
+                    _context.SaveChanges();
+
+                } 
             else
             {
                 throw new EntityNotFoundException("Product with id " + productId + " not found.");
