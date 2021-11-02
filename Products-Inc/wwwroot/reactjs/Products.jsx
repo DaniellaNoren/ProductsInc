@@ -133,7 +133,7 @@ function Product({ product, addProductEvent }) {
                                     </div>
                                  
                                     <div className="product-input d-flex align-items-end justify-content-end">
-                                        <input type="number" value={amount} onChange={e => setAmount(Number(e.target.value))}/>
+                                        <input  className="addNumberOfItems"type="number" value={amount} onChange={e => setAmount(Number(e.target.value))}/>
                                         <button className="btn" onClick={e => { e.preventDefault(); addProductEvent(product, amount);}}>ADD</button>
                                     </div>
                                 </div>
