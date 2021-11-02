@@ -14,7 +14,7 @@ namespace Products_Inc.Models.Interfaces
         ShoppingCart ReadActiveByUser(string userid);
         ShoppingCart Read(int id);
         ShoppingCart Update(ShoppingCart shoppingCart);
-        ShoppingCart AddProduct(int productId, int shoppingCartId);
+        ShoppingCart AddProduct(int productId, int shoppingCartId, int amount);
         bool Delete(ShoppingCart shoppingCart);
     }
 }

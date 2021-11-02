@@ -26,7 +26,7 @@ namespace Products_Inc.Models
 
 
         public int ProductId { get; set; }
-        
+
 
         public string ProductName
         {

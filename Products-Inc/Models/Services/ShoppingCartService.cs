@@ -17,9 +17,10 @@ namespace Products_Inc.Models.Services
             this._repo = repo;
             this._orderService = orderService;
         }
-        public ShoppingCartViewModel AddProduct(int productId, string shoppingCartId)
+        public ShoppingCartViewModel AddProduct(int productId, string shoppingCartId, int amount)
         {
-            ShoppingCart editedShoppingCart = _repo.AddProduct(productId, Int32.Parse(shoppingCartId));
+            ShoppingCart editedShoppingCart = _repo.AddProduct(productId, Int32.Parse(shoppingCartId), amount);
+            
             return new ShoppingCartViewModel() { ShoppingCartId = editedShoppingCart.ShoppingCartId.ToString(),
                 Products = editedShoppingCart.Products.Select(p => new ShoppingCartProductViewModel()
                 { Product = new ProductViewModel() { ImgPath = p.Product.ImgPath, ProductDescription = p.Product.ProductDescription,
@@ -128,6 +129,35 @@ namespace Products_Inc.Models.Services
                 }).ToList(),
                 UserId = shoppingCart.UserId
             };
+        }
+
+        public ShoppingCartViewModel Read(string id)
+        {
+            return GetModel(_repo.Read(Int32.Parse(id)));
+        }
+
+        public ShoppingCartViewModel UpdateProduct(ShoppingCartProductViewModel product, ShoppingCartViewModel shoppingCart)
+        {
+            ShoppingCart cart = _repo.Read(Int32.Parse(shoppingCart.ShoppingCartId));
+            ShoppingCartProduct scp = cart.Products.First(p => p.ProductId == product.ProductId);
+            if (scp != null)
+            {
+                if (product.Amount > 0)
+                {
+                    scp.Amount = product.Amount;
+                }
+                else
+                {
+                    cart.Products.Remove(scp);
+                }
+
+               return GetModel(_repo.Update(cart));
+            }
+            else
+            {
+                return shoppingCart;
+            }
+            
         }
     }
 }
