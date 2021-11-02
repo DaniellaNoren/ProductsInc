@@ -517,3 +517,21 @@ Link{
 .printReciptBtn {
     margin-right: 130px;
 }
+.addNumberOfItems {
+    width: 50px;
+    margin-right: 5px;
+}
+.loginPartialDiv{
+    color:white;
+}
+/*Admin Edit Orders*/
+.adminEditOrder{
+    color:white;
+    margin-left:100px;
+}
+.backBtn{
+    text-decoration:none;
+}
+.saveAndBackBtnDiv{
+    margin-right:50px;
+}

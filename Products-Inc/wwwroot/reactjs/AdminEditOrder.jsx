@@ -92,16 +92,16 @@ export default class AdminEditOrder extends Component {
                 <br />
                 <p className={this.state.errorMsg ? 'text-danger' : 'text-success'}>{this.state.msg}</p>
                 <div> {/*this div is sidemenu-tab*/}
-                    <div className="nav-item">
-                        <button className="nav-link text-dark">ALL Orders</button>
-                    </div>
-                    <div>
-                        <button className="nav-link text-dark">Users Orders</button>
-                    </div>
+                    {/*<div className="nav-item">*/}
+                    {/*    <button className="nav-link text-dark">ALL Orders</button>*/}
+                    {/*</div>*/}
+                    {/*<div>*/}
+                    {/*    <button className="nav-link text-dark">Users Orders</button>*/}
+                    {/*</div>*/}
 
                 </div>
                 <div> {/*this div is content of the selected tab*/}
-                    <div className="row">
+                    <div className="row adminEditOrder">
                         <p>OrderID: {this.props.location.ao.orderId}</p>
                         <p>UserID: {this.props.location.ao.id}</p>
                         <p>Users Name: {this.props.location.ao.user.userName}</p>
@@ -133,17 +133,24 @@ export default class AdminEditOrder extends Component {
                                 /></td>
 
                                 <td>{ap.product.productPrice}</td>
-                                <td><button className="optionBtnRed" onClick={() => this.removeProduct(ap.orderProductId)}>Delete</button></td>
-                                <td><button className="btn btn-primary" onClick={() => this.updateProductAmount(ap.orderProductId, ap)}>Update</button></td>
+                                <td><button className="btn" onClick={() => this.removeProduct(ap.orderProductId)}>Delete</button></td>
+                                <td><button className="btn " onClick={() => this.updateProductAmount(ap.orderProductId, ap)}>Update</button></td>
                             
                             </tr>
                         ))}
                         </tbody>
                     </table>
-                    <br/>
-                    <div><button onClick={() => this.saveEditedOrder} className="optionBtnGreen">SAVE</button></div>
-                    <br/>
-                    <div><button className="optionBtnGray"><Link to={{ pathname: "/adminorders"}}>BACK</Link></button></div>
+                   < br />
+                    <br />
+                    <div className="saveAndBackBtnDiv">
+                       
+                        <div>
+                            <button onClick={() => this.saveEditedOrder} className="btn">SAVE</button></div>
+                        
+                        <div>
+                            <button className="btn backBtn"><Link to={{ pathname: "/adminorders" }}>BACK</Link></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         )

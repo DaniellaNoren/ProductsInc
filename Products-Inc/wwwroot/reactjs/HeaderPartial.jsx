@@ -72,7 +72,7 @@ export default class Headerpart extends Component {
                                 </li>
                                 : null }
                                 <li className="nav-item">
-                                    <Link to="/checkout"  className="nav-link text-dark"><div><img src="./img/cart.jpg" width="30" height="30" /><div className="bg-success rounded-circle text-center" style={{position:'absolute',top:'3em',paddingLeft:'5px',paddingRight:'5px'}}><h3 className="h-30">{this.props.nrOfProducts}</h3></div></div></Link>
+                                    <Link to="/checkout" className="nav-link text-dark"><div><img src="./img/cart.jpg" width="40" height="40" /><div className="bg-success rounded-circle text-center" style={{ position: 'absolute', top: '3em', paddingLeft: '5px', paddingRight: '5px'}}><h3 className="h-30">{this.props.nrOfProducts}</h3></div></div></Link>
                                 </li>
                                 {!this.props.userIsAuthenticated ?
                                 <li className="nav-item">
