@@ -1,5 +1,6 @@
 ﻿import { Component } from 'react';
 
+
 export default class CreateProduct extends Component {
     state = {
         createdProduct: {
@@ -53,6 +54,7 @@ export default class CreateProduct extends Component {
                                     ProductPrice: 0}
                                 , errorMsg: ''})
                     $("#IMG-input").val(null)
+                    t.props.goBack(res);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     t.setState({errorMsg: errorThrown});
